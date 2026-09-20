@@ -10,9 +10,8 @@
       "type": "all",
       "of": [
         {
-          "type": "realm_idx",
-          "op": ">=",
-          "value": 9
+          "type": "realm_top",
+          "value": 4
         },
         {
           "type": "var",
@@ -53,9 +52,8 @@
       "type": "all",
       "of": [
         {
-          "type": "realm_idx",
-          "op": ">=",
-          "value": 9
+          "type": "realm_top",
+          "value": 4
         },
         {
           "type": "var",
@@ -95,9 +93,8 @@
       "type": "all",
       "of": [
         {
-          "type": "realm_idx",
-          "op": ">=",
-          "value": 9
+          "type": "realm_top",
+          "value": 4
         },
         {
           "type": "var",
@@ -137,9 +134,8 @@
       "type": "all",
       "of": [
         {
-          "type": "realm_idx",
-          "op": ">=",
-          "value": 9
+          "type": "realm_top",
+          "value": 4
         },
         {
           "type": "relation",
@@ -183,9 +179,8 @@
       "type": "all",
       "of": [
         {
-          "type": "realm_idx",
-          "op": ">=",
-          "value": 9
+          "type": "realm_top",
+          "value": 4
         },
         {
           "type": "var",
@@ -2173,8 +2168,7 @@
           "value": 3
         },
         {
-          "type": "realm_idx",
-          "op": ">=",
+          "type": "realm_top",
           "value": 6
         }
       ]
@@ -2660,6 +2654,69 @@
         "origin_reader",
         "codex_page_you_are_on"
       ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_ascend_clean",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "飞升",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_top",
+          "value": 4
+        },
+        {
+          "type": "not",
+          "of": {
+            "type": "any",
+            "of": [
+              {
+                "type": "var",
+                "key": "corruption",
+                "op": ">=",
+                "value": 60
+              },
+              {
+                "type": "var",
+                "key": "exposure",
+                "op": ">=",
+                "value": 60
+              },
+              {
+                "type": "var",
+                "key": "debt",
+                "op": ">=",
+                "value": 6
+              },
+              {
+                "type": "var",
+                "key": "karma",
+                "op": "<=",
+                "value": -35
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "title_pool": [
+      "门自己开了",
+      "无债一身轻",
+      "三声钟"
+    ],
+    "body_key": "ending.ascend_clean",
+    "rating": {
+      "stars_rule": "power/200 + karma/50 - debt/20",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 60
     },
     "ai_enhance": "l3"
   }

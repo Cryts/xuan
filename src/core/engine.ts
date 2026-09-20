@@ -9,7 +9,7 @@
 
 import { PACK_ESSENCE } from './affinity'
 import { canUseAnytime, classifyItem } from './items'
-import { evaluate } from './conditions'
+import { evaluate, type EvalContext } from './conditions'
 import { resolveFreeAction, type IntentResult } from './intent'
 import {
   canKill,
@@ -386,7 +386,17 @@ export function cultivationCondition(state: GameState): number {
   // 伤势：以 85 为**零点** —— 无伤时 1.0，85（垂危）时 0，再往上是负的。
   // 零点之所以不放在 100，是因为"还剩一口气才倒退"太晚了：
   // 85 之后就已经是硬撑着运功，该开始伤根基了。
-  const injury = (85 - hp) / 85
+  //
+  // 曲线取**开方**而不是线性。线性意味着只到一半的伤势就要扣掉一半修为
+  // （hp=45 时乘子 0.47），而修为是**流量、要跨二十多个节点积分** ——
+  // 一次受伤于是变成一笔永久税，滚起来比受伤本身重得多。
+  // 实测：把乘子恒为 1，三种打法的战力差立刻从 67% 掉到 41%，
+  // 也就是说**一半的支配性是这条曲线自己造出来的**。
+  //
+  // 开方之后，轻伤几乎无碍、越接近垂危掉得越快 —— 这才是
+  // "带伤运功事倍功半"该有的样子：它是**当下的难**，不是**往后一路的债**。
+  const t = (85 - hp) / 85
+  const injury = t > 0 ? Math.sqrt(t) : t
 
   // **修行有快慢，但不是"除了闭关就一无所得"。**
   //
@@ -440,8 +450,15 @@ export function cultivationCondition(state: GameState): number {
  * 第七个节点就油尽灯枯，这不是难度，是缺了一条规则。
  *
  * 根骨主肉身（上游 4.3），所以自愈速度由它决定。
+ *
+ * 基数从 1.2 抬到 3.0，是为了**拆掉"伤势只能靠闭关修"这个死结**。
+ * 枢纽表上五项，只有闭关能疗伤 —— 于是受了伤就没得选，只能闭关，
+ * 而闭关又同时是最强的修为来源。实测把闭关收益整个关掉，
+ * 三种打法的战力差就从 67% 掉到 16%：**支配性的实质是"受伤的人别无选择"**。
+ * 自愈够快，伤势才回到它该有的位置 —— 一次节奏上的挫折，
+ * 而不是一路背着的债、逼你回去坐关。
  */
-export const HEAL_BASE = 1.2
+export const HEAL_BASE = 3.0
 
 export function healPerNode(state: GameState): number {
   const rootFactor = 1 + state.attrs.root / 100
@@ -830,7 +847,13 @@ export function pickNextEvent(input: SchedulerInput): LooseEvent | Scenario | nu
   if (evCandidates.length === 0) return scenarios.length > 0 ? rng.pick(scenarios) : null
 
   // 4. 加权
-  const target = STAGE_TENSION_TARGET[state.stage]
+  //
+  // 「游历」把张力期待**拉满**，而不是往阶段的靶值收。
+  // 这就是界面上那句"机缘与凶险都在里头"的实现：机缘与凶险是同一件事的
+  // 两面，都藏在张力高的那批事件里。不去挑具体的标签 —— 标签会随内容改，
+  // 而张力是每个事件都有的、数据驱动的一根轴。
+  const roaming = state.last_daily === 'roam' && state.last_daily_node === state.node_index
+  const target = roaming ? 9 : STAGE_TENSION_TARGET[state.stage]
   // evCandidates 已剔除剧本，这里全是散事件
   // 同一母题不紧挨着重来 —— 内建抑制，不依赖内容自己声明 cooldown。
   //
@@ -1602,9 +1625,30 @@ export function submitDaily(
 
   // 游历：主要收益是"遇到什么"，但行万里路本身也是修行 ——
   // 给一笔小进项，免得"出门"变成纯粹的零收益选项。
+  //
+  // 上面这段注释一直在这里，**而实现从来没有**：函数体给的是 `delta: []`，
+  // 只推了一拍就走。于是「游历」在界面上写着"机缘与凶险都在里头"，
+  // 实际恒等于"跳过这一拍"，被其余四项**严格支配** —— 枢纽表上五个选项，
+  // 有一个是纯亏。支配性检测里激进原型战力只有稳健的四成，一半来自这里：
+  // sim 的激进原型固定选游历，等于每四拍白扔一拍。
+  //
+  // 现在按注释把两件事都补上：
+  //   1. 一笔小进项（行路本身是修行，但少于闭关）；
+  //   2. **主收益是下一拍会遇到什么** —— 见 `pickNextEvent` 的张力偏好。
   if (actionId === 'roam') {
-    const next = advanceNode({ ...state, last_daily: 'roam' } as GameState, content)
-    return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
+    const effects: Effect[] = [
+      { type: 'add_var', key: 'power', delta: Math.round(Math.max(0, cultivateGain(state)) * 0.8) },
+    ]
+    let next = applyEffectsState(state, effects, 'daily:roam')
+    // daily_streak 归零：出门了，闭关的递减也就断了
+    next = advanceNode({ ...next, last_daily: 'roam', daily_streak: 0 } as GameState, content)
+    next = { ...next, last_daily_node: next.node_index }
+    return {
+      ok: true,
+      delta: applyEffects(effects, state, 'daily:roam').delta,
+      presentation: presentCurrent(next, content),
+      state: next,
+    }
   }
 
   const effects: Effect[] = []
@@ -1625,9 +1669,19 @@ export function submitDaily(
       //
       // 递减之后，闭关是"最稳的那条路"而不是"唯一的路"：
       // 连着闭三次，收益就只剩三成，逼你去游历、去坊市、去结交。
+      //
+      // 但上面这条递减**从来没有真正生效过**，两处都错：
+      //   1. 它按**连续**次数算，而日常每四拍才来一次，玩家天然会岔着做，
+      //      中间插一次游历计数就归零 —— 于是每次闭关都是"第一次"。
+      //      改按一局**累计**，才是「闭门造车」的意思。
+      //   2. 乘子是 `* 3 * 1.4` = 单节点修为的 **4.2 倍**，而一次事件的
+      //      收益只有 0.2~0.4 倍 —— 相差十几倍。一个枢纽选项抵得上十几个
+      //      事件抉择，"选择"就从内容跑到了日程表上。
+      //      消融实测：把闭关收益整个关掉，三种打法的战力差从 67% 掉到 **16%**。
       const streak = state.daily_streak ?? 0
-      const dim = 1 / (1 + streak * 0.6)
-      const gain = cultivateGain(state) * 3
+      const total = state.daily_cultivate_total ?? 0
+      const dim = 1 / (1 + total * 0.5) * (1 / (1 + streak * 0.35))
+      const gain = cultivateGain(state) * 1.8
       effects.push({ type: 'add_var', key: 'power', delta: Math.round(Math.max(0, gain) * 1.4 * dim) })
       if (streak >= 2) {
         // 闭久了心不静
@@ -1649,7 +1703,14 @@ export function submitDaily(
     case 'gather': {
       const luck = rng.chance(0.4 + (state.attrs.luck ?? 50) * 0.004)
       effects.push({ type: 'add_var', key: 'rare_mat', delta: luck ? rng.int(2, 4) : rng.int(0, 1) })
-      effects.push({ type: 'add_var', key: 'hp', delta: rng.int(2, 5) }) // 爬山涉水的磕碰
+      // 爬山涉水的磕碰。
+      //
+      // 数额从 2~5 抬到 5~9，是因为每节点自愈从 1.2 抬到了 3.0：
+      // 原来那点脚力被自然自愈整个吃掉，**"伤势略增"这条提示就成了假话**
+      // ——玩家看到的是采完药伤反而轻了。提示与行为对不上，
+      // 比数值偏一点更糟：它让玩家不再相信界面上写的任何代价。
+      // 抬到净增为正，采药才真的"费脚力"。
+      effects.push({ type: 'add_var', key: 'hp', delta: rng.int(5, 9) })
       break
     }
     case 'market': {
@@ -1668,8 +1729,13 @@ export function submitDaily(
   }
 
   let next = applyEffectsState(state, effects, `daily:${actionId}`)
-  const streak = actionId === 'cultivate' ? (state.daily_streak ?? 0) + 1 : 0
-  next = advanceNode({ ...next, last_daily: actionId, daily_streak: streak } as GameState, content)
+  const isCultivate = actionId === 'cultivate'
+  const streak = isCultivate ? (state.daily_streak ?? 0) + 1 : 0
+  const total = isCultivate ? (state.daily_cultivate_total ?? 0) + 1 : (state.daily_cultivate_total ?? 0)
+  next = advanceNode(
+    { ...next, last_daily: actionId, daily_streak: streak, daily_cultivate_total: total } as GameState,
+    content,
+  )
 
   return {
     ok: true,
@@ -2431,7 +2497,7 @@ export interface EndingResult {
  * 数值型条件用"距离"而非"是否满足"，所以 `realm >= 9` 对一个 8 境的
  * 玩家是 0.9 而不是 0 —— 差一点就是差一点，不该掉进完全无关的结局。
  */
-export function fitScore(cond: Condition | undefined, ctx: { state: GameState }): number {
+export function fitScore(cond: Condition | undefined, ctx: EvalContext): number {
   if (!cond) return 0.6 // 无条件 = 通用结局，给一个中性的贴合度
 
   // 差一点就是差很多 —— 用平方衰减而非线性。
@@ -2490,6 +2556,15 @@ export function fitScore(cond: Condition | undefined, ctx: { state: GameState })
       if ((cond.op === '>=' || cond.op === '>') && !evaluate(cond, ctx)) return 0.02
       return numeric(ctx.state.realm_idx, cond.op, cond.value)
     }
+    case 'realm_top': {
+      // 与 realm_idx 同理：够不着就是够不着，不给"沾边分"。
+      // 口径必须与 `evaluate` 里的实现一致，否则同一条件在两处算出两种意思。
+      const total = ctx.realmsTotal ?? 0
+      if (total <= 0) return 0.02
+      const away = total - 1 - ctx.state.realm_idx
+      if (away > cond.value) return 0.02
+      return 1
+    }
     default:
       // 布尔型条件（flag / relation / learned_rule …）只有满足与否
       return evaluate(cond, ctx) ? 1 : 0
@@ -2503,7 +2578,7 @@ export function fitScore(cond: Condition | undefined, ctx: { state: GameState })
  * 结局库的条件是分散写死的，玩家的终局状态几乎必然卡在某个缝里；
  * 严格过滤会让一大片中段境界的玩家落到同一个兜底结局上。
  */
-export function satisfactionScore(cond: Condition | undefined, ctx: { state: GameState }): number {
+export function satisfactionScore(cond: Condition | undefined, ctx: EvalContext): number {
   if (!cond) return 0
   switch (cond.type) {
     case 'all':
@@ -2518,7 +2593,9 @@ export function satisfactionScore(cond: Condition | undefined, ctx: { state: Gam
 }
 
 export function resolveEnding(state: GameState, content: ContentDB): EndingResult {
-  const ctx = { state }
+  // realmsTotal 必须带上 —— `realm_top`（"距绝顶几层"）靠它把绝对序号
+  // 换算成相对位置。不带的话，飞升类结局对所有人判否，静默地一个都拿不到。
+  const ctx = { state, realmsTotal: content.packs[state.pack_id]?.realms.length ?? 0 }
   const eligible = content.endings.filter(
     (e) => e.pack.includes('*' as PackId) || e.pack.includes(state.pack_id),
   )

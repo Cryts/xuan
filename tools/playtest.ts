@@ -46,6 +46,7 @@ import type {
   Flaw,
   Item,
   LooseEvent,
+  NodePresentation,
   Origin,
   PackId,
   Scenario,
@@ -89,6 +90,34 @@ const scenarioNeverSolved = new Map<string, number>()
 const emptyNodes: string[] = []
 const runLengths: number[] = []
 const affordanceMisses = new Map<string, number>()
+
+/**
+ * 一个节点算不算"没法操作"。
+ *
+ * 判据是**有没有可交互的面**，不是"options 是不是空的"。
+ *
+ * 这里栽过一次，代价很大：判定原先只认 options，于是 `__daily__`、
+ * `__duel__`、`__duel_after__` 这三个由**专用面板**（日常表 / 明牌 /
+ * 战后处置）承接的节点被当成了空节点 —— 而判定跑在这些面板的分支**之前**
+ * 并 `continue`，把节点直接推走了。结果是试玩 agent 三百局里
+ * **没执行过一次日常行动、没打过一场斗法**（findings 里 4522 次"空节点"
+ * 全是误报），而 #31 的支配性正是这个工具量的。
+ *
+ * **测量的工具瞎了，比被测的东西坏了更糟 —— 它会把结论一起带偏。**
+ * 所以判据列在这里，而不是散在 if 里：以后再加专用面板，
+ * 往这里加一项，别去动那个 if。
+ */
+function hasPanel(p: NodePresentation): boolean {
+  return (
+    p.options.length > 0 ||
+    Boolean(p.scenario_entry) ||
+    Boolean(p.trials?.length) ||
+    Boolean(p.actions?.length) ||
+    Boolean(p.daily?.length) || // 日常面板
+    Boolean(p.duel) || // 斗法：遭遇与明牌
+    Boolean(p.duel_result) // 斗法：战后处置
+  )
+}
 
 /* ---------- 通畅性：事件之间的接缝 ----------
    玩家反馈「前一个在说祖父给书，下一个突然就跟领队进山」——
@@ -150,13 +179,7 @@ function playOne(idx: number): void {
     const pres = presentCurrent(s, content)
 
     // 空节点：既不让人选、也没手段 —— 玩家会卡在这里
-    if (
-      pres.kind !== 'ending' &&
-      pres.options.length === 0 &&
-      !pres.scenario_entry &&
-      !pres.trials?.length &&
-      !pres.actions?.length
-    ) {
+    if (pres.kind !== 'ending' && !hasPanel(pres)) {
       emptyNodes.push(`${pres.event_id} (node ${s.node_index}, ${pack})`)
       s = { ...s, node_index: s.node_index + 1, status: s.node_index + 1 >= s.total_nodes ? 'ended' : 'alive' }
       continue

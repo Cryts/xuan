@@ -766,6 +766,43 @@ for (const [s, n] of byStage) {
   }
 }
 
+// ---- 结局门槛：绝对境界序号在长短不一的阶梯上没有同一个意思 ----
+//
+// 事故：五个飞升结局都写着 `realm_idx >= 9`。各体系包的阶梯长度并不一样
+// （灰雾之秘 10 层、太古遗蜕 18 层），于是同一个 9：
+//   灰雾之秘 = 顶上那一层    → 该包飞升率 0%
+//   太古遗蜕 = 才过半        → 该包飞升率 64%
+// 全体 25% 的"飞升率"里几乎全是长阶梯的包在灌水，而报表上只显示一个数，
+// 看不出是谁的问题。改成 `realm_top`（距绝顶几层）之后对所有包才是同一件事。
+//
+// 判据：同一个门槛在各包里"距顶几层"的极差。差得太多，说明它想说的是
+// "登顶"，写成了序号。
+function harvestRealmIdx(v: unknown, out: number[]): void {
+  if (Array.isArray(v)) return v.forEach((x) => harvestRealmIdx(x, out))
+  if (!v || typeof v !== 'object') return
+  const o = v as { type?: string; op?: string; value?: number }
+  if (o.type === 'realm_idx' && (o.op === '>=' || o.op === '>') && typeof o.value === 'number') {
+    out.push(o.value)
+  }
+  for (const x of Object.values(v)) harvestRealmIdx(x, out)
+}
+
+const realmLen = PACKS.map((p) => (c.packs[p] as { realms?: unknown[] } | undefined)?.realms?.length ?? 0)
+const realmIdxInEndings: number[] = []
+for (const e of c.endings as { id?: string; requires?: unknown }[]) harvestRealmIdx(e.requires, realmIdxInEndings)
+for (const n of new Set(realmIdxInEndings)) {
+  const away = realmLen.filter((L) => L > 0).map((L) => L - 1 - n)
+  const spread = Math.max(...away) - Math.min(...away)
+  if (spread > 3) {
+    err(
+      'realm_index_absolute',
+      `endings:realm_idx>=${n}`,
+      `同一个门槛在各体系包里"距绝顶"相差 ${spread} 层（${Math.min(...away)}~${Math.max(...away)}）—— ` +
+        `它想说的多半是"登顶"，请改用 {"type":"realm_top","value":N}`,
+    )
+  }
+}
+
 // ---- 报告 ----
 const errors = issues.filter((i) => i.level === 'error')
 const warns = issues.filter((i) => i.level === 'warn')

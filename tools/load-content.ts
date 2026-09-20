@@ -4,6 +4,14 @@
  * 供 content-lint 与蒙特卡洛模拟使用。
  */
 
+import { PACK_IDS } from '../src/core/content'
+import type { ContentDB } from '../src/core/content'
+import type { Motif, NameBank } from '../src/core/content'
+import type {
+  Affix, Destiny, Ending, FateMilestone, Flaw, Item, LooseEvent,
+  Origin, PackId, Scenario, Trait, WorldPack,
+} from '../src/core/types'
+
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -148,5 +156,51 @@ export function loadContent(): RawContent {
     names: namesRaw,
     affixes: ((readJsonIfExists(path.join(CONTENT_DIR, 'items', 'affixes.json'), report) as unknown[]) ?? []),
     items: ((readJsonIfExists(path.join(CONTENT_DIR, 'items', 'items.json'), report) as unknown[]) ?? []),
+  }
+}
+
+// ============================================================
+// RawContent → ContentDB
+// ============================================================
+
+/**
+ * 把磁盘上读到的原始 JSON 组装成引擎认识的 `ContentDB`。
+ *
+ * 这段原先只存在于 `tools/sim.ts` 内部。提出来是因为**每一件工具都要它**
+ * （模拟、试玩、平衡核查……），而各自抄一份正是本项目已经吃过亏的那类事：
+ * 两份内容加载器漂移过一次，线上跑在占位内容上而没报错。
+ * 组装规则只该有一份。
+ */
+export function buildContentDB(): ContentDB {
+  const raw = loadContent()
+  const packs = Object.fromEntries(PACK_IDS.map((p) => [p, raw.packs[p]])) as Record<PackId, WorldPack>
+  for (const p of PACK_IDS) {
+    if (!packs[p]) throw new Error(`体系包 ${p} 缺失，无法模拟`)
+  }
+  return {
+    packs,
+    terms: raw.terms as ContentDB['terms'],
+    motifs: raw.motifs as Motif[],
+    events: raw.events as LooseEvent[],
+    scenarios: raw.scenarios as Scenario[],
+    endings: raw.endings as Ending[],
+    origins: raw.origins as Origin[],
+    traits: raw.traits as Trait[],
+    flaws: raw.flaws as Flaw[],
+    destinies: raw.destinies as Destiny[],
+    l2: raw.l2,
+    oracle: raw.oracle,
+    coincidence: raw.coincidence,
+    fateTemplates: raw.fateTemplates as Partial<Record<PackId, FateMilestone[]>>,
+    names: (raw.names ?? {
+      surname: [],
+      given_male: [],
+      given_female: [],
+      dao_title: { element: [], noun: [], suffix: [] },
+      sect: { place: [], suffix: [] },
+    }) as NameBank,
+    affixes: raw.affixes as Affix[],
+    items: raw.items as Item[],
+    version: 'tools',
   }
 }

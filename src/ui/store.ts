@@ -18,6 +18,7 @@ import {
   submitFreeAction,
   submitOption,
   submitScenarioAction,
+  bindContent,
   submitDaily,
   submitDuelAftermath,
   useItem,
@@ -557,6 +558,7 @@ export function loadContent(): ContentDB {
     console.warn('[玄] 剧本库为空 —— 本作核心玩法（推理剧本）将不会被触发。')
   }
 
+  bindContent(content) // add_item 要靠它取原型
   cached = content
   return content
 }

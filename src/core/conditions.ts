@@ -27,6 +27,13 @@ export interface EvalContext {
   solvedInScenario?: string[]
   /** 当前剧本已消耗的节点数 */
   scenarioNodesSpent?: number
+  /**
+   * 本体系包一共有多少层境界 —— 供 `realm_top` 判断"还差几层到顶"。
+   *
+   * 调用方不传时 `realm_top` 一律判否，而不是猜一个默认值：
+   * 猜错会让"登顶"这种终局条件静默地对所有人成立或都不成立。
+   */
+  realmsTotal?: number
 }
 
 function cmp(left: number, op: CompareOp, right: number): boolean {
@@ -128,6 +135,12 @@ export function evaluate(cond: Condition, ctx: EvalContext): boolean {
       return cmp(ctx.scenarioNodesSpent ?? 0, cond.op, cond.value)
     case 'realm_idx':
       return cmp(state.realm_idx, cond.op, cond.value)
+    case 'realm_top': {
+      // 阶梯长度由体系包决定，所以这里必须拿包的数据来算，不能用常数。
+      const total = ctx.realmsTotal ?? 0
+      if (total <= 0) return false
+      return total - 1 - state.realm_idx <= cond.value
+    }
     case 'pack':
       return state.pack_id === cond.ref
     case 'destiny_alive':
@@ -206,6 +219,8 @@ export function describe(cond: Condition): string {
       return `时刻 ${cond.op} ${cond.value}`
     case 'realm_idx':
       return `境界 ${cond.op} ${cond.value}`
+    case 'realm_top':
+      return cond.value <= 0 ? `已至绝顶` : `距绝顶不远`
     case 'pack':
       return `需出身「${cond.ref}」`
     case 'destiny_alive':

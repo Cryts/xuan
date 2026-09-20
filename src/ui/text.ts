@@ -261,6 +261,8 @@ function shortfall(cond: Condition, ctx: EvalContext, content: ContentDB): strin
     }
     case 'realm_idx':
       return `尚需修至第 ${cond.value} 境`
+    case 'realm_top':
+      return cond.value <= 0 ? '尚需登临绝顶' : `尚需再进 ${cond.value} 境方近绝顶`
     case 'pack':
       return `此路须以「${packName(content, cond.ref as PackId)}」本体行之`
     case 'destiny_alive': {

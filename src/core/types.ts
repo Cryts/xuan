@@ -117,6 +117,19 @@ export type Condition =
   | { type: 'solved_any_of'; refs: string[] }
   | { type: 'node_count'; op: CompareOp; value: number }
   | { type: 'realm_idx'; op: CompareOp; value: number }
+  /**
+   * 距顶不超过 N 层 —— **"登顶"必须按阶梯比例说，不能按绝对序号说**。
+   *
+   * 事故：飞升类结局写的是 `realm_idx >= 9`。各体系包的阶梯长度并不一样
+   * （灰雾之秘 10 层、太古遗蜕 18 层），于是同一个 9：
+   *   灰雾之秘  = 顶上那一层      → 该包飞升率 0%
+   *   太古遗蜕  = 才过半          → 该包飞升率 64%
+   * 全体 25% 的"飞升率"里，几乎全是这两个长阶梯的包在灌水，
+   * 而报表上它只显示成一个数，看不出是谁的问题。
+   *
+   * `value: N` 意为"还差 N 层到顶"，对所有包都是同一件事。
+   */
+  | { type: 'realm_top'; value: number }
   | { type: 'pack'; ref: PackScope }
   /** 存活位面之子数量 —— 遭遇事件的门槛（SPEC 第 6 章） */
   | { type: 'destiny_alive'; op: CompareOp; value: number }
@@ -607,6 +620,14 @@ export interface GameState {
   fired_events: string[]
   /** 上一次日常选了什么 —— 供叙事与统计用 */
   last_daily?: string
+  /**
+   * 「游历」的偏好只作用于**紧随其后的那一拍**。
+   *
+   * 只靠 `last_daily === 'roam'` 判是不行的：它一旦写上就再没人清掉，
+   * 于是此后每一拍都被当成"刚游历回来"。记下节点号，偏好自然过期，
+   * 且同一节点重渲染时结果一致（`presentCurrent` 用 node_index 做种子重抽）。
+   */
+  last_daily_node?: number
   /** 斗法：已摆开明牌。duel_committed 为假时是在问"打不打" */
   pending_duel?: DuelSetup
   /** 玩家已经决定出手，接下来该选路数与架势了 */
@@ -619,6 +640,14 @@ export interface GameState {
   pending_duel_result?: DuelOutcome
   /** 连着闭关了几次 —— 闭关收益递减的依据（闭门造车） */
   daily_streak?: number
+  /**
+   * 一局之内闭过关的总次数（不因中间做了别的而清零）。
+   *
+   * 递减原本按**连续**次数算，于是只要中间插一次游历/坊市，计数就归零 ——
+   * 而日常每四拍才来一次，玩家天然会岔着做，这条规则**实际上从不生效**。
+   * 「闭门造车」说的是一段时间里只顾着一件事，按一局累计才对。
+   */
+  daily_cultivate_total?: number
 }
 
 // ============================================================

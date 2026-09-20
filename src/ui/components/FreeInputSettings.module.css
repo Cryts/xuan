@@ -1,0 +1,80 @@
+/* 「玄机 · 自由输入」一节的两三件新零件。
+   其余一律复用 SettingsScreen.module.css —— 同一页里不该有两套输入框。 */
+
+.block {
+  margin-top: var(--s4);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--line-2);
+}
+
+.label {
+  margin-bottom: var(--s2);
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.2em;
+  color: var(--t2);
+}
+
+/* 五个供应商 —— 三列的 seg 装不下，这里自己排一行 */
+.seg5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin-bottom: var(--s2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.segItem {
+  padding: var(--s2) var(--s1);
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  color: var(--t3);
+  border-right: 1px solid var(--line-2);
+  transition:
+    background var(--d2) var(--ease),
+    color var(--d2) var(--ease);
+}
+.segItem:last-child {
+  border-right: none;
+}
+.segItem:hover {
+  color: var(--t1);
+  background: rgba(var(--paper-rgb), 0.04);
+}
+
+.segOn {
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.16), rgba(var(--gold-rgb), 0.05));
+  color: var(--gold-bright);
+}
+
+.ok {
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  color: var(--jade-txt);
+}
+
+.bad {
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  color: var(--warn);
+}
+
+.testLine {
+  margin-top: var(--s2);
+  font-size: var(--fs-xs);
+  line-height: 1.85;
+  color: var(--t3);
+}
+
+@media (max-width: 460px) {
+  .seg5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .segItem {
+    border-bottom: 1px solid var(--line-2);
+  }
+}

@@ -12,6 +12,8 @@ import { useMemo, useState } from 'react'
 import s from './ScenarioScreen.module.css'
 import { StatusBar } from './StatusBar'
 import { TrialPanel } from './TrialPanel'
+import { FreeEcho } from './FreeEcho'
+import { FreeInput } from './FreeInput'
 import { RevealOverlay, Seal, SectionTitle, Ticks } from './Shared'
 import type {
   Breakthrough,
@@ -104,6 +106,9 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
       />
 
       <main className={s.main}>
+        {/* 上一次自由输入被听成了什么 */}
+        <FreeEcho />
+
         {/* ---------- 剧名与时刻 ---------- */}
         <header className={`x-card ${s.head}`}>
           <div className={s.headRow}>
@@ -237,6 +242,9 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
             </div>
           </section>
         ) : null}
+
+        {/* 「还有一个办法」——摆在手段下方。默认关，见 FreeInput */}
+        <FreeInput pres={pres} />
 
         <div className={s.tail}>
           <span className="x-tiny">

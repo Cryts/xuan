@@ -1,0 +1,169 @@
+/* 自由输入回显 —— 一块安静但信息完整的卡片。
+   它解释的是"刚刚那一手被听成了什么"，所以排在正文之后、选项之前：
+   读完正文正好看见它，然后才是下一步的路。 */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s4);
+  border-left: 3px solid rgba(var(--jade-rgb), 0.5);
+  background: linear-gradient(100deg, rgba(var(--jade-rgb), 0.06), rgba(var(--paper-rgb), 0.015));
+  animation: fadeIn var(--d3) var(--ease) both;
+}
+
+/* 跨体系融合 —— 玩家最想要的那种涌现，必须一眼看见 */
+.fuse {
+  border-left-color: var(--gold-bright);
+  background: linear-gradient(100deg, rgba(var(--gold-rgb), 0.14), rgba(var(--paper-rgb), 0.02));
+  box-shadow: 0 0 0 1px rgba(var(--gold-rgb), 0.28);
+  animation:
+    fadeIn var(--d3) var(--ease) both,
+    fuseGlow var(--d5) var(--ease) 1;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  justify-content: space-between;
+}
+
+.kicker {
+  font-family: var(--font-title);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.22em;
+  color: var(--t4);
+}
+
+.headEnd {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.close {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  color: var(--t4);
+  transition: color var(--d2) var(--ease);
+}
+.close:hover {
+  color: var(--t2);
+}
+
+.quote {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--t3);
+  word-break: break-word;
+}
+
+.understood {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: var(--fs-md);
+  line-height: 1.8;
+  color: var(--t1);
+}
+
+.verdict {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--t2);
+}
+
+.intent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6em;
+  height: 1.6em;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-xs);
+  font-family: var(--font-title);
+  color: var(--accent-2);
+}
+
+.verdict b {
+  font-family: var(--font-title);
+  font-weight: 500;
+  color: var(--gold-bright);
+}
+
+.band {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+}
+
+.landing {
+  font-size: var(--fs-xs);
+  color: var(--t4);
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.8;
+  color: var(--t3);
+}
+
+.approach {
+  color: var(--t4);
+}
+
+.fuseLine {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0;
+  padding-top: var(--s2);
+  border-top: 1px solid rgba(var(--gold-rgb), 0.24);
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  line-height: 1.8;
+  color: var(--gold-bright);
+}
+
+.narr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--line-2);
+}
+.narr p {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--t2);
+}
+
+.note {
+  margin: 0;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  color: var(--t5);
+}
+
+@keyframes fuseGlow {
+  0% {
+    box-shadow: 0 0 0 1px rgba(var(--gold-rgb), 0.5);
+  }
+  45% {
+    box-shadow: 0 0 16px 2px rgba(var(--gold-rgb), 0.34);
+  }
+  100% {
+    box-shadow: 0 0 0 1px rgba(var(--gold-rgb), 0.28);
+  }
+}
+
+/* 关掉动效时，融合也要留着静态的金边 —— 信息不能因此丢掉 */
+:global([data-motion='off']) .fuse {
+  animation: none;
+}

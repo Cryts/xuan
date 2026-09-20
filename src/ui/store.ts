@@ -15,14 +15,19 @@ import {
   presentCurrent,
   resolveEnding,
   startRun,
+  submitFreeAction,
   submitOption,
   submitScenarioAction,
   submitScenarioEntry,
   submitTrial,
   type EndingResult,
+  type FreeActionReport,
   type HeavenBoardRow,
 } from '@/core/engine'
 import { rollGenesis } from '@/core/genesis'
+import { splitLines, stripNumbers } from '@/core/narrative'
+import { FREE_INPUT_MAX, type IntentResult } from '@/core/intent'
+import { DEFAULT_FREE_INPUT, normalizeFreeInput, type FreeInputSettings } from '@/ui/intent/settings'
 import { Rng, deriveSeed } from '@/core/rng'
 import { PACK_IDS, type ContentDB, type Motif, type NameBank } from '@/core/content'
 import type {
@@ -61,6 +66,8 @@ export interface Settings {
   fontScale: FontScale
   /** L3 结局卷轴实时生成用的 API Key —— 只存在本机 */
   apiKey: string
+  /** 自由输入（实验分支）—— **默认关**。见 ui/intent/settings.ts */
+  freeInput: FreeInputSettings
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -68,6 +75,7 @@ export const DEFAULT_SETTINGS: Settings = {
   motion: true,
   fontScale: 'md',
   apiKey: '',
+  freeInput: { ...DEFAULT_FREE_INPUT },
 }
 
 const LS_SETTINGS = 'xuan.settings.v1'
@@ -94,7 +102,8 @@ export function loadSettings(): Settings {
   if (!raw) return { ...DEFAULT_SETTINGS }
   try {
     const parsed = JSON.parse(raw) as Partial<Settings>
-    return { ...DEFAULT_SETTINGS, ...parsed }
+    // freeInput 单独归一：老存档里没有这一节，缺字段的老值也要补齐
+    return { ...DEFAULT_SETTINGS, ...parsed, freeInput: normalizeFreeInput(parsed.freeInput) }
   } catch {
     return { ...DEFAULT_SETTINGS }
   }
@@ -606,6 +615,23 @@ export interface GenesisDraft {
 
 export type Screen = 'title' | 'genesis' | 'play' | 'ending' | 'settings'
 
+/**
+ * 自由输入的回显 —— 玩家必须知道系统是怎么理解他那句话的。
+ *
+ * 没有这一条，自由输入就成了抽奖：写了一句"我拿它镇住他"，界面上
+ * 既不说听成了什么，也不说落到了哪条规矩上，玩家只会觉得是随机。
+ */
+export interface FreeEcho {
+  /** 玩家原话（截断后的） */
+  input: string
+  /** 最终给出结果的供应商 id */
+  provider: string
+  /** 系统把它听成了什么 */
+  intent: IntentResult
+  /** 引擎给的落地报告 */
+  report: FreeActionReport
+}
+
 export interface AppState {
   content: ContentDB
   screen: Screen
@@ -622,6 +648,16 @@ export interface AppState {
   toast: string | null
   /** 本次呈现里刚刚揭示的隐规则 id —— 用于「揭示那一刻」的仪式感 */
   justRevealed: string[]
+  /**
+   * 自由输入正在等模型。
+   *
+   * **必须放在 store 里，不能是组件内的 useState**：事件页的 `<main>` 带着
+   * `key={nodeKey}`，一换节点整棵子树重挂，组件内的锁会被重置成 false ——
+   * 第一句还在路上，输入行已经解锁，玩家能再写一句，两句各自推一格。
+   */
+  freeBusy: boolean
+  /** 上一次自由输入的回显；有任何别的动作就清掉 */
+  free: FreeEcho | null
   ending: EndingResult | null
   seq: number
 }
@@ -643,6 +679,24 @@ export type Action =
   /** 剧本内的通用手段（细察 / 交涉 / 硬闯 / 感气 / 静待 / 抽身）—— 不依赖行囊 */
   | { type: 'play/action'; id: ScenarioActionId }
   | { type: 'play/wait' }
+  /**
+   * 自由输入的落地。**意图已在 reducer 之外算好**（那一步要等模型，
+   * 而 reducer 必须是纯函数）—— 这里只负责调用引擎与记回显。
+   */
+  | {
+      type: 'free/result'
+      input: string
+      intent: IntentResult
+      provider: string
+      /**
+       * 提交那一刻的呈现身份 `node_index:event_id`。
+       * 参详期间玩家可能点了选项、局面已经换了 —— 那这一手就作废。
+       */
+      at: string
+    }
+  | { type: 'free/pending' }
+  | { type: 'free/unlock' }
+  | { type: 'free/dismiss' }
   | { type: 'floats/clear' }
   | { type: 'banner/clear' }
   | { type: 'toast'; text: string | null }
@@ -700,6 +754,8 @@ export function initState(): AppState {
     banner: null,
     toast: null,
     justRevealed: [],
+    freeBusy: false,
+    free: null,
     ending: null,
     seq: 0,
   }
@@ -817,6 +873,7 @@ export function reducer(st: AppState, action: Action): AppState {
         banner: null,
         toast: null,
         justRevealed: diffRevealed(null, pres),
+        free: null,
         ending: null,
         resumable: true,
       }
@@ -834,9 +891,10 @@ export function reducer(st: AppState, action: Action): AppState {
           pres,
           ending: resolveEnding(state, st.content),
           justRevealed: [],
+          free: null,
         }
       }
-      return { ...st, screen: 'play', state, pres, floats: [], banner: null, justRevealed: [] }
+      return { ...st, screen: 'play', state, pres, floats: [], banner: null, justRevealed: [], free: null }
     }
 
     case 'abandon': {
@@ -848,6 +906,7 @@ export function reducer(st: AppState, action: Action): AppState {
         pres: null,
         floats: [],
         banner: null,
+        free: null,
         ending: null,
         resumable: false,
         gen: rollDraft(st.content, makeSeedString(), st.gen.packId),
@@ -924,6 +983,56 @@ export function reducer(st: AppState, action: Action): AppState {
       return afterEngine(st, res.state, res.presentation, res.delta, undefined, banner)
     }
 
+    case 'free/result': {
+      // 自由输入：**意图是外面算好的，落地判定仍归引擎**。
+      // 这里只做三件事：过闸（剥数值）、调 submitFreeAction、记回显。
+      const { state, pres, content } = st
+      if (!state || !pres || pres.kind === 'ending') return st
+
+      // 局面已经换了 —— 这一手是写给上一个场面的，丢掉。
+      //
+      // 不做这道检查会出事：模型调用最多要等八秒，期间玩家完全可能点了
+      // 选项往前走了一格。若拿新场面去落地，玩家在寒潭边写的"抢他手里的
+      // 书"会被拿去跟坊市的摊主较劲，成不成由**新场面**的行囊决定。
+      if (action.at !== `${pres.node_index}:${pres.event_id}`) {
+        return { ...st, freeBusy: false, toast: '你写的那一句慢了半步 —— 局面已经换了。' }
+      }
+
+      const narration = action.intent.narration
+        ? splitLines(stripNumbers(action.intent.narration))
+        : undefined
+      const res = submitFreeAction(state, action.intent, content, pres, narration)
+
+      const echo: FreeEcho = {
+        input: action.input.slice(0, FREE_INPUT_MAX),
+        provider: action.provider,
+        intent: action.intent,
+        report: sanitizeReport(res.free),
+      }
+
+      if (!res.ok) {
+        // refused：这一手没有真的动。不推进、不惩罚，只把"听成了什么"还给玩家。
+        console.warn('[玄] 自由输入未落地：', res.reason)
+        return { ...st, free: echo, freeBusy: false, toast: '这一手没有落在任何地方 —— 换一种说法试试。' }
+      }
+
+      const next = afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return { ...next, free: echo, freeBusy: false }
+    }
+
+    case 'free/pending': {
+      // 上锁本身也要能过局面切换：锁在 store 里，重挂不会丢
+      return st.freeBusy ? st : { ...st, freeBusy: true }
+    }
+
+    case 'free/unlock':
+      // 异常路径专用：只解锁，不写回显、不推进。不要伪造一个 free/result
+      // 来顺带解锁 —— 那会平白弹一句"慢了半步"。
+      return st.freeBusy ? { ...st, freeBusy: false } : st
+
+    case 'free/dismiss':
+      return st.free ? { ...st, free: null } : st
+
     case 'floats/clear':
       return { ...st, floats: [] }
 
@@ -975,6 +1084,28 @@ function scenarioBanner(
   return null
 }
 
+/**
+ * 上屏前的最后一道闸。
+ *
+ *   1. 旁白一律过 stripNumbers —— 模型多写出来的数字就地抹掉；
+ *   2. mapped / refused 时把模型旁白整条丢掉 —— 前者的呈现与结算
+ *      既是既有选项的结果，就不该再让模型另说一套；后者压根没发生。
+ *
+ * `understood` 里嵌着模型给的 target / approach，同样过一遍。
+ */
+function sanitizeReport(r: FreeActionReport): FreeActionReport {
+  const drop = r.outcome === 'mapped' || r.outcome === 'refused'
+  const lines = drop
+    ? []
+    : (r.narration ?? []).map((l) => stripNumbers(l)).filter((l) => l.length > 0)
+
+  return {
+    ...r,
+    understood: stripNumbers(r.understood),
+    narration: lines.length > 0 ? lines : undefined,
+  }
+}
+
 /** 引擎结算之后：落状态、记浮字、判终局、算揭示 */
 function afterEngine(
   st: AppState,
@@ -1003,6 +1134,8 @@ function afterEngine(
     floats,
     banner,
     justRevealed,
+    // 任何别的动作都盖掉上一次自由输入的回显 —— 它只解释刚刚那一手
+    free: null,
     toast: null,
     seq: st.seq + floats.length,
     screen: ended ? 'ending' : 'play',

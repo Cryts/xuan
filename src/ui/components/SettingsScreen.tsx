@@ -9,6 +9,7 @@
 
 import { useState } from 'react'
 import s from './SettingsScreen.module.css'
+import { FreeInputSettings } from './FreeInputSettings'
 import { Chip, SectionTitle } from './Shared'
 import { clearSave, contentStats, useGame, type FontScale } from '@/ui/store'
 import {
@@ -176,6 +177,9 @@ export function SettingsScreen() {
             </p>
           </div>
         </section>
+
+        {/* 玄机 · 自由输入 —— 默认关，关着时这一节只有一行开关 */}
+        <FreeInputSettings />
 
         <section className={s.sec}>
           <SectionTitle text="本局与内容" />

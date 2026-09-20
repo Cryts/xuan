@@ -10,6 +10,8 @@ import s from './EventScreen.module.css'
 import { StatusBar } from './StatusBar'
 import { Typewriter } from './Typewriter'
 import { BagSheet } from './BagPanel'
+import { FreeEcho } from './FreeEcho'
+import { FreeInput } from './FreeInput'
 import { RevealOverlay, Seal } from './Shared'
 import type { NodePresentation, Option } from '@/core/types'
 import { IconRisk } from '@/ui/icons'
@@ -124,6 +126,9 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
           </div>
         </article>
 
+        {/* 上一次自由输入被听成了什么 —— 就摆在正文之后、选项之前 */}
+        <FreeEcho />
+
         <section className={s.opts} data-ready={typed ? '1' : '0'}>
           {typed
             ? pres.options.map((o, i) => (
@@ -139,6 +144,9 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
             </div>
           ) : null}
         </section>
+
+        {/* 「还有一个办法」——摆在选项下方，不抢主路。默认关，见 FreeInput */}
+        <FreeInput pres={pres} />
       </main>
 
       {pres.options.some((o) => o.risk_tier === '绝') ? (

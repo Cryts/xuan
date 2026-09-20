@@ -1,0 +1,96 @@
+/* 自由输入的输入行 —— 刻意做得像"另有一条路"，而不是一张表。
+   没有卡片底、没有外框，只有一道极淡的上边线把它和选项区分开。 */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  padding-top: var(--s3);
+  border-top: 1px dashed var(--line-2);
+  animation: fadeIn var(--d3) var(--ease) both;
+}
+
+.mark {
+  flex: none;
+  font-family: var(--font-title);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: var(--t5);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--t1);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.02em;
+  transition:
+    border-color var(--d2) var(--ease),
+    background var(--d2) var(--ease);
+}
+.input:focus {
+  outline: none;
+  border-color: rgba(var(--paper-rgb), 0.3);
+  background: rgba(0, 0, 0, 0.28);
+}
+.input::placeholder {
+  color: var(--t5);
+}
+.input:disabled {
+  opacity: 0.55;
+}
+
+.go {
+  flex: none;
+  padding: var(--s2) var(--s3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  color: var(--t3);
+  transition:
+    color var(--d2) var(--ease),
+    border-color var(--d2) var(--ease);
+}
+.go:hover:not(:disabled) {
+  color: var(--t1);
+  border-color: var(--line-strong);
+}
+.go:disabled {
+  opacity: 0.38;
+}
+
+.hint {
+  flex: none;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.06em;
+  color: var(--t5);
+  white-space: nowrap;
+}
+
+/* 窄屏：提示语换行到下一行，输入框独占一行宽 */
+@media (max-width: 460px) {
+  .row {
+    flex-wrap: wrap;
+  }
+  .input {
+    flex: 1 1 100%;
+    order: 2;
+  }
+  .mark {
+    order: 1;
+  }
+  .go {
+    order: 3;
+  }
+  .hint {
+    order: 4;
+    white-space: normal;
+  }
+}

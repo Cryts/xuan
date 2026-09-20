@@ -11,6 +11,8 @@ import { StatusBar } from './StatusBar'
 import { Typewriter } from './Typewriter'
 import { BagSheet } from './BagPanel'
 import { DuelPanel } from './DuelPanel'
+import { ShopPanel } from './ShopPanel'
+import { AftermathBlock } from './AftermathBlock'
 import { FreeEcho } from './FreeEcho'
 import { FreeInput } from './FreeInput'
 import { RevealOverlay, Seal } from './Shared'
@@ -103,6 +105,11 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
       />
 
       <main className={s.main} key={nodeKey}>
+        {/* 刚才那一手 —— 排在正文之前：先结算，再展开。
+            它**不在 `typed` 闸门里面**：闸门是给"正在展开"的正文用的，
+            结果正文是已经落定的账，不该让玩家多等一次打字。 */}
+        <AftermathBlock />
+
         <article className={`x-card ${s.narr}`}>
           <div className={s.narrBody}>
             <span className={s.nodeTag}>
@@ -131,6 +138,9 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
 
             {band && st.banner ? (
               <div className={s.verdict}>
+                {/* 字 + 色 + 边框三样一起承担分档：颜色单独一项不合 WCAG 1.4.1，
+                    而结果正文只有 44.7% 的段位槽真的分了档 —— 分档只能落在壳上。 */}
+                <Seal text={band.seal} tone="plain" />
                 <span className="x-band" style={{ color: band.color }}>
                   {band.text}
                 </span>
@@ -152,6 +162,10 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
             "打不打"那一步不在这里 —— 它走普通选项卡片，因为斗法是奇遇，
             不该另开一个界面。 */}
         <DuelPanel />
+
+        {/* 坊市：买不推进节点，离开才推进。
+            与事件选项卡片刻意分开摆 —— 事件是际遇，坊市是转换。 */}
+        <ShopPanel />
 
         {/* 日常节点：这段时间花在哪，玩家自己定。
             与"事件选项"刻意分开摆 —— 事件是际遇，日常是安排，不是一回事。 */}
@@ -195,7 +209,7 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
                 </div>
               ))
             : null}
-          {typed && pres.options.length === 0 ? (
+          {typed && pres.options.length === 0 && !pres.shop ? (
             <div className={s.sealed}>
               <Seal text="命" tone="plain" />
               <span className="x-small">此局无选项 —— 命运已定。</span>

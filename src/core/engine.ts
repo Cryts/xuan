@@ -27,7 +27,7 @@ import {
   killDestinyChild,
 } from './destiny'
 import { PACK_IDS, resolveAffordances, type ContentDB } from './content'
-import { pickFromPool, splitLines } from './narrative'
+import { pickFromPool, renderTemplate, splitLines } from './narrative'
 import { Rng, deriveSeed, makeSeed } from './rng'
 import { applyEffects, clampVar, mergeDelta, rollBand } from './resolve'
 import type {
@@ -42,9 +42,11 @@ import type {
   DuelOutcome,
   Essence,
   DestinyChild,
+  EchoClass,
   Effect,
   Ending,
   GameState,
+  Intent,
   Item,
   LooseEvent,
   NodePresentation,
@@ -55,6 +57,7 @@ import type {
   Scenario,
   ScenarioAction,
   ScenarioActionId,
+  ShopStock,
   Stage,
   TrialOption,
   VarKey,
@@ -102,6 +105,18 @@ export function bindContent(content: ContentDB): void {
  */
 const TOTAL_NODES_BASE = 32
 const TOTAL_NODES_RAND = 8
+
+/**
+ * 一局的**硬上限**。基准 32 + 随机 8 + 余量 6 = 46 拍。
+ *
+ * 它管的是 `planScenarioChain` 按需抬高 `total_nodes` 的那条路 ——
+ * 抬高最初没有上界，于是长尾失控（17.7% 的局 > 42 拍、最长 55 拍）。
+ * 按 15 秒/拍估，46 拍 = 11.5 分钟，卡在 `sim.ts` 那条"12 分钟"以内。
+ *
+ * 为什么按"拍"封顶而不是按"分钟"：拍数是引擎能派生的量，分钟是估计值
+ * （`sim.ts` 用 15 秒/拍换算）。**能派生就不要手写**，门禁那边自己换算。
+ */
+export const TOTAL_NODES_CAP = TOTAL_NODES_BASE + TOTAL_NODES_RAND + 6
 
 /** 阶段按比例推进，保证 30–42 节点的节奏稳定 */
 export function stageForNode(n: number, total: number): Stage {
@@ -339,6 +354,34 @@ export function yearsBucket(years: number): 'few' | 'some' | 'many' | 'ages' {
 }
 
 /**
+ * 回望档 —— **由规则派生，不许内容自己标**。
+ *
+ * 内容能自己标，就会为了想要的那句接缝去标错档；而接缝说什么，
+ * 必须由"刚才真的发生了什么"决定。这条与「提示必须与行为对得上」是同一条铁律：
+ * 界面写着"代价"，正文却在说"得手"，比数值偏一点糟得多。
+ *
+ * 判据顺序是**最具体优先**：
+ *   1. 实际账目（债务 / 暴露度有没有涨）—— 最具体，说的是"这一手留下了什么"
+ *   2. 意图（抽身）—— 无论成败，动作本身就是"走脱"
+ *   3. 判定档位 —— 兜底，"成了"或"没成"
+ *
+ * 第 2 条在文档里的措辞是"无论成败"，也就是说它**盖过**第 3 条 ——
+ * 否则它永远轮不到（每一手都有段位）。所以顺序不能照表抄成 1→3→2。
+ */
+export function deriveEchoClass(
+  band: Band | undefined,
+  intent: Intent | undefined,
+  delta: DeltaEntry[],
+): EchoClass {
+  const rose = (k: VarKey) =>
+    delta.some((d) => d.key === k && d.to > d.from)
+  if (rose('debt') || rose('exposure')) return 'debt'
+  if (intent === 'flee') return 'escape'
+  if (band === 'fail' || band === 'crit_fail') return 'cost'
+  return 'gain'
+}
+
+/**
  * 承上启下的过渡句 —— 接上上一件事与这一件事之间的缝。
  *
  * 为什么必须单独生成：正文是按 `loose.<母题>.<阶段>` 独立取词的，
@@ -362,9 +405,19 @@ export function composeTransition(
   const realmUp = (state.last_realm_idx ?? 0) < state.realm_idx
   const age = ageInfoOf(state, content)
 
-  // 按优先级挑一条：人生阶段 > 境界跃迁 > 寿元告急 > 年数跨度
+  // 按优先级挑一条：**回望 > 人生阶段 > 境界跃迁 > 寿元告急 > 年数跨度**
+  //
+  // 「回望」这一级是**在原有四级之上新加的、优先级最高的一级**，也是唯一一级
+  // 输入不是"过了多久"而是"刚才发生了什么"的。
+  //
+  // 加它之前，四级输入全是时间跨度，所以写出来的句子在**任何**两拍之间都成立：
+  // 「往后的年月，你多半是一个人过的。」—— 那不是接缝，是过场。
+  // 实测 93.2% 的节点"有承接句"，可那是"渲染了一句时间过渡"的覆盖率，
+  // **不是"这两拍接上了"的覆盖率**。这类读数与玩家体验反向的坑，
+  // 比"少写一句"危险得多。
   let key: string
-  if (stageChanged) key = `transition.stage.${state.stage}`
+  if (state.last_outcome) key = `transition.echo.${state.last_outcome.echo_class}`
+  else if (stageChanged) key = `transition.stage.${state.stage}`
   else if (realmUp) key = 'transition.realm_up'
   else if (age.dire) key = 'transition.dire_age'
   else key = `transition.years.${yearsBucket(years)}`
@@ -712,6 +765,14 @@ export function startRun(cfg: RunConfig): GameState {
     total_nodes,
     completed_scenarios: [],
     fired_events: [],
+    // 奇遇通道的闸：从 0 起，所以开局前几拍不会撞上奇遇
+    nodes_since_omen: 0,
+    recent_omen: [],
+    omen_turn: OMEN_ROTATION[0]!,
+    omen_rotation: [...OMEN_ROTATION],
+    shop_bought: 0,
+    shop_sold: 0,
+    destiny_notes: [],
   }
 
   // 天赋/缺陷的即时效果
@@ -789,8 +850,20 @@ function applyEffectsState(state: GameState, effects: Effect[], reason: string):
         break
       }
       case 'queue_followup': {
+        // **插队首**，不是队尾。
+        //
+        // 保底路径只取 `forced[0]`，而队列长期被 `planScenarioChain` 的铺垫占着
+        // （实测每拍平均 0.74 条"已排未出"，绝大部分是铺垫）。
+        // 排队尾的 followup 就永远轮不到它 —— 这就是 followup 运行期只兑现
+        // **8/3840 节点（0.21%）**的直接原因，也是"只进不出"的保底队列
+        // 同一个坑的第四次发作。
+        //
+        // 插队首是安全的：`forced` 先按窗口筛（`node_index >= window[0]`），
+        // 没开窗的条目根本进不了候选，不会挡住别人；而窗口一开，它就是第一个。
+        // `planScenarioChain` 那边**照旧插队尾** —— 两者共用同一套优先级策略，
+        // 不是各自 push。
         const parsed = parseFollowup(eff.ref, next.node_index)
-        if (parsed) queue.push(parsed)
+        if (parsed) queue.unshift(parsed)
         break
       }
       case 'unlock_title':
@@ -895,6 +968,218 @@ export function structuralTagsOf(content: ContentDB): Set<string> {
   return out
 }
 
+// ============================================================
+// 奇遇通道（omen）
+// ============================================================
+
+/**
+ * 抽之前的全池下限。
+ *
+ * 被抽中内容的 `omen_gap` 若更大，这一拍作废（保持每内容语义）——
+ * 也就是"闸是两道"：全局一道、内容自己一道。
+ */
+export const OMEN_GAP_MIN = 6
+
+/**
+ * 奇遇抽中的概率。**不能是 1** —— 否则"隔满六拍必来一次"成了节拍器，
+ * 而节拍器恰恰取消了奇遇之所以是奇遇的那点不确定。
+ *
+ * 注意：交替（`omen_rotation`）管的是"**轮到谁**"，不管"什么时候来"。
+ * 时机仍然不规则，这条不变。
+ */
+export const OMEN_CHANCE = 0.45
+
+/**
+ * 轮转表 —— **数组而不是布尔翻转**。
+ *
+ * 当前只有两项（奇遇 / 坊市）。做成数组是为了将来加第三类奇遇
+ * （如游方术士）时**不用改 schema**：往表里加一项即可。
+ */
+export const OMEN_ROTATION = ['event', 'shop'] as const
+
+/** 坊市的 gap。契约允许商店有自己更高的 gap：要更多奇遇槽位就抬这个，别降奇遇的 */
+export const OMEN_SHOP_GAP = OMEN_GAP_MIN
+
+/** 同一内容最近多少拍内出现过就不再当奇遇（含"不得连任"） */
+const OMEN_RECENT_WINDOW = 3
+
+/** 坊市在轮转表里的 key。它不是内容事件，所以另给一个常量而不是从内容里取 */
+export const SHOP_OMEN_KEY = '__shop__'
+
+/**
+ * "接不接"两个选项的 id —— **引擎合成，内容侧不写**。
+ *
+ * 放在这里当常量导出，是为了 UI 不必硬编码字符串：
+ * 拼错一个字，玩家点下去就什么也不会发生，而且不报错。
+ */
+export const OMEN_TAKE = 'omen_take'
+export const OMEN_PASS = 'omen_pass'
+
+/**
+ * 保底队列：窗口内必出，且**出过就不再出**。
+ *
+ * 抽出来是因为需要它的人不止 `pickNextEvent` 一个：奇遇判定要**让路**给它，
+ * 而呈现层（`presentCurrent`）也要先问它一声才知道这一拍该给谁。
+ * 抄第二份必然漂移 —— 这个项目已经在"两套加载器"上吃过一次。
+ */
+export function forcedEvent(state: GameState, content: ContentDB): LooseEvent | Scenario | null {
+  const forced = state.queue.filter(
+    (q) =>
+      !state.fired_events.includes(q.event_id) &&
+      state.node_index >= q.window[0] &&
+      state.node_index <= q.window[1],
+  )
+  if (forced.length === 0) return null
+  const id = forced[0]!.event_id
+  return content.events.find((e) => e.id === id) ?? content.scenarios.find((s) => s.id === id) ?? null
+}
+
+/**
+ * 这一拍会不会是奇遇 —— 呈现层用的入口。
+ *
+ * 与 `pickNextEvent` 里那一步**是同一个判定**（都调 `tryOmen`），
+ * 差别只在多问了一句"保底队列有没有人要" —— 也就是契约里的让路规则。
+ * 因为 `tryOmen` 是纯的（种子由 node_index 定），两处结果必然一致。
+ */
+export function peekOmen(state: GameState, content: ContentDB): OmenPick | null {
+  if (forcedEvent(state, content)) return null
+  const rng = new Rng(makeSeed(state.seed, state.node_index, 'omen'))
+  return tryOmen(state, rng, content)
+}
+
+export interface OmenPick {
+  key: string
+  kind: 'event' | 'shop'
+  /** 事件类才有的实体；商店类没有对应的 LooseEvent */
+  event?: LooseEvent
+}
+
+function gapOfOmen(e: LooseEvent): number {
+  return e.omen_gap ?? OMEN_GAP_MIN
+}
+
+/** 坊市能不能开：货架抽得出来就开。抽不出（物品池为空）时这一格让给奇遇 */
+function shopAvailable(content: ContentDB): boolean {
+  return content.items.some((i) => {
+    const c = classifyItem(i)
+    return c === 'key' || c === 'both'
+  })
+}
+
+/** 奇遇事件池：绕过 cooldown / stage 过滤，但没过闸的一个都不给 */
+function omenCandidates(state: GameState, content: ContentDB): LooseEvent[] {
+  const pack = content.packs[state.pack_id]
+  void pack
+  return content.events.filter((e) => {
+    if (e.channel !== 'omen') return false
+    if (!e.pack.includes(state.pack_id) && !e.pack.includes('*')) return false
+    if (e.once_per_run && state.fired_events.includes(e.id)) return false
+    if (e.requires && !evaluate(e.requires, { state })) return false
+    // 玩家明确拒绝过的：本局不再作为奇遇出现
+    if (state.flags[`omen_declined_${e.id}`]) return false
+    return true
+  })
+}
+
+/**
+ * 奇遇判定 —— **独立的那个函数**。
+ *
+ * `null` 的含义**只在这里**是"这次不搞奇遇"，绝不是"这一拍没有事件"。
+ *
+ * 契约原文的伪码把否定分支写成了 `return null`，而那段伪码被要求抄进
+ * `pickNextEvent`。照抄就会造出**空节点**（这一拍没有任何事件）——
+ * 而空节点是试玩 agent 最优先的卡死判据，玩家在那里会直接动不了。
+ * 所以判定必须抽成独立函数，让 `null` 只在这一层有"不搞奇遇"的意思。
+ *
+ * 判定顺序（与契约一致）：让路 → 闸 → 抽 → 内容自己的 gap → 近期重复。
+ */
+export function tryOmen(state: GameState, rng: Rng, content: ContentDB): OmenPick | null {
+  // 这个函数的随机数**必须由 node_index 定死**（调用方用 `peekOmen`），
+  // 否则同一个节点重渲染一次就会得到另一个结果 —— UI 与引擎都会调
+  // `presentCurrent`，呈现层又必须与调度层给出同一个答案。
+  // ---- 让路 ----
+  // 前四条照抄既有先例：duelTrigger 的 active_scenario 早返回（engine.ts:1887 附近）、
+  // presentCurrent 里 isDailyNode 排在 duelTrigger 之前。
+  if (state.active_scenario) return null
+  if (state.pending_scenario) return null
+  if (state.pending_duel || state.pending_duel_result) return null
+  if (isDailyNode(state)) return null
+
+  // ---- 闸 ----
+  // 让路时计数器**照常 +1**（见 advanceNode）—— 冻住它会让"在剧本里蹲久了、
+  // 出来第一拍必是奇遇"，反而成了可预期的节拍器。
+  // 新增的状态字段一律按"可能没有"处理：手搓的 state（测试夹具、旧存档）
+  // 不会带它们，而这里一报错就是整局崩 —— 缺字段的正确含义是"闸没开过"，
+  // 不是"抛异常"。
+  if ((state.nodes_since_omen ?? 0) < OMEN_GAP_MIN) return null
+  if (!rng.chance(OMEN_CHANCE)) return null
+
+  const recent = (state.recent_omen ?? []).slice(-OMEN_RECENT_WINDOW)
+  const rotation = state.omen_rotation?.length ? state.omen_rotation : [...OMEN_ROTATION]
+  const turn = rotation.includes(state.omen_turn) ? state.omen_turn : rotation[0]!
+
+  // ---- 轮转 + **对称回落** ----
+  // 两侧都要有。只写单向会卡死：轮到不可用的那一方时没有出路，
+  // 那一拍就只能落回常规阶梯 —— 而"回落仍然前进一格"的承诺也就没了。
+  //
+  // 轮转解决的是**同池竞争把商店的频率变成内容量的函数**：奇遇池 86 个、
+  // 商店 1 个 → 商店被抽中约 1.2%，等于没有商店；明天内容加到 300 个就是 0.3%。
+  // "商店会不会出现，取决于别人写了多少事件"是结构性的脆弱，不该留在契约里。
+  const tryEvent = (): LooseEvent | null => {
+    const pool = omenCandidates(state, content).filter((e) => !recent.includes(e.id))
+    if (pool.length === 0) return null
+    // 加权抽样 —— 与常规阶梯同一套权重（张力 / 体系偏好 / 运气 / 母题抑制）
+    const target = STAGE_TENSION_TARGET[state.stage]
+    const prevMotif = state.last_motif ?? state.recent_motifs[state.recent_motifs.length - 1]
+    const weights = pool.map((c) => {
+      const sameAsLast = prevMotif && c.motif === prevMotif ? 0.05 : 1
+      const packPref = content.packs[state.pack_id]?.motif_weights?.[c.motif] ?? 1
+      const tensionFit = 1 / (1 + Math.abs((c.tension ?? 5) - target) * 0.25)
+      const luckFactor = 1 + (state.attrs.luck - 50) * 0.004
+      return c.weight * packPref * tensionFit * luckFactor * sameAsLast
+    })
+    return rng.weighted(pool, weights) as LooseEvent
+  }
+  const tryShop = (): OmenPick | null => {
+    // 商店有**自己的 gap**：轮到 shop 而 `nodes_since_omen < shop.gap` 时，
+    // 这一格让给 event。这就是"要更多奇遇槽位就提高商店的 gap"的落地方式。
+    if (state.nodes_since_omen < OMEN_SHOP_GAP) return null
+    if (!shopAvailable(content)) return null
+    if (recent.includes(SHOP_OMEN_KEY)) return null
+    return { key: SHOP_OMEN_KEY, kind: 'shop' }
+  }
+
+  const primary = turn === 'shop' ? tryShop() : null
+  if (primary) return primary
+  if (turn === 'shop') {
+    // 轮到商店但开不了 → 让给奇遇（回落之后仍然前进一格，见 resolveOmenTurn）
+    const ev = tryEvent()
+    return ev ? { key: ev.id, kind: 'event', event: ev } : null
+  }
+  const ev = tryEvent()
+  if (ev) {
+    // 内容自己的 gap 更大时，这一拍作废 —— 但**不是**"这一拍没有事件"：
+    // 常规阶梯会接手。这正是 tryOmen 必须独立成函数的原因。
+    if (state.nodes_since_omen < gapOfOmen(ev)) return null
+    return { key: ev.id, kind: 'event', event: ev }
+  }
+  const shop = tryShop()
+  return shop
+}
+
+/**
+ * 轮到谁 —— 每次**闸门被恰当地解决**之后前进一格。
+ *
+ * `fallback` 是"这一格本来轮到 A，A 不可用，让给了 B"。回落之后**照样前进一格**，
+ * 否则会永远卡在不可用的那一方：轮到 shop 而 shop 一直开不了，
+ * 每一拍都白试一次，奇遇与商店一起饿死。
+ */
+export function advanceOmenTurn(state: GameState): string {
+  const rotation = state.omen_rotation.length > 0 ? state.omen_rotation : [...OMEN_ROTATION]
+  const i = rotation.indexOf(state.omen_turn)
+  return rotation[(i < 0 ? 0 : i + 1) % rotation.length]!
+}
+
 /**
  * 过滤 → 加权 → 保底 → 抽样
  */
@@ -921,6 +1206,16 @@ export function pickNextEvent(input: SchedulerInput): LooseEvent | Scenario | nu
     const sc = content.scenarios.find((s) => s.id === id)
     if (sc) return sc
   }
+
+  // 2. 奇遇判定 —— **在保底之后、常规阶梯之前**。
+  //
+  // 保底让路排在第一，理由不是优先级而是因果：铺垫排了队就必须走得完。
+  // 这是刚修过的一类 bug（破局率 0.73 → 1.11），不能在这里破掉。
+  //
+  // 注意这里**没有** `return null`：判定不通过就往下走常规阶梯。
+  // 把这段写成 `if (omen) return omen; return null` 就会造出空节点。
+  const omen = peekOmen(state, content)
+  if (omen?.kind === 'event' && omen.event) return omen.event
 
   // 2. 过滤 —— 分三级放宽（见下方说明）
   const structural = structuralTagsOf(content)
@@ -1014,6 +1309,92 @@ export function pickNextEvent(input: SchedulerInput): LooseEvent | Scenario | nu
 // 呈现
 // ============================================================
 
+/**
+ * 奇遇第一拍 —— **「接不接」**。
+ *
+ * 形态冻结：`kind:'encounter'`（`types.ts` 里已声明多时、全仓库零处使用的
+ * 那个保留位），`options` 由**引擎合成两个**，内容侧不写、也不许写。
+ *
+ * `title` 用内容自己的（事件 = `title_pool`；商店 = 店名）——
+ * **"接不接"的语境由内容承担，不进选项文案**。这样商店与事件才共用同一套呈现。
+ *
+ * 与斗法的「出手 / 避开」同构，这是项目已有的语法（CLAUDE.md 那条
+ * "斗法是奇遇不是日常"）。接不接**不收费、不推进节点**，只记 flag。
+ */
+function buildOmenGate(
+  state: GameState,
+  content: ContentDB,
+  omen: OmenPick,
+  rng: Rng,
+): NodePresentation {
+  const isShop = omen.kind === 'shop'
+  let title = isShop ? '' : '未名'
+  let lines: string[] = []
+
+  if (isShop) {
+    title = pickFromPool('shop.title', content.l2, state, rng).text || '坊市'
+    const gate = pickFromPool('shop.gate', content.l2, state, rng).text
+    lines = splitLines(gate)
+  } else if (omen.event) {
+    const t = omen.event.narrative.title_pool
+    title = t.length > 0 ? rng.pick(t) : '未名'
+    lines = splitLines(pickFromPool('omen.gate', content.l2, state, rng).text)
+  }
+
+  return withDestinyNotes(state, {
+    node_index: state.node_index,
+    kind: 'encounter',
+    event_id: '__omen__',
+    title,
+    lines,
+    mood: 'mystic',
+    options: [
+      {
+        id: OMEN_TAKE,
+        text: '接下',
+        intent: 'greedy',
+        risk_tier: '常',
+        odds_hint: '说不好',
+        gain_hint: isShop ? '看看他摊上有什么' : '看看来的是什么事',
+      },
+      {
+        id: OMEN_PASS,
+        text: '不接',
+        intent: 'flee',
+        risk_tier: '稳',
+        odds_hint: '十拿九稳',
+        cost_hint: '这一趟就错过了',
+      },
+    ],
+    omen: { key: omen.key, kind: omen.kind },
+  })
+}
+
+/** 奇遇第二拍 —— 真身。事件走正文与选项；坊市走货架。 */
+function buildOmenBody(
+  state: GameState,
+  content: ContentDB,
+  key: string,
+): NodePresentation | null {
+  if (key === SHOP_OMEN_KEY || state.omen_open_kind === 'shop') {
+    const rng = new Rng(makeSeed(state.seed, state.node_index, 'shop'))
+    return withDestinyNotes(state, {
+      node_index: state.node_index,
+      kind: 'loose',
+      event_id: '__shop__',
+      title: pickFromPool('shop.title', content.l2, state, rng).text || '坊市',
+      lines: splitLines(pickFromPool('shop.body', content.l2, state, rng).text),
+      mood: 'mystic',
+      options: [],
+      shop: buildShopStock(state, content),
+    })
+  }
+  const ev = content.events.find((e) => e.id === key)
+  if (!ev) return null
+  const rng = new Rng(makeSeed(state.seed, state.node_index, `omen:${key}`))
+  return buildLoosePresentation(state, content, ev, rng)
+}
+
 export function buildPresentation(
   state: GameState,
   content: ContentDB,
@@ -1026,6 +1407,17 @@ export function buildPresentation(
   return buildLoosePresentation(state, content, ev, rng)
 }
 
+/**
+ * 把"上一步位面之子推进了什么"挂到呈现上。
+ *
+ * 单独一个函数是因为挂载点不止一处（散事件 / 剧本 / 奇遇三屏都要），
+ * 而漏挂一处就是**静默消失**：数据在 state 里、玩家一个字也看不到。
+ */
+function withDestinyNotes(state: GameState, pres: NodePresentation): NodePresentation {
+  const notes = state.destiny_notes ?? []
+  return notes.length > 0 ? { ...pres, destiny_notes: notes } : pres
+}
+
 function buildLoosePresentation(
   state: GameState,
   content: ContentDB,
@@ -1033,14 +1425,51 @@ function buildLoosePresentation(
   rng: Rng,
 ): NodePresentation {
   const title = ev.narrative.title_pool.length > 0 ? rng.pick(ev.narrative.title_pool) : '未名'
-  const picked = pickFromPool(ev.narrative.body_key, content.l2, state, rng)
-  let lines = splitLines(picked.text)
+
+  // 正文选键：**事件级优先，母题级兜底**。
+  //
+  // 事件级那一级是新的，它解决的是"六件事共用一段话"：L2 池按
+  // 「母题 × 阶段」取词，池子不知道是哪一个事件，于是同一母题下的
+  // 每个事件读起来都像同一件事又发生了一遍。
+  //
+  // 只认 `self_key` 真的在池子里这一条 —— 键写歪了（比如忘了 `evt.` 前缀）
+  // 直接回落，不抛错。所以 `content-lint` 有一条 `narrative_key_resolvable`
+  // 盯着它：**取不到时的降级是静默的**。
+  const key = ev.narrative.self_key && content.l2[ev.narrative.self_key]
+    ? ev.narrative.self_key
+    : ev.narrative.body_key
+  const picked = pickFromPool(key, content.l2, state, rng)
+  // 槽位三级回落：事件级 `narrative.slots` → 母题级 `param_slots` → 中性默认。
+  // 后两级都在 `renderTemplate` 里（找不到槽值时回落中性默认，绝不抛错），
+  // 所以这里只需要把事件级那一级递进去。
+  const rendered = ev.narrative.slots
+    ? renderTemplate(picked.text, ev.narrative.slots, rng)
+    : picked.text
+  let lines = splitLines(rendered)
   if (lines.length === 0) {
     // 三级降级：无文本也要能玩（SPEC 8.6）
     lines = ['雾散雾起，前路未明。']
   }
 
-  return {
+  // 刚给玩家看过的这段正文，记进去重窗口。
+  //
+  // `recent_narrative` 是 `pickFromPool` 用来"30 节点内不重复看到同一条文本"
+  // 的那个集合 —— 但在这次改动之前，**全仓库只有一处写它**
+  // （而且是写错的东西：`coincidenceKey` 那个池键，不是文本）。也就是说
+  // 这条去重机制从建立起就没起过作用。
+  //
+  // 接上它直接修掉一个玩家可见的毛病：结果正文的回落链会落到 `body_key`，
+  // 而那正是**开场白的来源** —— 于是选完之后把刚读完的那段再念一遍
+  // （实测 28.9% 的选择）。写进窗口之后，`pickFromPool` 会避开它。
+  //
+  // 写入是**幂等**的：`presentCurrent` 对同一个节点会被反复调用
+  // （UI 重渲染），而这里同一段文本只会进一次。
+  const text = lines.join('\n')
+  if (text && !state.recent_narrative.includes(text)) {
+    state.recent_narrative = [...state.recent_narrative, text].slice(-60)
+  }
+
+  return withDestinyNotes(state, {
     node_index: state.node_index,
     kind: 'loose',
     event_id: ev.id,
@@ -1049,7 +1478,7 @@ function buildLoosePresentation(
     mood: 'mystic',
     transition: composeTransition(state, content, rng),
     options: ev.options.filter((o) => !o.requires || evaluate(o.requires, { state })),
-  }
+  })
 }
 
 function buildScenarioPresentation(
@@ -1081,7 +1510,7 @@ function buildScenarioPresentation(
     revealed: revealed.includes(r.id) || evaluate(r.reveal, ctx),
   }))
 
-  return {
+  return withDestinyNotes(state, {
     node_index: state.node_index,
     kind: 'scenario',
     event_id: sc.id,
@@ -1101,7 +1530,7 @@ function buildScenarioPresentation(
     options: [],
     trials: buildTrials(state, content),
     actions: SCENARIO_ACTIONS,
-  }
+  })
 }
 
 /**
@@ -1137,11 +1566,22 @@ export interface EngineResult {
 }
 
 /**
- * 结果叙事的回落链：段位键 → 事件级键 → 空。
+ * 结果叙事的回落链：**段位键 → 事件余波键（after_key）→ 事件正文键 → 附加线**。
  *
- * 内容生产是分批做的，段位级键（`loose.<motif>.<stage>.<band>`）与
- * 事件级键（`loose.<motif>.<stage>`）未必同时存在。没有这条回落链，
- * 写了段位键的那批事件取不到文本 —— 不影响结算，但会静默丢掉文案。
+ * 内容生产是分批做的，段位级键与事件级键未必同时存在，所以要有回落。
+ * 但**第三级是个陷阱**：`body_key` 同时是**开场白的来源**
+ * （`buildLoosePresentation` 用的就是它）。落到那一级 = 把玩家刚读完的那段
+ * 原样再念一遍。实测：接了这一段之后，29.4% 的"结果正文"与开场白**逐字全同**
+ * （走段位池的 0%、走 `body_key` 回落的 38.6%）—— 这正是 narrative-designer
+ * 以为已经修掉的那个 bug，只是频率从 100% 降到了三成。
+ *
+ * 所以 `after_key` 夹在中间不是锦上添花，它是**唯一能挡住重念的那一级**：
+ * 一段话管四个段位（"你付了代价"这种通吃句），比给 4904 个段位槽逐一补词便宜。
+ *
+ * `extra` 是"这一次还发生了什么别的事"（如天意庇佑的那段巧合）——
+ * 它同时接住了另一处静默失效：`coincidenceKey` 原先被塞进
+ * `state.recent_narrative`（那是个**去重集合**，不是展示位），
+ * 于是 `coincidence.json` 的 11 组文本玩家一个字也看不到。
  */
 function outcomeNarrative(
   ev: LooseEvent,
@@ -1150,24 +1590,35 @@ function outcomeNarrative(
   state: GameState,
   content: ContentDB,
   rng: Rng,
+  extra: string[] = [],
 ): { title: string; lines: string[] } | undefined {
   const title = ev.narrative?.title_pool?.length ? rng.pick(ev.narrative.title_pool) : ''
+
+  const withExtra = (lines: string[]) => ({ title, lines: [...lines, ...extra] })
 
   // 1) 段位级键（最贴切）
   if (band && opt?.resolve) {
     const bandKey = pickBand(opt.resolve.bands, band)?.narrative
     if (bandKey) {
-      const lines = splitLines(pickFromPool(bandKey, content.l2, state, rng).text)
-      if (lines.length > 0) return { title, lines }
+      const picked = pickFromPool(bandKey, content.l2, state, rng)
+      const lines = splitLines(ev.narrative?.slots ? renderTemplate(picked.text, ev.narrative.slots, rng) : picked.text)
+      if (lines.length > 0) return withExtra(lines)
     }
   }
-  // 2) 事件级键
+  // 2) 事件余波键 —— 挡在"重念开场白"前面的那一级
+  const afterKey = ev.narrative?.after_key
+  if (afterKey) {
+    const picked = pickFromPool(afterKey, content.l2, state, rng)
+    const lines = splitLines(ev.narrative?.slots ? renderTemplate(picked.text, ev.narrative.slots, rng) : picked.text)
+    if (lines.length > 0) return withExtra(lines)
+  }
+  // 3) 事件正文键 —— 也就是开场白那一段（见上）
   const bodyKey = ev.narrative?.body_key
   if (bodyKey) {
     const lines = splitLines(pickFromPool(bodyKey, content.l2, state, rng).text)
-    if (lines.length > 0) return { title, lines }
+    if (lines.length > 0) return withExtra(lines)
   }
-  return undefined
+  return extra.length > 0 ? { title, lines: extra } : undefined
 }
 
 export function submitOption(
@@ -1208,11 +1659,22 @@ export function submitOption(
       effects.some((e) => e.type === 'destiny_drain' && (e.ref === '@current' || e.ref === d.id)),
   )
 
+  // `chain.next` —— 显式系列的分支承接。
+  //
+  // 与 `bands[].queue_followup` 走**同一套入队策略**（`queue_followup` 效果
+  // 在 `applyEffectsState` 里插队首），不另开一条路。
+  // `if` 是段位过滤：写了 `if: 'fail'` 的分支只在失手时才接得上。
+  for (const n of currentEvent.chain?.next ?? []) {
+    if (n.if && n.if !== band) continue
+    followups.push(n.window ? `${n.id}@${n.window}` : n.id)
+  }
+
   const allEffects: Effect[] = [...effects]
   for (const f of flagsSet) allEffects.push({ type: 'set_flag', key: f })
   for (const fu of followups) allEffects.push({ type: 'queue_followup', ref: fu })
 
   let next = applyEffectsState(state, allEffects, `${currentEvent.id}:${optionId}`)
+  const delta = applyEffects(allEffects, state, `${currentEvent.id}:${optionId}`).delta
 
   // 记录去重信息
   next = {
@@ -1236,17 +1698,32 @@ export function submitOption(
     fired_events: [...state.fired_events, currentEvent.id],
   }
 
+  let coincidence: string[] = []
   if (dcRef) {
-    next = resolveDestinyEncounter(next, dcRef)
+    const r = resolveDestinyEncounter(next, dcRef, content, rng)
+    next = r.state
+    coincidence = r.lines
   }
 
   next = advanceNode(next, content)
 
+  // 回望写在 `advanceNode` **之后** —— `advanceNode` 会先清掉它
+  // （见那里的注释：别的动作源不写这个字段，不清就会一直挂着）。
+  next = {
+    ...next,
+    last_outcome: {
+      event_id: currentEvent.id,
+      motif: currentEvent.motif,
+      echo_class: deriveEchoClass(band, opt.intent, delta),
+      band,
+    },
+  }
+
   return {
     ok: true,
-    delta: applyEffects(allEffects, state, `${currentEvent.id}:${optionId}`).delta,
+    delta,
     band,
-    narrative: outcomeNarrative(currentEvent, opt, band, state, content, rng),
+    narrative: outcomeNarrative(currentEvent, opt, band, state, content, rng, coincidence),
     presentation: presentCurrent(next, content),
     state: next,
   }
@@ -2184,6 +2661,243 @@ export function usableNow(state: GameState): Item[] {
   return (state.items ?? []).filter((i) => canUseAnytime(i))
 }
 
+// ============================================================
+// 坊市（奇遇通道的第二个 turn）
+// ============================================================
+
+/**
+ * 价目基准（凡 → 道）。**由 `quality` 派生，不由内容逐件标价** ——
+ * 205 件物品逐件手写价格，改一次数值就要改 205 处，而且改漏了不报错。
+ */
+export const ITEM_BASE_PRICE: Record<string, number> = {
+  凡品: 25,
+  灵品: 70,
+  宝品: 190,
+  仙品: 480,
+  道品: 1100,
+}
+
+/** 每次进店最多买几件。一局的进店次数变多时必须往下调，否则灵石会买空货架 */
+export const SHOP_LIMIT_PER_VISIT = 2
+
+/** 货架件数：随境界略增，3~5 */
+export function shopSlotsOf(state: GameState): number {
+  return Math.max(3, Math.min(5, 3 + Math.floor(state.realm_idx / 3)))
+}
+
+export function itemPrice(state: GameState, item: Item): number {
+  const base = ITEM_BASE_PRICE[item.quality] ?? 60
+  const scarcity = 1 + 0.8 / (1 + (item.affordance?.length ?? 0))
+  const realmK = 1 + state.realm_idx * 0.6
+  const bought = 1 + 0.5 * state.shop_bought
+  return Math.max(1, Math.round(base * scarcity * realmK * bought))
+}
+
+/**
+ * 货架生成。
+ *
+ * ⚠️ **硬约束：不得按 `active_scenario` 所需的功能标签抽取。**
+ *
+ * 商店改成奇遇之后这条比原先更关键：若按需求抽货架，玩家会发现
+ * "一进剧本，奇遇里正好卖我要的东西" —— 奇遇感当场归零。
+ * **"随机撞上的东西正好是你缺的"是最假的一种随机。**
+ * 这是会签结论里唯一一条"不得软化"的约束，`content-lint` 有闸门盯着。
+ *
+ * 只卖 `key` + `both`（"凡在剧本里使得上的"），排除纯 `daily` ——
+ * 那正是用户那句"普通消耗品由平常事件获得"的准确落点。
+ */
+export function buildShopStock(state: GameState, content: ContentDB): ShopStock {
+  // 已经开着的货架就直接用 —— 重算会把买走的那件放回去（见 ShopStock 的注释）
+  if (state.shop_stock && state.shop_stock.node_index === state.node_index) return state.shop_stock
+  const rng = new Rng(makeSeed(state.seed, state.node_index, 'shop'))
+  // `Item` 上**没有** `pack` 字段（物品是跨体系通用的，体系差异体现在词条上），
+  // 所以方案里那句"同源 ×1.0 / 其它体系 ×0.3"落不了地 —— 这里只按价格反比加权。
+  // 不硬造一个来源字段：那会变成"看起来有、其实是编的"。
+  const pool = content.items.filter((i) => classifyItem(i) !== 'daily')
+  const slots = shopSlotsOf(state)
+  const out: ShopStock['items'] = []
+  const used = new Set<string>()
+  const candidates = pool.slice()
+  while (out.length < slots && candidates.length > 0) {
+    const price = (it: Item) => itemPrice(state, it)
+    // 按价格反比加权：贵的上架机会小
+    const w = candidates.map((it) => 1 / Math.sqrt(Math.max(1, price(it))))
+    const picked = rng.weighted(candidates, w) as Item
+    const idx = candidates.indexOf(picked)
+    if (idx >= 0) candidates.splice(idx, 1)
+    if (used.has(picked.id)) continue
+    used.add(picked.id)
+    out.push({ item: picked, price: price(picked), stock: 1 })
+  }
+  return { node_index: state.node_index, items: out, bought_here: 0 }
+}
+
+/** 买得起吗 */
+export function canAfford(state: GameState, stock: ShopStock, itemId: string): boolean {
+  const slot = stock.items.find((s) => s.item.id === itemId)
+  if (!slot || slot.stock <= 0) return false
+  if (stock.bought_here >= SHOP_LIMIT_PER_VISIT) return false
+  return state.vars.currency >= slot.price
+}
+
+/**
+ * 买一件 —— **不推进节点**（与 `useItem` 同构：店内可买任意多笔，
+ * 「离开」那一次选择才推进）。
+ */
+export function buyItem(
+  state: GameState,
+  itemId: string,
+  content: ContentDB,
+): EngineResult {
+  const stock = state.shop_stock
+  if (!stock) return fail(state, content, '当前不在坊市')
+  const slot = stock.items.find((s) => s.item.id === itemId)
+  if (!slot) return fail(state, content, '摊上没有这件东西')
+  if (slot.stock <= 0) return fail(state, content, '这一件已经卖掉了')
+  if (stock.bought_here >= SHOP_LIMIT_PER_VISIT) {
+    return fail(state, content, '这种来路不明的东西，掌柜一次只出手两件')
+  }
+  if (state.vars.currency < slot.price) return fail(state, content, '灵石不够')
+
+  const effects: Effect[] = [
+    { type: 'add_var', key: 'currency', delta: -slot.price },
+    { type: 'add_item', ref: itemId },
+  ]
+  let next = applyEffectsState(state, effects, `buy:${itemId}`)
+  next = {
+    ...next,
+    shop_bought: state.shop_bought + 1,
+    shop_stock: {
+      ...stock,
+      bought_here: stock.bought_here + 1,
+      items: stock.items.map((s) => (s.item.id === itemId ? { ...s, stock: s.stock - 1 } : s)),
+    },
+  }
+
+  return {
+    ok: true,
+    delta: applyEffects(effects, state, `buy:${itemId}`).delta,
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
+/**
+ * 卖一件。**只收剧情物品（`key` + `both`），不收纯 `daily`。**
+ *
+ * 两个理由：(a) 让一囊用不上的 key 有去处；(b) 堵死
+ * "日常消耗品 → 灵石"这条 faucet —— 灵石已经进 181.7 / 出 28.1，
+ * 再加一条产出只会加重失衡。
+ */
+export function sellItem(
+  state: GameState,
+  itemId: string,
+  content: ContentDB,
+): EngineResult {
+  if (!state.shop_stock) return fail(state, content, '当前不在坊市')
+  const item = state.items.find((i) => i.id === itemId)
+  if (!item) return fail(state, content, '身上没有这一件')
+  const cls = classifyItem(item)
+  if (cls === 'daily') return fail(state, content, '这种日常用物，掌柜不收')
+
+  const price = Math.max(1, Math.floor(itemPrice(state, item) * 0.4))
+  const effects: Effect[] = [
+    { type: 'add_var', key: 'currency', delta: price },
+    { type: 'consume_item', ref: itemId },
+  ]
+  let next = applyEffectsState(state, effects, `sell:${itemId}`)
+  next = { ...next, shop_sold: state.shop_sold + 1 }
+
+  return {
+    ok: true,
+    delta: applyEffects(effects, state, `sell:${itemId}`).delta,
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
+/** 离开坊市 —— **这一次选择才推进节点** */
+export function leaveShop(state: GameState, content: ContentDB): EngineResult {
+  if (!state.shop_stock) return fail(state, content, '当前不在坊市')
+  const next = advanceNode(state, content)
+  return {
+    ok: true,
+    delta: [],
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
+// ============================================================
+// 奇遇：接不接
+// ============================================================
+
+/**
+ * 接下 —— **不推进节点**，把真身作为**同一拍**的下一屏呈现。
+ *
+ * 计数器 `nodes_since_omen` 在**闸门被解决**的这一刻归零（不是拒绝时）：
+ * 契约在这一点上写得很明确，理由是"拒绝"与"呈现"若分成两个时刻，
+ * 同一拍就会被判两次，奇遇会连着来。
+ */
+export function submitOmenTake(state: GameState, content: ContentDB): EngineResult {
+  const omen = peekOmen(state, content)
+  if (!omen) return fail(state, content, '此刻没有什么来敲门')
+  const next: GameState = {
+    ...state,
+    omen_open: omen.key,
+    omen_open_kind: omen.kind,
+    nodes_since_omen: 0,
+    recent_omen: [...state.recent_omen, omen.key].slice(-8),
+    omen_turn: advanceOmenTurn(state),
+    // 开架。限购与存量都记在货架上，买与卖不推进节点，所以它必须是活的
+    shop_stock: omen.kind === 'shop' ? buildShopStock(state, content) : undefined,
+  }
+  return {
+    ok: true,
+    delta: [],
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
+/**
+ * 不接 —— 推进一拍。
+ *
+ * - 奇遇事件：写 `flags['omen_declined_<key>']`，该 key 本局不再作为 omen 出现
+ * - **坊市豁免**：`flags` 里**一个字节都不写**（不是"写了但忽略"—— 别留两套读法）
+ *
+ * 为什么商店不适用：`omen_declined` 的理由只有一条 —— **同一件"事"反复来烦人**。
+ * 这个理由在商店上两个前提都不成立：商店不是"同一件事"（货架每次不同，
+ * 它是**转换场所**不是遭遇），拒绝的动机也不同（多半是**当下买不起**，
+ * 而"买不起"是会变的）。豁免不等于可以刷屏：gap 与轮转照旧管着它。
+ */
+export function submitOmenPass(state: GameState, content: ContentDB): EngineResult {
+  const omen = peekOmen(state, content)
+  if (!omen) return fail(state, content, '此刻没有什么来敲门')
+
+  const isShop = omen.kind === 'shop'
+  let next = isShop
+    ? state
+    : applyEffectsState(state, [{ type: 'set_flag', key: `omen_declined_${omen.key}` }], 'omen:pass')
+
+  next = {
+    ...next,
+    nodes_since_omen: 0,
+    recent_omen: [...next.recent_omen, omen.key].slice(-8),
+    omen_turn: advanceOmenTurn(state),
+    omen_open: undefined,
+    omen_open_kind: undefined,
+  }
+  next = advanceNode(next, content)
+
+  return {
+    ok: true,
+    delta: [],
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
 /** 按类别给行囊分组，供界面用 */
 export function bagGroups(state: GameState): { daily: Item[]; key: Item[]; both: Item[] } {
   const out: { daily: Item[]; key: Item[]; both: Item[] } = { daily: [], key: [], both: [] }
@@ -2279,17 +2993,35 @@ function fail(state: GameState, content: ContentDB, reason: string): EngineResul
 // 位面之子遭遇结算
 // ============================================================
 
-function resolveDestinyEncounter(state: GameState, child: DestinyChild): GameState {
-  const rng = new Rng(deriveSeed(state.seed, `encounter-${child.id}-${state.node_index}`))
-  const protection = checkDestinyProtection(child, rng)
+function resolveDestinyEncounter(
+  state: GameState,
+  child: DestinyChild,
+  content: ContentDB,
+  rng: Rng,
+): { state: GameState; lines: string[] } {
+  const rngP = new Rng(deriveSeed(state.seed, `encounter-${child.id}-${state.node_index}`))
+  const protection = checkDestinyProtection(child, rngP)
 
   if (protection.protected) {
     // 天意庇佑：巧合救走他。气运已扣。
+    //
+    // 巧合的那段文本原先**从来没有显示过**：`coincidenceKey` 被塞进了
+    // `state.recent_narrative` —— 那是个**去重集合**（`pickFromPool` 拿它比对
+    // 已渲染过的正文），不是展示位。于是 `coincidence.json` 里 11 组、每组
+    // 三到四条的文本，玩家一个字也看不到，而那正是"他为什么没死"的解释。
+    //
+    // 现在两件事分开做：**文本进叙事**（由 `submitOption` 交给 `EngineResult.narrative`），
+    // **渲染过的文本进去重集合**（这才是那个集合的语义）。
+    const picked = pickFromPool(protection.coincidenceKey, content.coincidence, state, rng)
+    const lines = splitLines(picked.text)
     return {
-      ...state,
-      destiny_children: state.destiny_children.map((d) => (d.id === child.id ? child : d)),
-      flags: { ...state.flags, [`destiny_protected_${child.id}`]: true },
-      recent_narrative: [...state.recent_narrative, protection.coincidenceKey],
+      state: {
+        ...state,
+        destiny_children: state.destiny_children.map((d) => (d.id === child.id ? child : d)),
+        flags: { ...state.flags, [`destiny_protected_${child.id}`]: true },
+        recent_narrative: [...state.recent_narrative, ...lines],
+      },
+      lines,
     }
   }
 
@@ -2318,9 +3050,12 @@ function resolveDestinyEncounter(state: GameState, child: DestinyChild): GameSta
 
   const next = applyEffectsState(state, spoils, `kill:${child.id}`)
   return {
-    ...next,
-    destiny_children: next.destiny_children.map((d) => (d.id === child.id ? child : d)),
-    flags: { ...next.flags, [`destiny_slain_${child.id}`]: true },
+    state: {
+      ...next,
+      destiny_children: next.destiny_children.map((d) => (d.id === child.id ? child : d)),
+      flags: { ...next.flags, [`destiny_slain_${child.id}`]: true },
+    },
+    lines: [],
   }
 }
 
@@ -2332,17 +3067,43 @@ export function advanceNode(state: GameState, content: ContentDB): GameState {
   let next: GameState = { ...state, node_index: state.node_index + 1 }
   next.stage = stageAdvance(state.stage, next.node_index, next.total_nodes)
 
+  // 这一拍过去了，奇遇的真身也收起来；货架随之下架
+  next.omen_open = undefined
+  next.omen_open_kind = undefined
+  next.shop_stock = undefined
+
+  // 回望只在"刚做完一件事"的那一拍有效。别的事件源（日常 / 斗法 / 剧本）
+  // 不写 `last_outcome`，所以这里先清掉 —— 否则上一手的那句话会一直挂着，
+  // `transition.echo.*` 就再也轮不到阶段 / 境界那几档了。
+  // 「提交动作」的那几条路径会在 `advanceNode` **之后**把它写回来。
+  next.last_outcome = undefined
+
+  // 奇遇的闸：**每推进一拍 +1**，含日常拍、斗法拍、剧本拍。
+  // 让路只是"不做判定"，不是把计数器冻住 —— 冻住的话，在剧本里蹲久了、
+  // 出来第一拍必是奇遇，奇遇反而成了可预期的节拍器。
+  next.nodes_since_omen = (state.nodes_since_omen ?? 0) + 1
+
   // 位面之子也在推进自己的命运线 —— 玩家每走一步，他们也走一步
+  //
+  // `advanceFate` 的返回值原先**被丢掉了**：`milestone.narrative` 从来没有
+  // 到过玩家眼前，`world_effect` 更是 41/54 个里程碑全部未生效。
+  // 这里先把最轻的那一半接上（让玩家看见"他在推命运线"）；
+  // `world_effect` 一次改变 41 个里程碑的行为，风险最高，**单独评审再上线**。
+  const fateNotes: string[] = []
   next = {
     ...next,
     destiny_children: next.destiny_children.map((d) => {
       if (!d.alive) return d
       const copy: DestinyChild = { ...d, fate_line: [...d.fate_line] }
-      advanceFate(copy, next.node_index)
+      const r = advanceFate(copy, next.node_index)
+      if (r.advanced && r.milestone?.narrative) {
+        fateNotes.push(`${copy.name}：${r.milestone.narrative}`)
+      }
       // 境界名随修为推进 —— 原先只在生成时写一次，此后永远是"第二境"
       copy.realm_name = realmNameAt(content, copy.pack, copy.power_index)
       return copy
     }),
+    destiny_notes: fateNotes,
   }
 
   // 因果自然衰减（SPEC 7.3 debt_decay：每 5 节点 −1）+ 热度类变量的等比衰减
@@ -2522,8 +3283,29 @@ export function planScenarioChain(state: GameState, content: ContentDB): GameSta
   //
   // 只增不减：其它路径（事件、日常、斗法）照旧按原 `total_nodes` 收束，
   // 这里只保证"已经排上队的剧本一定走得完"。
-  const need = start + lead.length + (sc.span ?? 3) + 1
-  const total_nodes = Math.max(state.total_nodes, need)
+  //
+  // **但 `need` 必须封顶。** 抬高 `total_nodes` 最初没有上界，实测长尾失控：
+  // 17.7% 的局超过 42 拍、p90 = 44、最长 55 拍（约 14 分钟），
+  // 而 `sim.ts` 的门禁是"平均 30–42 / 估算 4–12 分钟"。
+  // **均值仍然过得了（38.9）—— 门禁是按均值判的，所以它拦不住长尾。**
+  // 而长尾恰恰是玩家最可能中途退出的地方：一局 55 拍，读到第四十拍就关了。
+  //
+  // 上限取 `TOTAL_NODES_CAP`：按 15 秒/拍估，46 拍 = 11.5 分钟，卡在 12 分以内。
+  //
+  // 压上限会带来一个已知风险：**排在局末的剧本可能又走不完**（当初放开
+  // `total_nodes` 就是为了它）。所以 runway 不够时**根本不排这条链** ——
+  // 规划是每拍都在试的（`SCENARIO_SHARE`），这一拍排不下就等下一拍。
+  // 刻意**不**改成"取消上限"：那会把长尾放回来。
+  const GRACE_TAIL = 1
+  const need = start + lead.length + (sc.span ?? 3) + GRACE_TAIL
+
+  // runway 不足 → **这一拍不排**。规划每一拍都会再试（`SCENARIO_SHARE`），
+  // 所以这不是"放弃这个剧本"，只是"现在还轮不到它"。
+  // 宁可少一次剧本，也不要排一条注定走不完的链 ——
+  // 后者玩家看不到任何异常，只在结局里少了一块。
+  if (need > TOTAL_NODES_CAP) return state
+
+  const total_nodes = Math.min(TOTAL_NODES_CAP, Math.max(state.total_nodes, need))
 
   return { ...state, queue, total_nodes }
 }
@@ -2665,6 +3447,26 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
       const rng = new Rng(makeSeed(state.seed, state.node_index, `scn:${sc.id}`))
       return buildScenarioPresentation(state, content, sc, rng)
     }
+  }
+
+  // ---- 奇遇（omen）通道 ----
+  //
+  // 两屏，共用同一拍：
+  //   1. **接不接**（`kind:'encounter'`，选项由引擎合成，内容侧不写也不许写）
+  //   2. **真身**（`omen_open` 已记下 → 事件给正文与选项 / 坊市给货架）
+  //
+  // 顺序上的讲究：真身那一屏**走 `pickNextEvent` 之外的路径** ——
+  // 它呈现的是**已经抽中的那个内容本体**，不重新抽。
+  // 否则玩家"接下了"，看到的却是另一件事。
+  if (state.omen_open) {
+    const body = buildOmenBody(state, content, state.omen_open)
+    if (body) return body
+    // 内容没了（改内容之后读档）也绝不能空着 —— 落回常规阶梯
+  }
+  const omen = peekOmen(state, content)
+  if (omen) {
+    const rngOmen = new Rng(makeSeed(state.seed, state.node_index, `omen:${omen.key}`))
+    return buildOmenGate(state, content, omen, rngOmen)
   }
 
   const rng = new Rng(makeSeed(state.seed, state.node_index, 'present'))

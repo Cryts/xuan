@@ -183,14 +183,28 @@ export const INTENT_DESC: Record<Intent, string> = {
 export interface BandStyle {
   text: string
   color: string
+  /** 壳上那一枚字 —— **必需项不是装饰**（WCAG 2.1 SC 1.4.1：不能只靠颜色传达信息） */
+  seal: string
   desc: string
 }
 
+/**
+ * 四段位的壳。
+ *
+ * `color` 用的是**文本色**（`--jade-txt` / `--cinnabar-txt`），不是正色。
+ * 实测对比度：正色 `--jade` 对 `--ink-2` 只有 **3.36:1**、`--cinnabar` 只有
+ * **3.03:1**，都低于 WCAG AA 的正文线 4.5:1；换成文本色之后是 7.69 / 6.04。
+ *
+ * 这一步在"结果正文"接上屏之后**从建议升级为必须**：
+ * 结果正文只有 44.7% 的段位槽真的分了档（其余回落到不分档的池子），
+ * 所以四档的区别**只能由壳承担** —— 壳读不清 = 四档白分。
+ * 那三样是：一枚字、一个颜色、一条左边框。
+ */
 export const BAND_STYLE: Record<string, BandStyle> = {
-  crit: { text: '大成功', color: 'var(--gold)', desc: '天时在握。' },
-  success: { text: '成功', color: 'var(--jade)', desc: '如愿。' },
-  fail: { text: '失败', color: 'rgba(242,234,217,.5)', desc: '事与愿违。' },
-  crit_fail: { text: '大失败', color: 'var(--cinnabar)', desc: '祸不单行。' },
+  crit: { text: '大成功', color: 'var(--gold)', seal: '极', desc: '天时在握。' },
+  success: { text: '成功', color: 'var(--jade-txt)', seal: '成', desc: '如愿。' },
+  fail: { text: '失败', color: 'rgba(242,234,217,.72)', seal: '阻', desc: '事与愿违。' },
+  crit_fail: { text: '大失败', color: 'var(--cinnabar-txt)', seal: '厄', desc: '祸不单行。' },
 }
 
 /* ============================================================

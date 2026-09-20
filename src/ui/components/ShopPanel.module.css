@@ -1,0 +1,154 @@
+/* 坊市 —— 一块"货架"，不是一路"选项"。
+   刻意与事件选项卡片分开摆：事件是际遇（选一条路），坊市是转换（把已有的换成要的）。 */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s4);
+  border-left: 3px solid rgba(var(--gold-rgb), 0.45);
+  background: linear-gradient(100deg, rgba(var(--gold-rgb), 0.05), rgba(var(--paper-rgb), 0.015));
+  animation: fadeIn var(--d3) var(--ease) both;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.mark {
+  font-family: var(--font-title);
+  color: var(--gold-bright);
+}
+
+.headText {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  color: var(--t2);
+}
+
+.purse {
+  margin-left: auto;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.12em;
+  color: var(--t4);
+}
+
+.shelf {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto auto;
+  align-items: baseline;
+  gap: var(--s2);
+  padding: var(--s2) var(--s2);
+  background: rgba(var(--paper-rgb), 0.02);
+}
+
+.row[data-out='1'] {
+  opacity: 0.42;
+}
+
+.name {
+  font-size: var(--fs-sm);
+  color: var(--t1);
+}
+
+.quality {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: var(--t4);
+}
+
+.desc {
+  font-size: var(--fs-2xs);
+  color: var(--t4);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 22ch;
+}
+
+.price {
+  font-size: var(--fs-sm);
+  color: var(--gold-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+.buy,
+.sellBtn,
+.leave {
+  font: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgba(var(--paper-rgb), 0.22);
+  color: var(--t2);
+  padding: 2px 10px;
+  letter-spacing: 0.1em;
+  transition: border-color var(--d2) var(--ease), color var(--d2) var(--ease);
+}
+
+.buy:hover:not(:disabled),
+.sellBtn:hover,
+.leave:hover {
+  border-color: var(--gold-bright);
+  color: var(--paper);
+}
+
+.buy:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.empty {
+  margin: 0;
+  color: var(--t4);
+  font-size: var(--fs-sm);
+}
+
+.sellBox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  border-top: 1px solid rgba(var(--paper-rgb), 0.1);
+  padding-top: var(--s2);
+}
+
+.sellHint {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  color: var(--t4);
+}
+
+.sellRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  border-top: 1px solid rgba(var(--paper-rgb), 0.1);
+  padding-top: var(--s2);
+}
+
+.footHint {
+  font-size: var(--fs-2xs);
+  color: var(--t4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}

@@ -56,6 +56,14 @@ describe('端到端：一局完整对局', () => {
         st = act(st, { type: 'play/daily', id: p.daily[0]!.id })
         continue
       }
+
+      // 坊市：货架是**专用面板**，options 为空。驱动器不认它就会掉到
+      // play/wait（那条只在剧本里有效）→ 原地打转，直到撞上死循环保护，
+      // 而报出来的却是"推进不动"。这与 `tools/playtest.ts` 的 `hasPanel()` 同一个坑。
+      if (p.shop) {
+        st = act(st, { type: 'play/option', optionId: '__shop_leave__' })
+        continue
+      }
       if (p.scenario_entry) {
         st = act(st, { type: 'play/entry', enter: steps % 3 !== 0 })
       } else if (p.kind === 'scenario' && p.actions?.length) {
@@ -124,6 +132,14 @@ describe('端到端：一局完整对局', () => {
       }
       if (p.daily) {
         st = act(st, { type: 'play/daily', id: p.daily[0]!.id })
+        continue
+      }
+
+      // 坊市：货架是**专用面板**，options 为空。驱动器不认它就会掉到
+      // play/wait（那条只在剧本里有效）→ 原地打转，直到撞上死循环保护，
+      // 而报出来的却是"推进不动"。这与 `tools/playtest.ts` 的 `hasPanel()` 同一个坑。
+      if (p.shop) {
+        st = act(st, { type: 'play/option', optionId: '__shop_leave__' })
         continue
       }
       if (p.scenario_entry) {

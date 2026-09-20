@@ -19,14 +19,22 @@ import {
   submitOption,
   submitScenarioAction,
   bindContent,
+  buyItem,
+  leaveShop,
+  sellItem,
   submitDaily,
   submitDuelAftermath,
   useItem,
   submitDuelEntry,
   submitDuelStance,
+  submitOmenPass,
+  submitOmenTake,
   submitScenarioEntry,
   submitTrial,
+  OMEN_PASS,
+  OMEN_TAKE,
   type EndingResult,
+  type EngineResult,
   type FreeActionReport,
   type HeavenBoardRow,
 } from '@/core/engine'
@@ -664,6 +672,15 @@ export interface AppState {
   pres: NodePresentation | null
   floats: FloatItem[]
   banner: Banner | null
+  /**
+   * 「刚才那一手」的结果正文 —— 玩家选完之后看见的那三行。
+   *
+   * 它**与 `banner` 分开两个槽**：`banner` 只放两三个字的判决，
+   * 而且有隐规则揭示时会被整个换掉。结果正文挤在里面就会随揭示一起消失。
+   *
+   * 单槽、随拍覆写：不做队列，因为它的语义是"上一手"，攒着讲就成了编年史。
+   */
+  aftermath: { band?: string; lines: string[] } | null
   toast: string | null
   /** 本次呈现里刚刚揭示的隐规则 id —— 用于「揭示那一刻」的仪式感 */
   justRevealed: string[]
@@ -781,6 +798,7 @@ export function initState(): AppState {
     pres: null,
     floats: [],
     banner: null,
+    aftermath: null,
     toast: null,
     justRevealed: [],
     freeBusy: false,
@@ -900,6 +918,7 @@ export function reducer(st: AppState, action: Action): AppState {
         pres,
         floats: [],
         banner: null,
+        aftermath: null,
         toast: null,
         justRevealed: diffRevealed(null, pres),
         free: null,
@@ -923,7 +942,7 @@ export function reducer(st: AppState, action: Action): AppState {
           free: null,
         }
       }
-      return { ...st, screen: 'play', state, pres, floats: [], banner: null, justRevealed: [], free: null }
+      return { ...st, screen: 'play', state, pres, floats: [], banner: null, aftermath: null, justRevealed: [], free: null }
     }
 
     case 'abandon': {
@@ -935,6 +954,7 @@ export function reducer(st: AppState, action: Action): AppState {
         pres: null,
         floats: [],
         banner: null,
+        aftermath: null,
         free: null,
         ending: null,
         resumable: false,
@@ -954,7 +974,7 @@ export function reducer(st: AppState, action: Action): AppState {
       }
       const res = submitDaily(state, action.id, content)
       if (!res.ok) return { ...st, toast: '行不得' }
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return afterEngine(st, res)
     }
 
     case 'play/duel-stance': {
@@ -963,7 +983,7 @@ export function reducer(st: AppState, action: Action): AppState {
       if (!state || !pres?.duel) return st
       const res = submitDuelStance(state, action.stance, action.way, content)
       if (!res.ok) return { ...st, toast: res.reason ?? '动不了手' }
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return afterEngine(st, res)
     }
 
     case 'play/duel-after': {
@@ -972,7 +992,7 @@ export function reducer(st: AppState, action: Action): AppState {
       if (!state || !pres?.duel_result) return st
       const res = submitDuelAftermath(state, action.kill, content)
       if (!res.ok) return { ...st, toast: res.reason ?? '这一步落不下去' }
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return afterEngine(st, res)
     }
 
     case 'play/use-item': {
@@ -981,7 +1001,7 @@ export function reducer(st: AppState, action: Action): AppState {
       if (!state) return st
       const res = useItem(state, action.itemId, content)
       if (!res.ok) return { ...st, toast: res.reason ?? '用不了' }
-      const next = afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      const next = afterEngine(st, res)
       return { ...next, toast: '用掉了。' }
     }
 
@@ -995,9 +1015,37 @@ export function reducer(st: AppState, action: Action): AppState {
         if (action.optionId === 'duel_fight' || action.optionId === 'duel_avoid') {
           const res = submitDuelEntry(state, action.optionId === 'duel_fight', content)
           if (!res.ok) return { ...st, toast: '此刻动不得' }
-          return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+          return afterEngine(st, res)
         }
         return st
+      }
+
+      // 奇遇「接不接」—— 与斗法遭遇同构：它也没有对应的事件对象
+      // （真身是**抽中的那一刻**就定下的，这里不能重新抽）。
+      if (pres.kind === 'encounter' && pres.event_id === '__omen__') {
+        const take = action.optionId === OMEN_TAKE
+        if (!take && action.optionId !== OMEN_PASS) return st
+        const res = take ? submitOmenTake(state, content) : submitOmenPass(state, content)
+        if (!res.ok) return { ...st, toast: res.reason ?? '此刻没有什么来敲门' }
+        return afterEngine(st, res)
+      }
+
+      // 坊市：买 / 卖 / 离开。**买与卖不推进节点**（与 useItem 同构），
+      // 离开那一次选择才推进 —— 这就是「进店耗一拍、店内可买任意多笔」。
+      if (pres.shop) {
+        if (action.optionId === SHOP_LEAVE) {
+          const res = leaveShop(state, content)
+          if (!res.ok) return { ...st, toast: res.reason ?? '走不开' }
+          return afterEngine(st, res)
+        }
+        if (action.optionId.startsWith(SHOP_SELL_PREFIX)) {
+          const res = sellItem(state, action.optionId.slice(SHOP_SELL_PREFIX.length), content)
+          if (!res.ok) return { ...st, toast: res.reason ?? '他不收' }
+          return afterEngine(st, res)
+        }
+        const res = buyItem(state, action.optionId, content)
+        if (!res.ok) return { ...st, toast: res.reason ?? '买不成' }
+        return afterEngine(st, res)
       }
 
       const ev = eventFromPresentation(pres, content)
@@ -1006,7 +1054,7 @@ export function reducer(st: AppState, action: Action): AppState {
         console.warn('[玄] 选项提交被拒：', res.reason)
         return { ...st, toast: res.reason ? `此路不通：${res.reason}` : '此路不通' }
       }
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return afterEngine(st, res)
     }
 
     case 'play/duel-entry': {
@@ -1014,7 +1062,7 @@ export function reducer(st: AppState, action: Action): AppState {
       if (!state) return st
       const res = submitDuelEntry(state, action.fight, content)
       if (!res.ok) return { ...st, toast: '此刻动不得' }
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return afterEngine(st, res)
     }
 
     case 'play/duel-stance': {
@@ -1023,7 +1071,7 @@ export function reducer(st: AppState, action: Action): AppState {
       const res = submitDuelStance(state, action.stance, action.way, content)
       if (!res.ok) return { ...st, toast: '出手不成' }
       // 三轮的战报用 banner 的方式带出来
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return afterEngine(st, res)
     }
 
     case 'play/duel-after': {
@@ -1031,7 +1079,7 @@ export function reducer(st: AppState, action: Action): AppState {
       if (!state?.pending_duel_result) return st
       const res = submitDuelAftermath(state, action.kill, content)
       if (!res.ok) return { ...st, toast: res.reason ? `下不去手：${res.reason}` : '下不去手' }
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return afterEngine(st, res)
     }
 
     case 'play/entry': {
@@ -1048,7 +1096,7 @@ export function reducer(st: AppState, action: Action): AppState {
         console.warn('[玄] 入场抉择被拒：', res.reason)
         return { ...st, toast: res.reason ? `此刻进退不得：${res.reason}` : '此刻进退不得' }
       }
-      const next = afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      const next = afterEngine(st, res)
       if (action.enter) {
         return { ...next, toast: '入局 —— 此地的规矩，得自己看。' }
       }
@@ -1065,7 +1113,7 @@ export function reducer(st: AppState, action: Action): AppState {
         return { ...st, toast: res.reason ? `试之不成：${res.reason}` : '试之不成' }
       }
       const banner = scenarioBanner(before, res.state.active_scenario, 'attempted')
-      return afterEngine(st, res.state, res.presentation, res.delta, undefined, banner)
+      return afterEngine(st, res, banner)
     }
 
     case 'play/action': {
@@ -1079,7 +1127,7 @@ export function reducer(st: AppState, action: Action): AppState {
         return { ...st, toast: res.reason ? `行不得：${res.reason}` : '行不得' }
       }
       const banner = scenarioBanner(before, res.state.active_scenario, action.id === 'leave' ? 'leave' : 'tried')
-      return afterEngine(st, res.state, res.presentation, res.delta, res.band, banner)
+      return afterEngine(st, res, banner)
     }
 
     case 'play/wait': {
@@ -1089,7 +1137,7 @@ export function reducer(st: AppState, action: Action): AppState {
       const res = submitTrial(state, 'item', '__wait__', content)
       if (!res.ok) return { ...st, toast: '此刻动弹不得' }
       const banner = scenarioBanner(state.active_scenario, res.state.active_scenario, 'none')
-      return afterEngine(st, res.state, res.presentation, res.delta, undefined, banner)
+      return afterEngine(st, res, banner)
     }
 
     case 'free/result': {
@@ -1125,7 +1173,7 @@ export function reducer(st: AppState, action: Action): AppState {
         return { ...st, free: echo, freeBusy: false, toast: '这一手没有落在任何地方 —— 换一种说法试试。' }
       }
 
-      const next = afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      const next = afterEngine(st, res)
       return { ...next, free: echo, freeBusy: false }
     }
 
@@ -1215,25 +1263,41 @@ function sanitizeReport(r: FreeActionReport): FreeActionReport {
   }
 }
 
-/** 引擎结算之后：落状态、记浮字、判终局、算揭示 */
-function afterEngine(
-  st: AppState,
-  nextState: GameState,
-  nextPres: NodePresentation,
-  delta: { key: VarKey | AttrKey; from: number; to: number }[],
-  band: string | undefined,
-  bannerOverride?: Banner | null,
-): AppState {
-  const floats = floatsFrom(delta, st.seq + 1)
+/**
+ * 引擎结算之后：落状态、记浮字、判终局、算揭示。
+ *
+ * 收的是**整个 `EngineResult`**，不是拆开的几个字段。
+ *
+ * 拆开收过一次，代价是 `narrative` 整整一辈子没上过屏：
+ * 它由 `submitOption` 产出、在 `EngineResult` 上躺了很久，而这里只收
+ * `state / presentation / delta / band` 四样 —— 没有报错，没有测试变红，
+ * 玩家只是每次选完都看不见"结果正文"。**接口上少写一个字段，
+ * 就是一类静默失效。** 整包转交之后，引擎再加字段会自动流到这里。
+ *
+ * 唯一要显式决定的是"这一拍要不要显示结果正文"：判据从数据派生
+ * （`res.narrative?.lines?.length`），而不是给 14 个调用点逐个打标 ——
+ * 逐个打标又是一种手写，手写就会漏。
+ */
+function afterEngine(st: AppState, res: EngineResult, bannerOverride?: Banner | null): AppState {
+  const nextState = res.state
+  const nextPres = res.presentation
+  const floats = floatsFrom(res.delta, st.seq + 1)
   const justRevealed = diffRevealed(st.pres, nextPres)
 
   let banner = bannerOverride ?? null
-  if (!banner && band) {
+  if (!banner && res.band) {
+    const band = res.band
     banner = { kind: 'band', text: band, tone: band === 'crit_fail' ? 'bad' : band === 'fail' ? 'flat' : 'good' }
   }
   if (justRevealed.length > 0) {
     banner = { kind: 'reveal', text: '参透', detail: '隐规则之一，自此洞明。', tone: 'gold' }
   }
+
+  // 结果正文与 `banner` **必须分开两个槽**：`banner` 在有隐规则揭示时会被
+  // 整个换成 reveal（上面那三行），结果正文若住在里面，玩家每次参透
+  // 隐规则就少看见一次结果。
+  const lines = res.narrative?.lines ?? []
+  const aftermath = lines.length > 0 ? { band: res.band, lines } : null
 
   const ended = nextState.status === 'ended' || nextPres.kind === 'ending'
   return {
@@ -1242,6 +1306,7 @@ function afterEngine(
     pres: nextPres,
     floats,
     banner,
+    aftermath,
     justRevealed,
     // 任何别的动作都盖掉上一次自由输入的回显 —— 它只解释刚刚那一手
     free: null,
@@ -1266,6 +1331,12 @@ function afterEngine(
    ============================================================ */
 
 export type ItemWear = 'intact' | 'worn' | 'broken'
+
+/* ---------- 坊市面板的两个合成 id ----------
+   货架上的"买"直接用物品 id 当选项 id；"卖"要避开同 id 冲突，
+   所以加前缀。两者都**不推进节点**，只有「离开」推进。 */
+export const SHOP_LEAVE = '__shop_leave__'
+export const SHOP_SELL_PREFIX = '__sell__'
 
 export const WEAR_NAMES: Record<ItemWear, string> = {
   intact: '完好',

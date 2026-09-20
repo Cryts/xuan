@@ -201,6 +201,29 @@ export interface Option {
 export interface NarrativeSpec {
   title_pool: string[]
   body_key: string // L1/L2 寻址键，见 SPEC 第 7 章
+  /**
+   * 事件级正文 —— 优先于 `body_key`。
+   *
+   * 键名约定 **`evt.<事件 id>`**，不按序号派生：事件 id 末尾都是 `_NN`，
+   * 但 `(母题, 阶段, 序号)` 这个组合有 119 组冲突（`evt_mortal_auction_03`
+   * 与 `evt_genius_auction_03` 会派生到同一个 key）。用 id 做 key 零歧义。
+   *
+   * 取不到时**静默回落 `body_key`**，所以 `content-lint` 有一条
+   * `narrative_key_resolvable` 盯着它。
+   */
+  self_key?: string
+  /**
+   * 余波 —— 选项结算之后那一段。
+   *
+   * 回落顺序是 `band.narrative` → `after_key` → `body_key`。
+   * 最后那一级就是"把开场白当结局再念一遍"，所以夹在中间的这一级很要紧：
+   * 一段话管四个段位，比给每个段位补词便宜得多。
+   */
+  after_key?: string
+  /** 回望 —— 承接上一拍的正文（用在 `pickNextEvent` 之外的场景，如系列第二拍起） */
+  before_key?: string
+  /** 本事件的槽位覆盖：`renderTemplate` 的 `{location}` 之类 */
+  slots?: Record<string, string[]>
   ai_enhance?: 'none' | 'l2' | 'l3'
 }
 
@@ -220,7 +243,39 @@ export interface LooseEvent {
   cooldown?: { same_motif?: number; same_npc?: number; same_tag?: number }
   narrative: NarrativeSpec
   options: Option[]
-  followups?: string[] // "evt_id@debt>=3"
+  /**
+   * ⚠️ **引擎不读这个字段**（只在 `chain.next` / `queue_followup` 上生效）。
+   *
+   * 全库 57 个事件声明了它，一条也没兑现过。它是早期设计（`"evt_id@debt>=3"`
+   * 想表达"满足条件才接"），后来被 `OutcomeBand.queue_followup` 取代，
+   * 现在由 `chain.next` 承接。`content-lint` 的 `followups_dead_field` 盯着它只许降不许升。
+   *
+   * 留在类型里是因为试玩仪表还用它做"有意连锁"的判据 ——
+   * 那条判据本身也是错的（拿一个不生效的字段去解释重复），别照抄。
+   */
+  followups?: string[]
+  /**
+   * 渠道。缺省 `'chain'`（成系列）；`'omen'` = 一次性奇遇。
+   *
+   * **链式事件不写这个字段** —— 能派生就不要手写。
+   * 奇遇绕过 `cooldown.same_motif` / `same_tag` / `stage` 过滤：
+   * 奇遇的本分就是"在不该来的时候来"，而调度器的本分是维持节奏，
+   * 这两件事必须分通道，同一条通道里它们会互相抵消。
+   */
+  channel?: 'chain' | 'omen'
+  /** 仅奇遇用：距上次奇遇至少隔几拍。内容侧若声明更大的值，这一拍作废（保持每内容语义） */
+  omen_gap?: number
+  /**
+   * 显式系列 —— 「这件事之后，按哪条分支接哪一件」。
+   *
+   * 比 `followups` 强的地方：带分支（`if`）、带根（`root`）。
+   * 入队时**插队首**，因为它承诺的是"紧接着"；而
+   * `planScenarioChain` 的铺垫继续插队尾 —— 见 `engine.ts` 的 `queue_followup` 分支。
+   */
+  chain?: {
+    root: string
+    next: { id: string; window?: string; if?: Band }[]
+  }
   tags: string[]
   meta_unlock?: { codex?: string; title?: string }
   version: string
@@ -624,6 +679,60 @@ export interface GameState {
   last_realm_idx?: number
   /** 上一个节点的母题 —— 用来判断这件事是不是上一件事的延续 */
   last_motif?: string
+  /**
+   * 上一次结算的性质 —— 供 `composeTransition` 的"回望"那一级用。
+   *
+   * `echo_class` **由规则派生，不许内容自己标**（见 `deriveEchoClass`）：
+   * 内容能自己标，就会为了想要的接缝去标错的档，而接缝说什么
+   * 必须由"刚才真的发生了什么"决定。
+   */
+  last_outcome?: {
+    event_id: string
+    motif: string
+    echo_class: EchoClass
+    band?: Band
+  }
+  /**
+   * 距上次奇遇呈现过去了多少拍。**每推进一拍 +1，含日常拍、斗法拍、剧本拍。**
+   *
+   * 在剧本里蹲久了、出来第一拍必是奇遇的那种节拍器效果，靠"照常 +1"避免：
+   * 让路只是不做判定，不是把计数器冻住。
+   */
+  nodes_since_omen: number
+  /** 最近呈现过的奇遇/商店 key —— 同一内容三拍内不得重复（含"不得连任"） */
+  recent_omen: string[]
+  /**
+   * 玩家在"接不接"那一拍选了**接下** —— 记下真身的 key，
+   * 让同一拍的第二屏呈现它本体（事件给正文与选项 / 坊市给货架）。
+   *
+   * 强调一遍：真身那一屏**不重新抽**。清了它（`advanceNode`）这一拍才算过去。
+   */
+  omen_open?: string
+  /** 真身的类型，与 `omen_open` 同时写、同时清 */
+  omen_open_kind?: 'event' | 'shop'
+  /**
+   * 上一步位面之子推进了什么（`advanceFate` 的 `milestone.narrative`）。
+   *
+   * 每推进一拍重算、不累加：它要讲的是"刚刚这一步"，攒着讲就成了一篇编年史。
+   */
+  destiny_notes: string[]
+  /**
+   * 奇遇轮到谁。`omen_rotation` 是**数组而不是布尔翻转** ——
+   * 将来要加第三类奇遇（如游方术士）不用改 schema。
+   */
+  omen_turn: string
+  omen_rotation: string[]
+  /** 本局在坊市买过 / 卖过多少件（跨奇遇累计，涨价依据） */
+  shop_bought: number
+  shop_sold: number
+  /**
+   * 本次进店的货架。
+   *
+   * **存下来而不是每次重算**：`buildShopStock` 的种子由 `node_index` 定，
+   * 重算会得到同一批货 —— 于是刚买走的那件又回到架子上，`stock` 形同虚设。
+   * 买与卖**不推进节点**（与 `useItem` 同构），所以这一格里的货架必须是**活的**。
+   */
+  shop_stock?: ShopStock
   /** 本局已经用过多少次过渡句 —— 避免同一句连着出现 */
   transition_used?: number
   /** 引擎用：本局目标节点总数（决定阶段推进节奏） */
@@ -714,7 +823,43 @@ export interface NodePresentation {
   transition?: string
   /** 剧本触发时的入场抉择 —— 有这一项时，玩家还没进去 */
   scenario_entry?: ScenarioEntry
+  /**
+   * 坊市货架。**是字段不是新 `kind`** ——
+   * 与 `daily?: DailyAction[]` / `duel?: DuelSetup` 同构。
+   *
+   * 真身用 `kind:'loose'` + 这一项；"接不接"那一拍用 `kind:'encounter'`。
+   * `tools/playtest.ts` 的 `hasPanel()` 必须认得它，否则试玩 agent 会把
+   * 整个坊市当成空节点**强制跳过，而且不报错**（CLAUDE.md 登记过这个坑）。
+   */
+  shop?: ShopStock
+  /** 奇遇“接不接”那一拍：引擎合成的两个选项之外，还要知道接下去是什么 */
+  omen?: { key: string; kind: 'event' | 'shop' }
+  /**
+   * 位面之子这一步推进了什么 —— 「他在推命运线」的那句话。
+   *
+   * 出处是 `advanceFate` 的返回值：那个返回值**被丢掉了很久**，
+   * 于是 54 个里程碑叙事一条也没到过玩家眼前（`world_effect` 的 41 条同理，
+   * 那一半还没接，见 `advanceNode`）。
+   */
+  destiny_notes?: string[]
 }
+
+/**
+ * 坊市货架。
+ *
+ * `bought_here` 与 `GameState.shop_bought` **必须分开**：
+ * 前者是"这次进店的限购判据"，后者是"本局累计的涨价依据"。
+ * 混用会让限购在第二次进店时失效（第二次进来 `bought_here` 还带着上次的数）。
+ */
+export interface ShopStock {
+  node_index: number
+  items: { item: Item; price: number; stock: number }[]
+  /** 本次进店已成交笔数（限购判据） */
+  bought_here: number
+}
+
+/** 回望档 —— `composeTransition` 最高优先级那一级的四个取值 */
+export type EchoClass = 'cost' | 'gain' | 'escape' | 'debt'
 
 export interface TrialOption {
   kind: 'item' | 'rule'

@@ -17,6 +17,8 @@
 import { scanText } from './forbidden-words'
 import { loadContent, ROOT } from './load-content'
 import { ATTR_REACHABLE, ATTR_TYPICAL } from '../src/core/genesis'
+import { ARCHETYPES } from '../src/core/destiny'
+import { YEARS_BASE, YEARS_PER_REALM } from '../src/core/engine'
 import path from 'node:path'
 
 type Level = 'error' | 'warn'
@@ -36,12 +38,22 @@ const warn = (rule: string, where: string, msg: string) =>
 // ------------------------------------------------------------
 
 const c = loadContent()
+const PACKS = ['mortal', 'genius', 'physique', 'mystery', 'rebel', 'cautious']
+
+/**
+ * 阶梯最长的那个体系包有几层 —— 年份分档可达性用它算。
+ * 取**最长**的（最宽松），这样报出来的"取不到"一定是真的取不到。
+ */
+const maxRealmIdx = Math.max(
+  1,
+  ...PACKS.map(
+    (p) => ((c.packs as Record<string, { realms?: unknown[] }>)[p]?.realms ?? []).length,
+  ),
+)
 
 // ---- 加载健康 ----
 for (const m of c.report.missing) warn('missing_file', m, '文件缺失')
 for (const b of c.report.broken) err('schema_valid', b.file, `JSON 解析失败：${b.error}`)
-
-const PACKS = ['mortal', 'genius', 'physique', 'mystery', 'rebel', 'cautious']
 
 // ---- 1. IP 禁用词全量扫描 ----
 function scanDeep(value: unknown, where: string, skipKeys: string[] = []): void {
@@ -333,13 +345,15 @@ for (const [key, arr] of Object.entries(c.l2)) {
   }
 }
 
-// 巧合池必须覆盖全部原型 key
+// 巧合池必须覆盖**引擎真的会去取**的每一个 key。
+//
+// 这张清单是从 `destiny.ts:220-224` 派生的，不是手写的：那边的三处 key 构造是
+//   `destiny.protect.resist.<原型>` / `destiny.protect.<原型>` / `destiny.protect.none`
+// 手写清单漏掉了全部五条 `resist.*` —— 它们是**智谋型玩家用过的招数被记住之后**
+// 才会走到的分支，平时不出现，所以漏掉也不会有人发现，直到有人真去刷那种打法。
+// 少一个 key 的后果是静默的：`pickFromPool` 返回空串，玩家看到一片空白。
 const NEEDED_COINCIDENCE = [
-  'destiny.protect.brute',
-  'destiny.protect.schemer',
-  'destiny.protect.turtle',
-  'destiny.protect.ironic',
-  'destiny.protect.tragic',
+  ...ARCHETYPES.flatMap((a) => [`destiny.protect.${a}`, `destiny.protect.resist.${a}`]),
   'destiny.protect.none',
 ]
 for (const k of NEEDED_COINCIDENCE) {
@@ -348,6 +362,19 @@ for (const k of NEEDED_COINCIDENCE) {
     err('ref_resolvable', `narrative/coincidence`, `缺少必需的巧合池：${k}`)
   } else if (arr.length < 4) {
     warn('narrative_pool', `narrative/coincidence.${k}`, `仅 ${arr.length} 条，建议 ≥4`)
+  }
+}
+// 反向也要看：池子里有没有引擎永远取不到的 key（多半是 key 名拼错或原型改名）
+{
+  const needed = new Set(NEEDED_COINCIDENCE)
+  for (const k of Object.keys(c.coincidence)) {
+    if (!needed.has(k)) {
+      warn(
+        'ref_resolvable',
+        `narrative/coincidence.${k}`,
+        `引擎不会去取这个 key（key 只可能由 destiny.ts 的三种构造产生）—— 要么拼错了，要么该删`,
+      )
+    }
   }
 }
 if (c.oracle.length < 20) {
@@ -839,19 +866,33 @@ for (const n of new Set(realmIdxInEndings)) {
       omen_gap?: number
       chain?: { root?: string; next?: { id?: string; window?: string }[] }
       followups?: string[]
-      narrative?: { body_key?: string }
-      options?: { resolve?: { bands?: Record<string, { narrative?: string; queue_followup?: string }> } }[]
+      narrative?: {
+        body_key?: string
+        self_key?: string
+        after_key?: string
+        before_key?: string
+        slots?: Record<string, string[]>
+      }
+      options?: {
+        resolve?: { bands?: Record<string, { narrative?: string; queue_followup?: string }> }
+        outcome?: { queue_followup?: string }
+      }[]
     }
 
     // (a) 链式链接必须解析得到 —— 悬空的那一条会让"承诺的下一拍"永远不来。
-    // 判据覆盖三处：事件级 followups、chain.next、以及段位里的 queue_followup。
-    // （旧版只查了第一处，而引擎根本不读那个字段 —— 全库唯一一处悬空引用就是从这儿漏掉的。）
+    //
+    // 判据必须覆盖**引擎真的会读**的每一处。`grep -n "queue_followup" engine.ts` 给出两处：
+    //   `ob?.queue_followup`（段位）与 `opt.outcome.queue_followup`（直通结果）。
+    // 旧版只列了段位那一处 —— `outcome.queue_followup` 当时**没有任何门禁**，
+    // 而它是会真的入队的（`submitOption` 把它们并进 allEffects），
+    // 也就是说：写错一个 id，玩家那边什么都没有，lint 那边什么都不报。
     const linkRefs = [
       ...(anyE.followups ?? []).map((f) => ['followups', f] as const),
       ...(anyE.chain?.next ?? []).map((n) => ['chain.next', String(n.id ?? '')] as const),
       ...(anyE.options ?? []).flatMap((o) =>
         Object.values(o.resolve?.bands ?? {}).map((b) => ['queue_followup', String(b.queue_followup ?? '')] as const),
       ),
+      ...(anyE.options ?? []).map((o) => ['outcome.queue_followup', String(o.outcome?.queue_followup ?? '')] as const),
     ]
     for (const [src, raw] of linkRefs) {
       const id = raw.split('@')[0]
@@ -940,9 +981,188 @@ for (const n of new Set(realmIdxInEndings)) {
     )
   }
 
-  console.log(
-    `  衔接门禁：链式链接 ${chainLinks} 条 · 奇遇事件 ${omenCount} 个 · 共用正文的事件 ${sharedEvents}（基线 ${SHARED_BASELINE}）`,
-  )
+  // ---- 8. 结果正文与回望：这几个 key 取不到时**不报错，只是没字** ----
+  //
+  // 和上面同一类：全是"取不到就静默降级"的口子。玩家不会看到异常，
+  // 只会看到一段与刚才那件事无关的话 —— 而那正是最难被发现的失效。
+  {
+    let selfKeys = 0
+    let echoKeys = 0
+
+    for (const e of c.events as AnyEv[]) {
+      const anyE = e as {
+        id: string
+        narrative?: { self_key?: string; after_key?: string; before_key?: string; slots?: Record<string, string[]> }
+      }
+      const where = `event:${anyE.id}`
+
+      // (g) `self_key` / `after_key` / `before_key` 必须落在叙事池里。
+      //     这三个是 narrative-designer 新加的承接层：
+      //       self_key  事件级正文（优先于 body_key）
+      //       after_key 选项结算后的"余波"（在 body_key 之前兜住，免得重念开场白）
+      //       before_key 回望上一拍
+      //     取不到时的降级是静默的 —— 而且**降级方向恰恰是"重念开场白"**，
+      //     也就是 2181 条段位正文全废时玩家看到的那一幕。所以必须门禁。
+      for (const field of ['self_key', 'after_key', 'before_key'] as const) {
+        const k = anyE.narrative?.[field]
+        if (!k) continue
+        selfKeys++
+        const n = poolSize.get(k)
+        if (n === undefined) {
+          err(
+            'narrative_key_resolvable',
+            where,
+            `narrative.${field} 的键 "${k}" 不在叙事池中 —— 取不到时会静默回落到上一级（多半就是重念开场白）`,
+          )
+        } else if (n === 0) {
+          err('narrative_key_resolvable', where, `narrative.${field} 的键 "${k}" 在池中但为空`)
+        }
+      }
+
+      // `slots` 的值必须是字符串数组 —— 写成单个字符串时 renderTemplate 会
+      // 按字符逐个当候选，渲染出莫名其妙的一个字。这是"看起来有值"的坑。
+      if (anyE.narrative?.slots) {
+        for (const [name, v] of Object.entries(anyE.narrative.slots)) {
+          if (!Array.isArray(v) || v.some((x) => typeof x !== 'string')) {
+            err('narrative_key_resolvable', where, `narrative.slots.${name} 必须是字符串数组`)
+          } else if (v.length === 0) {
+            err('narrative_key_resolvable', where, `narrative.slots.${name} 是空数组 —— 渲染时回落中性默认`)
+          }
+        }
+      }
+    }
+
+    // (h) 回望池四档必须都在。
+    //     `composeTransition` 一旦有了 `last_outcome` 就**无条件**去取
+    //     `transition.echo.<echo_class>`（最高优先级）。少一个 key 的后果不是
+    //     "少一句"，而是那一拍**整条承接句落回年数过渡** ——
+    //     覆盖率读数照样是 100%，玩家读到的却还是"往后的年月……"。
+    for (const cls of ['cost', 'gain', 'escape', 'debt']) {
+      const k = `transition.echo.${cls}`
+      const n = poolSize.get(k)
+      if (n === undefined) {
+        err('echo_pool_present', `narrative/l2.${k}`, `缺少回望池 ${k} —— 该档结算后接不上上一件事`)
+      } else if (n < 2) {
+        err('echo_pool_present', `narrative/l2.${k}`, `${k} 仅 ${n} 条候选，接缝会立刻重复`)
+      } else {
+        echoKeys++
+      }
+    }
+
+    // (i) `LooseEvent.followups` 是**死字段**：引擎从头到尾不读它
+    //     （`grep -n "\.followups" src/core/` 只命中 lint 与试玩仪表本身）。
+    //     全库 57 个事件声明了它，一条也没兑现过 —— 这是"只进不出"队列坑的同族：
+    //     写的人以为挂了钩子，运行时没有钩子，而且不报错。
+    //
+    //     这里只锁水位（只许降不许升），不强行接上：那 57 条里有 16 条写的是
+    //     `evt_x@debt>=4` 这种**条件**语法，而 `parseFollowup` 只会把它当成
+    //     窗口解析失败 → 退化成"必出"。接错比不接更糟。
+    //     要接，得先由叙事侧把条件语义说清（`chain.next[].if` 已经是正确形状）。
+    let followupFieldUsers = 0
+    for (const e of c.events as { followups?: string[] }[]) {
+      if ((e.followups ?? []).length > 0) followupFieldUsers++
+    }
+    const FOLLOWUPS_LEGACY_BASELINE = 57
+    if (followupFieldUsers > FOLLOWUPS_LEGACY_BASELINE) {
+      err(
+        'followups_dead_field',
+        'events',
+        `声明了 followups 的事件从 ${FOLLOWUPS_LEGACY_BASELINE} 涨到 ${followupFieldUsers} —— ` +
+          `这个字段引擎不读（只在 chain.next / queue_followup 上生效），新写的链条请改用 chain.next`,
+      )
+    } else if (followupFieldUsers > 0) {
+      warn(
+        'followups_dead_field',
+        'events',
+        `${followupFieldUsers} 个事件仍在声明 followups（引擎不读，只许降不许升）—— 迁移目标：chain.next`,
+      )
+    }
+
+    // (j) 段位正文覆盖率棘轮 —— **只许升不许降**。
+    //
+    // 「结果正文」的回落链是 `band.narrative` → `after_key` → `body_key`，
+    // 而**最后那一级是陷阱**：`body_key` 同时是开场白的来源，
+    // 落到那里就是把玩家刚读完的开场白再念一遍（实测修之前 28.9% 的选择如此，
+    // 走段位池的 0%、走回落的 38.6%）。
+    //
+    // 覆盖率是内容侧的事（补 `after.*` 引用或补 `after_key`），
+    // 但**不设闸门就等于允许它退步** —— 这里锁住水位，让每一轮内容只能往下推。
+    let bandSlots = 0
+    let bandWithText = 0
+    for (const e of c.events as AnyEv[]) {
+      for (const o of (e as { options?: { resolve?: { bands?: Record<string, { narrative?: string }> } }[] }).options ?? []) {
+        for (const b of Object.values(o.resolve?.bands ?? {})) {
+          bandSlots++
+          if (b.narrative) bandWithText++
+        }
+      }
+    }
+    const BAND_MISSING_BASELINE = 2714 // = 4904 − 2190，改前实测
+    const missing = bandSlots - bandWithText
+    if (missing > BAND_MISSING_BASELINE) {
+      err(
+        'band_narrative_floor',
+        'events',
+        `没写段位正文的段位槽从 ${BAND_MISSING_BASELINE} 涨到 ${missing} —— ` +
+          `这些槽选完之后会回落到事件正文（=重念开场白）。只许降不许升`,
+      )
+    }
+
+    // (k) 年份分档不能有取不到的池子。
+    //     `yearsBucket` 的四档是按**固定阈值**切的（`few/some/many/ages`），
+    //     而每拍年数是**派生**的：`YEARS_BASE + realm_idx × YEARS_PER_REALM`。
+    //     两者一脱节，最高那一档就永远选不到 —— 池子还在、文字也写好了，
+    //     玩家一次也不会读到，而且**没有任何报错**。
+    //     （这是"读数与体验反向"的近亲：内容看起来齐全，实际是死字。）
+    const maxYears = YEARS_BASE + (maxRealmIdx - 1) * YEARS_PER_REALM
+    // 各档的**下界**（= 触发所需的最小年数）。与 `yearsBucket` 的切法一一对应：
+    //   few: y<=3 · some: 4..15 · many: 16..80 · ages: >80
+    const bucketFloor: Record<string, number> = { few: 1, some: 4, many: 16, ages: 81 }
+    for (const [bucket, floor] of Object.entries(bucketFloor)) {
+      const k = `transition.years.${bucket}`
+      if ((poolSize.get(k) ?? 0) > 0 && maxYears < floor) {
+        err(
+          'years_bucket_reachable',
+          `narrative/l2.${k}`,
+          `这一档不可能被选中：触发需要每拍年数 ≥ ${floor}，而全库最大只有 ${maxYears} ` +
+            `（YEARS_BASE ${YEARS_BASE} + (阶梯最长 ${maxRealmIdx} 层 − 1) × YEARS_PER_REALM ${YEARS_PER_REALM}）—— ` +
+            `要么删池，要么把阈值改成可达的`,
+        )
+      }
+    }
+
+    console.log(
+      `  正文层门禁：承接键 ${selfKeys} 个 · 回望池 ${echoKeys}/4 档 · 死字段 followups ${followupFieldUsers}（基线 ${FOLLOWUPS_LEGACY_BASELINE}）· 段位缺正文 ${missing}（基线 ${BAND_MISSING_BASELINE}）`,
+    )
+  }
+
+  // ---- 9. 坊市货架不得按剧本需求抽取（冻结的硬约束） ----
+  //
+  // 会签结论里唯一一条"不得软化"的：**货架的抽取函数不得读取 `active_scenario`**。
+  // 商店改成奇遇之后这条比原先更关键 —— 按需求抽货架，玩家会发现
+  // "一进剧本，奇遇里正好卖我要的东西"，奇遇感当场归零，
+  // 而"随机撞上的东西正好是你缺的"是最假的一种随机。
+  //
+  // 这是一条**源码级**的闸门：约束管的是"函数读了什么"，不是"数据长什么样"，
+  // 所以内容 schema 校验够不着它。把函数体抠出来按符号找，虽然土，
+  // 但比"写在注释里靠自觉"可靠。
+  {
+    const src = fs.readFileSync(path.join(ROOT, 'src/core/engine.ts'), 'utf8')
+    const i = src.indexOf('export function buildShopStock')
+    if (i < 0) {
+      err('shop_not_scenario_driven', 'src/core/engine.ts', '找不到 buildShopStock —— 闸门失效，请同步改名')
+    } else {
+      // 取到下一个顶层 `}`（函数体内缩进的 } 都以两个空格开头）
+      const body = src.slice(i, src.indexOf('\n}', i))
+      if (/active_scenario|solve|breakthrough/i.test(body)) {
+        err(
+          'shop_not_scenario_driven',
+          'src/core/engine.ts:buildShopStock',
+          '货架抽取函数里出现了剧本相关字段 —— 硬约束：奇遇（含商店）不得按当前剧本所需标签抽取',
+        )
+      }
+    }
+  }
 }
 
 // ---- 报告 ----

@@ -1,0 +1,50 @@
+/* 「刚才那一手」—— 结果正文。
+   它排在主区**顶部**，在正文与选项之前：先结算刚才那一手，再展开现在这一幕。
+   视觉权重刻意压低（正文级字号、一条细竖线、不加金框）：
+   实测结果正文的重复率偏高（唯一文本少、去重窗口被填满），
+   做重了会让那个内容缺口变得刺眼；做轻了它是"账"，不是"戏"。 */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4);
+  /* 左竖线用段位色 —— 与那枚字一起承担分档，不靠颜色单独传达（WCAG 1.4.1） */
+  border-left: 2px solid var(--edge, rgba(var(--paper-rgb), 0.28));
+  background: linear-gradient(100deg, rgba(var(--paper-rgb), 0.035), rgba(var(--paper-rgb), 0.01));
+  animation: fadeIn var(--d3) var(--ease) both;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.title {
+  font-family: var(--font-title);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.22em;
+  color: var(--t4);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 正文级字号、不逐字：段位判决已经落定，它该被给出来，不是被演出来 */
+.line {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.75;
+  color: var(--t3);
+}
+
+/* 关掉动效时它照样在（只是不淡入）—— 不许因为动画偏好把信息藏掉 */
+@media (prefers-reduced-motion: reduce) {
+  .wrap {
+    animation: none;
+  }
+}

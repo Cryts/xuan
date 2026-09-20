@@ -12,6 +12,7 @@ import { useMemo, useState } from 'react'
 import s from './ScenarioScreen.module.css'
 import { StatusBar } from './StatusBar'
 import { TrialPanel } from './TrialPanel'
+import { AftermathBlock } from './AftermathBlock'
 import { FreeEcho } from './FreeEcho'
 import { FreeInput } from './FreeInput'
 import { RevealOverlay, Seal, SectionTitle, Ticks } from './Shared'
@@ -107,6 +108,11 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
       />
 
       <main className={s.main}>
+        {/* 刚才那一手 —— 剧本屏也必须挂一次。
+            实测 7.2% 的下一屏走的是这里（而不是事件页），只挂事件页
+            会让那些结果正文**静默消失**，而数据层与状态层的测试测不出来。 */}
+        <AftermathBlock />
+
         {/* 上一次自由输入被听成了什么 */}
         <FreeEcho />
 

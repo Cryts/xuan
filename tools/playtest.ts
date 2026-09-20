@@ -22,10 +22,14 @@ import { PACK_IDS, type ContentDB } from '../src/core/content'
 import {
   SCENARIO_ACTIONS,
   bindContent,
+  buyItem,
+  leaveShop,
   presentCurrent,
 
   resolveEnding,
   startRun,
+  submitOmenPass,
+  submitOmenTake,
   submitOption,
   submitScenarioAction,
   submitDaily,
@@ -115,7 +119,9 @@ function hasPanel(p: NodePresentation): boolean {
     Boolean(p.actions?.length) ||
     Boolean(p.daily?.length) || // 日常面板
     Boolean(p.duel) || // 斗法：遭遇与明牌
-    Boolean(p.duel_result) // 斗法：战后处置
+    Boolean(p.duel_result) || // 斗法：战后处置
+    Boolean(p.shop) || // 坊市：货架（买/卖/离开都在这一屏，options 是空的）
+    Boolean(p.omen) // 奇遇「接不接」（选项由引擎合成，这里认的是那个标记）
   )
 }
 
@@ -124,6 +130,46 @@ function hasPanel(p: NodePresentation): boolean {
    每个节点都是独立取词的，彼此不知道对方讲过什么。
    这类断裂有可计算的部分：相邻两拍有没有共用的意象、
    有没有承接句、是不是同一件事紧挨着重复。 */
+/* ---------- 结果正文：它到底有没有到玩家眼前 ----------
+   这一段单独立出来，是因为它栽过：`EngineResult.narrative` 在引擎里
+   一直有位，而 UI 侧的 `afterEngine` 从来没接过它 —— 数据是好的，
+   玩家一个字也看不到，测试全绿。
+
+   两条读数：
+     · 结果正文覆盖率 —— 每一手都该有一句话；它是 100% 封顶的覆盖率，不是比率
+     · 与开场白逐字全同率 —— 玩家刚读完开场白，选完之后又读一遍同一段。
+       这不是"重复率高"，是**这一段根本没在说结果**。
+       实测修复前 28.9%（走段位池的 0%、走 body_key 回落的 38.6%）。 */
+const aftermath = {
+  picks: 0,
+  withText: 0,
+  sameAsIntro: 0,
+  seen: new Set<string>(),
+}
+/** 本节点的开场白正文（按 `事件@节点` 存），供"逐字全同"那条判据比对 */
+const introText = new Map<string, string>()
+
+/* ---------- 奇遇通道 ---------- */
+const omenBoard = {
+  gates: 0,
+  shopGates: 0,
+  eventGates: 0,
+  take: 0,
+  pass: 0,
+  shopOffers: 0,
+  shopBought: 0,
+  seen: new Map<string, number>(),
+}
+
+/* ---------- 链条兑现：声明了 chain.next 的，后来真的来了没有 ---------- */
+const chainBoard = {
+  declared: 0,
+  realized: 0,
+}
+const pendingChain: { id: string }[] = []
+/** 本局被任何事件声明为"下一拍"的事件 id —— 「有意连锁」判据用它，不再用死字段 */
+const declaredChainTargets = new Set<string>()
+
 const continuity = {
   nodes: 0,
   withTransition: 0,
@@ -135,7 +181,6 @@ const continuity = {
 }
 let prevTags: string[] = []
 let prevMotif: string | undefined
-let prevEvent: LooseEvent | undefined
 let prevStage: string | undefined
 
 function unmetConditions(sc: Scenario, solved: string[], state: Parameters<typeof evaluate>[1]['state']): Condition[] {
@@ -156,8 +201,9 @@ function playOne(idx: number): void {
   // 报出一堆 @node 0 的假硬切。
   prevTags = []
   prevMotif = undefined
-  prevEvent = undefined
   prevStage = undefined
+  declaredChainTargets.clear()
+  pendingChain.length = 0
 
   const rng = new Rng(`play-${idx}`)
   const pack = PACK_IDS[rng.int(0, PACK_IDS.length - 1)]!
@@ -182,6 +228,32 @@ function playOne(idx: number): void {
     if (pres.kind !== 'ending' && !hasPanel(pres)) {
       emptyNodes.push(`${pres.event_id} (node ${s.node_index}, ${pack})`)
       s = { ...s, node_index: s.node_index + 1, status: s.node_index + 1 >= s.total_nodes ? 'ended' : 'alive' }
+      continue
+    }
+
+    // 奇遇：接不接。会琢磨的玩家：坊市多半接（灵石就是拿来花的），
+    // 奇遇事件看手上有多少余力。
+    if (pres.kind === 'encounter' && pres.omen) {
+      omenBoard.gates++
+      omenBoard.seen.set(pres.omen.key, (omenBoard.seen.get(pres.omen.key) ?? 0) + 1)
+      if (pres.omen.kind === 'shop') omenBoard.shopGates++
+      else omenBoard.eventGates++
+      const take = pres.omen.kind === 'shop' ? true : rng.chance(0.55)
+      if (take) omenBoard.take++
+      else omenBoard.pass++
+      s = take ? submitOmenTake(s, content).state : submitOmenPass(s, content).state
+      continue
+    }
+
+    // 坊市：买不推进节点，离开才推进。会琢磨的玩家买得起就买。
+    if (pres.shop) {
+      omenBoard.shopOffers += pres.shop.items.length
+      const afford = pres.shop.items.find((x) => x.stock > 0 && s.vars.currency >= x.price)
+      if (afford && rng.chance(0.6)) {
+        omenBoard.shopBought++
+        s = buyItem(s, afford.item.id, content).state
+      }
+      s = leaveShop(s, content).state
       continue
     }
 
@@ -288,6 +360,11 @@ function playOne(idx: number): void {
 
     seenEvents.set(pres.event_id, (seenEvents.get(pres.event_id) ?? 0) + 1)
 
+    // 结果正文的这一拍：先记下开场白，选完再比对（结果正文是不是把开场白重念了一遍）
+    if (pres.lines.length > 0) introText.set(`${pres.event_id}@${pres.node_index}`, pres.lines.join('\n'))
+    if (pendingChain.some((c) => c.id === pres.event_id)) chainBoard.realized++
+
+
     const evForContinuity = content.events.find((e) => e.id === pres.event_id)
     if (evForContinuity) {
       continuity.nodes++
@@ -300,13 +377,17 @@ function playOne(idx: number): void {
       }
 
       // 同一母题紧挨着重复 —— 读起来像卡带。
-      // 但要区分"有意连锁"：上一件事声明的 followup 正指向这一件，
+      // 但要区分"有意连锁"：上一件事声明的链条正指向这一件，
       // 那是同一段情节的下一拍，本就该接着讲，不算重复。
+      //
+      // ⚠️ 判据原先读的是 `prevEvent.followups` —— **那个字段引擎根本不读**
+      // （见 `content-lint` 的 `followups_dead_field`）。于是这里会把
+      // "两个碰巧撞在一起的同母题事件"算成"有意连锁"，把真重复洗成好事。
+      // 这又是"If the instrument is blind, it drags the conclusion with it"：
+      // 它不是在漏报，是在**给错误背书**。
+      // 现在改读引擎真的会入队的两处：段位 `queue_followup` 与 `chain.next`。
       if (prevMotif && evForContinuity.motif === prevMotif) {
-        const chained = (prevEvent?.followups ?? []).some(
-          (f) => f.split('@')[0] === evForContinuity.id,
-        )
-        if (chained) continuity.motifChains++
+        if (declaredChainTargets.has(evForContinuity.id)) continuity.motifChains++
         else continuity.motifRepeats.push(`${evForContinuity.motif} @node ${s.node_index}`)
       }
 
@@ -319,7 +400,6 @@ function playOne(idx: number): void {
       }
       prevTags = evForContinuity.tags
       prevMotif = evForContinuity.motif
-      prevEvent = evForContinuity
       prevStage = s.stage
     }
 
@@ -335,7 +415,34 @@ function playOne(idx: number): void {
       if (s.node_index >= s.total_nodes) s = { ...s, status: 'ended', end_reason: 'nodes' }
       continue
     }
-    s = submitOption(s, opt.id, content, ev).state
+    const res = submitOption(s, opt.id, content, ev)
+
+    // ---- 结果正文：到了玩家眼前没有 ----
+    aftermath.picks++
+    const lines = res.narrative?.lines ?? []
+    if (lines.length > 0) {
+      aftermath.withText++
+      const text = lines.join('\n')
+      aftermath.seen.add(text)
+      const intro = introText.get(`${pres.event_id}@${pres.node_index}`)
+      if (intro && text === intro) aftermath.sameAsIntro++
+    }
+
+    // ---- 链条兑现：声明了的下一拍，后来真的来了没有 ----
+    const bands = ev.options.find((o) => o.id === opt.id)?.resolve?.bands ?? {}
+    const declared = [
+      ...(ev.chain?.next ?? []).map((n) => n.id),
+      ...Object.values(bands).map((b) => String(b.queue_followup ?? '')).filter(Boolean),
+    ].map((x) => x.split('@')[0]!)
+    if (declared.length > 0) {
+      chainBoard.declared++
+      for (const id of declared) {
+        pendingChain.push({ id })
+        declaredChainTargets.add(id)
+      }
+    }
+
+    s = res.state
   }
 
   runLengths.push(s.node_index)
@@ -375,7 +482,7 @@ L.push(`> 自动生成 · 本次 ${RUNS} 局 · 耗时 ${secs}s · 运行时间�
 L.push(``)
 L.push(`## 一、体量与节奏`)
 L.push(``)
-L.push(`- 平均局内节点数：**${avgLen.toFixed(1)}**（目标 20–30）`)
+L.push(`- 平均局内节点数：**${avgLen.toFixed(1)}**（目标 30–42，与 sim.ts 同一条门禁）`)
 L.push(
   `- 节点数分布：最短 ${Math.min(...runLengths)} · 最长 ${Math.max(...runLengths)}`,
 )
@@ -472,7 +579,45 @@ L.push(``)
 }
 L.push(``)
 
-L.push(`## 八、行囊对不上的功能标签`)
+L.push(`## 八、奇遇通道与结果正文`)
+L.push(``)
+{
+  const perRun = (omenBoard.gates / Math.max(1, RUNS)).toFixed(2)
+  L.push(`- 奇遇闸门：**${omenBoard.gates}** 次（${perRun}/局）· 坊市 ${omenBoard.shopGates} · 奇遇事件 ${omenBoard.eventGates}`)
+  L.push(`- 接 / 不接：${omenBoard.take} / ${omenBoard.pass}`)
+  L.push(`- 坊市：上架 ${omenBoard.shopOffers} 件次 · 成交 ${omenBoard.shopBought} 件`)
+  if (omenBoard.gates === 0) {
+    L.push(`- ✗ **一次奇遇都没有** —— 86 个奇遇事件白写了，而且不报错`)
+  }
+  const uniqOmen = omenBoard.seen.size
+  L.push(`- 出现过的奇遇内容：**${uniqOmen}** 个不同 key`)
+  L.push(``)
+  const cov = (aftermath.withText / Math.max(1, aftermath.picks)) * 100
+  L.push(`- 结果正文覆盖率：**${aftermath.withText} / ${aftermath.picks}**（${cov.toFixed(1)}%）· 不同文本 ${aftermath.seen.size} 条`)
+  L.push(`- 与开场白**逐字全同**：**${aftermath.sameAsIntro}**（${((aftermath.sameAsIntro / Math.max(1, aftermath.picks)) * 100).toFixed(1)}%）`)
+  L.push(``)
+  L.push(`> 覆盖率是**100% 封顶的覆盖率**，不是比率 —— 每一手都该有一句结果正文，`)
+  L.push(`> 低于 100% 就是显示路径断了（这一条曾经整整断过：数据在引擎里，UI 从没接过）。`)
+  L.push(`> "逐字全同"不是重复率高，是**那一段根本没在说结果**，只是把开场白又念了一遍。`)
+  L.push(``)
+}
+L.push(``)
+
+L.push(`## 九、事件链的兑现`)
+L.push(``)
+if (chainBoard.declared === 0) {
+  L.push(`本轮没有事件声明 chain.next / queue_followup。`)
+} else {
+  const rate = (chainBoard.realized / chainBoard.declared) * 100
+  L.push(`- 声明了下一拍的事件：${chainBoard.declared} 次 · 真的兑现：${chainBoard.realized} 次（**${rate.toFixed(1)}%**）`)
+  L.push(``)
+  L.push(`> 修之前这个数长期是 **0.21%**（8/3840 节点）：保底队列被剧本前置链占着，`)
+  L.push(`> 而 `+'`pickNextEvent`'+` 的保底路径只取 `+'`forced[0]`'+` —— 排在队尾的链条永远轮不到。`)
+  L.push(`> 修法是把 `+'`queue_followup`'+` 改成**插队首**（剧本铺垫照旧插队尾），不取消任何一边。`)
+}
+L.push(``)
+
+L.push(`## 十、行囊对不上的功能标签`)
 L.push(``)
 if (affordanceMisses.size === 0) L.push(`✓ 没有出现"要这个标签但身上没有"的情况`)
 else {

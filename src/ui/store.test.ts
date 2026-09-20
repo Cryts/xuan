@@ -51,6 +51,13 @@ function play(steps: number, pack: PackId) {
       st = reducer(st, { type: 'play/daily', id: p.daily[0]!.id })
       continue
     }
+    // 坊市：货架走专用面板，options 是空的 —— 驱动器不认它就会掉进
+    // 下面那句 `expect(opt).toBeDefined()`，把"面板没接上"报成"内容坏了"。
+    // 这与 `tools/playtest.ts` 的 `hasPanel()` 是同一个坑，只是规模小一点。
+    if (p.shop) {
+      st = reducer(st, { type: 'play/option', optionId: '__shop_leave__' })
+      continue
+    }
     if (p.kind === 'scenario') {
       const t = (p.trials ?? [])[0]
       st = t

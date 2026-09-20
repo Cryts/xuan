@@ -27,6 +27,12 @@ jobs:
 
       - run: npm ci
 
+      # 首次运行自动开启 Pages（source = GitHub Actions），
+      # 否则 deploy-pages 会因仓库未启用 Pages 而失败
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       # 内容门禁：IP 禁用词、结构、破局通路、曲线连续性
       # 任一 error 即中断，不让违规内容上线
       - name: content-lint

@@ -2387,7 +2387,24 @@ export function planScenarioChain(state: GameState, content: ContentDB): GameSta
     window: [start + lead.length, start + lead.length + GRACE],
   })
 
-  return { ...state, queue }
+  // **剧本要有地方登场。**
+  //
+  // 链把剧本窗口往后推 lead 拍，而剧本自身还要占 span 拍 —— 一局只有二十几拍时，
+  // 排在局末的剧本会在登场前就撞上 `total_nodes`。实测代价：
+  // 铺垫平均 1.69 拍时破局率从 1.18 掉到 0.73，且 `scn_mystery_three_seats`
+  // 计划后只有 75% 真的登场 —— **排了队却没走到，等于白排**。
+  //
+  // 两条路：砍铺垫，或者把这一局延长到容得下它。
+  // 用户明确要求铺垫保留 2~4 拍（"注意自由度即可"），所以选后者。
+  // 这同时也就是「每局时长应当增加」那条要求 —— 而且是有内容的加长
+  // （多出来的拍子是铺垫事件，不是空转）。
+  //
+  // 只增不减：其它路径（事件、日常、斗法）照旧按原 `total_nodes` 收束，
+  // 这里只保证"已经排上队的剧本一定走得完"。
+  const need = start + lead.length + (sc.span ?? 3) + 1
+  const total_nodes = Math.max(state.total_nodes, need)
+
+  return { ...state, queue, total_nodes }
 }
 
 /** 终局判定：寿元耗尽 / 伤势归零 / 节点走完 */

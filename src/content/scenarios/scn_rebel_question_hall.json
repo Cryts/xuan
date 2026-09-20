@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 1
   },
+  "leadup_motifs": [
+    "m_sect_betrayal",
+    "m_ancient_battlefield"
+  ],
   "rules_stated": [
     "道场中死了一人，凶必在七人之中。",
     "断案只凭三样：物证、口供、镜中所见。",

@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_sealed_object",
+    "m_faction_choice"
+  ],
   "rules_stated": [
     "三席上坐着三个人，三个人都要你先开口。",
     "你在这屋里说过的话，出了门就作数——反口，拿你的名字赔。",

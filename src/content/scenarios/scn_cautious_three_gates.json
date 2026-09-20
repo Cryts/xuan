@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_market_bargain",
+    "m_auction"
+  ],
   "rules_stated": [
     "追你的人不歇脚：你慢一刻，他就近一程。",
     "前面三道关口，过一道留一样东西——留什么，你定。",

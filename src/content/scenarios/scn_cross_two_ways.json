@@ -18,6 +18,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_sword_debate",
+    "m_cross_world"
+  ],
   "rules_stated": [
     "论道三场，各出三问，答不上者负。",
     "各守本途之法——出手时越法者判负。",

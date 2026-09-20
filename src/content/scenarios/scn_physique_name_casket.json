@@ -13,6 +13,11 @@
     "op": ">=",
     "value": 1
   },
+  "leadup_motifs": [
+    "m_mystic_treasure",
+    "m_ancient_relic",
+    "m_secret_realm"
+  ],
   "rules_stated": [
     "匣中投名，名即现形——所投何名，所得何物。",
     "所投之名须为一物之全名，名不全者，所现亦不全。",

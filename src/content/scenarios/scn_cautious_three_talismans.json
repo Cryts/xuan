@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 1
   },
+  "leadup_motifs": [
+    "m_faction_choice",
+    "m_mentor_soul"
+  ],
   "rules_stated": [
     "你与三处各持一枚传音符，符只单向——你听得见他们，他们听不见你。",
     "一刻只能取一枚符，其余两符此刻之音就此遗失。",

@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_forbidden_knowledge",
+    "m_outer_god"
+  ],
   "rules_stated": [
     "谶言曰：此宅之事，须在第七夜之前了结。",
     "宅中每夜你只可说一句话，言出不可收回。",

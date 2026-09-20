@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 3
   },
+  "leadup_motifs": [
+    "m_tribulation",
+    "m_cave_relic"
+  ],
   "rules_stated": [
     "劫云认人认错了，也不会改：它要落几道，你就得受几道。",
     "不能躲，不能还手，不能求人替——你少受一分，它多落一分。",

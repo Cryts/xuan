@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 1
   },
+  "leadup_motifs": [
+    "m_playacting",
+    "m_sealed_object"
+  ],
   "rules_stated": [
     "戏班七人，各掌一职，缺一人则戏不成。",
     "台上所演之事，台下必成真。",

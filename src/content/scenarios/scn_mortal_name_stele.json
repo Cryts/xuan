@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_cave_relic",
+    "m_mentor_soul"
+  ],
   "rules_stated": [
     "碑上刻你此行功过之名次，功过愈著，名次愈高。",
     "名次高者，守碑人出手愈重——碑不试无名之辈。",

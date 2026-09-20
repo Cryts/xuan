@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 1
   },
+  "leadup_motifs": [
+    "m_playacting",
+    "m_sealed_object"
+  ],
   "rules_stated": [
     "入雾者须自陈其名，陈名而后，判官以名定罪。",
     "名正则行正，名邪则行邪——判官不看人，只看名。",

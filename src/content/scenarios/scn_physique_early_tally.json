@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_ancient_relic",
+    "m_secret_realm"
+  ],
   "rules_stated": [
     "纪元清算之日，你每刻一枚骨篆，清算便进一分。",
     "刻满者即为纪元之敌，十方同诛。",

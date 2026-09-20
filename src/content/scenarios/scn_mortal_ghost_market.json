@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 1
   },
+  "leadup_motifs": [
+    "m_market_bargain",
+    "m_cave_relic"
+  ],
   "rules_stated": [
     "鬼市只认令不认人，掌中无令者入市即化灰。",
     "市中不问来路，不问去处，问者化灰。",

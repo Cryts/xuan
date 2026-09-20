@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 1
   },
+  "leadup_motifs": [
+    "m_pill_furnace",
+    "m_cave_relic"
+  ],
   "rules_stated": [
     "炉中丹成于九转，每投一味药便记一转，九转既满，丹成鼎封。",
     "一转之内只可投一味，投重则整炉尽废。",

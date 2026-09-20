@@ -13,6 +13,11 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_broken_betrothal",
+    "m_sect_betrayal",
+    "m_ancient_battlefield"
+  ],
   "rules_stated": [
     "台上斗法只论三事：先立契，后出招，不得越界。",
     "契以天地为证，违约者道心崩碎。",

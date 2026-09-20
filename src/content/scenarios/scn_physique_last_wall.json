@@ -13,6 +13,11 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_city_defense",
+    "m_ancient_relic",
+    "m_secret_realm"
+  ],
   "rules_stated": [
     "来的人分四拨，一拨重过一拨，中间不给你歇的时候。",
     "墙只有一面，人只有这些：拨去东边，西边就薄。",

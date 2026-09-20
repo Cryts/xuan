@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_sect_tournament",
+    "m_ancient_battlefield"
+  ],
   "rules_stated": [
     "有人递了帖子来：三场连打，中间不下台——伤不治，气不回。",
     "他走的是「则」一路，你的「意」被他压着：硬拼是拼不过的。",

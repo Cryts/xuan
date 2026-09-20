@@ -13,6 +13,10 @@
     "op": ">=",
     "value": 2
   },
+  "leadup_motifs": [
+    "m_cross_world",
+    "m_market_bargain"
+  ],
   "rules_stated": [
     "此地只有一条法：你要什么，都得拿身上的一样东西去换。",
     "外来的法在这里不通行——除非你说得出它在这里叫什么。",

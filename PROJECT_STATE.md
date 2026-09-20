@@ -6,6 +6,31 @@
 
 ---
 
+## 👥 协作机制（2026-09-20 起）
+
+**改动先过对应专家，不由主 AI 一人拍板。** 七个岗位见 `.claude/agents/`，
+分工与"哪条反馈归谁"见 `docs/agents/团队与协作.md`，共享资料库见 `docs/agents/参考/`。
+
+| 专家 | 第一决策权 |
+|---|---|
+| `systems-designer` | 数值、经济、曲线、支配性 |
+| `narrative-designer` | 故事结构、事件链、人物关系、结局归因 |
+| `gameplay-designer` | 玩法、成就、枢纽、可交互场景 |
+| `worldbuilder` | 六体系自洽、寿命尺度、天命榜 |
+| `ux-designer` | 决策时刻的信息完备性、界面、美术 |
+| `writer` | 文风（怎么写，不是写什么） |
+| `engineer` | 架构、纯 TS 约束、门禁、测量可信度 |
+
+**专家有权说不**；意见冲突时各给依据，主 AI 汇总后**报用户裁决**，不自己挑顺手的。
+
+### ⚠️ 并行冲突预警
+
+`systems-designer` 与 `worldbuilder` **都要动 `src/content/packs/*.json`**
+（前者改成长曲线，后者改寿命尺度）。两边方案都回来后**必须串行实施**，不能同时改。
+`ux-designer` 与 `gameplay-designer` 都要动 UI，同理。
+
+---
+
 ## 🚧 当前任务
 
 **正在做**：剧本条件随进度缩放 + 工具箱声明（#30）。

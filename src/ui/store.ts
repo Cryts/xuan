@@ -248,7 +248,12 @@ function isItem(o: Dict): boolean {
   return typeof o.quality === 'string' && Array.isArray(o.affixes)
 }
 function isAffix(o: Dict): boolean {
-  return typeof o.tier === 'string' && Array.isArray(o.affordance) && !Array.isArray(o.effects)
+  // 原判据多了个 `!Array.isArray(o.effects)`，而词条 schema **本来就有 effects**
+  // （锐锋、破甲这类都带属性加成）。于是 89 条里只有 29 条没写 effects 的活了下来，
+  // 另外 60 条被静默丢弃 —— 而物品的功能标签是从词条派生的，
+  // 标签一少，剧本里靠 affordance 匹配的破局通路就跟着断。
+  // 物品有自己的判据（quality + affixes），且先于这条判定，不会误伤。
+  return typeof o.tier === 'string' && Array.isArray(o.affordance)
 }
 function isEnding(o: Dict): boolean {
   return Array.isArray(o.title_pool) && isObj(o.rating)
@@ -507,7 +512,12 @@ export function loadContent(): ContentDB {
   const base = defaultContent(out.warnings)
 
   const content: ContentDB = {
-    packs: base.packs,
+    // 这里原是 `base.packs`（兜底包），于是**真实内容永远用不上**：
+    // walk() 辛苦解析出来的 out.packs 被丢掉，下面那段"缺哪个补哪个"的
+    // 循环也因为 base.packs 本来就齐六件而永不触发。
+    // 线上站点因此一直跑在占位包上 —— 境界阶、资源名、金手指、母题权重
+    // 全是敷衍的通用版，而所有引擎测试却全绿，因为它们走的是另一套加载器。
+    packs: out.packs as Record<PackId, WorldPack>,
     terms: out.terms,
     motifs: out.motifs,
     events: out.events,

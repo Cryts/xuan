@@ -30,6 +30,7 @@ npm install
 `npm install` 会下载 Electron 本体（约 100–200 MB），第一次慢一点，之后就缓存在本地了。
 
 > 如果公司网络慢，可以先设国内镜像：
+>
 > ```powershell
 > npm config set ELECTRON_MIRROR https://npmmirror.com/mirrors/electron/
 > ```
@@ -54,10 +55,10 @@ npm run dist:win
 
 跑完在 `release\` 目录下：
 
-| 文件 | 说明 |
-|---|---|
-| `玄-1.0.0-x64.exe` | **单文件版**——双击就跑，不用安装。发给别人也行 |
-| `玄 Setup 1.0.0.exe` | 安装包——带开始菜单和卸载项 |
+| 文件                   | 说明                                                   |
+| ---------------------- | ------------------------------------------------------ |
+| `玄-1.0.0-x64.exe`   | **单文件版**——双击就跑，不用安装。发给别人也行 |
+| `玄 Setup 1.0.0.exe` | 安装包——带开始菜单和卸载项                           |
 
 首次打包会联网下载 Electron 的 Windows 二进制与 NSIS 工具链，几分钟。之后有缓存就快了。
 
@@ -67,23 +68,23 @@ npm run dist:win
 
 打开 exe，进 **设置页** → 「玄机（自由输入）」一栏：
 
-| 字段 | 填什么 |
-|---|---|
-| 接口地址 | 见下表 |
-| 模型名 | 见下表 |
-| API Key | 你自己的密钥 |
+| 字段     | 填什么       |
+| -------- | ------------ |
+| 接口地址 | 见下表       |
+| 模型名   | 见下表       |
+| API Key  | 你自己的密钥 |
 
 ### 常用供应商
 
-| 供应商 | 接口地址 | 模型名示例 |
-|---|---|---|
-| DeepSeek | `https://api.deepseek.com/v1` | `deepseek-chat` |
-| 通义千问 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus` |
-| 智谱 GLM | `https://open.bigmodel.cn/api/paas/v4` | `glm-4-flash` |
-| 月之暗面 | `https://api.moonshot.cn/v1` | `moonshot-v1-8k` |
-| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` |
-| Anthropic | `https://api.anthropic.com` | `claude-sonnet-5` |
-| **本地 Ollama** | `http://localhost:11434/v1` | `qwen2.5:7b` |
+| 供应商                | 接口地址                                              | 模型名示例          |
+| --------------------- | ----------------------------------------------------- | ------------------- |
+| DeepSeek              | `https://api.deepseek.com/v1`                       | `deepseek-chat`   |
+| 通义千问              | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-plus`       |
+| 智谱 GLM              | `https://open.bigmodel.cn/api/paas/v4`              | `glm-4-flash`     |
+| 月之暗面              | `https://api.moonshot.cn/v1`                        | `moonshot-v1-8k`  |
+| OpenAI                | `https://api.openai.com/v1`                         | `gpt-4o-mini`     |
+| Anthropic             | `https://api.anthropic.com`                         | `claude-sonnet-5` |
+| **本地 Ollama** | `http://localhost:11434/v1`                         | `qwen2.5:7b`      |
 
 除 Anthropic 外都走 OpenAI 兼容协议，**换供应商就是改前两栏，不用改代码**。
 
@@ -103,10 +104,10 @@ npm run dist:win
 
 网页版做自由输入有两个绕不过去的坎，EXE 版都没有：
 
-| 问题 | 网页版 | EXE 版 |
-|---|---|---|
-| 密钥放哪 | 只能放 localStorage，**明文**，玩家自填也只是把风险转嫁给玩家 | 存在主进程的配置文件里，渲染进程够不着 |
-| 跨域 | 国内模型接口基本不发 CORS 头，网页端直连**必然失败**，要绕就得自己搭代理服务器 | 请求由主进程的 Node 发出，根本没有跨域这回事 |
+| 问题     | 网页版                                                                               | EXE 版                                       |
+| -------- | ------------------------------------------------------------------------------------ | -------------------------------------------- |
+| 密钥放哪 | 只能放 localStorage，**明文**，玩家自填也只是把风险转嫁给玩家                  | 存在主进程的配置文件里，渲染进程够不着       |
+| 跨域     | 国内模型接口基本不发 CORS 头，网页端直连**必然失败**，要绕就得自己搭代理服务器 | 请求由主进程的 Node 发出，根本没有跨域这回事 |
 
 这两条是同一件事的两面：**把密钥和网络请求挪到前端够不到的地方**。
 
@@ -116,6 +117,7 @@ npm run dist:win
 
 **`npm install` 卡在 electron 下载**
 设镜像后重试：
+
 ```powershell
 npm config set ELECTRON_MIRROR https://npmmirror.com/mirrors/electron/
 npm install
@@ -123,6 +125,7 @@ npm install
 
 **打包时提示下载 nsis 失败**
 同样设镜像：
+
 ```powershell
 npm config set ELECTRON_BUILDER_BINARIES_MIRROR https://npmmirror.com/mirrors/electron-builder-binaries/
 ```

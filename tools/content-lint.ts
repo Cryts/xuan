@@ -909,7 +909,7 @@ for (const n of new Set(realmIdxInEndings)) {
   // (e) 全局棘轮：共用正文的事件数只许减不许增。
   // 逐个改太慢、也拦不住"顺手接一个共用池"，所以直接锁总数。
   // 加新事件时要么给它自己的正文，要么把别的挪走 —— 不许把水位抬回去。
-  const SHARED_BASELINE = 503
+  const SHARED_BASELINE = 475
   let sharedEvents = 0
   for (const e of c.events as { narrative?: { body_key?: string } }[]) {
     const k = e.narrative?.body_key

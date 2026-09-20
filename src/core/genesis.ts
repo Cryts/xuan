@@ -26,6 +26,22 @@ const BASE = 40
 export const ATTR_BUDGET = 45
 
 /**
+ * 开局六维的**零和浮动幅度** —— 见 `divideInitAttrs`。
+ *
+ * 这个数是从"分布太窄"这条实测反推出来的，不是拍的：
+ * 改动前每个属性独立 `int(-3,3)`，六维 sd 只有 **2.4~2.6**，
+ * p10→p90 只差 7 点。后果不是"属性弱"，而是**每一局的"人"几乎一样** ——
+ * 出生没有分化，起跑线就是同一个点，终局修为的相对阶梯位置因此
+ * 只有 6.7%~8.6%（不到一个境界层），80% 的人挤在 2~3 个层里。
+ *
+ * 改成"六个独立骰子、减去均值"之后，**总和仍然固定**（谁也不能靠浮动
+ * 白赚属性），但个体差异拉开到 sd ≈ 9.3。高点与低点之间差出三十来点，
+ * 于是"这一世你是个什么样的胚子"第一次成为一件可看、可选、可赌的事 ——
+ * 而 `cultivateRateMod` 正是从这里取方差。
+ */
+const ROLL_SPAN = 17
+
+/**
  * 属性在一局之内的**实际可达区间** —— 由蒙特卡洛实测得出，不是拍的。
  *
  * 这一组数字是被一次真实事故逼出来的：剧本的破局条件写着
@@ -40,9 +56,26 @@ export const ATTR_BUDGET = 45
  *
  * 改动成长曲线（divideInitAttrs 的 BASE、事件的 add_attr 幅度）时，
  * 这三个数要重新跑 tools 里的属性分布测量，否则闸门会失真。
+ *
+ * **它们刚刚被重新量过一次** —— 因为 `ROLL_SPAN` 把开局六维的 sd
+ * 从 2.5 拉到了 9.3（见上），"一局之内能到多高"整个抬了一档。
+ * 500 局实测（每局取全过程中该属性的最大值）：
+ *
+ * | | 中位 | 九十分位 | 全场最高 |
+ * |---|---|---|---|
+ * | 悟性 | 43 | 56 | 66 |
+ * | 机敏 | 42 | 55 | 72 |
+ * | 根骨 | 42 | 55 | 71 |
+ * | 心性 | 44 | 58 | 67 |
+ *
+ * `ATTR_TYPICAL` 取中位（没动，43）；`ATTR_REACHABLE` 取全场最高 72
+ * （原来是 58，那是在 sd 2.5 的世界里量的）。
+ * **注意闸门因此变松了**：58~72 这一段现在算"够得着"，
+ * 但那是少数高骰局才够得着 —— 写剧本时若想让多数人过，
+ * 门槛仍该贴着 `ATTR_TYPICAL` 走，而不是贴着这个上界。
  */
 export const ATTR_TYPICAL = 43
-export const ATTR_REACHABLE = 58
+export const ATTR_REACHABLE = 72
 
 export function divideInitAttrs(
   rng: Rng,
@@ -63,15 +96,55 @@ export function divideInitAttrs(
     if (e.type === 'add_attr') attrs[e.key] += e.delta
   }
 
-  // 小幅随机浮动，让同一套配置也不完全一样
-  for (const k of ATTR_KEYS) {
-    attrs[k] += rng.int(-3, 3)
-  }
+  // 零和的宽幅浮动 —— 总和不变，个体拉开。见 ROLL_SPAN 处的说明。
+  //
+  // 减去均值这一步是关键：不减去的话，六维**总和**本身也变成随机变量，
+  // 于是"抽到高点的一组骰子"就成了纯运气加成，而出身/天赋的取舍会被它淹掉。
+  // 减去之后，浮动只决定**这六个格子怎么分**，不决定分到多少。
+  const raw = ATTR_KEYS.map(() => rng.int(-ROLL_SPAN, ROLL_SPAN))
+  const mean = raw.reduce((a, b) => a + b, 0) / raw.length
+  ATTR_KEYS.forEach((k, i) => {
+    attrs[k] += Math.round(raw[i]! - mean)
+  })
 
   for (const k of ATTR_KEYS) {
     attrs[k] = Math.max(5, Math.min(100, attrs[k]))
   }
   return attrs
+}
+
+/**
+ * 修行资质 —— 一局之内基本不变的**修为增速乘子**。
+ *
+ * 这是「修为终局分布」改造里最要紧的一件：拆掉 `realmFactor` 那条
+ * 正反馈之后，分布的中心会下来，但**宽度不会自己变宽** ——
+ * 实测"去掉正反馈"只把相对位置 sd 从 6.7~8.6% 动到 5.8~8.3%，
+ * 几乎没变。方差不在反馈上，在**起跑线**上。
+ *
+ * 于是这里补上一个 run 级的乘子。它不是暗骰：出处就是开局界面上
+ * 明明白白摆着的**根骨与悟性**（`GenesisScreen` 与 `StatusBar` 都在显示），
+ * 玩家挑出身、挑天赋时就是在挑它 —— 天灵根/剑骨天成这类修炼向天赋
+ * 都会把这两项顶上去。`game_balance.txt` 的 Randomization 一节要求
+ * "把随机结果的选择权交给玩家"，这就是那一手：
+ * **看得见的两项属性 → 看得见的成长快慢。**
+ *
+ * 系数怎么定的：目标是终局"相对阶梯位置"的 sd 从不到一个境界层
+ * 抬到 1.5 层以上。六维零和浮动下 sd(根骨+悟性) ≈ 11.8，
+ * `0.040 × 11.8 ≈ 0.47` 的乘子 sd 实测把各包的 sd 顶到 **10.0%~13.9%**
+ * （改动前 7.7%~12.9%）—— 这个系数是被这条实测反推出来的，
+ * 不是"看着差不多"。改 `ROLL_SPAN` 或 `CULTIVATE_BASE` 都要重扫它。
+ *
+ * 上下夹住是为了不出现"这一世没得玩"或"白送飞升"的极端局：
+ * 夹取后乘子落在 0.55~1.6。夹子会削掉两端各约一两成的极端骰，
+ * 这是有意的 —— **要的是分化，不是让谁一开局就出局。**
+ */
+export const RATE_PER_APTITUDE = 0.040
+export const RATE_MIN = 0.55
+export const RATE_MAX = 1.6
+
+export function cultivateRateMod(attrs: Partial<Record<AttrKey, number>>): number {
+  const apt = (attrs.root ?? BASE) + (attrs.wits ?? BASE) - 2 * BASE
+  return Math.max(RATE_MIN, Math.min(RATE_MAX, 1 + apt * RATE_PER_APTITUDE))
 }
 
 /** 供给 content-lint：检查一套配置是否超预算 */

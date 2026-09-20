@@ -18,7 +18,7 @@ import {
   type DuelOpponent,
   type StanceId,
 } from './duel'
-import { divideInitAttrs } from './genesis'
+import { cultivateRateMod, divideInitAttrs } from './genesis'
 import {
   ARCHETYPE_NAMES,
   advanceFate,
@@ -86,9 +86,24 @@ export function bindContent(content: ContentDB): void {
 // 阶段与节奏
 // ============================================================
 
-const TOTAL_NODES_BASE = 24
+/**
+ * 一局的基准拍数 —— 32 起步，另加 0~8 拍随机（见 `startRun`）。
+ *
+ * 两个来处：
+ *   1. 用户要求"每局时间应当增加"；
+ *   2. 前置链（`planScenarioChain`）会在剧本排队时**动态抬高** `total_nodes`，
+ *      实测均值因此到 38 拍左右 —— `tools/sim.ts` 的门禁同步收到 30–42，
+ *      估算时长上限抬到 12 分。
+ *
+ * **加拍数不是为了把分布拉宽，恰恰相反。** 总方差 ∝ N，标准差 ∝ √N，
+ * 均值 ∝ N，于是 CV ∝ 1/√N —— 单纯加节点会让所有人更接近，
+ * 这是"每局时间增加"与"正态分布"之间的拉扯。
+ * 加拍数是为了让多层阶梯**走得完**；宽度交给 `cultivateRateMod`。
+ */
+const TOTAL_NODES_BASE = 32
+const TOTAL_NODES_RAND = 8
 
-/** 阶段按比例推进，保证 20–30 节点的节奏稳定 */
+/** 阶段按比例推进，保证 30–42 节点的节奏稳定 */
 export function stageForNode(n: number, total: number): Stage {
   const r = n / total
   if (r < 0.1) return 'childhood'
@@ -243,9 +258,27 @@ export const UNBOUNDED_LIFESPAN = 999_999
  *
  * 由此得到一条天然的压力：**停在低境界，年月照样在走，你会老死**。
  * 这正是凡人流的核心恐怖。
+ *
+ * **斜率被改小过一次，原因是"寿元墙"曾经挡在所有人前面。**
+ * 判据是这样一条"跑道"——在第 r 层还能走多少拍：
+ *
+ * ```
+ * 跑道(r) = (寿命(r) − 开局岁数) / 每拍年数(r)
+ * ```
+ *
+ * 修为增速放慢之后（见 `cultivateGain`、`CULTIVATE_BASE`），典型境界从
+ * 六七层掉到三四层，而寿命表是**近似翻倍**长的（70/100/130/170/220/300…），
+ * 每拍年数却是**线性**长的 —— 于是跑道出现一道深谷：
+ * 太古遗蜕在第二层只剩 11 拍跑道，而一局有 32~40 拍。
+ * 实测 **46.8% 的局以"寿尽"收场**（太古遗蜕 96.8%、灰雾之秘 85.3%），
+ * 而旧数值下只有 4%。人不是死在劫数里，是死在一张没跟着改的表上。
+ *
+ * 取 (2, 1) 之后跑道变成**单调递增**：底层 27~38 拍（停在底层仍会老死 ——
+ * 那条压力留着），中层 40 拍以上（突破才续得了命），
+ * 而"年限"这条叙事（`yearsBucket` 的 few/some/many）也还在。
  */
 export const YEARS_BASE = 2
-export const YEARS_PER_REALM = 4
+export const YEARS_PER_REALM = 1
 
 export function yearsPerNode(state: GameState): number {
   return YEARS_BASE + state.realm_idx * YEARS_PER_REALM
@@ -356,15 +389,56 @@ export function composeTransition(
  * 二十几个节点下来玩家还停在炼气期，所有高境界结局都是死内容。
  * 修行者是在事件之间一天天长大的，这条补上"时间在走"的那部分。
  *
- * 悟性越高越快；境界越高，单节点收益也越高（高阶修士的日常吐纳本就更多）。
+ * 悟性越高越快；**但境界越高并不越快** —— 见 `cultivateGain`。
  */
-export const CULTIVATE_BASE = 8
+export const CULTIVATE_BASE = 6
 
 /**
  * 剧本在节点中的目标占比（SPEC 第 3 章的三层结构：散事件 ~70% / 剧本 ~25%）。
  * 这里给的是"有可用剧本时，本节点进入剧本的概率"。
  */
 export const SCENARIO_SHARE = 0.18
+
+/**
+ * 「热度」类变量的衰减 —— 债务 / 暴露度 / 心魔。
+ *
+ * 这三个原先都是**纯累加器**：事件往里加，没有任何出口。
+ * 纯累加器的问题是**它的水平正比于活了多少拍** —— 于是局一变长，
+ * 所有以它们为判据的结局都会成比例地被触发。这不是设计，是巧合。
+ *
+ * 实测（这是被量出来的，不是我推的）：一局从 30 拍拉到 39 拍之后，
+ * 死亡类结局占比从 39.8% 涨到 55.2%。拆开看两半各占约一半：
+ *   - 光把拍数拉长（30.4 拍）就 +8.4 个点；
+ *   - 光把修为增速放慢、绝对战力降下来（更多判定失败 → 更多伤病因果）再 +7 个点。
+ * 而死亡类结局的判据全是 `exposure>=50` / `debt>=6` / `corruption>=70`
+ * 这种**绝对阈值** —— 阈值是按 30 拍的世界定的，人却多活了 29%。
+ *
+ * 所以给它们一个**平衡态**：每 5 拍按比例收掉一部分，
+ * 收支相抵时的水平就不再取决于局有多长。
+ *
+ * 系数怎么定的：平衡态 ≈ 流入速率 / (1 − 衰减)。实测三个变量的**每拍流入**
+ * 分别约为 0.72 / 0.40 / 0.77，而它们在 30 拍基线下的终局中位数是
+ * 21 / 12 / 23。取 0.93（≈ 每拍 1.45%）正好把这几个数对上 ——
+ * **不是"调低到看起来顺眼"，是把平衡态校准回改动前那一局的位置。**
+ */
+export const DECAY_EVERY = 5
+export const HEAT_DECAY = 0.93
+/**
+ * 债务单独用一档更快的衰减。
+ *
+ * 不是因为"债务该比暴露度散得快"，是量出来的：这三者的**每拍流入**
+ * 在改动后并不一样 —— 暴露度 0.72、心魔 0.77 都回到基线水平了，
+ * 而债务的终局中位停在 17（基线 12，高四成）。同一个系数套三个变量，
+ * 前提是三者流入相近 —— 债务不满足，那就单独标定。
+ * 0.86 把它的终局中位拉回 13，和基线的 12 对齐。
+ */
+export const HEAT_DECAY_DEBT = 0.86
+
+/** 等比衰减一步 —— 小数值退化成一，免得刚攒起来的一点热度被四舍五入抹平 */
+export function decayHeat(v: number, factor: number = HEAT_DECAY): number {
+  if (v <= 1) return v
+  return Math.min(v, Math.round(v * factor))
+}
 
 /**
  * 剧本最早可出现的阶段。
@@ -385,6 +459,26 @@ const STAGE_RANK: Record<Stage, number> = {
 }
 
 /**
+ * 阶段**只进不退** —— 这是 `total_nodes` 变成变动量之后必须补的一手。
+ *
+ * `stageForNode` 是**按比例**算的，而比例的分母 `total_nodes` 现在会被
+ * `planScenarioChain` 抬高（剧本排上队就必须走得完）。分母一变，
+ * 同一个节点算出来的阶段会往回掉：22 拍 / 30 拍 = 0.73（turn），
+ * 局延长到 36 拍之后同一个 22 拍变成 0.61（growth）——**人生阶段倒着走**。
+ * 跟着错位的有三处：剧本的 `SCENARIO_MIN_STAGE` 闸门（阶段倒退会让剧本
+ * 触发被重新判定）、阶段张力目标，以及 `composeTransition` 的阶段转场文案。
+ *
+ * 取"已达过的最高阶段"与"按比例算出的阶段"中较高者：
+ * 分母变动于是只可能把后面的阶段提前，不可能把过去的阶段拉回来。
+ * （`composeTransition` 里的 `prevStage !== state.stage` 判定因此也仍然成立 ——
+ * 阶段不倒退时，"不等于"就等价于"这一拍刚升上去"。）
+ */
+export function stageAdvance(prev: Stage, n: number, total: number): Stage {
+  const next = stageForNode(n, total)
+  return STAGE_RANK[next] >= STAGE_RANK[prev] ? next : prev
+}
+
+/**
  * 每节点修为进项 —— **与处境挂钩，不是匀速上涨**。
  *
  * 玩家的原话："修为和事件好像没什么关联，自然而然就在增长"。
@@ -396,11 +490,32 @@ const STAGE_RANK: Record<Stage, number> = {
  *   2. **刚做过什么**——闭关参悟算修行，游历争斗不算。
  *      按最近几次选择的意图给一个 0.6~1.6 的系数。
  *   3. **心魔 / 因果**——污染重了心不静，欠债多了心不安。
+ *
+ * **这里原先还有第四个乘子，是正反馈，已经拆掉：**
+ *
+ * ```
+ * const realmFactor = 1 + state.realm_idx * 0.2      // 第一层 ×1.0 → 第十层 ×3.0
+ * ```
+ *
+ * 它让"修为进项"成为境界的**凸函数** —— 走得快的人每拍涨得更快。
+ * `game_balance.txt` 的 Positive and negative feedback 一节把这条直接点名了：
+ *
+ * > "…the level attained is usually a **concave** transformation of experience
+ * > points — as the character becomes more proficient, they can defeat more
+ * > powerful adversaries… but conversely **more experience points are required
+ * > to 'level up'**."
+ *
+ * 门槛（`pack.realms[].power_index`）是线性分段的，而进项是凸的 ——
+ * 两头一乘，领先者越滚越快，终局分布因此变成**右偏的尖峰**
+ * （实测偏度 +0.95~+1.13、峰度 +1.30~+2.50），大多数人被压在同一个位置，
+ * 右边拖一条少数人的长尾。
+ *
+ * 拆掉之后"越高越难"改由**门槛形状**承担（这是`realm_top`那条规则的意思），
+ * 而不再是"越高越快"。别把它改回来：它不是难度，是失控。
  */
 export function cultivateGain(state: GameState): number {
   const witsFactor = 1 + state.attrs.wits / 100
-  const realmFactor = 1 + state.realm_idx * 0.2
-  const base = CULTIVATE_BASE * witsFactor * realmFactor
+  const base = CULTIVATE_BASE * witsFactor * cultivateRateMod(state.attrs)
 
   return base * cultivationCondition(state)
 }
@@ -549,7 +664,7 @@ export function startRun(cfg: RunConfig): GameState {
   // 开局物品：一件本体系的凡品
   const starterItems = pickStarterItems(content, packId, new Rng(deriveSeed(seed, 'items')), 2)
 
-  const total_nodes = TOTAL_NODES_BASE + new Rng(deriveSeed(seed, 'len')).int(0, 6)
+  const total_nodes = TOTAL_NODES_BASE + new Rng(deriveSeed(seed, 'len')).int(0, TOTAL_NODES_RAND)
 
   // 位面之子：从**其他**体系包生成
   const destinies = generateDestinyChildren({
@@ -2215,7 +2330,7 @@ function resolveDestinyEncounter(state: GameState, child: DestinyChild): GameSta
 
 export function advanceNode(state: GameState, content: ContentDB): GameState {
   let next: GameState = { ...state, node_index: state.node_index + 1 }
-  next.stage = stageForNode(next.node_index, next.total_nodes)
+  next.stage = stageAdvance(state.stage, next.node_index, next.total_nodes)
 
   // 位面之子也在推进自己的命运线 —— 玩家每走一步，他们也走一步
   next = {
@@ -2230,11 +2345,17 @@ export function advanceNode(state: GameState, content: ContentDB): GameState {
     }),
   }
 
-  // 因果自然衰减（SPEC 7.3 debt_decay：每 5 节点 −1）
-  if (next.node_index % 5 === 0 && next.vars.debt > 0) {
+  // 因果自然衰减（SPEC 7.3 debt_decay：每 5 节点 −1）+ 热度类变量的等比衰减
+  if (next.node_index % DECAY_EVERY === 0) {
+    const v = next.vars
     next = {
       ...next,
-      vars: { ...next.vars, debt: clampVar('debt', next.vars.debt - 1) },
+      vars: {
+        ...v,
+        debt: clampVar('debt', v.debt > 0 ? Math.min(v.debt - 1, decayHeat(v.debt, HEAT_DECAY_DEBT)) : v.debt),
+        exposure: clampVar('exposure', decayHeat(v.exposure)),
+        corruption: clampVar('corruption', decayHeat(v.corruption)),
+      },
     }
   }
 
@@ -2801,10 +2922,33 @@ export function resolveEnding(state: GameState, content: ContentDB): EndingResul
   }
 }
 
-function computeStars(state: GameState, ending: Ending): number {
-  // 评星要能让"半途而废"和"登临绝顶"拉开距离。
-  // 以 power_index（跨体系可比的唯一标尺）为主，功德与因果做修正。
-  const power = state.power_index / 90 // 0–11
+/**
+ * 评星 —— 一局走完之后给人的那个"这一世算什么水平"。
+ *
+ * 算式是"战力为主、功德与因果做修正"，但**除数必须跟着战力标尺走**。
+ *
+ * 除数 90 是在旧成长曲线下量的（那时终局战力中位 275，90 对应"一星一级"）。
+ * 修为分布改造之后终局战力中位降到 **206** —— 除数不动的话整条星级
+ * 会一起往下掉，五颗星从"每五局一次"变成"每十六局一次"，四星从 39%
+ * 掉到 22%，而一星从 0.4% 涨到 6%。**那不是难度变了，是尺子没跟着换。**
+ *
+ * 500 局实测（每格是同一把尺子量出来的）：
+ *
+ * | 除数 | 1★ | 2★ | 3★ | 4★ | 5★ | 均评星 |
+ * |---|---|---|---|---|---|---|
+ * | 90（旧曲线基线） | 0.4% | 8.0% | 33.0% | 39.2% | 19.4% | 3.69 |
+ * | 90（新曲线） | 6.2% | 26.6% | 38.4% | 22.4% | 6.4% | 2.96 |
+ * | 67（等比缩） | 2.6% | 14.8% | 24.6% | 29.8% | 28.2% | 3.66 |
+ * | **72（选定）** | **3.4%** | **17.0%** | **28.8%** | **30.2%** | **20.6%** | **3.48** |
+ *
+ * 取 72 的理由：67 是按中位战力等比缩出来的（90 × 206/275），但它让五颗星
+ * 涨到 28.2% —— 因为改造后方差更大，高战力那一撮人更厚。72 把五颗星
+ * 压回 20.6%（基线 19.4%），三颗星回到 28.8%，两端仍然比旧曲线厚
+ * （1★/2★ 3.4%/17.0% vs 0.4%/8.0%）：**那是分布本身变宽了，不是尺子歪了，
+ * 不该用尺子把它抹平。**
+ */
+export function computeStars(state: GameState, ending: Ending): number {
+  const power = state.power_index / 72 // 0–15
   const karma = state.vars.karma / 70 // −1.4–1.4
   const debt = state.vars.debt / 30 // 0–3.3
   const raw = 1 + power + karma - debt

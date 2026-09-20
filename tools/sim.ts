@@ -289,8 +289,8 @@ console.log(`模拟完成：${all.length} 局 · 耗时 ${elapsed}s${errors ? ` 
 // ── 节奏 ──
 const avgNodes = avg(all.map((s) => s.nodes))
 console.log('── 时长与节奏 ──')
-console.log(`  平均节点数    ${avgNodes.toFixed(1)}  （目标 20–30）`)
-console.log(`  估算单局时长  ${((avgNodes * 15) / 60).toFixed(1)} 分钟  （目标 5–8）`)
+console.log(`  平均节点数    ${avgNodes.toFixed(1)}  （目标 30–42）`)
+console.log(`  估算单局时长  ${((avgNodes * 15) / 60).toFixed(1)} 分钟  （目标 5–12）`)
 console.log(`  平均评星      ${avg(all.map((s) => s.stars)).toFixed(2)} / 5`)
 const realmProgress = avg(all.map((s) => s.realm_idx / Math.max(1, s.realms_total - 1))) * 100
 console.log(
@@ -402,8 +402,8 @@ console.log(`  平均习得外来规则 ${avg(all.map((s) => s.learnedRules)).to
 // ── 验收 ──
 console.log('\n── 验收判定 ──')
 const checks: [string, boolean, string][] = [
-  ['平均节点数 20–30', avgNodes >= 20 && avgNodes <= 30, avgNodes.toFixed(1)],
-  ['估算时长 4–10 分钟', (avgNodes * 15) / 60 >= 4 && (avgNodes * 15) / 60 <= 10, `${((avgNodes * 15) / 60).toFixed(1)} 分`],
+  ['平均节点数 30–42', avgNodes >= 30 && avgNodes <= 42, avgNodes.toFixed(1)],
+  ['估算时长 4–12 分钟', (avgNodes * 15) / 60 >= 4 && (avgNodes * 15) / 60 <= 12, `${((avgNodes * 15) / 60).toFixed(1)} 分`],
   ['道陨率 ≤40%', deathRate <= 0.4, `${(deathRate * 100).toFixed(1)}%`],
   ['结局多样性 ≥0.5', diversity(all.map((s) => s.ending)) >= 0.5, diversity(all.map((s) => s.ending)).toFixed(3)],
   // 这一项原先写的是"均战力 ≥200"，那是早期假设——当时成长太快，

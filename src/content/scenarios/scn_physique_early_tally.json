@@ -1,0 +1,160 @@
+{
+  "id": "scn_physique_early_tally",
+  "kind": "scenario",
+  "name": "献篆纪",
+  "pack": ["physique"],
+  "span": 6,
+  "tension": 8,
+  "weight": 35,
+  "requires": { "type": "realm_idx", "op": ">=", "value": 2 },
+  "rules_stated": [
+    "纪元清算之日，你每刻一枚骨篆，清算便进一分。",
+    "刻满者即为纪元之敌，十方同诛。",
+    "骨篆不可消，唯可覆刻。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_overwrite_anyone",
+      "hint": "『覆刻』不必覆在自己骨上——你腕上的篆，可以覆到旁人身上。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          { "type": "attr", "key": "wits", "op": ">=", "value": 65 },
+          { "type": "relation", "kind": "仇家", "exists": true }
+        ]
+      }
+    },
+    {
+      "id": "rule_first_light",
+      "hint": "清算按先来后到排位。先到者征得轻，末位者替所有人受这一纪。",
+      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 70 }
+    },
+    {
+      "id": "rule_blank_carving",
+      "hint": "『刻满』数的是篆上的字数。空刻——无字之刻——不算数。",
+      "reveal": { "type": "known_rule", "ref": "rule_first_light" }
+    }
+  ],
+  "forbidden": [
+    "覆刻于同族骨上",
+    "毁去他人骨篆",
+    "在清算之日开口求饶"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_shift_marks",
+      "name": "移篆",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_overwrite_anyone" },
+        { "type": "relation", "kind": "仇家", "exists": true },
+        { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+      ],
+      "cost": "你把篆覆在仇家骨上，清算找上了他——他也有师门",
+      "outcome": {
+        "ref": "end_tally_shifted",
+        "narrative": "scn_early_tally.shifted",
+        "effects": [
+          { "type": "add_var", "key": "karma", "delta": -30 },
+          { "type": "set_relation", "npc_id": "npc_marked_enemy", "kind": "仇家", "delta": 50 },
+          { "type": "add_var", "key": "exposure", "delta": 15 }
+        ]
+      }
+    },
+    {
+      "id": "solve_arrive_first",
+      "name": "先到",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_first_light" },
+        { "type": "node_count", "op": "<=", "value": 2 },
+        { "type": "attr", "key": "wits", "op": ">=", "value": 70 }
+      ],
+      "cost": "你抢在最先，清算征得极轻——护你来的那个人被留在了末位",
+      "outcome": {
+        "ref": "end_tally_first",
+        "narrative": "scn_early_tally.first",
+        "effects": [
+          { "type": "set_relation", "npc_id": "npc_old_guardian", "kind": "护道人", "delta": -100 },
+          { "type": "add_var", "key": "power", "delta": 30 },
+          { "type": "add_var", "key": "karma", "delta": -10 }
+        ]
+      }
+    },
+    {
+      "id": "solve_blank_carve",
+      "name": "空刻",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_blank_carving" },
+        { "type": "attr", "key": "root", "op": ">=", "value": 70 },
+        {
+          "type": "any",
+          "of": [
+            { "type": "affordance", "ref": "空刻" },
+            { "type": "affix_count", "ref": "钝", "count": 1 }
+          ]
+        }
+      ],
+      "cost": "你刻了一身无字的痕，清算数不清你——可你自己也数不清刻了多少",
+      "outcome": {
+        "ref": "end_tally_blank",
+        "narrative": "scn_early_tally.blank",
+        "effects": [
+          { "type": "add_var", "key": "hp", "delta": 45 },
+          { "type": "add_var", "key": "corruption", "delta": 15 },
+          { "type": "unlock_title", "ref": "title_blank_scriber" }
+        ]
+      }
+    },
+    {
+      "id": "solve_clan_bears",
+      "name": "请族",
+      "conditions": [
+        { "type": "faction_tier", "ref": "遗族", "op": ">=", "value": 3 },
+        { "type": "var", "key": "debt", "op": ">=", "value": 2 },
+        { "type": "not", "of": { "type": "flag", "ref": "betrayed_clan" } }
+      ],
+      "cost": "遗族替你承了篆，你欠他们整整一纪",
+      "outcome": {
+        "ref": "end_tally_clan",
+        "narrative": "scn_early_tally.clan",
+        "effects": [
+          { "type": "add_var", "key": "debt", "delta": 4 },
+          { "type": "add_var", "key": "favor", "delta": 20 },
+          { "type": "add_var", "key": "karma", "delta": 10 }
+        ]
+      }
+    },
+    {
+      "id": "solve_era_of_none",
+      "name": "无字之纪",
+      "hidden": true,
+      "conditions": [
+        { "type": "solved_any_of", "refs": ["solve_arrive_first", "solve_blank_carve"] },
+        { "type": "attr", "key": "temper", "op": ">=", "value": 85 },
+        { "type": "var", "key": "karma", "op": ">=", "value": 40 }
+      ],
+      "cost": "极低——只是这一纪从此没有名册，也就没有人记得它结束过",
+      "outcome": {
+        "ref": "end_tally_no_era",
+        "narrative": "scn_early_tally.no_era",
+        "effects": [
+          { "type": "modify_power_index", "delta": 10 },
+          { "type": "add_var", "key": "rare_mat", "delta": 5 },
+          { "type": "learn_rule", "pack": "physique", "ref": "rule_blank_carving" },
+          { "type": "unlock_title", "ref": "title_eras_end" },
+          { "type": "unlock_codex", "ref": "codex_blank_era" }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_early_tally.kept",
+    "ref": "end_tally_kept",
+    "effects": [
+      { "type": "trigger_end", "ref": "end_tally_kept" },
+      { "type": "add_var", "key": "hp", "delta": 30 },
+      { "type": "add_var", "key": "rare_mat", "delta": -3 },
+      { "type": "unlock_codex", "ref": "codex_last_page" }
+    ]
+  },
+  "version": "1.0.0"
+}

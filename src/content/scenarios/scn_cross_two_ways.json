@@ -1,0 +1,241 @@
+{
+  "id": "scn_cross_two_ways",
+  "kind": "scenario",
+  "name": "异途论道",
+  "pack": ["mortal", "genius", "physique", "mystery", "rebel", "cautious"],
+  "span": 7,
+  "tension": 8,
+  "weight": 25,
+  "requires": { "type": "realm_idx", "op": ">=", "value": 2 },
+  "rules_stated": [
+    "论道三场，各出三问，答不上者负。",
+    "各守本途之法——出手时越法者判负。",
+    "胜者取道果，负者留一物于台上。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_law_is_act",
+      "hint": "『守本途之法』判的是你出手那一刻所运的法，不是你身上带着的法。带而不运，不算越法。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          { "type": "attr", "key": "wits", "op": ">=", "value": 70 },
+          { "type": "learned_rule", "pack": "cautious", "ref": "rule_borrowed_ear" }
+        ]
+      }
+    },
+    {
+      "id": "rule_question_not_test",
+      "hint": "『问』是问，不是考。他答不出你所问，与他不知道，是两回事。",
+      "reveal": { "type": "attr", "key": "charm", "op": ">=", "value": 65 }
+    },
+    {
+      "id": "rule_left_thing_any",
+      "hint": "『留一物』——物是谁的不论。留在台上，就算留了。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          { "type": "relation", "kind": "仇家", "exists": true },
+          { "type": "attr", "key": "insight", "op": ">=", "value": 65 }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "在台上呼对方本途之名",
+    "论道中提及对方师门",
+    "三场未毕而离台"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_carry_law",
+      "name": "带而不运",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_law_is_act" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "learned_rule", "pack": "mortal", "ref": "rule_turn_is_voice" },
+            { "type": "learned_rule", "pack": "mystery", "ref": "rule_empty_seat" },
+            { "type": "learned_rule", "pack": "physique", "ref": "rule_blank_carving" },
+            { "type": "learned_rule", "pack": "rebel", "ref": "rule_oath_names_two" },
+            { "type": "learned_rule", "pack": "cautious", "ref": "rule_borrowed_ear" }
+          ]
+        }
+      ],
+      "cost": "你带着异途的法上了台，赢是赢了，可那法在你身上扎了根",
+      "outcome": {
+        "ref": "end_two_ways_carried",
+        "narrative": "scn_two_ways.carried",
+        "effects": [
+          { "type": "add_var", "key": "corruption", "delta": 30 },
+          { "type": "add_var", "key": "power", "delta": 30 },
+          { "type": "add_affix", "target": "self", "affix_id": "affix_borrowed_law" },
+          { "type": "unlock_title", "ref": "title_two_ways_walker" }
+        ]
+      }
+    },
+    {
+      "id": "solve_home_law",
+      "name": "以本途正法",
+      "conditions": [
+        { "type": "faction_tier", "ref": "本宗", "op": ">=", "value": 3 },
+        { "type": "attr", "key": "wits", "op": ">=", "value": 70 },
+        {
+          "type": "any",
+          "of": [
+            { "type": "affix_count", "ref": "本命", "count": 1 },
+            { "type": "realm_idx", "op": ">=", "value": 3 }
+          ]
+        }
+      ],
+      "cost": "你以本途正法赢了异途之人，本宗记你一功，他的同门记你一笔",
+      "outcome": {
+        "ref": "end_two_ways_home",
+        "narrative": "scn_two_ways.home",
+        "effects": [
+          { "type": "set_relation", "npc_id": "npc_wayfarer_kin", "kind": "仇家", "delta": 35 },
+          { "type": "add_var", "key": "favor", "delta": 25 },
+          { "type": "add_var", "key": "power", "delta": 20 }
+        ]
+      }
+    },
+    {
+      "id": "solve_ask_unanswerable",
+      "name": "问到答不出",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_question_not_test" },
+        { "type": "attr", "key": "charm", "op": ">=", "value": 70 },
+        { "type": "not", "of": { "type": "flag", "ref": "lost_first_round" } }
+      ],
+      "cost": "你问出他答不出的一问，他认负——可他也记住了这句话",
+      "outcome": {
+        "ref": "end_two_ways_asked",
+        "narrative": "scn_two_ways.asked",
+        "effects": [
+          { "type": "add_var", "key": "debt", "delta": 3 },
+          { "type": "add_var", "key": "power", "delta": 20 },
+          { "type": "destiny_drain", "ref": "dc_wayfarer_mirror", "delta": -10 },
+          { "type": "unlock_codex", "ref": "codex_unanswered_question" }
+        ]
+      }
+    },
+    {
+      "id": "solve_native_edge",
+      "name": "本相",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "all",
+              "of": [
+                { "type": "pack", "ref": "physique" },
+                { "type": "attr", "key": "root", "op": ">=", "value": 70 }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                { "type": "pack", "ref": "mystery" },
+                { "type": "attr", "key": "insight", "op": ">=", "value": 70 }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                { "type": "pack", "ref": "cautious" },
+                { "type": "attr", "key": "wits", "op": ">=", "value": 70 }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                { "type": "pack", "ref": "rebel" },
+                { "type": "attr", "key": "temper", "op": ">=", "value": 70 }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                { "type": "pack", "ref": "mortal" },
+                { "type": "var", "key": "currency", "op": ">=", "value": 40 }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                { "type": "pack", "ref": "genius" },
+                { "type": "var", "key": "power", "op": ">=", "value": 50 }
+              ]
+            }
+          ]
+        }
+      ],
+      "cost": "你没有取巧，只是照着自己那条路走到底——两界都看见了这一场，也记住了你",
+      "outcome": {
+        "ref": "end_two_ways_native",
+        "narrative": "scn_two_ways.native",
+        "effects": [
+          { "type": "add_var", "key": "karma", "delta": 20 },
+          { "type": "add_var", "key": "exposure", "delta": 15 },
+          { "type": "modify_power_index", "delta": 6 },
+          { "type": "unlock_title", "ref": "title_own_way" }
+        ]
+      }
+    },
+    {
+      "id": "solve_borrowed_thing",
+      "name": "借物留台",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_left_thing_any" },
+        { "type": "relation", "kind": "仇家", "exists": true },
+        { "type": "attr", "key": "insight", "op": ">=", "value": 65 }
+      ],
+      "cost": "你拿旁人之物充作己物留在台上——那物主找上门来",
+      "outcome": {
+        "ref": "end_two_ways_borrowed",
+        "narrative": "scn_two_ways.borrowed",
+        "effects": [
+          { "type": "set_relation", "npc_id": "npc_thing_owner", "kind": "仇家", "delta": 40 },
+          { "type": "add_var", "key": "karma", "delta": -20 },
+          { "type": "add_var", "key": "power", "delta": 15 }
+        ]
+      }
+    },
+    {
+      "id": "solve_fourth_road",
+      "name": "第四条路",
+      "hidden": true,
+      "conditions": [
+        { "type": "solved_any_of", "refs": ["solve_carry_law", "solve_ask_unanswerable"] },
+        { "type": "known_rule", "ref": "rule_law_is_act" },
+        { "type": "attr", "key": "wits", "op": ">=", "value": 88 },
+        { "type": "var", "key": "debt", "op": "<=", "value": 3 }
+      ],
+      "cost": "极低——只是你从此同时被两界记名，两头都算你半个自己人",
+      "outcome": {
+        "ref": "end_two_ways_fourth",
+        "narrative": "scn_two_ways.fourth",
+        "effects": [
+          { "type": "learn_rule", "pack": "rebel", "ref": "rule_law_is_act" },
+          { "type": "modify_power_index", "delta": 10 },
+          { "type": "add_var", "key": "corruption", "delta": -15 },
+          { "type": "unlock_title", "ref": "title_between_two_ways" },
+          { "type": "unlock_codex", "ref": "codex_fourth_road" }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_two_ways.unfinished",
+    "ref": "end_two_ways_unfinished",
+    "effects": [
+      { "type": "trigger_end", "ref": "end_two_ways_unfinished" },
+      { "type": "add_var", "key": "power", "delta": 15 },
+      { "type": "add_var", "key": "exposure", "delta": -10 },
+      { "type": "unlock_codex", "ref": "codex_unfinished_parley" }
+    ]
+  },
+  "version": "1.0.0"
+}

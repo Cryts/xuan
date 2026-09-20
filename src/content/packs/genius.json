@@ -1,0 +1,325 @@
+{
+  "pack_id": "genius",
+  "display_name": "炎武纪元",
+  "inspiration_tag": "热血升级流·炎武争锋",
+  "essence": "qi",
+  "version": "1.0.0",
+  "rule_ref": "engine@2026-09",
+  "realms": [
+    {
+      "idx": 0,
+      "name": "凡躯",
+      "power_index": [
+        0,
+        8
+      ],
+      "lifespan": 80,
+      "breakthrough": 0.9
+    },
+    {
+      "idx": 1,
+      "name": "燃血",
+      "power_index": [
+        8,
+        25
+      ],
+      "lifespan": 110,
+      "breakthrough": 0.83
+    },
+    {
+      "idx": 2,
+      "name": "熔息",
+      "power_index": [
+        25,
+        50
+      ],
+      "lifespan": 160,
+      "breakthrough": 0.75
+    },
+    {
+      "idx": 3,
+      "name": "淬脉",
+      "power_index": [
+        50,
+        85
+      ],
+      "lifespan": 240,
+      "breakthrough": 0.68
+    },
+    {
+      "idx": 4,
+      "name": "炎罡",
+      "power_index": [
+        85,
+        130
+      ],
+      "lifespan": 380,
+      "breakthrough": 0.61
+    },
+    {
+      "idx": 5,
+      "name": "焚腑",
+      "power_index": [
+        130,
+        185
+      ],
+      "lifespan": 600,
+      "breakthrough": 0.54
+    },
+    {
+      "idx": 6,
+      "name": "灼魂",
+      "power_index": [
+        185,
+        250
+      ],
+      "lifespan": 1000,
+      "breakthrough": 0.46
+    },
+    {
+      "idx": 7,
+      "name": "烈阳",
+      "power_index": [
+        250,
+        330
+      ],
+      "lifespan": 1800,
+      "breakthrough": 0.39
+    },
+    {
+      "idx": 8,
+      "name": "焚天",
+      "power_index": [
+        330,
+        430
+      ],
+      "lifespan": 3000,
+      "breakthrough": 0.32
+    },
+    {
+      "idx": 9,
+      "name": "炎极",
+      "power_index": [
+        430,
+        560
+      ],
+      "lifespan": 5000,
+      "breakthrough": 0.25
+    },
+    {
+      "idx": 10,
+      "name": "圣焰",
+      "power_index": [
+        560,
+        720
+      ],
+      "lifespan": null,
+      "breakthrough": 0.17
+    },
+    {
+      "idx": 11,
+      "name": "炎祖",
+      "power_index": [
+        720,
+        1000
+      ],
+      "lifespan": null,
+      "breakthrough": 0.1
+    }
+  ],
+  "resource_map": {
+    "currency": {
+      "name": "炎晶",
+      "tiers": [
+        "碎晶",
+        "整晶",
+        "晶髓",
+        "晶王"
+      ]
+    },
+    "power": {
+      "name": "炎息"
+    },
+    "rare_mat": {
+      "name": "火种",
+      "subtypes": [
+        "炎精",
+        "火髓",
+        "丹核",
+        "烬砂"
+      ]
+    },
+    "favor": {
+      "name": "势力人情",
+      "tiers": [
+        "挂名",
+        "客卿",
+        "供奉",
+        "长老"
+      ]
+    },
+    "debt": {
+      "name": "血仇"
+    },
+    "exposure": {
+      "name": "名头",
+      "tiers": [
+        "无名",
+        "小有名",
+        "名动一方",
+        "天下皆知"
+      ]
+    },
+    "corruption": {
+      "name": "焚身"
+    },
+    "karma": {
+      "name": "业火"
+    },
+    "hp": {
+      "name": "伤势"
+    },
+    "lifespan": {
+      "name": "寿元"
+    },
+    "flame_rank": {
+      "name": "炎灵谱",
+      "tiers": [
+        "凡火",
+        "灵火",
+        "宝火",
+        "天火",
+        "祖火"
+      ]
+    },
+    "alchemy_rank": {
+      "name": "药师阶",
+      "tiers": [
+        "药童",
+        "药师",
+        "大药师",
+        "药王"
+      ]
+    }
+  },
+  "goldfinger_slots": [
+    {
+      "id": "flame_seed",
+      "name": "炎灵初种",
+      "rarity": "S",
+      "effects": [
+        "flame_rank_up",
+        "power_burst",
+        "corruption+3",
+        "craves_more"
+      ]
+    },
+    {
+      "id": "old_ring",
+      "name": "旧戒残念",
+      "rarity": "A",
+      "effects": [
+        "teach_skill",
+        "insight_bonus",
+        "debt+1",
+        "soul_contest"
+      ]
+    },
+    {
+      "id": "cracked_furnace",
+      "name": "裂痕丹炉",
+      "rarity": "B",
+      "effects": [
+        "alchemy_rank_up",
+        "rare_mat_convert",
+        "explode_risk"
+      ]
+    },
+    {
+      "id": "battle_manual",
+      "name": "战诀残篇",
+      "rarity": "B",
+      "effects": [
+        "combat_bonus",
+        "unlock_affix_slot",
+        "missing_pages"
+      ]
+    },
+    {
+      "id": "reverse_scale",
+      "name": "逆鳞血勇",
+      "rarity": "C",
+      "effects": [
+        "emergency_power",
+        "temper_check",
+        "lifespan-3"
+      ]
+    }
+  ],
+  "fail_modes": [
+    {
+      "id": "burn_self",
+      "trigger": "corruption>=85",
+      "text_ref": "flavor_burn_self"
+    },
+    {
+      "id": "faction_hunt",
+      "trigger": "debt>=6",
+      "text_ref": "flavor_faction_hunt"
+    },
+    {
+      "id": "flame_devour",
+      "trigger": "flame_rank>=4 && temper<30",
+      "text_ref": "flavor_flame_devour"
+    },
+    {
+      "id": "furnace_burst",
+      "trigger": "alchemy_rank>=3 && rare_mat==0",
+      "text_ref": "flavor_furnace_burst"
+    },
+    {
+      "id": "pride_fall",
+      "trigger": "exposure>=70 && hp<=20",
+      "text_ref": "flavor_pride_fall"
+    }
+  ],
+  "motif_weights": {
+    "m_cave_relic": 1.4,
+    "m_mystic_treasure": 1.7,
+    "m_broken_betrothal": 1.5,
+    "m_mentor_soul": 1.8,
+    "m_waste_root_test": 1.3,
+    "m_body_seize": 0.6,
+    "m_market_bargain": 0.8,
+    "m_auction": 1.6,
+    "m_source_fusion": 2.0,
+    "m_ancient_relic": 0.6,
+    "m_sect_tournament": 1.9,
+    "m_sect_betrayal": 1.0,
+    "m_guardian_sacrifice": 0.8,
+    "m_beast_backlash": 1.2,
+    "m_secret_realm": 1.6,
+    "m_tribulation": 0.9,
+    "m_ancient_battlefield": 1.0,
+    "m_pill_furnace": 1.5,
+    "m_reincarnation": 0.4,
+    "m_sword_debate": 1.1,
+    "m_faction_choice": 1.4,
+    "m_city_defense": 0.6,
+    "m_sealed_object": 0.1,
+    "m_playacting": 0.4,
+    "m_aggregation_hunt": 0.2,
+    "m_outer_god": 0.0,
+    "m_time_loop": 0.1,
+    "m_dual_world": 0.1,
+    "m_forbidden_knowledge": 0.6,
+    "m_contingency": 0.5,
+    "m_cross_world": 0.3,
+    "m_ascension_rite": 1.2
+  },
+  "tone": {
+    "narration": "炽烈、直给、有火气；胜要赢得漂亮，败要败得响亮",
+    "humor": 0.35,
+    "violence": 0.6
+  }
+}

@@ -1,0 +1,328 @@
+{
+  "id": "scn_cautious_three_talismans",
+  "kind": "scenario",
+  "name": "三符",
+  "pack": [
+    "cautious"
+  ],
+  "span": 5,
+  "tension": 7,
+  "weight": 38,
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 1
+  },
+  "rules_stated": [
+    "你与三处各持一枚传音符，符只单向——你听得见他们，他们听不见你。",
+    "一刻只能取一枚符，其余两符此刻之音就此遗失。",
+    "未应答者视同弃之，被弃者见则索命。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_silence_no_trace",
+      "hint": "『应答』须出声。你从未出过声——他们凭什么知道你漏听了哪一枚？",
+      "reveal": {
+        "type": "attr",
+        "key": "wits",
+        "op": ">=",
+        "value": 65
+      }
+    },
+    {
+      "id": "rule_echo_reverse",
+      "hint": "符中留声可倒着听。先听末刻，便知该取哪一枚。",
+      "reveal": {
+        "type": "attr",
+        "key": "insight",
+        "op": ">=",
+        "value": 60
+      }
+    },
+    {
+      "id": "rule_borrowed_ear",
+      "hint": "『单向』说的是你的声音传不出。可符是死物——谁把耳朵贴上去，谁就听得见。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "relation",
+            "kind": "护道人",
+            "exists": true
+          },
+          {
+            "type": "affordance",
+            "ref": "借耳"
+          }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "同时取两枚符",
+    "对符出声",
+    "将符交予外人"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_borrow_ear",
+      "name": "借耳",
+      "conditions": [
+        {
+          "type": "known_rule",
+          "ref": "rule_borrowed_ear"
+        },
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "relation",
+              "kind": "护道人",
+              "exists": true
+            },
+            {
+              "type": "relation",
+              "kind": "盟友",
+              "op": ">=",
+              "value": 30
+            }
+          ]
+        }
+      ],
+      "cost": "旁人替你听了三处之音，也就知道了你三处的底细",
+      "outcome": {
+        "ref": "end_three_talismans_borrowed",
+        "narrative": "scn_three_talismans.borrowed",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": -10
+          },
+          {
+            "type": "learn_rule",
+            "pack": "cautious",
+            "ref": "rule_borrowed_ear"
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_never_answer",
+      "name": "不答",
+      "conditions": [
+        {
+          "type": "known_rule",
+          "ref": "rule_silence_no_trace"
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 25
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 65
+        }
+      ],
+      "cost": "你从不回应，三处渐次冷了——他们都当你不在了",
+      "outcome": {
+        "ref": "end_three_talismans_silent",
+        "narrative": "scn_three_talismans.silent",
+        "effects": [
+          {
+            "type": "set_relation",
+            "npc_id": "npc_far_ally",
+            "kind": "盟友",
+            "delta": -100
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": -20
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_reverse_echo",
+      "name": "倒听",
+      "conditions": [
+        {
+          "type": "known_rule",
+          "ref": "rule_echo_reverse"
+        },
+        {
+          "type": "attr",
+          "key": "insight",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "node_count",
+          "op": "<=",
+          "value": 3
+        }
+      ],
+      "cost": "倒听许多遍，字字都在，可你的神念从此乱了一分",
+      "outcome": {
+        "ref": "end_three_talismans_reverse",
+        "narrative": "scn_three_talismans.reverse",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -15
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_reversed_echo"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_cut_all",
+      "name": "断符",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "断法"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_duanren",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "var",
+          "key": "currency",
+          "op": ">=",
+          "value": 30
+        }
+      ],
+      "cost": "你烧了三枚符，三处从此断了线——他们也从此不再欠你",
+      "outcome": {
+        "ref": "end_three_talismans_cut",
+        "narrative": "scn_three_talismans.cut",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": -20
+          },
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 2
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": -30
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_fourth_place",
+      "name": "第四处",
+      "hidden": true,
+      "conditions": [
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_borrow_ear",
+            "solve_reverse_echo"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 85
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 35
+        }
+      ],
+      "cost": "极低——只是第四枚符响起时，你终于明白它一直在等你听",
+      "outcome": {
+        "ref": "end_three_talismans_fourth",
+        "narrative": "scn_three_talismans.fourth",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 25
+          },
+          {
+            "type": "add_item",
+            "ref": "itm_fourth_talisman",
+            "quality": "宝品"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_fourth_line"
+          }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_three_talismans.cold",
+    "ref": "end_three_talismans_cold",
+    "effects": [
+      {
+        "type": "trigger_end",
+        "ref": "end_three_talismans_cold"
+      },
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": -15
+      },
+      {
+        "type": "add_var",
+        "key": "favor",
+        "delta": -20
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_three_cold_notes"
+      }
+    ]
+  },
+  "version": "1.0.0"
+}

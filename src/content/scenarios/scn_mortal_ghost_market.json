@@ -1,0 +1,169 @@
+{
+  "id": "scn_mortal_ghost_market",
+  "kind": "scenario",
+  "name": "鬼市三钱",
+  "pack": ["mortal"],
+  "span": 6,
+  "tension": 7,
+  "weight": 35,
+  "requires": { "type": "realm_idx", "op": ">=", "value": 1 },
+  "rules_stated": [
+    "鬼市只认令不认人，掌中无令者入市即化灰。",
+    "市中不问来路，不问去处，问者化灰。",
+    "市中所购之物，须待离市方可启封。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_wax_not_seal",
+      "hint": "『认令』认的是令上那一点朱漆。漆是死的，谁都能烫。你掌中那一枚，本就是仿的。",
+      "reveal": { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+    },
+    {
+      "id": "rule_ask_is_speech",
+      "hint": "『不问来路』禁的是开口相问，不是抬眼相看——看是不要钱的。",
+      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 60 }
+    },
+    {
+      "id": "rule_bridge_is_border",
+      "hint": "市界不在摊子，在桥。桥那头檐下的水洼，已经不是鬼市的地了。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          { "type": "known_rule", "ref": "rule_wax_not_seal" },
+          { "type": "affordance", "ref": "破封" }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "在市中启封所购之物",
+    "以法照人面目",
+    "于市中呼人名姓"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_forge_wax",
+      "name": "烫漆",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_wax_not_seal" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "attr", "key": "charm", "op": ">=", "value": 60 },
+            { "type": "item", "ref": "itm_wax_lump" }
+          ]
+        }
+      ],
+      "cost": "你顶着一张不属于自己的脸走出鬼市——那张脸的主人还在市里找你",
+      "outcome": {
+        "ref": "end_ghost_market_forged",
+        "narrative": "scn_ghost_market.forged",
+        "effects": [
+          { "type": "add_var", "key": "exposure", "delta": 25 },
+          { "type": "add_var", "key": "currency", "delta": 45 },
+          { "type": "unlock_title", "ref": "title_wax_forger" }
+        ]
+      }
+    },
+    {
+      "id": "solve_watch_only",
+      "name": "只看不问",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_ask_is_speech" },
+        { "type": "attr", "key": "insight", "op": ">=", "value": 55 },
+        {
+          "type": "any",
+          "of": [
+            { "type": "affordance", "ref": "观气" },
+            { "type": "affix_count", "ref": "瞳", "count": 1 }
+          ]
+        }
+      ],
+      "cost": "你看清了不该看的东西，摊主也看清了你",
+      "outcome": {
+        "ref": "end_ghost_market_watcher",
+        "narrative": "scn_ghost_market.watcher",
+        "effects": [
+          { "type": "set_relation", "npc_id": "npc_stall_owner", "kind": "仇家", "delta": 30 },
+          { "type": "add_var", "key": "rare_mat", "delta": 3 },
+          { "type": "unlock_codex", "ref": "codex_market_faces" }
+        ]
+      }
+    },
+    {
+      "id": "solve_bridge_open",
+      "name": "过桥再开",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_bridge_is_border" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "affordance", "ref": "破封" },
+            { "type": "affix_count", "ref": "锐", "count": 2 }
+          ]
+        }
+      ],
+      "cost": "封一开，市里的东西就认得你了（污染）",
+      "outcome": {
+        "ref": "end_ghost_market_unsealed",
+        "narrative": "scn_ghost_market.unsealed",
+        "effects": [
+          { "type": "add_var", "key": "corruption", "delta": 20 },
+          { "type": "add_var", "key": "rare_mat", "delta": 5 },
+          { "type": "add_affix", "target": "self", "affix_id": "affix_market_mark" }
+        ]
+      }
+    },
+    {
+      "id": "solve_toll",
+      "name": "以物抵问",
+      "conditions": [
+        { "type": "var", "key": "currency", "op": ">=", "value": 40 },
+        { "type": "faction_tier", "ref": "鬼市", "op": ">=", "value": 2 },
+        { "type": "not", "of": { "type": "flag", "ref": "ghost_market_blacklisted" } }
+      ],
+      "cost": "你买了答案，也买了债主",
+      "outcome": {
+        "ref": "end_ghost_market_bought",
+        "narrative": "scn_ghost_market.bought",
+        "effects": [
+          { "type": "add_var", "key": "debt", "delta": 3 },
+          { "type": "add_var", "key": "currency", "delta": -40 },
+          { "type": "add_var", "key": "favor", "delta": 15 }
+        ]
+      }
+    },
+    {
+      "id": "solve_three_coins",
+      "name": "三钱",
+      "hidden": true,
+      "conditions": [
+        { "type": "solved_any_of", "refs": ["solve_watch_only", "solve_toll"] },
+        { "type": "known_rule", "ref": "rule_bridge_is_border" },
+        { "type": "attr", "key": "wits", "op": ">=", "value": 85 }
+      ],
+      "cost": "极低——只是你从此听得见鬼市的更鼓，它在数你还能入市几次",
+      "outcome": {
+        "ref": "end_ghost_market_three_coins",
+        "narrative": "scn_ghost_market.three_coins",
+        "effects": [
+          { "type": "add_var", "key": "currency", "delta": 80 },
+          { "type": "add_var", "key": "favor", "delta": 20 },
+          { "type": "unlock_title", "ref": "title_three_coins" },
+          { "type": "unlock_codex", "ref": "codex_ghost_market_ledger" }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_ghost_market.thin",
+    "ref": "end_ghost_market_thin",
+    "effects": [
+      { "type": "trigger_end", "ref": "end_ghost_market_thin" },
+      { "type": "add_var", "key": "exposure", "delta": 10 },
+      { "type": "add_var", "key": "currency", "delta": -10 },
+      { "type": "unlock_codex", "ref": "codex_false_token" }
+    ]
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,306 @@
+{
+  "pack_id": "mystery",
+  "display_name": "灰雾之秘",
+  "inspiration_tag": "神秘解谜流·身份经营",
+  "essence": "spirit",
+  "version": "1.0.0",
+  "rule_ref": "engine@2026-09",
+  "realms": [
+    {
+      "idx": 0,
+      "name": "阶位九品",
+      "power_index": [
+        0,
+        20
+      ],
+      "lifespan": 70,
+      "breakthrough": 0.9
+    },
+    {
+      "idx": 1,
+      "name": "阶位八品",
+      "power_index": [
+        20,
+        55
+      ],
+      "lifespan": 110,
+      "breakthrough": 0.81
+    },
+    {
+      "idx": 2,
+      "name": "阶位七品",
+      "power_index": [
+        55,
+        100
+      ],
+      "lifespan": 170,
+      "breakthrough": 0.72
+    },
+    {
+      "idx": 3,
+      "name": "阶位六品",
+      "power_index": [
+        100,
+        160
+      ],
+      "lifespan": 260,
+      "breakthrough": 0.63
+    },
+    {
+      "idx": 4,
+      "name": "阶位五品",
+      "power_index": [
+        160,
+        235
+      ],
+      "lifespan": 400,
+      "breakthrough": 0.54
+    },
+    {
+      "idx": 5,
+      "name": "阶位四品",
+      "power_index": [
+        235,
+        325
+      ],
+      "lifespan": 600,
+      "breakthrough": 0.46
+    },
+    {
+      "idx": 6,
+      "name": "阶位三品",
+      "power_index": [
+        325,
+        435
+      ],
+      "lifespan": 900,
+      "breakthrough": 0.37
+    },
+    {
+      "idx": 7,
+      "name": "阶位二品",
+      "power_index": [
+        435,
+        570
+      ],
+      "lifespan": 1400,
+      "breakthrough": 0.28
+    },
+    {
+      "idx": 8,
+      "name": "阶位一品",
+      "power_index": [
+        570,
+        740
+      ],
+      "lifespan": 2200,
+      "breakthrough": 0.19
+    },
+    {
+      "idx": 9,
+      "name": "零阶",
+      "power_index": [
+        740,
+        1000
+      ],
+      "lifespan": null,
+      "breakthrough": 0.1
+    }
+  ],
+  "resource_map": {
+    "currency": {
+      "name": "镑",
+      "tiers": [
+        "零币",
+        "整镑",
+        "金镑",
+        "不记名券"
+      ]
+    },
+    "power": {
+      "name": "灵性"
+    },
+    "rare_mat": {
+      "name": "超常之质",
+      "subtypes": [
+        "残质",
+        "异血",
+        "遗物",
+        "刻印"
+      ]
+    },
+    "favor": {
+      "name": "教会功勋",
+      "tiers": [
+        "信众",
+        "执事",
+        "主教",
+        "圣座"
+      ]
+    },
+    "debt": {
+      "name": "聚合仇恨"
+    },
+    "exposure": {
+      "name": "疑影",
+      "tiers": [
+        "无形",
+        "有迹",
+        "被盯",
+        "通缉"
+      ]
+    },
+    "corruption": {
+      "name": "失控值"
+    },
+    "karma": {
+      "name": "罪愆"
+    },
+    "hp": {
+      "name": "伤势"
+    },
+    "lifespan": {
+      "name": "阳寿"
+    },
+    "sanity": {
+      "name": "理智"
+    },
+    "aggregation": {
+      "name": "聚合度",
+      "tiers": [
+        "散",
+        "聚",
+        "凝",
+        "合"
+      ]
+    },
+    "path_lock": {
+      "name": "途轨锁定",
+      "tiers": [
+        "初印",
+        "深印",
+        "死印",
+        "破印"
+      ]
+    }
+  },
+  "goldfinger_slots": [
+    {
+      "id": "dust_lamp",
+      "name": "蒙尘灰灯",
+      "rarity": "S",
+      "effects": [
+        "ritual_power",
+        "insight_bonus",
+        "corruption+2",
+        "notice_attracted"
+      ]
+    },
+    {
+      "id": "path_stigma",
+      "name": "途痕初印",
+      "rarity": "A",
+      "effects": [
+        "path_lock_early",
+        "skill_unlock",
+        "identity_fixed"
+      ]
+    },
+    {
+      "id": "old_memory",
+      "name": "旧忆残页",
+      "rarity": "B",
+      "effects": [
+        "recall_lore",
+        "once_per_run_hint",
+        "memory_cost"
+      ]
+    },
+    {
+      "id": "dual_face",
+      "name": "双面身份",
+      "rarity": "B",
+      "effects": [
+        "identity_cover",
+        "favor_gain",
+        "exposure+3"
+      ]
+    },
+    {
+      "id": "hush_mark",
+      "name": "静默刻印",
+      "rarity": "C",
+      "effects": [
+        "corruption_resist",
+        "low_profile",
+        "power_gain_slow"
+      ]
+    }
+  ],
+  "fail_modes": [
+    {
+      "id": "lost_control",
+      "trigger": "corruption>=85",
+      "text_ref": "flavor_lost_control"
+    },
+    {
+      "id": "hunted_by_convergence",
+      "trigger": "debt>=6",
+      "text_ref": "flavor_convergence_hunt"
+    },
+    {
+      "id": "identity_blown",
+      "trigger": "exposure>=80",
+      "text_ref": "flavor_identity_blown"
+    },
+    {
+      "id": "path_sealed",
+      "trigger": "path_lock>=3 && corruption>=50",
+      "text_ref": "flavor_path_sealed"
+    },
+    {
+      "id": "sanity_zero",
+      "trigger": "corruption>=95 && hp<=15",
+      "text_ref": "flavor_sanity_zero"
+    }
+  ],
+  "motif_weights": {
+    "m_cave_relic": 0.7,
+    "m_mystic_treasure": 0.9,
+    "m_broken_betrothal": 0.3,
+    "m_mentor_soul": 0.6,
+    "m_waste_root_test": 1.0,
+    "m_body_seize": 1.2,
+    "m_market_bargain": 0.9,
+    "m_auction": 1.1,
+    "m_source_fusion": 0.8,
+    "m_ancient_relic": 0.7,
+    "m_sect_tournament": 0.4,
+    "m_sect_betrayal": 1.3,
+    "m_guardian_sacrifice": 0.9,
+    "m_beast_backlash": 0.5,
+    "m_secret_realm": 1.0,
+    "m_tribulation": 0.6,
+    "m_ancient_battlefield": 0.8,
+    "m_pill_furnace": 0.6,
+    "m_reincarnation": 1.5,
+    "m_sword_debate": 0.3,
+    "m_faction_choice": 1.6,
+    "m_city_defense": 0.6,
+    "m_sealed_object": 2.0,
+    "m_playacting": 2.0,
+    "m_aggregation_hunt": 1.8,
+    "m_outer_god": 1.9,
+    "m_time_loop": 1.4,
+    "m_dual_world": 1.3,
+    "m_forbidden_knowledge": 1.8,
+    "m_contingency": 1.1,
+    "m_cross_world": 0.7,
+    "m_ascension_rite": 1.0
+  },
+  "tone": {
+    "narration": "阴冷、克制、档案体；恐怖来自说不清楚的部分，而非血腥",
+    "humor": 0.2,
+    "violence": 0.5
+  }
+}

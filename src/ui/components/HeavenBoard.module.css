@@ -1,0 +1,244 @@
+.intro {
+  display: flex;
+  gap: var(--s3);
+  align-items: flex-start;
+  padding: var(--s4);
+  margin-bottom: var(--s5);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  color: var(--t2);
+  background: rgba(242, 234, 217, 0.02);
+}
+.intro svg {
+  margin-top: 3px;
+  color: var(--gold);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  padding: var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background:
+    linear-gradient(180deg, rgba(242, 234, 217, 0.035), rgba(242, 234, 217, 0.008)),
+    var(--ink-2);
+  animation: fadeUp var(--d3) var(--ease-out) both;
+}
+
+.dead {
+  opacity: 0.5;
+  filter: grayscale(0.6);
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-title);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--paper);
+}
+
+.power {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.powerNum {
+  font-family: var(--font-title);
+  font-size: var(--fs-lg);
+  color: var(--gold-bright);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* ---------- 气运 ---------- */
+.qiyun {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4);
+  border: 1px solid rgba(201, 162, 39, 0.2);
+  border-radius: var(--r);
+  background: linear-gradient(100deg, rgba(201, 162, 39, 0.07), transparent);
+}
+
+.qiyunTop {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s3);
+}
+
+.qiyunLabel {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.3em;
+  color: var(--gold);
+}
+
+.qiyunNum {
+  font-family: var(--font-title);
+  font-size: var(--fs-lg);
+  color: var(--paper);
+}
+.qiyunNum i {
+  font-style: normal;
+  color: var(--t4);
+  margin: 0 2px;
+  font-size: var(--fs-sm);
+}
+
+.worn {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: #c9743a;
+  margin-left: auto;
+}
+
+.qiyunHint {
+  font-size: var(--fs-2xs);
+  line-height: 1.85;
+  color: var(--t3);
+}
+
+/* ---------- 命运线 ---------- */
+.fate {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.fateTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.fateNext {
+  font-size: var(--fs-xs);
+  color: var(--t2);
+  letter-spacing: 0.06em;
+}
+.fateNext b {
+  font-family: var(--font-title);
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+/* ---------- 关系 / 抗性 ---------- */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+  font-size: var(--fs-xs);
+}
+
+.rel_good {
+  color: #6fb3a3;
+}
+.rel_bad {
+  color: #e0705f;
+}
+.rel_flat {
+  color: var(--t3);
+}
+
+.resist {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--fs-2xs);
+  color: var(--t3);
+  letter-spacing: 0.08em;
+}
+
+/* ---------- 谶语 ---------- */
+.oracle {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--s3);
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  background: rgba(242, 234, 217, 0.016);
+  min-height: 5.4em;
+}
+
+.oracleTag {
+  flex: none;
+  align-self: flex-start;
+  display: grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid rgba(193, 57, 43, 0.55);
+  border-radius: var(--r-xs);
+  font-family: var(--font-title);
+  font-size: var(--fs-2xs);
+  color: #d9564a;
+}
+
+.oracle p {
+  max-height: 11em;
+  overflow: hidden;
+}
+
+.desc {
+  font-size: var(--fs-2xs);
+  line-height: 1.85;
+  color: var(--t3);
+  letter-spacing: 0.04em;
+  padding-top: var(--s2);
+  border-top: 1px solid var(--line-2);
+}
+
+/* ---------- 尾注 ---------- */
+.foot {
+  margin-top: var(--s6);
+}
+
+.tips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  font-size: var(--fs-xs);
+  line-height: 1.9;
+  color: var(--t2);
+}
+
+.tips li {
+  padding-left: var(--s4);
+  position: relative;
+}
+.tips li::before {
+  content: '·';
+  position: absolute;
+  left: var(--s2);
+  color: var(--gold);
+}

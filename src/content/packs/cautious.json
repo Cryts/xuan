@@ -1,0 +1,332 @@
+{
+  "pack_id": "cautious",
+  "display_name": "苟道长生",
+  "inspiration_tag": "苟道稳健流·低风险求生",
+  "essence": "shi",
+  "version": "1.0.0",
+  "rule_ref": "engine@2026-09",
+  "realms": [
+    {
+      "idx": 0,
+      "name": "凡人",
+      "power_index": [
+        0,
+        8
+      ],
+      "lifespan": 80,
+      "breakthrough": 0.9
+    },
+    {
+      "idx": 1,
+      "name": "炼气",
+      "power_index": [
+        8,
+        25
+      ],
+      "lifespan": 130,
+      "breakthrough": 0.86
+    },
+    {
+      "idx": 2,
+      "name": "化神",
+      "power_index": [
+        25,
+        50
+      ],
+      "lifespan": 220,
+      "breakthrough": 0.81
+    },
+    {
+      "idx": 3,
+      "name": "返虚",
+      "power_index": [
+        50,
+        85
+      ],
+      "lifespan": 400,
+      "breakthrough": 0.76
+    },
+    {
+      "idx": 4,
+      "name": "归道",
+      "power_index": [
+        85,
+        130
+      ],
+      "lifespan": 700,
+      "breakthrough": 0.71
+    },
+    {
+      "idx": 5,
+      "name": "地仙",
+      "power_index": [
+        130,
+        185
+      ],
+      "lifespan": 1200,
+      "breakthrough": 0.65
+    },
+    {
+      "idx": 6,
+      "name": "元仙",
+      "power_index": [
+        185,
+        250
+      ],
+      "lifespan": 2000,
+      "breakthrough": 0.59
+    },
+    {
+      "idx": 7,
+      "name": "真仙",
+      "power_index": [
+        250,
+        330
+      ],
+      "lifespan": 3200,
+      "breakthrough": 0.53
+    },
+    {
+      "idx": 8,
+      "name": "天仙",
+      "power_index": [
+        330,
+        430
+      ],
+      "lifespan": 5000,
+      "breakthrough": 0.46
+    },
+    {
+      "idx": 9,
+      "name": "金仙",
+      "power_index": [
+        430,
+        560
+      ],
+      "lifespan": 9000,
+      "breakthrough": 0.38
+    },
+    {
+      "idx": 10,
+      "name": "大罗",
+      "power_index": [
+        560,
+        720
+      ],
+      "lifespan": null,
+      "breakthrough": 0.29
+    },
+    {
+      "idx": 11,
+      "name": "太乙",
+      "power_index": [
+        720,
+        860
+      ],
+      "lifespan": null,
+      "breakthrough": 0.2
+    },
+    {
+      "idx": 12,
+      "name": "长生",
+      "power_index": [
+        860,
+        1000
+      ],
+      "lifespan": null,
+      "breakthrough": 0.1
+    }
+  ],
+  "resource_map": {
+    "currency": {
+      "name": "玉铢",
+      "tiers": [
+        "铢",
+        "贯",
+        "锭",
+        "库"
+      ]
+    },
+    "power": {
+      "name": "道行"
+    },
+    "rare_mat": {
+      "name": "遁材",
+      "subtypes": [
+        "替身",
+        "遁符",
+        "傀儡",
+        "藏物"
+      ]
+    },
+    "favor": {
+      "name": "人脉",
+      "tiers": [
+        "点头",
+        "熟客",
+        "故交",
+        "死党"
+      ]
+    },
+    "debt": {
+      "name": "人情"
+    },
+    "exposure": {
+      "name": "踪迹",
+      "tiers": [
+        "无迹",
+        "疑似",
+        "被察",
+        "锁定"
+      ]
+    },
+    "corruption": {
+      "name": "心怠"
+    },
+    "karma": {
+      "name": "善缘"
+    },
+    "hp": {
+      "name": "伤势"
+    },
+    "lifespan": {
+      "name": "寿元"
+    },
+    "backup_plan": {
+      "name": "后手数",
+      "tiers": [
+        "一备",
+        "三备",
+        "六备",
+        "九备"
+      ]
+    },
+    "conceal": {
+      "name": "隐蔽度",
+      "tiers": [
+        "浅藏",
+        "深藏",
+        "无痕",
+        "遁世"
+      ]
+    }
+  },
+  "goldfinger_slots": [
+    {
+      "id": "backup_doll",
+      "name": "替身傀儡",
+      "rarity": "S",
+      "effects": [
+        "survive_fatal_twice",
+        "exposure_reset",
+        "doll_cost"
+      ]
+    },
+    {
+      "id": "preplan_scroll",
+      "name": "预案残卷",
+      "rarity": "A",
+      "effects": [
+        "contingency_slot_up",
+        "prediction_bonus",
+        "slow_growth"
+      ]
+    },
+    {
+      "id": "shadow_double",
+      "name": "影替之术",
+      "rarity": "A",
+      "effects": [
+        "decoy",
+        "escape_bonus",
+        "identity_split"
+      ]
+    },
+    {
+      "id": "hidden_cave",
+      "name": "洞府秘藏",
+      "rarity": "B",
+      "effects": [
+        "safe_haven",
+        "passive_income",
+        "discover_risk"
+      ]
+    },
+    {
+      "id": "turtle_pillow",
+      "name": "龟息玉枕",
+      "rarity": "C",
+      "effects": [
+        "lifespan+8",
+        "low_presence",
+        "power_gain_slow"
+      ]
+    }
+  ],
+  "fail_modes": [
+    {
+      "id": "exposed_purge",
+      "trigger": "exposure>=80",
+      "text_ref": "flavor_exposed_purge"
+    },
+    {
+      "id": "no_more_cards",
+      "trigger": "backup_plan<=0 && hp<=30",
+      "text_ref": "flavor_no_more_cards"
+    },
+    {
+      "id": "idle_decay",
+      "trigger": "corruption>=85",
+      "text_ref": "flavor_idle_decay"
+    },
+    {
+      "id": "favor_called_in",
+      "trigger": "debt>=8",
+      "text_ref": "flavor_favor_called_in"
+    },
+    {
+      "id": "lifespan_run_out",
+      "trigger": "lifespan<=0",
+      "text_ref": "flavor_lifespan_run_out"
+    }
+  ],
+  "motif_weights": {
+    "m_cave_relic": 1.3,
+    "m_mystic_treasure": 0.8,
+    "m_broken_betrothal": 0.4,
+    "m_mentor_soul": 0.9,
+    "m_waste_root_test": 1.0,
+    "m_body_seize": 1.2,
+    "m_market_bargain": 1.5,
+    "m_auction": 0.7,
+    "m_source_fusion": 0.5,
+    "m_ancient_relic": 0.6,
+    "m_sect_tournament": 0.5,
+    "m_sect_betrayal": 1.4,
+    "m_guardian_sacrifice": 0.8,
+    "m_beast_backlash": 0.7,
+    "m_secret_realm": 1.1,
+    "m_tribulation": 1.6,
+    "m_ancient_battlefield": 0.6,
+    "m_pill_furnace": 1.2,
+    "m_reincarnation": 1.1,
+    "m_sword_debate": 0.4,
+    "m_faction_choice": 1.0,
+    "m_city_defense": 1.3,
+    "m_sealed_object": 1.2,
+    "m_playacting": 1.5,
+    "m_aggregation_hunt": 1.4,
+    "m_outer_god": 0.8,
+    "m_time_loop": 1.7,
+    "m_dual_world": 1.0,
+    "m_forbidden_knowledge": 1.0,
+    "m_contingency": 2.0,
+    "m_cross_world": 0.5,
+    "m_ascension_rite": 0.9
+  },
+  "tone": {
+    "narration": "平淡、琐碎、带自嘲；危险总在事后才显形",
+    "humor": 0.3,
+    "violence": 0.25
+  }
+}

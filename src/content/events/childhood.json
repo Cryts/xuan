@@ -1,0 +1,7348 @@
+[
+  {
+    "id": "evt_mortal_waste_root_test_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_waste_root_test",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 110,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "测石上那道白痕",
+        "判词落在纸上，墨未干",
+        "分去灵田那日"
+      ],
+      "body_key": "loose.m_waste_root_test.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "领下判词，去灵田那一片地",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "往后族里没人肯往你身上押丹材",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "rare_mat",
+              "delta": -2
+            },
+            {
+              "type": "add_var",
+              "key": "power",
+              "delta": 2
+            },
+            {
+              "type": "add_attr",
+              "key": "temper",
+              "delta": 3
+            },
+            {
+              "type": "set_flag",
+              "key": "waste_root_test_verdict_taken"
+            },
+            {
+              "type": "unlock_title",
+              "ref": "守田人"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "clan",
+      "early",
+      "identity"
+    ],
+    "meta_unlock": {
+      "codex": "codex_waste_root_test",
+      "title": "守田人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_mystic_treasure_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_mystic_treasure",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 95,
+    "tension": 3,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "漏底的旧瓶",
+        "瓶口浮出的名字",
+        "它只在阴雨的夜动"
+      ],
+      "body_key": "loose.m_mystic_treasure.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "守过整个雨季，记下它何时动",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "守夜伤身，也伤田里的苗",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_cycle_known"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_mystic_treasure"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_cycle_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_name_not_yours"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "拿它去坊市，问老掌柜的来历",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "老掌柜会记住你的脸",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "charm",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_owner_named"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_su_zhao",
+                  "kind": "盟友",
+                  "delta": 8
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_owner_named"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_pei_wujiu",
+                  "kind": "仇家",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_buyer_interest"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把它扔回水里，只当没拾过",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "夜里会想起它渗出的那点湿意",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "karma",
+              "delta": 4
+            },
+            {
+              "type": "add_var",
+              "key": "lifespan",
+              "delta": 1
+            },
+            {
+              "type": "set_flag",
+              "key": "mystic_treasure_cast_away"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "goldfinger",
+      "early",
+      "whisper",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_mystic_treasure"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_mentor_soul_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_mentor_soul",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 90,
+    "tension": 3,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "耳边的第二个声音",
+        "缺了一角的铜印",
+        "他数你今日的错"
+      ],
+      "body_key": "loose.m_mentor_soul.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "拜他作师，一字一句地学",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "他给的是捷径，底子得你自己补",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "insight",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 9
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_soul_pact"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_zhu_heng",
+                  "kind": "师徒",
+                  "delta": 10
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_soul_pact"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_soul_hollow_root"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "先问他三件旧事，看他哪句改口",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "他也在看你问的是哪三件",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 7
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_soul_lie_found"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_soul_owes_you"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_soul_lie_found"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_soul_measures_you"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把铜印交回族老，只说没听见",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "族老会问他都跟你说了什么",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "currency",
+              "delta": 6
+            },
+            {
+              "type": "add_var",
+              "key": "favor",
+              "delta": 2
+            },
+            {
+              "type": "set_flag",
+              "key": "mentor_soul_handed_in"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "mentor",
+      "whisper",
+      "early"
+    ],
+    "meta_unlock": {
+      "codex": "codex_mentor_soul"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_body_seize_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_body_seize",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 85,
+    "tension": 4,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "高热退了以后",
+        "墙缝被人翻过",
+        "有人比你会藏东西"
+      ],
+      "body_key": "loose.m_body_seize.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "反手压住他，趁他还没坐稳",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "你未必分得清哪段记忆是自己的",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_devoured"
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "吞念者"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_devoured"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_contested"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_other_in_you"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "咬破舌尖，生生把自己痛醒",
+        "intent": "flee",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "醒来时嘴里全是铁味",
+        "resolve": {
+          "roll": {
+            "base": 0.55,
+            "attr": "temper",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_attr",
+                  "key": "temper",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_broken_free"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_broken_free"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 13
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_half_in"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_other_wears_you"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "不动声色，听他自己说下去",
+        "intent": "scheme",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "装睡的人最怕被叫醒",
+        "resolve": {
+          "roll": {
+            "base": 0.65,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_intent_known"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_contested"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_intent_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_knows_you_woke"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "whisper",
+      "identity",
+      "early"
+    ],
+    "meta_unlock": {
+      "codex": "codex_body_seize"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_beast_backlash_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_beast_backlash",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 85,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 5,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "田埂上那头小兽",
+        "它舔了你的手",
+        "后院的食盆空得太快"
+      ],
+      "body_key": "loose.m_beast_backlash.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "替它包上伤，留在后院",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "它吃的东西比你想象中贵",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "charm",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_kept"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_lu_qingya",
+                  "kind": "盟友",
+                  "delta": 5
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_kept"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_feed_short"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_feed_short"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "趁它还伤着，取皮取骨",
+        "intent": "evil",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "它到死也没叫出声",
+        "resolve": {
+          "roll": {
+            "base": 0.85
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_killed"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_killed"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_bit_you"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_xiao_ye",
+                  "kind": "仇家",
+                  "delta": 8
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_owner_found_you"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_xiao_ye",
+                  "kind": "仇家",
+                  "delta": 12
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "放它走，远远跟着看",
+        "intent": "study",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "跟丢了，就什么也没有",
+        "resolve": {
+          "roll": {
+            "base": 0.55,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_den_found"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_den_found"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_led_you_wrong"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "beast",
+      "early",
+      "rescue"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_broken_betrothal_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_broken_betrothal",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 100,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "信物被摆在桌上",
+        "退婚书上的印",
+        "对方的长辈没有来"
+      ],
+      "body_key": "loose.m_broken_betrothal.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "当面还了信物，把话说圆",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "往后赊账的铺子得重新认你",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "charm",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_grace"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "盟友",
+                  "delta": 8
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 1
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -4
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "仇家",
+                  "delta": 6
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "不问羞辱，只问他们出什么价",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "开价的人，往后都要你还",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_price_paid"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_dantai_jinghong",
+                  "kind": "盟友",
+                  "delta": 6
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_price_paid"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_price_refused"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "不接这桩事，让族里替你回话",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "这一忍，往后会变成心口的刺",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": 5
+            },
+            {
+              "type": "add_var",
+              "key": "currency",
+              "delta": -6
+            },
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -2
+            },
+            {
+              "type": "set_flag",
+              "key": "betrothal_swallowed"
+            }
+          ]
+        }
+      },
+      {
+        "id": "d",
+        "text": "把当年的旧事抖在满堂人前",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "抖出来，谁都不会干净",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "charm",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_secret_out"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "仇家",
+                  "delta": 15
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_secret_out"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "仇家",
+                  "delta": 10
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -3
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_enemy_made"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_dantai_jinghong",
+                  "kind": "仇家",
+                  "delta": 8
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_blacklisted"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "marriage",
+      "clan",
+      "early"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_market_bargain_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_market_bargain",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 95,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 5,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "收摊收得太急",
+        "颜色不匀的那袋种子",
+        "街口站着巡街的执事"
+      ],
+      "body_key": "loose.m_market_bargain.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "整袋都买下，趁他急着走",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "这一笔压下去，手里就空了",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "luck",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -10
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_good_batch"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -14
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_money_sunk"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_money_sunk"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_sting_marked"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "抓一把看断口，问他零不零卖",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "他会知道你看得懂行",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_grade_known"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_su_zhao",
+                  "kind": "盟友",
+                  "delta": 5
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_grade_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_stall_remembered"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "不买，远远缀着那摊主走",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "跟人的人，也容易被跟上",
+        "resolve": {
+          "roll": {
+            "base": 0.6,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_source_found"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_sting_known"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_sting_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_marked_face"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "d",
+        "text": "去对街替老掌柜搬半日货",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "换不来货，只换来一顿饭",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "currency",
+              "delta": 3
+            },
+            {
+              "type": "add_var",
+              "key": "favor",
+              "delta": 1
+            },
+            {
+              "type": "set_relation",
+              "npc_id": "npc_su_zhao",
+              "kind": "盟友",
+              "delta": 5
+            },
+            {
+              "type": "set_flag",
+              "key": "market_helper_known"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "market",
+      "early",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_market_bargain"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_ancient_relic_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_ancient_relic",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 90,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "半具石化的躯壳",
+        "石上那个手掌印",
+        "挖到三尺深的地方"
+      ],
+      "body_key": "loose.m_ancient_relic.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "把攒下的丹材全填进去",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "凶险",
+        "cost_hint": "填进去的东西，未必收得回来",
+        "resolve": {
+          "roll": {
+            "base": 0.45,
+            "attr": "luck",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_joined"
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "接石人"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_joined"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_rejected"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_mark_on_you"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "只把石上的纹拓下来",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "拓得慢，山里不是只有你",
+        "resolve": {
+          "roll": {
+            "base": 0.75,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_rubbing_taken"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_ancient_relic"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_rubbing_taken"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_rubbing_taken"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "报给族里，让他们派人来抬",
+        "intent": "social",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "抬走的东西，往后就没你的份",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "currency",
+              "delta": 8
+            },
+            {
+              "type": "add_var",
+              "key": "favor",
+              "delta": 3
+            },
+            {
+              "type": "add_var",
+              "key": "rare_mat",
+              "delta": 1
+            },
+            {
+              "type": "set_flag",
+              "key": "relic_body_handed_in"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "body",
+      "early",
+      "debt"
+    ],
+    "meta_unlock": {
+      "codex": "codex_ancient_relic"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_cave_relic_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_cave_relic",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 100,
+    "tension": 4,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "雾里的半扇石门",
+        "石阶尽头的灯还亮着",
+        "门缝里没有风"
+      ],
+      "body_key": "loose.m_cave_relic.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "趁雾没散，硬推开那半扇门",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "门轴一响，整条山沟都听得见",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "luck",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_cave_relic"
+                },
+                {
+                  "type": "queue_followup",
+                  "ref": "evt_mortal_ancient_relic_01@6-14"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_relic_trail_left"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_relic_emptied"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "先退出去，把雾里的路记清",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "有把握",
+        "cost_hint": "记下的路，别人也可能记下",
+        "resolve": {
+          "roll": {
+            "base": 0.75,
+            "attr": "wits",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_relic_path_known"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_rong_mingzhu",
+                  "kind": "盟友",
+                  "delta": 5
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_relic_path_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_relic_path_known"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "cave",
+      "early",
+      "exposure"
+    ],
+    "meta_unlock": {
+      "codex": "codex_cave_relic",
+      "title": "推门人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_mortal_guardian_sacrifice_01",
+    "kind": "loose",
+    "pack": [
+      "mortal"
+    ],
+    "motif": "m_guardian_sacrifice",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 105,
+    "tension": 4,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "他把你推开的时候",
+        "那把刀本来是冲你来的",
+        "他没说他为什么护你"
+      ],
+      "body_key": "loose.m_guardian_sacrifice.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "把身上所有能押的都押出去",
+        "intent": "sacrifice",
+        "risk_tier": "险",
+        "odds_hint": "凶险",
+        "cost_hint": "往后你欠的不只是他一个",
+        "resolve": {
+          "roll": {
+            "base": 0.45,
+            "attr": "charm",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -20
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_bought_back"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_old_account_known"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_gu_changeng",
+                  "kind": "护道人",
+                  "delta": 15
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -14
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_bought_back"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_gu_changeng",
+                  "kind": "护道人",
+                  "delta": 10
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -20
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_debt_unpaid"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -20
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_lost"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "不接这份情，转身走出去",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "活下来的人，往后每年都想起这天",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": 6
+            },
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -2
+            },
+            {
+              "type": "add_var",
+              "key": "lifespan",
+              "delta": 1
+            },
+            {
+              "type": "set_flag",
+              "key": "guardian_declined"
+            },
+            {
+              "type": "set_flag",
+              "key": "guardian_old_account_known"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "guardian",
+      "sacrifice",
+      "early",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_guardian_sacrifice"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_waste_root_test_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_waste_root_test",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 110,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "量火候的旧器没响",
+        "炉里的火不肯矮下去",
+        "你的名字被划在册外"
+      ],
+      "body_key": "loose.m_waste_root_test.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "每日在炉边站到天黑",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "笨办法慢，也未必成",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "temper",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 7
+                },
+                {
+                  "type": "add_attr",
+                  "key": "temper",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_slow_flame"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_slow_flame"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_flame_scorched"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_flame_scorched"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "去药市求一份压火的药",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "药钱得先欠着",
+        "resolve": {
+          "roll": {
+            "base": 0.55,
+            "attr": "charm",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -14
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_flame_suppressed"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_flame_suppressed"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_medicine_debt"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "认下判词，改去学辨药",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "从此炉前的位子没你的",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "currency",
+              "delta": 6
+            },
+            {
+              "type": "add_var",
+              "key": "favor",
+              "delta": 2
+            },
+            {
+              "type": "set_flag",
+              "key": "genius_alchemy_path"
+            },
+            {
+              "type": "unlock_title",
+              "ref": "辨药人"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "flame",
+      "early",
+      "identity"
+    ],
+    "meta_unlock": {
+      "codex": "codex_waste_root_test",
+      "title": "辨药人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_mystic_treasure_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_mystic_treasure",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 95,
+    "tension": 3,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "不肯灭的那一簇",
+        "它认了你的手",
+        "掌心里那点烫"
+      ],
+      "body_key": "loose.m_mystic_treasure.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "拆一截炎属料喂它",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "料喂完了，它未必认你",
+        "resolve": {
+          "roll": {
+            "base": 0.65,
+            "attr": "insight",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_fed"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_mystic_treasure"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_fed"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_bites"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_bites"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_brand"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "把它按进丹田，趁热打铁",
+        "intent": "greedy",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "烧的是你不是它",
+        "resolve": {
+          "roll": {
+            "base": 0.45,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_rooted"
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "引火人"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_rooted"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_scars"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_brand"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "仇家",
+                  "delta": 5
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "拿它去问药师，这是谁的",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "未卜",
+        "cost_hint": "问一次，就有人知道它在你手上",
+        "resolve": {
+          "roll": {
+            "base": 0.6,
+            "attr": "charm",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_owner_known"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "盟友",
+                  "delta": 5
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_owner_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flame_seed_hunted"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "goldfinger",
+      "flame",
+      "early",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_mystic_treasure"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_mentor_soul_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_mentor_soul",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 90,
+    "tension": 3,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "旧印里的那个声音",
+        "他要教你火候",
+        "他教得比谁都细"
+      ],
+      "body_key": "loose.m_mentor_soul.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "照他说的练，一步不落",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "他那套手法，有些人明令禁了",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "temper",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_pact"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_zhu_heng",
+                  "kind": "师徒",
+                  "delta": 10
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_pact"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_traced"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "反手压住他，抠出记忆",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "他的仇，也会一并归你",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_suppressed"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_grudge_taken"
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "压印人"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_suppressed"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_let_loose"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_let_loose"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "先问他，教这些要换什么",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "问明白了，就不好装作不知道",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_price_known"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_price_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_flame_price_paid"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "mentor",
+      "whisper",
+      "early",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_mentor_soul"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_body_seize_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_body_seize",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 85,
+    "tension": 4,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "炉房那夜的火",
+        "醒来时脉里有两种烫",
+        "有人在你的火上添柴"
+      ],
+      "body_key": "loose.m_body_seize.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "以火攻火，把他烧出去",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "两套火候在你脉里打架",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 11
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_win"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_win"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_chaos"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_two_flames"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "顺着他的火走一程，看清是谁",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "看得越清，越像他",
+        "resolve": {
+          "roll": {
+            "base": 0.6,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_who"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_win"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_who"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_lets_him"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_wears_you"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把火压到最低，宁废这一炉",
+        "intent": "sacrifice",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "压下去的火，往后不好再点",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "temper",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -2
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_quenched"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_quenched"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_flame_scarred"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "flame",
+      "identity",
+      "early"
+    ],
+    "meta_unlock": {
+      "codex": "codex_body_seize"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_beast_backlash_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_beast_backlash",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 90,
+    "tension": 4,
+    "cooldown": {
+      "same_motif": 5,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "幼兽身上的炎纹",
+        "它不肯吃你给的东西",
+        "旧主留下的那枚印"
+      ],
+      "body_key": "loose.m_beast_backlash.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "留下它，用自己的火续着",
+        "intent": "social",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "它的炎气比你的更驯不服",
+        "resolve": {
+          "roll": {
+            "base": 0.55,
+            "attr": "temper",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_flame_kept"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_xiao_ye",
+                  "kind": "仇家",
+                  "delta": 8
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_flame_kept"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_flame_burned"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_flame_lost_hand"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "把它送回旧主留印的地方",
+        "intent": "steady",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "送回去，就等于认了有人在你前头",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 14
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_flame_returned"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_old_master_alive"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_xiao_ye",
+                  "kind": "盟友",
+                  "delta": 10
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_flame_returned"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_old_master_alive"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_flame_returned"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "beast",
+      "flame",
+      "early",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_beast_backlash"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_broken_betrothal_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_broken_betrothal",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 100,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "满堂宾客都看着你",
+        "退婚书上的火漆",
+        "有人先笑出了声"
+      ],
+      "body_key": "loose.m_broken_betrothal.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "当堂接了，礼数一步不错",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "礼数周全，也等于认了这桩事",
+        "resolve": {
+          "roll": {
+            "base": 0.75,
+            "attr": "charm",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_grace"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "盟友",
+                  "delta": 8
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 5
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_mocked"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "当场抬价，谁退谁付",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "开价的人，名字会传得很难听",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_price_won"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_price_won"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_greed_named"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把火亮出来，让满堂闭嘴",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "亮出来的火，往后就藏不住了",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_flame_shown"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "仇家",
+                  "delta": 12
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_flame_shown"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_flame_backfire"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_dantai_jinghong",
+                  "kind": "仇家",
+                  "delta": 8
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "d",
+        "text": "一言不发，转身走出门去",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "这一口气会留在胸口很久",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": 5
+            },
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -2
+            },
+            {
+              "type": "set_flag",
+              "key": "betrothal_silent"
+            },
+            {
+              "type": "add_attr",
+              "key": "temper",
+              "delta": 3
+            },
+            {
+              "type": "set_relation",
+              "npc_id": "npc_yan_linyuan",
+              "kind": "仇家",
+              "delta": 5
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "marriage",
+      "early",
+      "exposure"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_market_bargain_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_market_bargain",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 95,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 5,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "论斤称的炎属料",
+        "摊主不肯报来路",
+        "料上有敲过的痕"
+      ],
+      "body_key": "loose.m_market_bargain.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "整堆买下，回去慢慢挑",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "一进炉就知道，退不了",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "luck",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_bulk_good"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_bulk_dud"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -16
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_furnace_cracked"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "取一小块，当场试火",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "试火要当着人，伤手也得忍着",
+        "resolve": {
+          "roll": {
+            "base": 0.75,
+            "attr": "insight",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_batch_tested"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_market_bargain"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_batch_tested"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_batch_burned"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "不问料，先问是谁烧的",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "问的那个人，可能就是烧料的人",
+        "resolve": {
+          "roll": {
+            "base": 0.6,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_burner_known"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "盟友",
+                  "delta": 5
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_burner_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "genius_asked_wrong_person"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "d",
+        "text": "去对街买一份贵的",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "贵的那份，也未必是真的",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "currency",
+              "delta": -8
+            },
+            {
+              "type": "add_var",
+              "key": "rare_mat",
+              "delta": 1
+            },
+            {
+              "type": "set_flag",
+              "key": "genius_bought_safe"
+            },
+            {
+              "type": "set_relation",
+              "npc_id": "npc_rong_mingzhu",
+              "kind": "盟友",
+              "delta": 5
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "market",
+      "flame",
+      "early"
+    ],
+    "meta_unlock": {
+      "codex": "codex_market_bargain"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_forbidden_knowledge_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_forbidden_knowledge",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 90,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "箱底那册手抄",
+        "第三行他不肯念",
+        "纸边被燎过"
+      ],
+      "body_key": "loose.m_forbidden_knowledge.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "趁夜把它抄下来",
+        "intent": "study",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "灯芯一响，屋里就有人醒",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "forbidden_copied"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_forbidden_lore"
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "抄书人"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "forbidden_copied"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "forbidden_seen_reading"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "forbidden_seen_reading"
+                }
+              ],
+              "queue_followup": "evt_genius_mentor_soul_02@6-14"
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "只读头一页，再原样放回去",
+        "intent": "steady",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "第二页的字，夜里会自己浮上来",
+        "resolve": {
+          "roll": {
+            "base": 0.75,
+            "attr": "insight",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "forbidden_first_page"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "forbidden_second_page_haunts"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把它交到长辈手里",
+        "intent": "social",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "东西是谁放进箱底的，没人问",
+        "resolve": {
+          "roll": {
+            "base": 0.85,
+            "attr": "charm",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 6
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_rong_mingzhu",
+                  "kind": "师徒",
+                  "delta": 8
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 1
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_rong_mingzhu",
+                  "kind": "仇家",
+                  "delta": 7
+                },
+                {
+                  "type": "set_flag",
+                  "key": "forbidden_was_a_lure"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "forbidden",
+      "clan",
+      "exposure",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_forbidden_lore"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_cave_relic_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_cave_relic",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 100,
+    "tension": 4,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "炎气顺着脉往里走",
+        "洞口的石缝在发烫",
+        "越压越旺的那股气"
+      ],
+      "body_key": "loose.m_cave_relic.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "不压，敞开了吸",
+        "intent": "greedy",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "越强，越难压",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_flame_drawn"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_cave_relic"
+                },
+                {
+                  "type": "queue_followup",
+                  "ref": "evt_genius_forbidden_knowledge_01@6-14"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_flame_drawn"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 15
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_flame_burned_in"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_flame_scarred"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "顺着它的势，一点点引出去",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "慢，且要一直醒着",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "insight",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_flame_led_out"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_flame_led_out"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "cave_flame_half_out"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "封住脉门，退到洞外等它散",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "等它散，也等别人先到",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": -4
+            },
+            {
+              "type": "add_var",
+              "key": "lifespan",
+              "delta": 1
+            },
+            {
+              "type": "set_flag",
+              "key": "cave_flame_left"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "cave",
+      "flame",
+      "corruption"
+    ],
+    "meta_unlock": {
+      "codex": "codex_cave_relic"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_genius_reincarnation_01",
+    "kind": "loose",
+    "pack": [
+      "genius"
+    ],
+    "motif": "m_reincarnation",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 115,
+    "tension": 4,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 10,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "醒来时这双手不是你的",
+        "脉里还留着别人的火",
+        "镜子里的人比你年长"
+      ],
+      "body_key": "loose.m_reincarnation.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "睁着眼，把这具身子认下来",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "脉里那点烫不是你的",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "power",
+              "delta": 5
+            },
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": 6
+            },
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": 6
+            },
+            {
+              "type": "set_flag",
+              "key": "rebirth_body_taken"
+            },
+            {
+              "type": "unlock_title",
+              "ref": "重来者"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "identity",
+      "corruption",
+      "early"
+    ],
+    "meta_unlock": {
+      "codex": "codex_reincarnation",
+      "title": "重来者"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_waste_root_test_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_waste_root_test",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 105,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "测石上的一道缝",
+        "量不出的那双手"
+      ],
+      "body_key": "loose.m_waste_root_test.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "把手摁在测石上，等它凉透",
+        "intent": "study",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "满堂人的眼睛都落在你手上",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "root",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_stone_cracked"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_waste_root_test"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_stone_cracked"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_judged_common"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_judged_common"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_hand_scarred"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "趁乱把手缩回袖里，说量不出",
+        "intent": "scheme",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "此后族里再没人替你说话",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -3
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_hid_crack"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -2
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_hid_crack"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 1
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "waste_root_test_hid_crack"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_gu_changeng",
+                  "kind": "师徒",
+                  "delta": -5
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "认下判词，回去把水缸挑满",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "慢，且再没人指望你",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "power",
+              "delta": 2
+            },
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": -4
+            },
+            {
+              "type": "set_flag",
+              "key": "waste_root_test_accepted"
+            }
+          ]
+        }
+      }
+    ],
+    "followups": [
+      "evt_physique_market_bargain_01@3-8"
+    ],
+    "tags": [
+      "body",
+      "bone",
+      "early"
+    ],
+    "meta_unlock": {
+      "codex": "codex_waste_root_test",
+      "title": "不认判词"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_mystic_treasure_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_mystic_treasure",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 98,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "河滩上的旧纹骨片",
+        "旧纹在夜里发热"
+      ],
+      "body_key": "loose.m_mystic_treasure.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "把它贴在胸口，由着它认",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "热的是你的血，不是它",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "root",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_lit"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_mystic_treasure"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_lit"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_blood_call"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_blood_call"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "artifact_prev_owner_stirred"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "拿草木灰把旧纹拓下来",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "拓到一半天就亮了",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_rubbing_taken"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mystic_treasure_rubbing_taken"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "artifact_rubbing_half"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "埋回原处，把沙坑填平",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "手心里还留着一点温",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "lifespan",
+              "delta": 1
+            },
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -1
+            },
+            {
+              "type": "set_flag",
+              "key": "artifact_returned"
+            }
+          ]
+        }
+      }
+    ],
+    "followups": [
+      "evt_physique_ancient_relic_01@4-9"
+    ],
+    "tags": [
+      "bone",
+      "bloodline",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_mystic_treasure",
+      "title": "旧纹在身"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_mentor_soul_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_mentor_soul",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 96,
+    "tension": 4,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "遗蜕里有人说话",
+        "骨上的第一刀"
+      ],
+      "body_key": "loose.m_mentor_soul.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "拜下去，按他说的刻第一刀",
+        "intent": "study",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "刀走一寸，你少一分血",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "insight",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_first_inscription"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_mentor_soul"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_first_inscription"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_lesson_scarred"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -2
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_lesson_scarred"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_took_more_than_taught"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "先问他上一任弟子是谁",
+        "intent": "scheme",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "他有的是时间，你没有",
+        "resolve": {
+          "roll": {
+            "base": 0.65,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_prior_disciple_asked"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_prior_disciple_asked"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "mentor_guarded"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把骨篆合上，说我不学",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "他不会走，只是不再开口",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "power",
+              "delta": 1
+            },
+            {
+              "type": "add_var",
+              "key": "lifespan",
+              "delta": 1
+            },
+            {
+              "type": "set_flag",
+              "key": "mentor_refused"
+            },
+            {
+              "type": "set_flag",
+              "key": "mentor_watching"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "mentor",
+      "bone",
+      "identity"
+    ],
+    "meta_unlock": {
+      "codex": "codex_mentor_soul",
+      "title": "受篆人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_body_seize_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_body_seize",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 92,
+    "tension": 4,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "有人用你的嗓子说话",
+        "高烧里的第二个声音"
+      ],
+      "body_key": "loose.m_body_seize.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "顺着他的口气接下去",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "他也在听你说话",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_guest_known"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_body_seize"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_guest_known"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_speaks_through"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_speaks_through"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_second_guest"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "咬牙不睡，用搬血的法子烧醒自己",
+        "intent": "sacrifice",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "烧的是自己的血肉",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_burned_out"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_burned_out"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_burned_out_gap"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_burned_out_gap"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "possession_left_a_seam"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "任他占着，自己缩进骨篆深处",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "让出去的地方要不回来",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": 4
+            },
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -2
+            },
+            {
+              "type": "set_flag",
+              "key": "possession_shared_body"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "body",
+      "identity",
+      "corruption"
+    ],
+    "meta_unlock": {
+      "codex": "codex_body_seize",
+      "title": "守身人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_beast_backlash_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_beast_backlash",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 90,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 5,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "坡上守着的幼兽",
+        "血食引来的东西"
+      ],
+      "body_key": "loose.m_beast_backlash.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "把伤口按进土里，趁夜引它回家",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "它咬的那口，往后才算",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "charm",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_blood_mark"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_beast_backlash"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_blood_poisoned"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_blood_poisoned"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_blood_poisoned"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "beast_driven_by_someone"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "拿石头把它赶回山里",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "线头也就断了",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": -3
+            },
+            {
+              "type": "add_var",
+              "key": "karma",
+              "delta": 3
+            },
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -1
+            },
+            {
+              "type": "set_flag",
+              "key": "beast_let_go"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "beast",
+      "bloodline",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_beast_backlash",
+      "title": "留印人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_broken_betrothal_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_broken_betrothal",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 94,
+    "tension": 3,
+    "cooldown": {
+      "same_motif": 6,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "退亲的帖子",
+        "堂上的那句话"
+      ],
+      "body_key": "loose.m_broken_betrothal.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "接过帖子，反手要她家立字为据",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "满堂宾客都成了见证",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_contract_signed"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "仇家",
+                  "delta": 6
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_broken_betrothal"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_contract_signed"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_bad_blood"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "betrothal_bad_blood"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_jiang_zhaoxue",
+                  "kind": "仇家",
+                  "delta": 10
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "把帖子收好，回去接着淬体",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "那口气憋在胸口，成了暗伤",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "power",
+              "delta": 4
+            },
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": 6
+            },
+            {
+              "type": "set_flag",
+              "key": "betrothal_old_wound"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "marriage",
+      "body",
+      "debt"
+    ],
+    "meta_unlock": {
+      "codex": "codex_broken_betrothal",
+      "title": "不接帖"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_market_bargain_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_market_bargain",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 88,
+    "tension": 2,
+    "cooldown": {
+      "same_motif": 5,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "摊子上的淬体料",
+        "急着收摊的人"
+      ],
+      "body_key": "loose.m_market_bargain.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "压价全吃下，趁摊主急着走",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "手上那点钱全压进去",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "wits",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_bulk_bought"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_market_bargain"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_bulk_bought"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_bad_batch"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_bad_batch"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_watched"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "只挑一块，先在自己臂上试",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "料是真的，臂上先见血",
+        "resolve": {
+          "roll": {
+            "base": 0.7,
+            "attr": "root",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_batch_checked"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_batch_checked"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_batch_checked"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_bad_batch"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把摊子的事告诉街口的巡守",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "报信的人未必干净",
+        "resolve": {
+          "roll": {
+            "base": 0.65,
+            "attr": "charm",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_tip_paid"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_tip_paid"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "market_tip_burnt"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "d",
+        "text": "记下摊子位置，先不买",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "下回未必还有这个摊",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "currency",
+              "delta": 2
+            },
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -2
+            },
+            {
+              "type": "set_flag",
+              "key": "market_stall_marked"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "market",
+      "body",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_market_bargain",
+      "title": "识货人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_ancient_relic_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_ancient_relic",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 92,
+    "tension": 4,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "井底挖出的躯壳",
+        "和你一样的纹"
+      ],
+      "body_key": "loose.m_ancient_relic.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "夜里独自回去，把手按在它胸口",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "它认的不是资质，是像不像",
+        "resolve": {
+          "roll": {
+            "base": 0.48,
+            "attr": "root",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_like_you"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_ancient_relic"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_like_you"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_wants_you"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -3
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_wants_you"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_body_wearing_you"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "去把守灵的旧族请来",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "他们来了，就会问你是谁家的",
+        "resolve": {
+          "roll": {
+            "base": 0.68,
+            "attr": "charm",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_old_clan_owes"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_rong_mingzhu",
+                  "kind": "盟友",
+                  "delta": 10
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 1
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_old_clan_notified"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -1
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "relic_old_clan_alerted"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_rong_mingzhu",
+                  "kind": "仇家",
+                  "delta": 5
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "把土填回去，谁也不说",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "夜里开始梦见那口井",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "exposure",
+              "delta": -2
+            },
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": 2
+            },
+            {
+              "type": "set_flag",
+              "key": "relic_buried_again"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "bone",
+      "era",
+      "identity"
+    ],
+    "meta_unlock": {
+      "codex": "codex_ancient_relic",
+      "title": "同源者"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_reincarnation_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_reincarnation",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 90,
+    "tension": 4,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "醒来时手不对",
+        "这具身子不认你"
+      ],
+      "body_key": "loose.m_reincarnation.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "把记得的几段默写下来",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "有两段怎么写都对不上",
+        "resolve": {
+          "roll": {
+            "base": 0.65,
+            "attr": "insight",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_notes_kept"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_reincarnation"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_notes_kept"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_notes_conflict"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "照着旧世的习惯活几日",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "习惯对不上，是要还的",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "luck",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_old_habits_work"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_old_habits_work"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_mismatched"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_mismatched"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "rebirth_body_rejects"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "什么都不想，吃饭睡觉长身子",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "那条捷径也就断了",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": -8
+            },
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": -3
+            },
+            {
+              "type": "set_flag",
+              "key": "rebirth_clean_start"
+            }
+          ]
+        }
+      }
+    ],
+    "tags": [
+      "identity",
+      "body",
+      "loop"
+    ],
+    "meta_unlock": {
+      "codex": "codex_reincarnation",
+      "title": "两世人"
+    },
+    "version": "1.0"
+  },
+  {
+    "id": "evt_physique_guardian_sacrifice_01",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_guardian_sacrifice",
+    "stage": [
+      "childhood"
+    ],
+    "weight": 96,
+    "tension": 4,
+    "once_per_run": true,
+    "cooldown": {
+      "same_motif": 8,
+      "same_tag": 5
+    },
+    "narrative": {
+      "title_pool": [
+        "他把骨篆按进你背里",
+        "山口那一夜"
+      ],
+      "body_key": "loose.m_guardian_sacrifice.childhood",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "任他刻完，把疼咽下去",
+        "intent": "sacrifice",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "刻进去的，不只是护你的纹",
+        "resolve": {
+          "roll": {
+            "base": 0.42,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_inscription_taken"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "护道人",
+                  "delta": 15
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_guardian_sacrifice"
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "承骨"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_inscription_taken"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "护道人",
+                  "delta": 10
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_inscription_half"
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_inscription_half"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_inscription_unfinished"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "拉他一起走，骨篆不要了",
+        "intent": "steady",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "他若不走，你就得看着他留下",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "charm",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_pulled_out"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "护道人",
+                  "delta": 20
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_pulled_out"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "护道人",
+                  "delta": 12
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_fell_alone"
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "护道人",
+                  "delta": 18
+                }
+              ]
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_fell_alone"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_debt_unpaid"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "趁他拖着人，自己先出山口",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "走出去的每一步都轻不了",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": -5
+            },
+            {
+              "type": "add_var",
+              "key": "debt",
+              "delta": 3
+            },
+            {
+              "type": "add_var",
+              "key": "corruption",
+              "delta": 2
+            },
+            {
+              "type": "set_flag",
+              "key": "guardian_left_behind"
+            }
+          ]
+        }
+      },
+      {
+        "id": "d",
+        "text": "回头把追杀者的脸记下来",
+        "intent": "scheme",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "记脸的时候，脸也在记你",
+        "resolve": {
+          "roll": {
+            "base": 0.66,
+            "attr": "wits",
+            "attr_weight": 0.003
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 1
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_killers_marked"
+                }
+              ]
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_killers_marked"
+                }
+              ]
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_killers_marked"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "guardian_they_know_his_name"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "guardian",
+      "sacrifice",
+      "twist"
+    ],
+    "meta_unlock": {
+      "codex": "codex_guardian_sacrifice",
+      "title": "承骨人"
+    },
+    "version": "1.0"
+  }
+]

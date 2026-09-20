@@ -1,0 +1,884 @@
+[
+  {
+    "id": "trait_heaven_root",
+    "name": "天灵根",
+    "tier": "S",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 40 },
+      { "type": "add_attr", "key": "root", "delta": 2 },
+      { "type": "add_attr", "key": "wits", "delta": 2 },
+      { "type": "set_flag", "key": "trait_heaven_root" }
+    ],
+    "excludes": ["grp_root", "trait_herb_soul"],
+    "desc": "经脉天生通透，吐纳一日抵旁人旬月。代价是旁人一眼就看出你不凡，藏不住。"
+  },
+  {
+    "id": "trait_sword_bone",
+    "name": "剑骨天成",
+    "tier": "S",
+    "category": "战斗向",
+    "effects": [
+      { "type": "modify_power_index", "delta": 25 },
+      { "type": "add_attr", "key": "root", "delta": 3 },
+      { "type": "add_attr", "key": "temper", "delta": 1 },
+      { "type": "set_flag", "key": "trait_sword_bone" }
+    ],
+    "excludes": ["grp_body", "trait_iron_gut"],
+    "desc": "骨相如剑，出手自带锋芒。你很难学会退让，也很难学会收手。"
+  },
+  {
+    "id": "trait_merchant_marrow",
+    "name": "商髓",
+    "tier": "S",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "currency", "delta": 500 },
+      { "type": "add_var", "key": "favor", "delta": 18 },
+      { "type": "set_flag", "key": "trait_merchant_marrow" }
+    ],
+    "excludes": ["grp_wealth", "trait_thrifty"],
+    "desc": "你天生知道什么东西该在什么时候出手。别人修炼，你修账。"
+  },
+  {
+    "id": "trait_beloved",
+    "name": "众望所归",
+    "tier": "S",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_attr", "key": "charm", "delta": 4 },
+      { "type": "add_var", "key": "favor", "delta": 25 },
+      { "type": "set_flag", "key": "trait_beloved" }
+    ],
+    "excludes": ["grp_face", "trait_silver_tongue"],
+    "desc": "开口便有人肯听。可被众人抬起来的人，也被众人盯着。"
+  },
+  {
+    "id": "trait_gap_eye",
+    "name": "窥隙之眼",
+    "tier": "S",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "insight", "delta": 4 },
+      { "type": "add_var", "key": "exposure", "delta": -10 },
+      { "type": "set_flag", "key": "trait_gap_eye" }
+    ],
+    "excludes": ["grp_sense", "trait_cold_read"],
+    "desc": "你总能看见别人话里的那道缝。看得太清的人，往往睡不好。"
+  },
+  {
+    "id": "trait_unbroken_daoheart",
+    "name": "不灭道心",
+    "tier": "S",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_attr", "key": "temper", "delta": 3 },
+      { "type": "add_var", "key": "corruption", "delta": -25 },
+      { "type": "set_flag", "key": "trait_unbroken_daoheart" }
+    ],
+    "excludes": ["grp_soul", "trait_stone_will"],
+    "desc": "心湖不起波。代价是旁人也很难在你心里留下痕迹。"
+  },
+  {
+    "id": "trait_defiant_bone",
+    "name": "逆天之姿",
+    "tier": "S",
+    "category": "战斗向",
+    "effects": [
+      { "type": "modify_power_index", "delta": 20 },
+      { "type": "add_attr", "key": "temper", "delta": 3 },
+      { "type": "add_var", "key": "debt", "delta": 6 },
+      { "type": "set_flag", "key": "trait_defiant_bone" }
+    ],
+    "excludes": ["grp_fate", "trait_sword_bone"],
+    "desc": "天要压你，你偏要抬头。抬头的人都记账，天也记。"
+  },
+  {
+    "id": "trait_herb_soul",
+    "name": "百草通灵",
+    "tier": "S",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "rare_mat", "delta": 12 },
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "add_attr", "key": "wits", "delta": 2 },
+      { "type": "set_flag", "key": "trait_herb_soul" }
+    ],
+    "excludes": ["grp_root", "trait_heaven_root"],
+    "desc": "草木在你手里活得更久。你救得了药，未必救得了人。"
+  },
+  {
+    "id": "trait_past_life_memory",
+    "name": "前世残忆",
+    "tier": "A",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "add_attr", "key": "wits", "delta": 2 },
+      { "type": "add_var", "key": "exposure", "delta": -5 },
+      { "type": "set_flag", "key": "trait_past_life_memory" }
+    ],
+    "excludes": ["grp_soul"],
+    "desc": "你偶尔会记起还没发生过的事。记起得越多，越分不清哪一世是真的。"
+  },
+  {
+    "id": "trait_unbound_register",
+    "name": "游离之身",
+    "tier": "A",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "luck", "delta": 2 },
+      { "type": "add_var", "key": "exposure", "delta": -12 },
+      { "type": "set_flag", "key": "trait_unbound_register" }
+    ],
+    "excludes": ["grp_register"],
+    "desc": "名册上没有你这一笔。没有来路的人，也没有归处。"
+  },
+  {
+    "id": "trait_iron_gut",
+    "name": "铁胃",
+    "tier": "A",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": 20 },
+      { "type": "add_attr", "key": "root", "delta": 2 },
+      { "type": "set_flag", "key": "trait_iron_gut" }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "生冷不忌，毒物也能化三分。别人服丹要命，你服丹当饭。"
+  },
+  {
+    "id": "trait_quick_hand",
+    "name": "快手",
+    "tier": "A",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "currency", "delta": 220 },
+      { "type": "add_attr", "key": "wits", "delta": 2 }
+    ],
+    "excludes": ["grp_wealth"],
+    "desc": "别人还在讲价，你已经把钱揣进袖子。手快的人，名声通常慢一点。"
+  },
+  {
+    "id": "trait_silver_tongue",
+    "name": "巧舌",
+    "tier": "A",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_attr", "key": "charm", "delta": 3 },
+      { "type": "add_var", "key": "favor", "delta": 12 }
+    ],
+    "excludes": ["grp_face"],
+    "desc": "死物能说活，活人能被你说服去死。只是话多了，总有一句要还。"
+  },
+  {
+    "id": "trait_steady_breath",
+    "name": "龟息",
+    "tier": "A",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "lifespan", "delta": 15 },
+      { "type": "add_attr", "key": "temper", "delta": 2 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "一息可绵延半日。活得久的人，看得见所有人的结局。"
+  },
+  {
+    "id": "trait_battle_frenzy",
+    "name": "战意沸腾",
+    "tier": "A",
+    "category": "战斗向",
+    "effects": [
+      { "type": "modify_power_index", "delta": 15 },
+      { "type": "add_attr", "key": "temper", "delta": 2 },
+      { "type": "add_var", "key": "hp", "delta": -5 }
+    ],
+    "excludes": ["grp_soul"],
+    "desc": "越见血越清醒。清醒到你分不清，是你在打，还是打在你身上的东西在打。"
+  },
+  {
+    "id": "trait_poison_resist",
+    "name": "抗毒之躯",
+    "tier": "A",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": 12 },
+      { "type": "add_attr", "key": "root", "delta": 1 },
+      { "type": "add_attr", "key": "temper", "delta": 1 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "自幼试药，五脏早被毒养熟。寻常毒物进不了你的身，也进不了你的心。"
+  },
+  {
+    "id": "trait_market_sense",
+    "name": "市价之眼",
+    "tier": "A",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "currency", "delta": 150 },
+      { "type": "add_var", "key": "rare_mat", "delta": 4 }
+    ],
+    "excludes": ["grp_wealth"],
+    "desc": "一眼就知这东西在哪个坊市能多卖三成。你从不吃亏，也从不交到朋友。"
+  },
+  {
+    "id": "trait_patron_favor",
+    "name": "贵人提携",
+    "tier": "A",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_var", "key": "favor", "delta": 20 },
+      { "type": "add_var", "key": "debt", "delta": 4 },
+      { "type": "set_flag", "key": "trait_patron_favor" }
+    ],
+    "excludes": ["grp_register"],
+    "desc": "有人愿意替你说话。替你说过话的人，日后总要你替他还。"
+  },
+  {
+    "id": "trait_deep_sleep",
+    "name": "深眠",
+    "tier": "A",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_var", "key": "corruption", "delta": -15 },
+      { "type": "add_attr", "key": "temper", "delta": 2 }
+    ],
+    "excludes": ["grp_soul"],
+    "desc": "一睡三日，梦里不见任何东西。无梦是最好的护身符。"
+  },
+  {
+    "id": "trait_swift_escape",
+    "name": "遁速",
+    "tier": "A",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_var", "key": "exposure", "delta": -8 },
+      { "type": "add_attr", "key": "luck", "delta": 2 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "你逃过太多次，已经逃出了本能。逃得掉的人，也会逃掉该打的仗。"
+  },
+  {
+    "id": "trait_alchemy_gift",
+    "name": "丹心",
+    "tier": "A",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "rare_mat", "delta": 6 },
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "set_flag", "key": "trait_alchemy_gift" }
+    ],
+    "excludes": ["grp_art"],
+    "desc": "闻火候便知成色。你知道每一炉丹的脾气，也知道自己迟早会炸一炉。"
+  },
+  {
+    "id": "trait_sword_affinity",
+    "name": "剑意初成",
+    "tier": "A",
+    "category": "战斗向",
+    "effects": [
+      { "type": "modify_power_index", "delta": 12 },
+      { "type": "add_attr", "key": "wits", "delta": 2 }
+    ],
+    "excludes": ["grp_art"],
+    "desc": "还没学剑法，先有了剑意。意太早，是福是祸要看第一次杀人。"
+  },
+  {
+    "id": "trait_sect_lineage",
+    "name": "宗门余荫",
+    "tier": "A",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_var", "key": "favor", "delta": 15 },
+      { "type": "add_var", "key": "currency", "delta": 100 }
+    ],
+    "excludes": ["grp_register"],
+    "desc": "师门的牌位还管用。可牌位越管用，你越要替死人撑着那口气。"
+  },
+  {
+    "id": "trait_thrifty",
+    "name": "锱铢必较",
+    "tier": "A",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "currency", "delta": 180 },
+      { "type": "add_var", "key": "debt", "delta": -5 }
+    ],
+    "excludes": ["grp_wealth"],
+    "desc": "一分也要掰成两半花。省下的是钱，欠下的是人情。"
+  },
+  {
+    "id": "trait_cold_read",
+    "name": "冷读",
+    "tier": "A",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "insight", "delta": 3 },
+      { "type": "add_var", "key": "exposure", "delta": -5 }
+    ],
+    "excludes": ["grp_sense"],
+    "desc": "你读人像读账目。读得太准，别人就不敢站在你旁边。"
+  },
+  {
+    "id": "trait_long_breath",
+    "name": "长息",
+    "tier": "A",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "lifespan", "delta": 20 },
+      { "type": "add_var", "key": "power", "delta": 10 }
+    ],
+    "excludes": ["grp_root"],
+    "desc": "一口气能运三个周天。慢工出细活，慢到别人都换了两代人。"
+  },
+  {
+    "id": "trait_bone_density",
+    "name": "骨重",
+    "tier": "A",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_attr", "key": "root", "delta": 3 },
+      { "type": "add_var", "key": "hp", "delta": 10 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "骨沉如铁，寻常刀剑只留白痕。沉的东西不会浮起来，也不会被风带走。"
+  },
+  {
+    "id": "trait_dream_walker",
+    "name": "梦行",
+    "tier": "A",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "add_attr", "key": "luck", "delta": 2 },
+      { "type": "set_flag", "key": "trait_dream_walker" }
+    ],
+    "excludes": ["grp_soul"],
+    "desc": "睡下之后，你能走到别人梦里。问题是梦里也分不清谁在走。"
+  },
+  {
+    "id": "trait_herb_hands",
+    "name": "药手",
+    "tier": "B",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "rare_mat", "delta": 3 },
+      { "type": "add_attr", "key": "insight", "delta": 1 }
+    ],
+    "excludes": ["grp_art"],
+    "desc": "手指一捻便知药性几分。采过的山头，三年内你记得比谁都清。"
+  },
+  {
+    "id": "trait_nimble_fingers",
+    "name": "巧手",
+    "tier": "B",
+    "category": "经营向",
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 2 }],
+    "excludes": ["grp_art"],
+    "desc": "拆得开最细的锁，也接得上最断的弦。"
+  },
+  {
+    "id": "trait_hard_skull",
+    "name": "硬颅",
+    "tier": "B",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": 12 },
+      { "type": "add_attr", "key": "root", "delta": 1 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "挨过打，脑子没坏。挨打这件事，你比谁都有经验。"
+  },
+  {
+    "id": "trait_light_step",
+    "name": "轻身",
+    "tier": "B",
+    "category": "诡道向",
+    "effects": [{ "type": "add_attr", "key": "luck", "delta": 2 }],
+    "excludes": ["grp_body"],
+    "desc": "落雪不惊。走得轻的人，回头时往往没人跟着。"
+  },
+  {
+    "id": "trait_soft_smile",
+    "name": "和颜",
+    "tier": "B",
+    "category": "社交向",
+    "effects": [{ "type": "add_attr", "key": "charm", "delta": 2 }],
+    "excludes": ["grp_face"],
+    "desc": "不笑也有三分笑意。别人愿意跟你多说两句。"
+  },
+  {
+    "id": "trait_quiet_study",
+    "name": "静学",
+    "tier": "B",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 12 },
+      { "type": "add_attr", "key": "wits", "delta": 1 }
+    ],
+    "excludes": ["grp_root"],
+    "desc": "予你一间静室，你就能把十年过成一天。"
+  },
+  {
+    "id": "trait_field_cook",
+    "name": "野炊",
+    "tier": "B",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": 8 },
+      { "type": "add_var", "key": "currency", "delta": 60 }
+    ],
+    "desc": "荒山野岭也能做出一顿热食。吃饱的人，才有力气逃。"
+  },
+  {
+    "id": "trait_beast_sense",
+    "name": "兽感",
+    "tier": "B",
+    "category": "战斗向",
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 2 }],
+    "excludes": ["grp_sense"],
+    "desc": "先于常人数息察觉杀意。那份不安从不骗你，也从不说清楚。"
+  },
+  {
+    "id": "trait_beggar_luck",
+    "name": "乞运",
+    "tier": "B",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "luck", "delta": 2 },
+      { "type": "add_var", "key": "currency", "delta": 40 }
+    ],
+    "excludes": ["grp_fate"],
+    "desc": "讨来的东西总比旁人讨到的多一点。运气也是有定额的。"
+  },
+  {
+    "id": "trait_old_friend",
+    "name": "故交",
+    "tier": "B",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_var", "key": "favor", "delta": 10 },
+      { "type": "add_var", "key": "debt", "delta": 2 }
+    ],
+    "desc": "有人记得你年少时的样子。记得的人，也记得你欠过什么。"
+  },
+  {
+    "id": "trait_stone_will",
+    "name": "石志",
+    "tier": "B",
+    "category": "修炼向",
+    "effects": [{ "type": "add_attr", "key": "temper", "delta": 2 }],
+    "excludes": ["grp_soul"],
+    "desc": "认准的事，撞了南墙也不回头。墙塌了，头也破了。"
+  },
+  {
+    "id": "trait_sharp_arrow",
+    "name": "锐矢",
+    "tier": "B",
+    "category": "战斗向",
+    "effects": [
+      { "type": "modify_power_index", "delta": 8 },
+      { "type": "add_attr", "key": "wits", "delta": 1 }
+    ],
+    "desc": "出手只走一条直线。直线最短，也最容易被看穿。"
+  },
+  {
+    "id": "trait_peddler_eye",
+    "name": "估物",
+    "tier": "B",
+    "category": "经营向",
+    "effects": [{ "type": "add_var", "key": "currency", "delta": 120 }],
+    "excludes": ["grp_wealth"],
+    "desc": "真假新旧，扫一眼就有数。眼力是练出来的，也是被骗出来的。"
+  },
+  {
+    "id": "trait_many_masks",
+    "name": "多面",
+    "tier": "B",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_var", "key": "exposure", "delta": -6 },
+      { "type": "add_attr", "key": "charm", "delta": 1 }
+    ],
+    "excludes": ["grp_face"],
+    "desc": "见人说人话。说得太多，独处时想不起自己原本怎么说话。"
+  },
+  {
+    "id": "trait_loyal_hound",
+    "name": "忠犬",
+    "tier": "B",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_var", "key": "favor", "delta": 8 },
+      { "type": "add_attr", "key": "temper", "delta": 1 },
+      { "type": "set_flag", "key": "trait_loyal_hound" }
+    ],
+    "desc": "认了主就不再改口。忠的人活得比谁都长，也可能比谁都短。"
+  },
+  {
+    "id": "trait_thick_hide",
+    "name": "厚皮",
+    "tier": "B",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": 10 },
+      { "type": "add_attr", "key": "root", "delta": 1 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "皮糙肉厚，寻常拳脚伤不到筋骨。"
+  },
+  {
+    "id": "trait_bitter_endure",
+    "name": "耐苦",
+    "tier": "B",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "corruption", "delta": -8 },
+      { "type": "add_attr", "key": "temper", "delta": 1 }
+    ],
+    "excludes": ["grp_soul"],
+    "desc": "苦药一口闷，酷刑咬着牙。苦吃多了，甜也尝不出来。"
+  },
+  {
+    "id": "trait_bright_mind",
+    "name": "清明",
+    "tier": "B",
+    "category": "修炼向",
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 2 }],
+    "desc": "念头一起就能落到底。想得清楚的人，往往下不了手。"
+  },
+  {
+    "id": "trait_coin_sense",
+    "name": "铜臭",
+    "tier": "B",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "currency", "delta": 100 },
+      { "type": "add_var", "key": "karma", "delta": -5 }
+    ],
+    "excludes": ["grp_wealth"],
+    "desc": "什么都能折成价。折得多了，有些人也就成了价。"
+  },
+  {
+    "id": "trait_sly_step",
+    "name": "滑步",
+    "tier": "B",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_var", "key": "exposure", "delta": -5 },
+      { "type": "add_attr", "key": "luck", "delta": 1 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "脚下一错，人就没了影。躲得开刀，也躲得开该认的账。"
+  },
+  {
+    "id": "trait_warm_voice",
+    "name": "温言",
+    "tier": "B",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_attr", "key": "charm", "delta": 2 },
+      { "type": "add_var", "key": "debt", "delta": -3 }
+    ],
+    "excludes": ["grp_face"],
+    "desc": "话软，人软，账也软。软刀子割人不见血。"
+  },
+  {
+    "id": "trait_deep_lung",
+    "name": "深息",
+    "tier": "B",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": 8 },
+      { "type": "add_var", "key": "lifespan", "delta": 5 }
+    ],
+    "excludes": ["grp_body"],
+    "desc": "水下能坐一炷香。憋得住气的人，也憋得住话。"
+  },
+  {
+    "id": "trait_old_ledger",
+    "name": "旧账",
+    "tier": "B",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_var", "key": "favor", "delta": 6 },
+      { "type": "add_var", "key": "currency", "delta": 70 }
+    ],
+    "desc": "别人欠你的，你都记着。记性好的人，仇家也多。"
+  },
+  {
+    "id": "trait_night_eye",
+    "name": "夜视",
+    "tier": "B",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "insight", "delta": 1 },
+      { "type": "add_attr", "key": "wits", "delta": 1 }
+    ],
+    "desc": "黑里看得见路。看得见夜里的东西，夜里也看得见你。"
+  },
+  {
+    "id": "trait_steady_hand",
+    "name": "稳手",
+    "tier": "B",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 8 },
+      { "type": "add_attr", "key": "temper", "delta": 1 }
+    ],
+    "desc": "画符从不走笔。稳是练出来的，代价是慢。"
+  },
+  {
+    "id": "trait_vast_patience",
+    "name": "忍",
+    "tier": "B",
+    "category": "修炼向",
+    "effects": [{ "type": "add_attr", "key": "temper", "delta": 2 }],
+    "excludes": ["grp_soul"],
+    "desc": "能等，能咽，能装作没看见。忍到最后的人，往往已经不想要了。"
+  },
+  {
+    "id": "trait_cheap_charm",
+    "name": "讨喜",
+    "tier": "B",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_attr", "key": "charm", "delta": 1 },
+      { "type": "add_var", "key": "favor", "delta": 8 }
+    ],
+    "excludes": ["grp_face"],
+    "desc": "第一面就能让人放下戒心。第二面就得还了。"
+  },
+  {
+    "id": "trait_iron_wrist",
+    "name": "铁腕",
+    "tier": "B",
+    "category": "战斗向",
+    "effects": [
+      { "type": "modify_power_index", "delta": 6 },
+      { "type": "add_attr", "key": "temper", "delta": 1 }
+    ],
+    "desc": "下手不留情面。情面这种东西，留着也是给别人用的。"
+  },
+  {
+    "id": "trait_quick_count",
+    "name": "数快",
+    "tier": "B",
+    "category": "经营向",
+    "effects": [
+      { "type": "add_attr", "key": "wits", "delta": 1 },
+      { "type": "add_var", "key": "currency", "delta": 90 }
+    ],
+    "desc": "一眼扫过就知道少了几枚。数目不对的时候，你比谁都先知道。"
+  },
+  {
+    "id": "trait_whisper_ear",
+    "name": "耳报",
+    "tier": "B",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "add_var", "key": "exposure", "delta": 3 }
+    ],
+    "excludes": ["grp_sense"],
+    "desc": "隔墙的话你听得见。听得见的东西越多，越难装作不知道。"
+  },
+  {
+    "id": "trait_common_root",
+    "name": "凡根",
+    "tier": "C",
+    "category": "修炼向",
+    "effects": [{ "type": "add_var", "key": "power", "delta": 5 }],
+    "desc": "资质平平，胜在稳当。慢，但从不停。"
+  },
+  {
+    "id": "trait_strong_back",
+    "name": "背力",
+    "tier": "C",
+    "category": "战斗向",
+    "effects": [{ "type": "add_attr", "key": "root", "delta": 1 }],
+    "desc": "扛得起两百斤的石头。力气是最笨的本钱，也是最实在的。"
+  },
+  {
+    "id": "trait_thrifty_purse",
+    "name": "省钱",
+    "tier": "C",
+    "category": "经营向",
+    "effects": [{ "type": "add_var", "key": "currency", "delta": 60 }],
+    "desc": "该花的不花，不该花的更不花。"
+  },
+  {
+    "id": "trait_polite",
+    "name": "知礼",
+    "tier": "C",
+    "category": "社交向",
+    "effects": [{ "type": "add_attr", "key": "charm", "delta": 1 }],
+    "desc": "礼数周全。周全的礼数挡得住很多不周全的人。"
+  },
+  {
+    "id": "trait_hunch",
+    "name": "直觉",
+    "tier": "C",
+    "category": "诡道向",
+    "effects": [{ "type": "add_attr", "key": "luck", "delta": 1 }],
+    "desc": "说不上为什么，就是觉得不对。多半真不对。"
+  },
+  {
+    "id": "trait_early_rise",
+    "name": "早起",
+    "tier": "C",
+    "category": "修炼向",
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 4 },
+      { "type": "add_var", "key": "hp", "delta": 3 }
+    ],
+    "desc": "寅时起身，一天当两天用。"
+  },
+  {
+    "id": "trait_tough_skin",
+    "name": "粗皮",
+    "tier": "C",
+    "category": "战斗向",
+    "effects": [{ "type": "add_var", "key": "hp", "delta": 6 }],
+    "excludes": ["grp_body"],
+    "desc": "风吹日晒练出的皮，小伤不必上药。"
+  },
+  {
+    "id": "trait_small_trade",
+    "name": "小贩",
+    "tier": "C",
+    "category": "经营向",
+    "effects": [{ "type": "add_var", "key": "currency", "delta": 45 }],
+    "desc": "摆过摊，知道怎么把话说到人心坎上。"
+  },
+  {
+    "id": "trait_shared_meal",
+    "name": "分食",
+    "tier": "C",
+    "category": "社交向",
+    "effects": [{ "type": "add_var", "key": "favor", "delta": 4 }],
+    "desc": "有饭分一半。分出去的饭，迟早会以别的形式回来。"
+  },
+  {
+    "id": "trait_light_finger",
+    "name": "顺手",
+    "tier": "C",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_var", "key": "currency", "delta": 30 },
+      { "type": "add_var", "key": "exposure", "delta": 2 }
+    ],
+    "desc": "顺手拿的东西，总有一天要顺手还。"
+  },
+  {
+    "id": "trait_patient_wait",
+    "name": "耐等",
+    "tier": "C",
+    "category": "修炼向",
+    "effects": [{ "type": "add_attr", "key": "temper", "delta": 1 }],
+    "desc": "能在门外站一天。等得到的人不多，等得起的更少。"
+  },
+  {
+    "id": "trait_loud_voice",
+    "name": "嗓大",
+    "tier": "C",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_var", "key": "exposure", "delta": 4 },
+      { "type": "add_attr", "key": "temper", "delta": 1 }
+    ],
+    "desc": "吼一嗓子能吓退野狗。也吓退了本该靠近的人。"
+  },
+  {
+    "id": "trait_keen_nose",
+    "name": "鼻灵",
+    "tier": "C",
+    "category": "诡道向",
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 1 }],
+    "desc": "闻得出药味、血腥味，和谎话的味道。"
+  },
+  {
+    "id": "trait_clean_hands",
+    "name": "净手",
+    "tier": "C",
+    "category": "经营向",
+    "effects": [{ "type": "add_var", "key": "karma", "delta": 5 }],
+    "desc": "不碰来路不明的东西。干净的手，握得住更多东西。"
+  },
+  {
+    "id": "trait_good_name",
+    "name": "好名",
+    "tier": "C",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_var", "key": "favor", "delta": 3 },
+      { "type": "add_var", "key": "exposure", "delta": 2 }
+    ],
+    "desc": "乡里都说你是个好孩子。名声是好事，也是绳子。"
+  },
+  {
+    "id": "trait_steady_pulse",
+    "name": "脉稳",
+    "tier": "C",
+    "category": "修炼向",
+    "effects": [{ "type": "add_var", "key": "corruption", "delta": -4 }],
+    "desc": "入定不易出差错。稳当的人，惊喜和意外都少。"
+  },
+  {
+    "id": "trait_hard_grip",
+    "name": "握紧",
+    "tier": "C",
+    "category": "战斗向",
+    "effects": [{ "type": "add_attr", "key": "root", "delta": 1 }],
+    "desc": "握住了就不撒手。撒手这件事，你学得比别人晚。"
+  },
+  {
+    "id": "trait_pack_rat",
+    "name": "囤积",
+    "tier": "C",
+    "category": "经营向",
+    "effects": [{ "type": "add_var", "key": "rare_mat", "delta": 1 }],
+    "desc": "什么都留着，什么都舍不得扔。"
+  },
+  {
+    "id": "trait_soft_word",
+    "name": "软语",
+    "tier": "C",
+    "category": "社交向",
+    "effects": [
+      { "type": "add_var", "key": "debt", "delta": -2 },
+      { "type": "add_attr", "key": "charm", "delta": 1 }
+    ],
+    "desc": "把话说软三分，事情就好办三分。"
+  },
+  {
+    "id": "trait_dim_sense",
+    "name": "钝感",
+    "tier": "C",
+    "category": "诡道向",
+    "effects": [
+      { "type": "add_var", "key": "corruption", "delta": -5 },
+      { "type": "add_var", "key": "exposure", "delta": -2 }
+    ],
+    "desc": "脏东西近身也不太难受。迟钝是一种天赐。"
+  },
+  {
+    "id": "trait_old_scar",
+    "name": "旧疤",
+    "tier": "C",
+    "category": "战斗向",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": 5 },
+      { "type": "add_var", "key": "exposure", "delta": -2 }
+    ],
+    "desc": "身上有几道旧疤，那是活下来的证据。"
+  },
+  {
+    "id": "trait_plain_face",
+    "name": "平容",
+    "tier": "C",
+    "category": "社交向",
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -4 }],
+    "desc": "长相毫无特点，见过就忘。被忘掉，有时是最大的本事。"
+  }
+]

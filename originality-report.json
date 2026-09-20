@@ -1,0 +1,4141 @@
+{
+  "generated": "build-time",
+  "total_nouns": 582,
+  "flagged": 31,
+  "details": [
+    "  ⚠ [形近存疑] 封印自身  ← 与《诡秘》的「封印物」相近，请人工确认",
+    "  ⚠ [形近存疑] 以身殉道  ← 与《遮天》的「以身为种」相近，请人工确认",
+    "  ⚠ [形近存疑] 书院问道  ← 与《将夜》的「书院二层楼」相近，请人工确认",
+    "  ⚠ [形近存疑] 山洞遗府  ← 与《斗破》的「古帝洞府」相近，请人工确认",
+    "  ⚠ [形近存疑] 认得出他手法  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 他那套手法  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 他到底是在教  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 他留在了自己身  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 仍在生长的骨  ← 与《一念》的「不死长生功」相近，请人工确认",
+    "  ⚠ [形近存疑] 血脉焚身  ← 与《莽荒》的「应龙血脉」相近，请人工确认",
+    "  ⚠ [形近存疑] 他改了你功法  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 天劫加身  ← 与《星辰》的「四九小天劫」相近，请人工确认",
+    "  ⚠ [形近存疑] 剑仙风骨  ← 与《诛仙》的「诛仙剑阵」相近，请人工确认",
+    "  ⚠ [形近存疑] 一柄无主的剑  ← 与《赤心》的「一剑开天门」相近，请人工确认",
+    "  ⚠ [形近存疑] 露过一次剑  ← 与《赤心》的「一剑开天门」相近，请人工确认",
+    "  ⚠ [形近存疑] 一处封印  ← 与《诡秘》的「封印物」相近，请人工确认",
+    "  ⚠ [形近存疑] 铭纹刻在自己身  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 你自家洞府  ← 与《斗破》的「古帝洞府」相近，请人工确认",
+    "  ⚠ [形近存疑] 仪式本身  ← 与《诡秘》的「成神仪式」相近，请人工确认",
+    "  ⚠ [形近存疑] 一步踏进天门  ← 与《赤心》的「一剑开天门」相近，请人工确认",
+    "  ⚠ [形近存疑] 天门不会  ← 与《赤心》的「一剑开天门」相近，请人工确认",
+    "  ⚠ [形近存疑] 错过祭坛开门  ← 与《赤心》的「一剑开天门」相近，请人工确认",
+    "  ⚠ [形近存疑] 撤了护身法  ← 与《大主宰》的「至尊法身」相近，请人工确认",
+    "  ⚠ [形近存疑] 两个世界  ← 与《莽荒》的「世界神」相近，请人工确认",
+    "  ⚠ [形近存疑] 死人不会  ← 与《一念》的「不死长生功」相近，请人工确认",
+    "  ⚠ [形近存疑] 以自身心血  ← 与《遮天》的「以身为种」相近，请人工确认",
+    "  ⚠ [形近存疑] 可那法在你身  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 以肉身为炉  ← 与《遮天》的「以身为种」相近，请人工确认",
+    "  ⚠ [形近存疑] 不必覆在自己骨  ← 与《完美》的「他化自在大法」相近，请人工确认",
+    "  ⚠ [形近存疑] 赤足上天门  ← 与《赤心》的「一剑开天门」相近，请人工确认",
+    "  ⚠ [形近存疑] 没人知道  ← 与《师兄》的「纸道人」相近，请人工确认"
+  ],
+  "all_nouns": [
+    {
+      "word": "慢热经",
+      "seen_in": [
+        "packs.mortal.inspiration_tag",
+        "motifs[0].source_archetype",
+        "motifs[1].source_archetype",
+        "motifs[3].source_archetype",
+        "motifs[4].source_archetype"
+      ],
+      "count": 9
+    },
+    {
+      "word": "志怪反天道",
+      "seen_in": [
+        "motifs[22].source_archetype",
+        "motifs[25].source_archetype",
+        "motifs[27].source_archetype",
+        "motifs[28].source_archetype"
+      ],
+      "count": 4
+    },
+    {
+      "word": "走火入魔",
+      "seen_in": [
+        "endings[20].category",
+        "endings[21].category",
+        "endings[22].category",
+        "endings[23].category"
+      ],
+      "count": 4
+    },
+    {
+      "word": "沦为他人道",
+      "seen_in": [
+        "endings[24].category",
+        "endings[25].category",
+        "endings[26].category",
+        "endings[27].category"
+      ],
+      "count": 4
+    },
+    {
+      "word": "封印自身",
+      "seen_in": [
+        "endings[32].category",
+        "endings[33].category",
+        "endings[34].category"
+      ],
+      "count": 3
+    },
+    {
+      "word": "以身殉道",
+      "seen_in": [
+        "endings[38].category",
+        "endings[39].category",
+        "endings[40].category"
+      ],
+      "count": 3
+    },
+    {
+      "word": "太古骨",
+      "seen_in": [
+        "packs.physique.resource_map.bone_inscription.name",
+        "packs.physique.goldfinger_slots[0].name"
+      ],
+      "count": 2
+    },
+    {
+      "word": "你的身",
+      "seen_in": [
+        "motifs[4].risk_by_pack.genius",
+        "motifs[6].risk_by_pack.physique"
+      ],
+      "count": 2
+    },
+    {
+      "word": "你的肉身",
+      "seen_in": [
+        "motifs[5].param_slots[1]",
+        "motifs[14].risk_by_pack.physique"
+      ],
+      "count": 2
+    },
+    {
+      "word": "你的丹",
+      "seen_in": [
+        "motifs[8].param_slots[1]",
+        "motifs[11].risk_by_pack.mortal"
+      ],
+      "count": 2
+    },
+    {
+      "word": "你的骨",
+      "seen_in": [
+        "motifs[8].param_slots[1]",
+        "motifs[8].risk_by_pack.physique"
+      ],
+      "count": 2
+    },
+    {
+      "word": "他知道",
+      "seen_in": [
+        "motifs[11].risk_by_pack.mystery",
+        "events[26].options[1].cost_hint"
+      ],
+      "count": 2
+    },
+    {
+      "word": "书院问道",
+      "seen_in": [
+        "motifs[19].source_archetype",
+        "motifs[28].source_archetype"
+      ],
+      "count": 2
+    },
+    {
+      "word": "剑意入体",
+      "seen_in": [
+        "motifs[19].outcome_tendency[0]",
+        "motifs[19].risk_by_pack.genius"
+      ],
+      "count": 2
+    },
+    {
+      "word": "最后一座城",
+      "seen_in": [
+        "events[16].narrative.title_pool[0]",
+        "endings[39].title_pool[0]"
+      ],
+      "count": 2
+    },
+    {
+      "word": "连夜出城",
+      "seen_in": [
+        "events[16].options[3].text",
+        "events[20].options[3].text"
+      ],
+      "count": 2
+    },
+    {
+      "word": "青冥仙",
+      "seen_in": [
+        "packs.mortal.display_name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "催熟残瓶",
+      "seen_in": [
+        "packs.mortal.goldfinger_slots[0].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "炎灵谱",
+      "seen_in": [
+        "packs.genius.resource_map.flame_rank.name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "裂痕丹炉",
+      "seen_in": [
+        "packs.genius.goldfinger_slots[2].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "逆鳞血",
+      "seen_in": [
+        "packs.genius.goldfinger_slots[4].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "碎遗石",
+      "seen_in": [
+        "packs.physique.resource_map.currency.tiers[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "整遗石",
+      "seen_in": [
+        "packs.physique.resource_map.currency.tiers[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "祖遗石",
+      "seen_in": [
+        "packs.physique.resource_map.currency.tiers[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "纪元烙印",
+      "seen_in": [
+        "packs.physique.goldfinger_slots[1].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "妖兽血",
+      "seen_in": [
+        "packs.physique.goldfinger_slots[3].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "带土腥与血",
+      "seen_in": [
+        "packs.physique.tone.narration"
+      ],
+      "count": 1
+    },
+    {
+      "word": "痛感写得具体",
+      "seen_in": [
+        "packs.physique.tone.narration"
+      ],
+      "count": 1
+    },
+    {
+      "word": "身份经",
+      "seen_in": [
+        "packs.mystery.inspiration_tag"
+      ],
+      "count": 1
+    },
+    {
+      "word": "途痕初印",
+      "seen_in": [
+        "packs.mystery.goldfinger_slots[1].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "双面身",
+      "seen_in": [
+        "packs.mystery.goldfinger_slots[3].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "静默刻印",
+      "seen_in": [
+        "packs.mystery.goldfinger_slots[4].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "档案体",
+      "seen_in": [
+        "packs.mystery.tone.narration"
+      ],
+      "count": 1
+    },
+    {
+      "word": "而非血",
+      "seen_in": [
+        "packs.mystery.tone.narration"
+      ],
+      "count": 1
+    },
+    {
+      "word": "逆天问道",
+      "seen_in": [
+        "packs.rebel.display_name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "杀伐问道",
+      "seen_in": [
+        "packs.rebel.inspiration_tag"
+      ],
+      "count": 1
+    },
+    {
+      "word": "九死印",
+      "seen_in": [
+        "packs.rebel.goldfinger_slots[3].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "有金石",
+      "seen_in": [
+        "packs.rebel.tone.narration"
+      ],
+      "count": 1
+    },
+    {
+      "word": "影替之术",
+      "seen_in": [
+        "packs.cautious.goldfinger_slots[2].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "山洞遗府",
+      "seen_in": [
+        "motifs[0].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "寒潭残府",
+      "seen_in": [
+        "motifs[0].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "雾岭石",
+      "seen_in": [
+        "motifs[0].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "无名的石",
+      "seen_in": [
+        "motifs[0].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "塌了半边的丹",
+      "seen_in": [
+        "motifs[0].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "守着旧主的石兽",
+      "seen_in": [
+        "motifs[0].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一无所知的虫",
+      "seen_in": [
+        "motifs[0].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "半炉凝住的丹",
+      "seen_in": [
+        "motifs[0].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一柄锈住的长剑",
+      "seen_in": [
+        "motifs[0].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "说不清的骨",
+      "seen_in": [
+        "motifs[0].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "伤在身",
+      "seen_in": [
+        "motifs[0].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "获撑不过下一炉",
+      "seen_in": [
+        "motifs[0].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你却已断了正经",
+      "seen_in": [
+        "motifs[0].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "灼脉焚身",
+      "seen_in": [
+        "motifs[0].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "中炎气顺着功体",
+      "seen_in": [
+        "motifs[0].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你留下的脚印",
+      "seen_in": [
+        "motifs[0].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "漏底的旧瓶",
+      "seen_in": [
+        "motifs[1].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只认月光的残镜",
+      "seen_in": [
+        "motifs[1].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "结着霜的铜印",
+      "seen_in": [
+        "motifs[1].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "想收缴的宗门",
+      "seen_in": [
+        "motifs[1].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也知道",
+      "seen_in": [
+        "motifs[1].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "是你身上的旧血",
+      "seen_in": [
+        "motifs[1].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "退得体",
+      "seen_in": [
+        "motifs[2].outcome_tendency[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "退了这门",
+      "seen_in": [
+        "motifs[2].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "被记名册",
+      "seen_in": [
+        "motifs[2].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "对方的族谱",
+      "seen_in": [
+        "motifs[2].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一枚旧印",
+      "seen_in": [
+        "motifs[3].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你随身",
+      "seen_in": [
+        "motifs[3].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "说不清来历的教",
+      "seen_in": [
+        "motifs[3].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "认得出他手法",
+      "seen_in": [
+        "motifs[3].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他那套手法",
+      "seen_in": [
+        "motifs[3].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他每教",
+      "seen_in": [
+        "motifs[3].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "少一分自己的血",
+      "seen_in": [
+        "motifs[3].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他到底是在教",
+      "seen_in": [
+        "motifs[3].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你与他的道",
+      "seen_in": [
+        "motifs[3].risk_by_pack.rebel"
+      ],
+      "count": 1
+    },
+    {
+      "word": "换法门",
+      "seen_in": [
+        "motifs[4].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "愿意收你的小宗",
+      "seen_in": [
+        "motifs[4].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不收你的大宗",
+      "seen_in": [
+        "motifs[4].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不生不死的活法",
+      "seen_in": [
+        "motifs[4].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "没人肯往你身",
+      "seen_in": [
+        "motifs[4].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "上押一份丹",
+      "seen_in": [
+        "motifs[4].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "住那么烈的功体",
+      "seen_in": [
+        "motifs[4].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "被划入废册",
+      "seen_in": [
+        "motifs[4].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你信过的同门",
+      "seen_in": [
+        "motifs[5].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也没赢走这具身",
+      "seen_in": [
+        "motifs[5].outcome_tendency[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他留在了自己身",
+      "seen_in": [
+        "motifs[5].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "两套火候在你经",
+      "seen_in": [
+        "motifs[5].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "抢这具身",
+      "seen_in": [
+        "motifs[5].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "摊主不识的石",
+      "seen_in": [
+        "motifs[6].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "来路不明的丹",
+      "seen_in": [
+        "motifs[6].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "高得离谱",
+      "seen_in": [
+        "motifs[6].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "价格公道",
+      "seen_in": [
+        "motifs[6].outcome_tendency[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "买了个教",
+      "seen_in": [
+        "motifs[6].outcome_tendency[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "赝火伤炉",
+      "seen_in": [
+        "motifs[6].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那料一进炉",
+      "seen_in": [
+        "motifs[6].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "炉成色极好的丹",
+      "seen_in": [
+        "motifs[7].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不知用途的骨",
+      "seen_in": [
+        "motifs[7].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "之争从不只在炉",
+      "seen_in": [
+        "motifs[7].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一滴未凝的血",
+      "seen_in": [
+        "motifs[8].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一截仍在跳的骨",
+      "seen_in": [
+        "motifs[8].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "别人的身",
+      "seen_in": [
+        "motifs[8].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "看着你炼的护道",
+      "seen_in": [
+        "motifs[8].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "但你身",
+      "seen_in": [
+        "motifs[8].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "当场落在别人身",
+      "seen_in": [
+        "motifs[8].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "为炼这一炉",
+      "seen_in": [
+        "motifs[8].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "半具石",
+      "seen_in": [
+        "motifs[9].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "仍在生长的骨",
+      "seen_in": [
+        "motifs[9].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "守着它的旧族",
+      "seen_in": [
+        "motifs[9].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "分一杯羹的同门",
+      "seen_in": [
+        "motifs[9].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不动肉身",
+      "seen_in": [
+        "motifs[9].outcome_tendency[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "血脉焚身",
+      "seen_in": [
+        "motifs[9].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "遗蜕争身",
+      "seen_in": [
+        "motifs[9].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "清算上门",
+      "seen_in": [
+        "motifs[9].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "藏拙的同门",
+      "seen_in": [
+        "motifs[10].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "记录名册",
+      "seen_in": [
+        "motifs[10].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "暗伤留体",
+      "seen_in": [
+        "motifs[10].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "伤在骨",
+      "seen_in": [
+        "motifs[10].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "开始问你的手法",
+      "seen_in": [
+        "motifs[10].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "带你入门",
+      "seen_in": [
+        "motifs[11].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "同门流血",
+      "seen_in": [
+        "motifs[11].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "门中两派",
+      "seen_in": [
+        "motifs[11].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "说出来你会",
+      "seen_in": [
+        "motifs[11].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "赢了一阵",
+      "seen_in": [
+        "motifs[11].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他改了你功法",
+      "seen_in": [
+        "motifs[11].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "始怀疑自己的道",
+      "seen_in": [
+        "motifs[11].risk_by_pack.rebel"
+      ],
+      "count": 1
+    },
+    {
+      "word": "教你入门",
+      "seen_in": [
+        "motifs[12].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "转世的机会",
+      "seen_in": [
+        "motifs[12].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "冷眼旁观的同门",
+      "seen_in": [
+        "motifs[12].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你承了他的道",
+      "seen_in": [
+        "motifs[12].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "火种入体",
+      "seen_in": [
+        "motifs[12].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他的骨",
+      "seen_in": [
+        "motifs[12].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "篆刻进了你身",
+      "seen_in": [
+        "motifs[12].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "守着药田的老兽",
+      "seen_in": [
+        "motifs[13].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你家的后院",
+      "seen_in": [
+        "motifs[13].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "血毒入骨",
+      "seen_in": [
+        "motifs[13].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一头认主的兽",
+      "seen_in": [
+        "motifs[13].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "由旧阵",
+      "seen_in": [
+        "motifs[14].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "撑着的残界",
+      "seen_in": [
+        "motifs[14].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一枚令符",
+      "seen_in": [
+        "motifs[14].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一株会",
+      "seen_in": [
+        "motifs[14].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一册阵法",
+      "seen_in": [
+        "motifs[14].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "各怀心思的同门",
+      "seen_in": [
+        "motifs[14].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "时你连回程的丹",
+      "seen_in": [
+        "motifs[14].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "污染缠身",
+      "seen_in": [
+        "motifs[14].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "天劫加身",
+      "seen_in": [
+        "motifs[15].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "护法的同门",
+      "seen_in": [
+        "motifs[15].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也落下一身",
+      "seen_in": [
+        "motifs[15].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只是阵",
+      "seen_in": [
+        "motifs[15].outcome_tendency[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "身承不住这一道",
+      "seen_in": [
+        "motifs[15].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "劫数把你体",
+      "seen_in": [
+        "motifs[15].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "反噬道",
+      "seen_in": [
+        "motifs[15].risk_by_pack.rebel"
+      ],
+      "count": 1
+    },
+    {
+      "word": "柄还在挑人的剑",
+      "seen_in": [
+        "motifs[16].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "来收遗物的宗门",
+      "seen_in": [
+        "motifs[16].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也多了一个身",
+      "seen_in": [
+        "motifs[16].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "兵焰入炉",
+      "seen_in": [
+        "motifs[16].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只认血",
+      "seen_in": [
+        "motifs[16].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "当众开炉",
+      "seen_in": [
+        "motifs[17].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "等着收丹",
+      "seen_in": [
+        "motifs[17].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "看热闹的同门",
+      "seen_in": [
+        "motifs[17].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "炼出了丹",
+      "seen_in": [
+        "motifs[17].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "炸了炉",
+      "seen_in": [
+        "motifs[17].outcome_tendency[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你服下了那炉",
+      "seen_in": [
+        "motifs[17].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "炎爆伤身",
+      "seen_in": [
+        "motifs[17].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你把丹性当淬体",
+      "seen_in": [
+        "motifs[17].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那炉丹",
+      "seen_in": [
+        "motifs[17].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "雇主的丹",
+      "seen_in": [
+        "motifs[17].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "找上门",
+      "seen_in": [
+        "motifs[18].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "却没有一粒丹",
+      "seen_in": [
+        "motifs[18].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "新的身",
+      "seen_in": [
+        "motifs[18].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "身份穿帮",
+      "seen_in": [
+        "motifs[18].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "论剑问道",
+      "seen_in": [
+        "motifs[19].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "剑仙风骨",
+      "seen_in": [
+        "motifs[19].source_archetype"
+      ],
+      "count": 1
+    },
+    {
+      "word": "崖顶论道",
+      "seen_in": [
+        "motifs[19].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一柄无主的剑",
+      "seen_in": [
+        "motifs[19].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "两边看台上的门",
+      "seen_in": [
+        "motifs[19].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "年都记得那一剑",
+      "seen_in": [
+        "motifs[19].outcome_tendency[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你弃了剑",
+      "seen_in": [
+        "motifs[19].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "硬撼伤骨",
+      "seen_in": [
+        "motifs[19].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你以肉身试剑",
+      "seen_in": [
+        "motifs[19].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那柄剑",
+      "seen_in": [
+        "motifs[19].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "露过一次剑",
+      "seen_in": [
+        "motifs[19].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "很难再装作不会",
+      "seen_in": [
+        "motifs[19].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "世家与寒门",
+      "seen_in": [
+        "motifs[20].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "旧序与新法",
+      "seen_in": [
+        "motifs[20].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "同门的两派",
+      "seen_in": [
+        "motifs[20].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "上了另一边的册",
+      "seen_in": [
+        "motifs[20].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也同时留着门",
+      "seen_in": [
+        "motifs[20].outcome_tendency[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不到你要走的道",
+      "seen_in": [
+        "motifs[20].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你准备了一个身",
+      "seen_in": [
+        "motifs[20].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "了别人手里的刀",
+      "seen_in": [
+        "motifs[20].risk_by_pack.rebel"
+      ],
+      "count": 1
+    },
+    {
+      "word": "护城守族",
+      "seen_in": [
+        "motifs[21].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你出身",
+      "seen_in": [
+        "motifs[21].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "靠阵法",
+      "seen_in": [
+        "motifs[21].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "主张降的族",
+      "seen_in": [
+        "motifs[21].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "焚身护城",
+      "seen_in": [
+        "motifs[21].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "的火候烧在了城",
+      "seen_in": [
+        "motifs[21].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "肉身抵门",
+      "seen_in": [
+        "motifs[21].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "业债上身",
+      "seen_in": [
+        "motifs[21].risk_by_pack.rebel"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你守的那座城",
+      "seen_in": [
+        "motifs[21].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "面照不出人的镜",
+      "seen_in": [
+        "motifs[22].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "某人的身体",
+      "seen_in": [
+        "motifs[22].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一处封印",
+      "seen_in": [
+        "motifs[22].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "世守此物的家族",
+      "seen_in": [
+        "motifs[22].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "铭纹刻在自己身",
+      "seen_in": [
+        "motifs[22].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "别人的同门",
+      "seen_in": [
+        "motifs[23].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一条只有这个身",
+      "seen_in": [
+        "motifs[23].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "维持这个身",
+      "seen_in": [
+        "motifs[23].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "真人留下的功法",
+      "seen_in": [
+        "motifs[23].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "肉身会",
+      "seen_in": [
+        "motifs[23].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你的替身",
+      "seen_in": [
+        "motifs[24].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "异炎入体",
+      "seen_in": [
+        "motifs[25].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "多出来的骨",
+      "seen_in": [
+        "motifs[25].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "时间本身",
+      "seen_in": [
+        "motifs[26].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "且知道",
+      "seen_in": [
+        "motifs[26].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "价从此记在你身",
+      "seen_in": [
+        "motifs[26].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一句只有你知道",
+      "seen_in": [
+        "motifs[27].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "此只剩一个世界",
+      "seen_in": [
+        "motifs[27].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "分不清哪一具身",
+      "seen_in": [
+        "motifs[27].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "子出门",
+      "seen_in": [
+        "motifs[27].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你没法",
+      "seen_in": [
+        "motifs[27].risk_by_pack.rebel"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一套不该传的法",
+      "seen_in": [
+        "motifs[28].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "传出去会",
+      "seen_in": [
+        "motifs[28].param_slots[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你把字刻在了身",
+      "seen_in": [
+        "motifs[28].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也装不了不知道",
+      "seen_in": [
+        "motifs[28].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "借阅名册",
+      "seen_in": [
+        "motifs[28].risk_by_pack.cautious"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一处藏身",
+      "seen_in": [
+        "motifs[29].param_slots[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你自家洞府",
+      "seen_in": [
+        "motifs[29].param_slots[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "别人也知道",
+      "seen_in": [
+        "motifs[29].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "布一套阵",
+      "seen_in": [
+        "motifs[29].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "备劫的过程本身",
+      "seen_in": [
+        "motifs[29].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一套不认你本体",
+      "seen_in": [
+        "motifs[30].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "规矩不同的地界",
+      "seen_in": [
+        "motifs[30].param_slots[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "守着这条界",
+      "seen_in": [
+        "motifs[30].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "套装进了自己身",
+      "seen_in": [
+        "motifs[30].outcome_tendency[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只是从此知道",
+      "seen_in": [
+        "motifs[30].outcome_tendency[3]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "为了接新法",
+      "seen_in": [
+        "motifs[30].risk_by_pack.mortal"
+      ],
+      "count": 1
+    },
+    {
+      "word": "旧骨篆与外法",
+      "seen_in": [
+        "motifs[30].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "认知越界",
+      "seen_in": [
+        "motifs[30].risk_by_pack.mystery"
+      ],
+      "count": 1
+    },
+    {
+      "word": "洪荒血",
+      "seen_in": [
+        "motifs[31].source_archetype"
+      ],
+      "count": 1
+    },
+    {
+      "word": "仪式本身",
+      "seen_in": [
+        "motifs[31].param_slots[4]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "自己当成了那炉",
+      "seen_in": [
+        "motifs[31].risk_by_pack.genius"
+      ],
+      "count": 1
+    },
+    {
+      "word": "肉身解体",
+      "seen_in": [
+        "motifs[31].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "式要的是你的骨",
+      "seen_in": [
+        "motifs[31].risk_by_pack.physique"
+      ],
+      "count": 1
+    },
+    {
+      "word": "一步踏进天门",
+      "seen_in": [
+        "events[0].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "坛上每一道",
+      "seen_in": [
+        "events[0].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "纹路都会",
+      "seen_in": [
+        "events[0].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "记住你的脚印",
+      "seen_in": [
+        "events[0].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "镇物会",
+      "seen_in": [
+        "events[0].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "今往后人人知道",
+      "seen_in": [
+        "events[1].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "名号会",
+      "seen_in": [
+        "events[1].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "天门不会",
+      "seen_in": [
+        "events[1].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "绕后山",
+      "seen_in": [
+        "events[2].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "错过祭坛开门",
+      "seen_in": [
+        "events[2].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把身后那具旧身",
+      "seen_in": [
+        "events[2].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那具旧身",
+      "seen_in": [
+        "events[2].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把香火转给山门",
+      "seen_in": [
+        "events[3].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "香灰会",
+      "seen_in": [
+        "events[3].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "落进你的道",
+      "seen_in": [
+        "events[3].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "从此你身",
+      "seen_in": [
+        "events[5].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "撤了护身法",
+      "seen_in": [
+        "events[6].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "拿肉身",
+      "seen_in": [
+        "events[6].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "年布下的引雷阵",
+      "seen_in": [
+        "events[6].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "吃掉你半库灵石",
+      "seen_in": [
+        "events[6].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "云往仇家那座山",
+      "seen_in": [
+        "events[6].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那一门上下都会",
+      "seen_in": [
+        "events[6].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "劫下来了一把刀",
+      "seen_in": [
+        "events[7].narrative.title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "接住那把刀",
+      "seen_in": [
+        "events[7].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "任那把刀",
+      "seen_in": [
+        "events[7].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "让替身",
+      "seen_in": [
+        "events[8].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "这具替身",
+      "seen_in": [
+        "events[8].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不用替身",
+      "seen_in": [
+        "events[8].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "夜再添两具替身",
+      "seen_in": [
+        "events[8].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "劫不会",
+      "seen_in": [
+        "events[8].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "抹去它的神",
+      "seen_in": [
+        "events[9].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "拆到第几张会",
+      "seen_in": [
+        "events[10].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把它引进界",
+      "seen_in": [
+        "events[10].options[3].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "会记下你的味道",
+      "seen_in": [
+        "events[10].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把剩下的分给身",
+      "seen_in": [
+        "events[11].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他不知道",
+      "seen_in": [
+        "events[11].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "它会在门",
+      "seen_in": [
+        "events[12].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "抄本会",
+      "seen_in": [
+        "events[13].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "两个世界",
+      "seen_in": [
+        "events[14].narrative.title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "认脚下这一界",
+      "seen_in": [
+        "events[14].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "梦里那些人会",
+      "seen_in": [
+        "events[14].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把这一界",
+      "seen_in": [
+        "events[14].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "造一份两界",
+      "seen_in": [
+        "events[14].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "骑缝的人两界",
+      "seen_in": [
+        "events[14].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "两界都会",
+      "seen_in": [
+        "events[14].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "当你已经",
+      "seen_in": [
+        "events[14].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "在正道那一册",
+      "seen_in": [
+        "events[15].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "用真印",
+      "seen_in": [
+        "events[15].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把名字写在魔道",
+      "seen_in": [
+        "events[15].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那一册",
+      "seen_in": [
+        "events[15].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "署血印",
+      "seen_in": [
+        "events[15].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "子上的旧名字会",
+      "seen_in": [
+        "events[15].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "站起来走出会盟",
+      "seen_in": [
+        "events[15].options[3].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "两边的门",
+      "seen_in": [
+        "events[15].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "站在城门",
+      "seen_in": [
+        "events[16].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "这道门",
+      "seen_in": [
+        "events[16].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "在天亮前把满城",
+      "seen_in": [
+        "events[16].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "外那片影子上城",
+      "seen_in": [
+        "events[16].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "它守完城会",
+      "seen_in": [
+        "events[16].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "城破的账会",
+      "seen_in": [
+        "events[16].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他转身",
+      "seen_in": [
+        "events[17].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "旧账上门",
+      "seen_in": [
+        "events[18].narrative.title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "账房里的那本册",
+      "seen_in": [
+        "events[18].narrative.title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把上门",
+      "seen_in": [
+        "events[18].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "的人留在山门",
+      "seen_in": [
+        "events[18].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "账本会",
+      "seen_in": [
+        "events[18].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "账推到那个已经",
+      "seen_in": [
+        "events[18].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "死人不会",
+      "seen_in": [
+        "events[18].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那句话往后会",
+      "seen_in": [
+        "events[19].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你什么也不知道",
+      "seen_in": [
+        "events[19].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "世的记忆交给门",
+      "seen_in": [
+        "events[19].options[3].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "按古法",
+      "seen_in": [
+        "events[20].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把灯留在身",
+      "seen_in": [
+        "events[20].options[3].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "抢过名册",
+      "seen_in": [
+        "events[21].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "照着名册",
+      "seen_in": [
+        "events[21].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "递上三枚灵石",
+      "seen_in": [
+        "events[21].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "别的东西也会",
+      "seen_in": [
+        "events[22].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "镇物送去青冥观",
+      "seen_in": [
+        "events[22].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "以自身心血",
+      "seen_in": [
+        "events[23].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "心头血",
+      "seen_in": [
+        "events[23].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "套出族谱",
+      "seen_in": [
+        "events[24].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "别人也会",
+      "seen_in": [
+        "events[25].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "的那一声记进谱",
+      "seen_in": [
+        "events[26].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把师弟的喉骨",
+      "seen_in": [
+        "events[27].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "第三排册",
+      "seen_in": [
+        "events[28].narrative.title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把缺角那册",
+      "seen_in": [
+        "events[28].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把自己的牙印",
+      "seen_in": [
+        "events[28].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "递还给阁",
+      "seen_in": [
+        "events[28].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他看完会",
+      "seen_in": [
+        "events[29].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "谁也别想知道",
+      "seen_in": [
+        "events[29].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那六人今夜会",
+      "seen_in": [
+        "events[30].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "用指血",
+      "seen_in": [
+        "events[30].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "礼另立一具代身",
+      "seen_in": [
+        "events[31].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "权当证道人已经",
+      "seen_in": [
+        "events[31].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "往后有些诀",
+      "seen_in": [
+        "events[31].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "用炭笔把两道",
+      "seen_in": [
+        "events[32].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "叠上的地方会",
+      "seen_in": [
+        "events[32].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "拿刀把两道",
+      "seen_in": [
+        "events[32].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "在瓦上刻一道",
+      "seen_in": [
+        "events[34].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "刻痕会",
+      "seen_in": [
+        "events[34].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那人提前支去城",
+      "seen_in": [
+        "events[34].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不是你教",
+      "seen_in": [
+        "events[36].narrative.title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "割腕喂它一口血",
+      "seen_in": [
+        "events[36].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "就记住你的味道",
+      "seen_in": [
+        "events[36].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "两个人一个身",
+      "seen_in": [
+        "events[37].narrative.title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "站在铜镜",
+      "seen_in": [
+        "events[37].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只留一枚在身",
+      "seen_in": [
+        "events[38].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "封起来的那枚会",
+      "seen_in": [
+        "events[38].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "清算名录",
+      "seen_in": [
+        "events[39].narrative.title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "别处会",
+      "seen_in": [
+        "events[39].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "查清名录",
+      "seen_in": [
+        "events[39].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "赶在天亮前下山",
+      "seen_in": [
+        "events[39].options[3].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "这道山门",
+      "seen_in": [
+        "events[39].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "碎了一半的镜",
+      "seen_in": [
+        "events[40].narrative.title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把自己的护心镜",
+      "seen_in": [
+        "events[40].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "查清这面旧镜",
+      "seen_in": [
+        "events[40].options[1].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "查下去会",
+      "seen_in": [
+        "events[40].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "背起他退出阵",
+      "seen_in": [
+        "events[40].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那处阵",
+      "seen_in": [
+        "events[40].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "谁就知道",
+      "seen_in": [
+        "events[42].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把方位描进随身",
+      "seen_in": [
+        "events[42].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "此地会",
+      "seen_in": [
+        "events[42].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不作数的域外法",
+      "seen_in": [
+        "events[43].narrative.title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把那条域外法",
+      "seen_in": [
+        "events[43].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "弃了那条域外法",
+      "seen_in": [
+        "events[43].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "改用本土的法",
+      "seen_in": [
+        "events[43].options[2].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "让那道",
+      "seen_in": [
+        "events[44].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你也认剑",
+      "seen_in": [
+        "events[44].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "压住的记忆会",
+      "seen_in": [
+        "events[45].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "举过牌的人会",
+      "seen_in": [
+        "events[46].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "离席的人会",
+      "seen_in": [
+        "events[46].options[3].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "挪开的那点会",
+      "seen_in": [
+        "events[47].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "报上道",
+      "seen_in": [
+        "events[48].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "咽回去的名字会",
+      "seen_in": [
+        "events[48].options[0].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "让台的事会",
+      "seen_in": [
+        "events[48].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "记在册",
+      "seen_in": [
+        "events[48].options[2].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "借半日身",
+      "seen_in": [
+        "events[49].narrative.title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "借他半日身",
+      "seen_in": [
+        "events[49].options[0].text"
+      ],
+      "count": 1
+    },
+    {
+      "word": "开之后他不再教",
+      "seen_in": [
+        "events[49].options[1].cost_hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "各持一枚传音符",
+      "seen_in": [
+        "scenarios[0].rules_stated[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "刻只能取一枚符",
+      "seen_in": [
+        "scenarios[0].rules_stated[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "其余两符",
+      "seen_in": [
+        "scenarios[0].rules_stated[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他们凭什么知道",
+      "seen_in": [
+        "scenarios[0].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "同时取两枚符",
+      "seen_in": [
+        "scenarios[0].forbidden[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也就知道",
+      "seen_in": [
+        "scenarios[0].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "可你的神",
+      "seen_in": [
+        "scenarios[0].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你烧了三枚符",
+      "seen_in": [
+        "scenarios[0].breakthroughs[3].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只是第四枚符",
+      "seen_in": [
+        "scenarios[0].breakthroughs[4].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "异途论道",
+      "seen_in": [
+        "scenarios[1].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "各守本途之法",
+      "seen_in": [
+        "scenarios[1].rules_stated[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "出手时越法",
+      "seen_in": [
+        "scenarios[1].rules_stated[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "胜者取道",
+      "seen_in": [
+        "scenarios[1].rules_stated[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "守本途之法",
+      "seen_in": [
+        "scenarios[1].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那一刻所运的法",
+      "seen_in": [
+        "scenarios[1].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不是你身",
+      "seen_in": [
+        "scenarios[1].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "上带着的法",
+      "seen_in": [
+        "scenarios[1].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不算越法",
+      "seen_in": [
+        "scenarios[1].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "与他不知道",
+      "seen_in": [
+        "scenarios[1].rules_hidden[1].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "中提及对方师门",
+      "seen_in": [
+        "scenarios[1].forbidden[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你带着异途的法",
+      "seen_in": [
+        "scenarios[1].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "可那法在你身",
+      "seen_in": [
+        "scenarios[1].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "以本途正法",
+      "seen_in": [
+        "scenarios[1].breakthroughs[1].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你以本途正法",
+      "seen_in": [
+        "scenarios[1].breakthroughs[1].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他的同门",
+      "seen_in": [
+        "scenarios[1].breakthroughs[1].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那物主找上门",
+      "seen_in": [
+        "scenarios[1].breakthroughs[4].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "从此同时被两界",
+      "seen_in": [
+        "scenarios[1].breakthroughs[5].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "九转无声鼎",
+      "seen_in": [
+        "scenarios[4].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "炉中丹",
+      "seen_in": [
+        "scenarios[4].rules_stated[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "丹成鼎",
+      "seen_in": [
+        "scenarios[4].rules_stated[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "投重则整炉",
+      "seen_in": [
+        "scenarios[4].rules_stated[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "就含着半成之丹",
+      "seen_in": [
+        "scenarios[4].rules_hidden[2].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也是丹",
+      "seen_in": [
+        "scenarios[4].rules_hidden[2].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "转未满而启鼎",
+      "seen_in": [
+        "scenarios[4].forbidden[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "中途换炉",
+      "seen_in": [
+        "scenarios[4].forbidden[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "以肉身为炉",
+      "seen_in": [
+        "scenarios[4].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "真火走遍经",
+      "seen_in": [
+        "scenarios[4].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "丹阁替你成丹",
+      "seen_in": [
+        "scenarios[4].breakthroughs[3].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "丹归丹阁",
+      "seen_in": [
+        "scenarios[4].breakthroughs[3].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "名也归丹阁",
+      "seen_in": [
+        "scenarios[4].breakthroughs[3].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "灰雾却在你身",
+      "seen_in": [
+        "scenarios[5].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "上留了印",
+      "seen_in": [
+        "scenarios[5].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "是你身",
+      "seen_in": [
+        "scenarios[6].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "就是割自己一刀",
+      "seen_in": [
+        "scenarios[6].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那就不演他们会",
+      "seen_in": [
+        "scenarios[6].rules_hidden[2].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "要一个个收回体",
+      "seen_in": [
+        "scenarios[6].breakthroughs[1].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只是你从此知道",
+      "seen_in": [
+        "scenarios[6].breakthroughs[4].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "天便在你身",
+      "seen_in": [
+        "scenarios[7].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "言应在了旁人身",
+      "seen_in": [
+        "scenarios[7].breakthroughs[3].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你每刻一枚骨",
+      "seen_in": [
+        "scenarios[8].rules_stated[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不必覆在自己骨",
+      "seen_in": [
+        "scenarios[8].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "可以覆到旁人身",
+      "seen_in": [
+        "scenarios[8].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "覆刻于同族骨",
+      "seen_in": [
+        "scenarios[8].forbidden[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "毁去他人骨",
+      "seen_in": [
+        "scenarios[8].forbidden[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把篆覆在仇家骨",
+      "seen_in": [
+        "scenarios[8].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他也有师门",
+      "seen_in": [
+        "scenarios[8].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你刻了一身",
+      "seen_in": [
+        "scenarios[8].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "纪从此没有名册",
+      "seen_in": [
+        "scenarios[8].breakthroughs[4].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也沾了一身",
+      "seen_in": [
+        "scenarios[9].breakthroughs[3].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "此后每刻一枚骨",
+      "seen_in": [
+        "scenarios[9].breakthroughs[4].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "台上斗法",
+      "seen_in": [
+        "scenarios[10].rules_stated[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不得越界",
+      "seen_in": [
+        "scenarios[10].rules_stated[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "违约者道",
+      "seen_in": [
+        "scenarios[10].rules_stated[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "呼错者反噬己身",
+      "seen_in": [
+        "scenarios[10].rules_stated[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "所呼之名有边界",
+      "seen_in": [
+        "scenarios[10].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "出了边界",
+      "seen_in": [
+        "scenarios[10].rules_hidden[0].hint"
+      ],
+      "count": 1
+    },
+    {
+      "word": "在台上呼师门",
+      "seen_in": [
+        "scenarios[10].forbidden[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "了他名字的边界",
+      "seen_in": [
+        "scenarios[10].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也被那道边界",
+      "seen_in": [
+        "scenarios[10].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "割了一刀",
+      "seen_in": [
+        "scenarios[10].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他的宗门",
+      "seen_in": [
+        "scenarios[10].breakthroughs[2].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "因为你知道",
+      "seen_in": [
+        "scenarios[10].breakthroughs[4].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "毁去天机镜",
+      "seen_in": [
+        "scenarios[11].forbidden[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "向执法",
+      "seen_in": [
+        "scenarios[11].forbidden[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你指出了镜",
+      "seen_in": [
+        "scenarios[11].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也指出了执镜",
+      "seen_in": [
+        "scenarios[11].breakthroughs[0].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那人得以脱身",
+      "seen_in": [
+        "scenarios[11].breakthroughs[1].cost"
+      ],
+      "count": 1
+    },
+    {
+      "word": "赤足上天门",
+      "seen_in": [
+        "endings[2].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "云隐宗",
+      "seen_in": [
+        "endings[6].requires.of[1].ref"
+      ],
+      "count": 1
+    },
+    {
+      "word": "上都盖着你的印",
+      "seen_in": [
+        "endings[6].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "没人知道",
+      "seen_in": [
+        "endings[7].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "位底下埋着一界",
+      "seen_in": [
+        "endings[8].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "归尘谷",
+      "seen_in": [
+        "endings[10].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "替人抄了半生经",
+      "seen_in": [
+        "endings[11].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "庙里没有神",
+      "seen_in": [
+        "endings[12].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "师弟的刀",
+      "seen_in": [
+        "endings[15].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "死于人海",
+      "seen_in": [
+        "endings[16].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "最后一刀",
+      "seen_in": [
+        "endings[16].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "在他识海",
+      "seen_in": [
+        "endings[25].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "被投进了炉",
+      "seen_in": [
+        "endings[26].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "炼成的那炉丹",
+      "seen_in": [
+        "endings[26].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "买主夸这丹",
+      "seen_in": [
+        "endings[26].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "有股骨",
+      "seen_in": [
+        "endings[26].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "被砌进了阵",
+      "seen_in": [
+        "endings[27].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "没人知道阵",
+      "seen_in": [
+        "endings[27].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "生下来就会",
+      "seen_in": [
+        "endings[29].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "借来的身",
+      "seen_in": [
+        "endings[31].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你从里面把门",
+      "seen_in": [
+        "endings[32].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "从此这扇门",
+      "seen_in": [
+        "endings[32].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你的心跳成了阵",
+      "seen_in": [
+        "endings[33].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "三百年后阵",
+      "seen_in": [
+        "endings[33].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你把刀",
+      "seen_in": [
+        "endings[35].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "用身子堵住了门",
+      "seen_in": [
+        "endings[38].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你没走出城",
+      "seen_in": [
+        "endings[39].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只留下一串脚印",
+      "seen_in": [
+        "endings[41].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "位子上已经",
+      "seen_in": [
+        "endings[45].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你的手会",
+      "seen_in": [
+        "endings[46].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "自己结印",
+      "seen_in": [
+        "endings[46].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "成了界",
+      "seen_in": [
+        "endings[47].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "它借你的身",
+      "seen_in": [
+        "endings[47].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "上半身",
+      "seen_in": [
+        "endings[48].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "下半身",
+      "seen_in": [
+        "endings[48].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "留下看门",
+      "seen_in": [
+        "endings[49].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "你在门",
+      "seen_in": [
+        "endings[49].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "学生后来上了山",
+      "seen_in": [
+        "endings[56].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "债落在了徒弟身",
+      "seen_in": [
+        "endings[59].title_pool[0]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "每笔债都从你身",
+      "seen_in": [
+        "endings[60].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "闻到了你的味道",
+      "seen_in": [
+        "endings[61].title_pool[2]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "他把册",
+      "seen_in": [
+        "endings[63].title_pool[1]"
+      ],
+      "count": 1
+    },
+    {
+      "word": "粗铁柴刀",
+      "seen_in": [
+        "items[0].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "缺口短刀",
+      "seen_in": [
+        "items[2].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "缺口在刀",
+      "seen_in": [
+        "items[2].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "蒙尘铜镜",
+      "seen_in": [
+        "items[3].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "火镰石",
+      "seen_in": [
+        "items[7].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "石上有一道",
+      "seen_in": [
+        "items[7].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "用麻线系了三道",
+      "seen_in": [
+        "items[15].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "挂在门",
+      "seen_in": [
+        "items[16].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "桃木短剑",
+      "seen_in": [
+        "items[17].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "黄纸符",
+      "seen_in": [
+        "items[18].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "雨大时后背会",
+      "seen_in": [
+        "items[22].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "走过山",
+      "seen_in": [
+        "items[24].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "认识你的人也会",
+      "seen_in": [
+        "items[25].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "不准只有他知道",
+      "seen_in": [
+        "items[32].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "缺了两颗珠",
+      "seen_in": [
+        "items[33].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "盛汤会",
+      "seen_in": [
+        "items[35].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "山里人进山",
+      "seen_in": [
+        "items[37].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "握着比刀",
+      "seen_in": [
+        "items[40].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "中间会",
+      "seen_in": [
+        "items[48].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "镇子的人都出门",
+      "seen_in": [
+        "items[50].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "封蜡上按着指印",
+      "seen_in": [
+        "items[53].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "烧到底会",
+      "seen_in": [
+        "items[57].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "青磷石",
+      "seen_in": [
+        "items[58].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "在暗处会",
+      "seen_in": [
+        "items[58].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "粗磨刀石",
+      "seen_in": [
+        "items[59].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "中间磨出一道",
+      "seen_in": [
+        "items[59].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "旧布幡",
+      "seen_in": [
+        "items[63].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "干止血",
+      "seen_in": [
+        "items[66].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "是山里人的老法",
+      "seen_in": [
+        "items[66].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "装水会",
+      "seen_in": [
+        "items[71].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "打火石",
+      "seen_in": [
+        "items[72].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "两块石",
+      "seen_in": [
+        "items[72].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "能传过两道山",
+      "seen_in": [
+        "items[73].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "塞进门",
+      "seen_in": [
+        "items[76].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "还能撒出一条界",
+      "seen_in": [
+        "items[80].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "陈旧桃符",
+      "seen_in": [
+        "items[81].name"
+      ],
+      "count": 1
+    },
+    {
+      "word": "挥动时带起一道",
+      "seen_in": [
+        "items[86].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "落叶会",
+      "seen_in": [
+        "items[86].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "心跳会",
+      "seen_in": [
+        "items[89].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "枕上有一道",
+      "seen_in": [
+        "items[90].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "涂上会",
+      "seen_in": [
+        "items[91].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "握久了珠",
+      "seen_in": [
+        "items[92].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "影子会",
+      "seen_in": [
+        "items[95].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "会有第二道",
+      "seen_in": [
+        "items[97].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "是一只蜷着的兽",
+      "seen_in": [
+        "items[111].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "囊里的石",
+      "seen_in": [
+        "items[114].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "布条沾过血",
+      "seen_in": [
+        "items[115].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "珠中那道",
+      "seen_in": [
+        "items[120].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "鼻息会",
+      "seen_in": [
+        "items[125].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "慢慢和草的味道",
+      "seen_in": [
+        "items[125].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "有没有坑就知道",
+      "seen_in": [
+        "items[140].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "水时衣服贴在身",
+      "seen_in": [
+        "items[141].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "杆上就裂了一道",
+      "seen_in": [
+        "items[145].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "空中的纹路会",
+      "seen_in": [
+        "items[148].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "印面刻着一道",
+      "seen_in": [
+        "items[149].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "地上会",
+      "seen_in": [
+        "items[151].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "串不是人的脚印",
+      "seen_in": [
+        "items[151].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "铲过的土会",
+      "seen_in": [
+        "items[157].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "像水面上的一道",
+      "seen_in": [
+        "items[157].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "也比鸡精神",
+      "seen_in": [
+        "items[158].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只有你身",
+      "seen_in": [
+        "items[160].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "水面上会",
+      "seen_in": [
+        "items[161].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "那点地方据说会",
+      "seen_in": [
+        "items[164].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "拨一遍珠",
+      "seen_in": [
+        "items[169].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "睡梦里会",
+      "seen_in": [
+        "items[170].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "听见磨刀",
+      "seen_in": [
+        "items[170].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "上只有半个指印",
+      "seen_in": [
+        "items[172].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "另一半在别人身",
+      "seen_in": [
+        "items[172].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "水面会",
+      "seen_in": [
+        "items[176].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "匣盖上有九道",
+      "seen_in": [
+        "items[181].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "只有一道",
+      "seen_in": [
+        "items[181].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "握久了掌心会",
+      "seen_in": [
+        "items[183].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "把不肯入鞘的剑",
+      "seen_in": [
+        "items[184].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "出鞘时四周会",
+      "seen_in": [
+        "items[185].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "静得能听见血",
+      "seen_in": [
+        "items[185].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "手摸一摸才知道",
+      "seen_in": [
+        "items[189].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "鼎口贴着符",
+      "seen_in": [
+        "items[190].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "贴着另一人的血",
+      "seen_in": [
+        "items[197].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "天上那道弯雷会",
+      "seen_in": [
+        "items[198].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "附近的人会",
+      "seen_in": [
+        "items[200].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "靠近时头发会",
+      "seen_in": [
+        "items[201].desc"
+      ],
+      "count": 1
+    },
+    {
+      "word": "走路都会",
+      "seen_in": [
+        "items[203].desc"
+      ],
+      "count": 1
+    }
+  ]
+}

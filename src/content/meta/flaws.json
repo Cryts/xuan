@@ -1,0 +1,218 @@
+[
+  {
+    "id": "flaw_dead_veins",
+    "name": "天生绝脉",
+    "effects": [
+      { "type": "add_attr", "key": "root", "delta": -2 },
+      { "type": "add_var", "key": "power", "delta": -30 }
+    ],
+    "compensate": 9,
+    "desc": "经脉自出生便是死的，灵气过处如水流沙。所有传功玉简到你手里都成了废纸——你只能走那条没人走过的路。"
+  },
+  {
+    "id": "flaw_short_life",
+    "name": "短寿之相",
+    "effects": [{ "type": "add_var", "key": "lifespan", "delta": -20 }],
+    "compensate": 6,
+    "desc": "相士看一眼就摇头，说你眉间有死气。你比谁都清楚时间不多，所以比谁都敢赌。"
+  },
+  {
+    "id": "flaw_haunted",
+    "name": "招邪体",
+    "effects": [
+      { "type": "add_var", "key": "corruption", "delta": 10 },
+      { "type": "set_flag", "key": "flaw_haunted" }
+    ],
+    "compensate": 8,
+    "desc": "荒坟、废观、凶宅，脏东西总是先来找你。你从小就能看见别人看不见的东西，也因此没人愿意跟你睡一间屋。"
+  },
+  {
+    "id": "flaw_dullard",
+    "name": "痴",
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": -3 }],
+    "compensate": 9,
+    "desc": "别人讲三遍你才听懂一遍。可正因听不懂弦外之音，规则的弯弯绕绕在你身上常常失效。"
+  },
+  {
+    "id": "flaw_blood_feud",
+    "name": "背负血仇",
+    "effects": [
+      { "type": "add_var", "key": "debt", "delta": 15 },
+      { "type": "set_flag", "key": "flaw_blood_feud" }
+    ],
+    "compensate": 8,
+    "desc": "满门上下只剩你一个活口，凶手的名字你刻在肋骨内侧。仇家也在找你，而且比你有钱。"
+  },
+  {
+    "id": "flaw_bewitching",
+    "name": "容貌招祸",
+    "effects": [
+      { "type": "add_attr", "key": "charm", "delta": 2 },
+      { "type": "add_var", "key": "exposure", "delta": 10 }
+    ],
+    "compensate": 4,
+    "desc": "生得太好，走到哪里都被记住。被人记住是机缘，也是把柄——尤其是当你想藏起来的时候。"
+  },
+  {
+    "id": "flaw_lonely_star",
+    "name": "命犯孤星",
+    "effects": [
+      { "type": "add_attr", "key": "charm", "delta": -3 },
+      { "type": "add_var", "key": "favor", "delta": -20 }
+    ],
+    "compensate": 9,
+    "desc": "与你结伴的人，要么叛你，要么死。你早就习惯一个人上路，也早就忘了怎么开口求人。"
+  },
+  {
+    "id": "flaw_oathbound",
+    "name": "言语成谶",
+    "effects": [
+      { "type": "set_flag", "key": "flaw_oathbound" },
+      { "type": "add_var", "key": "debt", "delta": 5 }
+    ],
+    "compensate": 7,
+    "desc": "你说出口的狠话，天地会当真。所以你必须学会一辈子不说满话——包括对自己说。"
+  },
+  {
+    "id": "flaw_inner_demon",
+    "name": "心魔缠身",
+    "effects": [{ "type": "add_var", "key": "corruption", "delta": 12 }],
+    "compensate": 7,
+    "desc": "入定的时候，总有个声音替你回答所有问题。它比你有耐心，也比你更懂你。"
+  },
+  {
+    "id": "flaw_missing_arm",
+    "name": "断臂",
+    "effects": [
+      { "type": "add_attr", "key": "root", "delta": -2 },
+      { "type": "add_var", "key": "hp", "delta": -10 }
+    ],
+    "compensate": 7,
+    "desc": "左袖是空的。你已经学会用一只手结印，也学会用一只手杀人——但永远结不出完整的那道印。"
+  },
+  {
+    "id": "flaw_mixed_root",
+    "name": "灵根驳杂",
+    "effects": [{ "type": "add_var", "key": "power", "delta": -20 }],
+    "compensate": 5,
+    "desc": "五行俱全，样样稀松。测灵根的老修士看了半天，最后只说了句「也不是不能用」。"
+  },
+  {
+    "id": "flaw_fire_fear",
+    "name": "畏火",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": -5 },
+      { "type": "set_flag", "key": "flaw_fire_fear" }
+    ],
+    "compensate": 4,
+    "desc": "幼时被炉火烧过，见明火就手抖。丹炉、火阵、炎属法宝，你都得绕开走。"
+  },
+  {
+    "id": "flaw_blood_rage",
+    "name": "血煞冲脑",
+    "effects": [
+      { "type": "add_attr", "key": "temper", "delta": -2 },
+      { "type": "add_var", "key": "corruption", "delta": 5 }
+    ],
+    "compensate": 5,
+    "desc": "一见血就听不见自己的名字。清醒过来时，地上躺着的常常不止是敌人。"
+  },
+  {
+    "id": "flaw_debtor",
+    "name": "债务缠身",
+    "effects": [{ "type": "add_var", "key": "debt", "delta": 20 }],
+    "compensate": 7,
+    "desc": "为了买那株救命药，你签了三张契。契上没写利息是多少——因为写不下。"
+  },
+  {
+    "id": "flaw_notorious",
+    "name": "声名狼藉",
+    "effects": [
+      { "type": "add_var", "key": "exposure", "delta": 15 },
+      { "type": "add_var", "key": "favor", "delta": -15 }
+    ],
+    "compensate": 7,
+    "desc": "你背着一桩说不清的旧案。正道见了你绕着走，邪道倒是挺热情——这不是好事。"
+  },
+  {
+    "id": "flaw_incurable",
+    "name": "药石无灵",
+    "effects": [
+      { "type": "add_var", "key": "hp", "delta": -12 },
+      { "type": "set_flag", "key": "flaw_incurable" }
+    ],
+    "compensate": 8,
+    "desc": "旧伤在骨头缝里，任何丹药都只是压住它。你活着的每一天，都是在跟它讲价。"
+  },
+  {
+    "id": "flaw_yin_invasion",
+    "name": "阴气入体",
+    "effects": [
+      { "type": "add_var", "key": "lifespan", "delta": -10 },
+      { "type": "add_var", "key": "corruption", "delta": 8 }
+    ],
+    "compensate": 8,
+    "desc": "在极阴之地待过太久，寒气至今没散。你比常人更耐冷，也比常人更快老。"
+  },
+  {
+    "id": "flaw_watched",
+    "name": "天机窥视",
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": 12 }],
+    "compensate": 6,
+    "desc": "你每走一步，都有人在某处翻一页书。你不知道那是谁，只知道那本书上写着你。"
+  },
+  {
+    "id": "flaw_dull_senses",
+    "name": "五感迟钝",
+    "effects": [
+      { "type": "add_attr", "key": "wits", "delta": -2 },
+      { "type": "add_attr", "key": "insight", "delta": -2 }
+    ],
+    "compensate": 8,
+    "desc": "别人闻得到的东西你闻不到，别人看得见的东西你看不见。可你看不见的东西，也吓不到你。"
+  },
+  {
+    "id": "flaw_weak_point",
+    "name": "逆鳞在颈",
+    "effects": [{ "type": "add_var", "key": "hp", "delta": -15 }],
+    "compensate": 6,
+    "desc": "颈后有一处旧伤，受不得第二下。你知道它在哪，你的仇家迟早也会知道。"
+  },
+  {
+    "id": "flaw_oath_lock",
+    "name": "誓言锁身",
+    "effects": [{ "type": "set_flag", "key": "flaw_oath_lock" }],
+    "compensate": 5,
+    "desc": "你对将死之人许过一个愿。那个愿像钉子一样钉在道心上，破境时它就来松一松。"
+  },
+  {
+    "id": "flaw_qi_hunger",
+    "name": "食气之症",
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": -15 },
+      { "type": "add_var", "key": "currency", "delta": -60 }
+    ],
+    "compensate": 6,
+    "desc": "你的身体每天都在偷偷吃掉自己攒下的灵力。别人修炼是往缸里倒水，你是往漏缸里倒水。"
+  },
+  {
+    "id": "flaw_dead_whisper",
+    "name": "亡者低语",
+    "effects": [
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "add_var", "key": "corruption", "delta": 10 }
+    ],
+    "compensate": 5,
+    "desc": "死人会跟你说话，说的还多半是真话。问题是听多了，你也开始分不清谁还活着。"
+  },
+  {
+    "id": "flaw_barren_line",
+    "name": "断嗣之命",
+    "effects": [
+      { "type": "add_var", "key": "favor", "delta": -10 },
+      { "type": "add_var", "key": "karma", "delta": -10 }
+    ],
+    "compensate": 4,
+    "desc": "族谱到你这一代就断了。看重香火的宗门不会把真东西传给你，你也乐得不必背这个包袱。"
+  }
+]

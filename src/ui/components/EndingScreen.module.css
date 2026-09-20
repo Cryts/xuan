@@ -1,0 +1,171 @@
+.wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s5);
+  padding: calc(var(--s7) + env(safe-area-inset-top, 0px)) var(--s4)
+    calc(var(--s6) + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---------- 卷轴 ---------- */
+.scroll {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn var(--d4) var(--ease) both;
+}
+
+/* 轴杆 */
+.rod {
+  display: block;
+  height: 14px;
+  border-radius: 99px;
+  background:
+    linear-gradient(180deg, #3a3128, #1b1713 46%, #2b241c);
+  box-shadow:
+    inset 0 1px 0 rgba(242, 234, 217, 0.14),
+    0 6px 18px rgba(0, 0, 0, 0.55);
+  transform-origin: center;
+  animation: rodIn var(--d4) var(--ease-out) both;
+}
+.rod::before,
+.rod::after {
+  content: '';
+  display: block;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--gold-deep), var(--gold), var(--gold-deep));
+  opacity: 0.75;
+}
+.rod::before {
+  margin-left: 12px;
+}
+.rod::after {
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.paper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s5);
+  padding: var(--s7) var(--s5) var(--s6);
+  background:
+    linear-gradient(180deg, rgba(242, 234, 217, 0.06), rgba(242, 234, 217, 0.015)),
+    var(--ink-2);
+  border-inline: 1px solid var(--line);
+  animation: unfurl 1.15s var(--ease-out) both;
+  overflow: hidden;
+}
+
+/* 卷首小字 */
+.kicker {
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.6em;
+  text-indent: 0.6em;
+  color: var(--cinnabar);
+  opacity: 0.85;
+}
+
+.title {
+  position: relative;
+  font-family: var(--font-title);
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-indent: 0.24em;
+  line-height: 1.5;
+  color: var(--paper);
+  text-align: center;
+  text-shadow: 0 0 40px rgba(201, 162, 39, 0.14);
+  animation: fadeUp var(--d5) var(--ease-out) 260ms both;
+}
+
+.aiTag {
+  margin-top: calc(var(--s3) * -1);
+}
+
+.rule {
+  width: 42%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--para-gap);
+  width: 100%;
+  max-width: 34em;
+}
+
+.line {
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  letter-spacing: 0.05em;
+  color: var(--t1);
+  text-indent: 2em;
+  animation: fadeUp var(--d4) var(--ease-out) both;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--s5);
+  margin-top: var(--s3);
+}
+
+.verdictSeal {
+  display: inline-flex;
+  animation: sealStamp 900ms var(--ease-out) 1.1s both;
+}
+
+.bigSeal {
+  font-size: var(--fs-md) !important;
+  min-width: 2.4em;
+  padding: 0.42em 0.5em !important;
+  border-width: 2px !important;
+  color: #d9564a;
+  letter-spacing: 0.1em !important;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s2) var(--s5);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line-2);
+  width: 100%;
+  text-align: center;
+}
+
+/* ---------- 操作 ---------- */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  width: min(100%, 360px);
+  animation: fadeUp var(--d5) var(--ease-out) 700ms both;
+}
+
+.hint {
+  font-size: var(--fs-2xs);
+  line-height: 1.9;
+  text-align: center;
+  color: var(--t3);
+  padding: 0 var(--s3);
+}
+
+.err {
+  font-size: var(--fs-2xs);
+  text-align: center;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+}

@@ -1,0 +1,283 @@
+.wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: calc(var(--s4) + env(safe-area-inset-top, 0px)) var(--s4) var(--s4);
+  background: linear-gradient(180deg, rgba(11, 10, 9, 0.96) 55%, rgba(11, 10, 9, 0));
+  backdrop-filter: blur(6px);
+}
+
+.headBtn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--t2);
+  transition: color var(--d2) var(--ease), border-color var(--d2) var(--ease);
+}
+.headBtn:hover {
+  color: var(--t1);
+  border-color: var(--line-strong);
+}
+
+.spacer {
+  width: 38px;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  padding: var(--s4) var(--s5) calc(var(--s7) + env(safe-area-inset-bottom, 0px));
+}
+
+.sec {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  animation: fadeUp var(--d3) var(--ease-out) both;
+}
+
+/* ---------- 开关行 ---------- */
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+  width: 100%;
+  padding: var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: rgba(242, 234, 217, 0.022);
+  text-align: left;
+  transition: border-color var(--d2) var(--ease), background var(--d2) var(--ease);
+}
+.row:hover {
+  border-color: var(--line-strong);
+  background: rgba(242, 234, 217, 0.045);
+}
+
+.rowIcon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--t2);
+}
+
+.rowText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.rowLabel {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.16em;
+  color: var(--t1);
+}
+
+/* 开关：不做圆润 iOS 风，做细长的一根签 */
+.switch {
+  position: relative;
+  flex: none;
+  width: 44px;
+  height: 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: 99px;
+  background: rgba(242, 234, 217, 0.04);
+  transition: background var(--d2) var(--ease), border-color var(--d2) var(--ease);
+}
+
+.switchOn {
+  border-color: rgba(201, 162, 39, 0.6);
+  background: rgba(201, 162, 39, 0.16);
+}
+
+.knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--t3);
+  transition: transform var(--d2) var(--ease-out), background var(--d2) var(--ease);
+}
+.switchOn .knob {
+  transform: translateX(22px);
+  background: var(--gold-bright);
+}
+
+/* ---------- 字号 ---------- */
+.seg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.segItem {
+  padding: var(--s3);
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.2em;
+  color: var(--t2);
+  border-right: 1px solid var(--line-2);
+  transition: background var(--d2) var(--ease), color var(--d2) var(--ease);
+}
+.segItem:last-child {
+  border-right: none;
+}
+.segItem:hover {
+  color: var(--t1);
+  background: rgba(242, 234, 217, 0.04);
+}
+
+.segOn {
+  background: linear-gradient(180deg, rgba(201, 162, 39, 0.16), rgba(201, 162, 39, 0.05));
+  color: var(--gold-bright);
+}
+
+.demo {
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  color: var(--t2);
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Key ---------- */
+.keyRow {
+  display: flex;
+  gap: var(--s2);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--t1);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.02em;
+  transition: border-color var(--d2) var(--ease);
+}
+.input:focus {
+  outline: none;
+  border-color: rgba(201, 162, 39, 0.5);
+}
+.input::placeholder {
+  color: var(--t4);
+}
+
+.mini {
+  flex: none;
+}
+
+.keyActions {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+/* 风险提示 */
+.risk,
+.aiNote {
+  padding: var(--s4);
+  border-radius: var(--r);
+  font-size: var(--fs-2xs);
+  line-height: 1.95;
+  color: var(--t2);
+}
+
+.risk {
+  border: 1px solid rgba(193, 57, 43, 0.3);
+  background: linear-gradient(100deg, rgba(193, 57, 43, 0.09), transparent);
+}
+
+.aiNote {
+  border: 1px solid var(--line-2);
+  background: rgba(242, 234, 217, 0.02);
+}
+
+.riskTitle {
+  margin-bottom: var(--s2);
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+.risk ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.risk li {
+  padding-left: var(--s4);
+  position: relative;
+}
+.risk li::before {
+  content: '·';
+  position: absolute;
+  left: var(--s2);
+  color: #d9564a;
+}
+
+.risk strong,
+.aiNote strong {
+  color: var(--t1);
+  font-weight: 500;
+}
+
+.risk code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+  color: #6fb3a3;
+}
+
+.gold {
+  color: var(--gold-bright);
+}
+
+/* ---------- 危险操作 ---------- */
+.danger {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  flex-wrap: wrap;
+  margin-top: var(--s4);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line-2);
+}
+
+.sign {
+  margin-top: var(--s5);
+  text-align: center;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.18em;
+  color: var(--t4);
+}

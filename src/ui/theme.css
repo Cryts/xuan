@@ -1,0 +1,913 @@
+/* ============================================================
+   《玄》设计系统 —— 水墨宣纸 · 夜色修行
+   主色：墨黑 #12100E / 宣纸 #F2EAD9 / 朱砂 #C1392B / 青碧 #3E7C6E / 鎏金 #C9A227
+   暗色为主。留白大、圆角小、段落疏。
+   ============================================================ */
+
+:root {
+  /* ---- 五正色 ---- */
+  --ink: #12100e;
+  --paper: #f2ead9;
+  --cinnabar: #c1392b;
+  --jade: #3e7c6e;
+  --gold: #c9a227;
+
+  /* ---- 由正色派生的层 ---- */
+  --ink-0: #0b0a09;
+  --ink-1: #12100e;
+  --ink-2: #171513;
+  --ink-3: #1e1b17;
+  --ink-4: #262119;
+
+  --paper-dim: #d8cdb4;
+  --paper-mute: #b9ad93;
+
+  --cinnabar-deep: #8d2a1f;
+  --jade-deep: #2a564c;
+  --gold-deep: #8c7318;
+  --gold-bright: #e0bd4a;
+
+  /* ---- 文本 ---- */
+  --t1: rgba(242, 234, 217, 0.93);
+  --t2: rgba(242, 234, 217, 0.64);
+  --t3: rgba(242, 234, 217, 0.4);
+  --t4: rgba(242, 234, 217, 0.22);
+  --t5: rgba(242, 234, 217, 0.1);
+
+  /* ---- 线 ---- */
+  --line: rgba(242, 234, 217, 0.11);
+  --line-2: rgba(242, 234, 217, 0.055);
+  --line-strong: rgba(242, 234, 217, 0.2);
+
+  /* ---- 危险 / 收益 ---- */
+  --good: var(--jade);
+  --bad: var(--cinnabar);
+  --rare: var(--gold);
+
+  /* ---- 字体 ---- */
+  --font-title: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'SimSun', 'Georgia', serif;
+  --font-body: system-ui, -apple-system, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Source Han Sans SC', 'Noto Sans SC', sans-serif;
+
+  /* ---- 字号（三档可调：html[data-fs]） ---- */
+  --fs: 16px;
+  --fs-2xs: calc(var(--fs) * 0.66);
+  --fs-xs: calc(var(--fs) * 0.75);
+  --fs-sm: calc(var(--fs) * 0.86);
+  --fs-md: var(--fs);
+  --fs-lg: calc(var(--fs) * 1.14);
+  --fs-xl: calc(var(--fs) * 1.4);
+  --fs-2xl: calc(var(--fs) * 1.85);
+  --fs-3xl: calc(var(--fs) * 2.6);
+  --fs-4xl: calc(var(--fs) * 3.6);
+
+  /* ---- 间距（1.5 比例，留白大） ---- */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 18px;
+  --s5: 26px;
+  --s6: 38px;
+  --s7: 56px;
+  --s8: 80px;
+
+  /* ---- 圆角（小） ---- */
+  --r-xs: 2px;
+  --r-sm: 3px;
+  --r: 5px;
+  --r-lg: 8px;
+
+  /* ---- 动效 ---- */
+  --d1: 140ms;
+  --d2: 260ms;
+  --d3: 520ms;
+  --d4: 900ms;
+  --d5: 1500ms;
+  --ease: cubic-bezier(0.22, 0.72, 0.28, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.6, 0, 0.35, 1);
+
+  /* ---- 行距（正文疏朗，段落 1.6 倍） ---- */
+  --lh-body: 1.95;
+  --lh-tight: 1.5;
+  --para-gap: 1.6em;
+
+  /* ---- 页码宽度 ---- */
+  --page: 720px;
+
+  /* ---- 纸纹（内联 SVG 噪声，无外部资源） ---- */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+html[data-fs='sm'] {
+  --fs: 14.6px;
+}
+html[data-fs='md'] {
+  --fs: 16px;
+}
+html[data-fs='lg'] {
+  --fs: 18.2px;
+}
+
+/* ============================================================
+   重置
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  color: var(--t1);
+  background-color: var(--ink-0);
+  background-image:
+    radial-gradient(115% 72% at 50% -12%, rgba(201, 162, 39, 0.075), transparent 62%),
+    radial-gradient(95% 60% at 50% 112%, rgba(62, 124, 110, 0.07), transparent 60%),
+    radial-gradient(140% 100% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+svg {
+  display: block;
+  flex: none;
+}
+
+::selection {
+  background: rgba(193, 57, 43, 0.32);
+}
+
+/* 滚动条 —— 细、暗、不打扰 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(242, 234, 217, 0.16) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(242, 234, 217, 0.16);
+  border-radius: 99px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ============================================================
+   排版
+   ============================================================ */
+
+.x-serif {
+  font-family: var(--font-title);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.x-h1 {
+  font-family: var(--font-title);
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  line-height: 1.35;
+  color: var(--paper);
+}
+
+.x-h2 {
+  font-family: var(--font-title);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  color: var(--t1);
+}
+
+.x-h3 {
+  font-family: var(--font-title);
+  font-size: var(--fs-md);
+  letter-spacing: 0.08em;
+  color: var(--t1);
+}
+
+.x-sub {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  color: var(--t3);
+}
+
+.x-small {
+  font-size: var(--fs-xs);
+  color: var(--t2);
+  line-height: 1.7;
+}
+
+.x-tiny {
+  font-size: var(--fs-2xs);
+  color: var(--t3);
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+}
+
+.x-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+.x-cinnabar {
+  color: var(--cinnabar);
+}
+.x-jade {
+  color: var(--jade);
+}
+.x-gold {
+  color: var(--gold);
+}
+.x-paper {
+  color: var(--paper);
+}
+
+/* 竖排标题 —— 卷轴签条 */
+.x-vtitle {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: var(--font-title);
+  font-size: var(--fs-md);
+  letter-spacing: 0.32em;
+  line-height: 1;
+  color: var(--paper);
+  max-height: 100%;
+  overflow: hidden;
+}
+
+/* 书法感 —— 谶语批注 */
+.x-calli {
+  writing-mode: vertical-rl;
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  line-height: 2;
+  letter-spacing: 0.26em;
+  color: var(--paper-dim);
+  text-shadow: 0 0 18px rgba(201, 162, 39, 0.14);
+}
+
+/* 打字机光标 */
+.x-caret {
+  display: inline-block;
+  margin-left: 0.08em;
+  color: var(--gold);
+  animation: breathe 900ms steps(2, start) infinite;
+}
+
+/* ============================================================
+   版面容器 —— 手机竖屏优先，桌面居中限宽
+   ============================================================ */
+
+.x-app {
+  position: relative;
+  max-width: var(--page);
+  min-height: 100dvh;
+  margin: 0 auto;
+  border-inline: 1px solid var(--line-2);
+}
+
+@media (max-width: 760px) {
+  .x-app {
+    border-inline: none;
+  }
+}
+
+/* ============================================================
+   纸张与卡片
+   ============================================================ */
+
+.x-grain {
+  position: relative;
+}
+.x-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.x-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(242, 234, 217, 0.038), rgba(242, 234, 217, 0.012)),
+    var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: var(--s5);
+}
+
+.x-card--flat {
+  background: rgba(242, 234, 217, 0.026);
+}
+
+.x-card--quiet {
+  background: transparent;
+  border-color: var(--line-2);
+}
+
+/* 左竖线 —— 规则条目的骨架 */
+.x-rule {
+  position: relative;
+  padding-left: var(--s4);
+}
+.x-rule::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  bottom: 0.35em;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent, var(--line-strong));
+}
+
+/* 分隔线：细线 + 中点 */
+.x-hr {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  color: var(--t4);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.4em;
+}
+.x-hr::before,
+.x-hr::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+/* ============================================================
+   按钮
+   ============================================================ */
+
+.x-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: rgba(242, 234, 217, 0.03);
+  color: var(--t1);
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.22em;
+  text-indent: 0.22em;
+  transition:
+    background var(--d2) var(--ease),
+    border-color var(--d2) var(--ease),
+    color var(--d2) var(--ease),
+    transform var(--d1) var(--ease);
+}
+.x-btn:hover {
+  background: rgba(242, 234, 217, 0.07);
+  border-color: var(--line-strong);
+}
+.x-btn:active {
+  transform: translateY(1px);
+}
+.x-btn:disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.x-btn--primary {
+  border-color: rgba(193, 57, 43, 0.5);
+  background: linear-gradient(180deg, rgba(193, 57, 43, 0.22), rgba(193, 57, 43, 0.1));
+  color: var(--paper);
+}
+.x-btn--primary:hover {
+  background: linear-gradient(180deg, rgba(193, 57, 43, 0.32), rgba(193, 57, 43, 0.16));
+  border-color: rgba(193, 57, 43, 0.72);
+}
+
+.x-btn--gold {
+  border-color: rgba(201, 162, 39, 0.42);
+  background: linear-gradient(180deg, rgba(201, 162, 39, 0.16), rgba(201, 162, 39, 0.05));
+  color: var(--gold-bright);
+}
+.x-btn--gold:hover {
+  background: linear-gradient(180deg, rgba(201, 162, 39, 0.24), rgba(201, 162, 39, 0.09));
+  border-color: rgba(201, 162, 39, 0.62);
+}
+
+.x-btn--quiet {
+  border-color: transparent;
+  color: var(--t2);
+  letter-spacing: 0.16em;
+}
+.x-btn--quiet:hover {
+  color: var(--t1);
+  background: rgba(242, 234, 217, 0.05);
+}
+
+.x-btn--block {
+  width: 100%;
+}
+
+.x-btn--sm {
+  padding: var(--s2) var(--s4);
+  font-size: var(--fs-xs);
+}
+
+/* ============================================================
+   印章 / 标签 / 徽记
+   ============================================================ */
+
+.x-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.9em;
+  padding: 0.28em 0.42em;
+  border: 1px solid currentColor;
+  border-radius: var(--r-xs);
+  font-family: var(--font-title);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  line-height: 1.15;
+  color: currentColor;
+  opacity: 0.92;
+}
+
+.x-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 2px var(--s2);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: var(--t2);
+  white-space: nowrap;
+}
+.x-chip--gold {
+  border-color: rgba(201, 162, 39, 0.4);
+  color: var(--gold);
+}
+.x-chip--jade {
+  border-color: rgba(62, 124, 110, 0.45);
+  color: #6fb3a3;
+}
+.x-chip--cinnabar {
+  border-color: rgba(193, 57, 43, 0.45);
+  color: #e0705f;
+}
+
+/* ============================================================
+   条 / 点列
+   ============================================================ */
+
+.x-bar {
+  position: relative;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(242, 234, 217, 0.09);
+  overflow: hidden;
+}
+.x-bar__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 99px;
+  background: var(--accent, var(--t2));
+  transition: width var(--d3) var(--ease-out);
+}
+
+/* 气运点列 —— 每一颗都是一次「天意庇佑」 */
+.x-pips {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+.x-pip {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  background: rgba(201, 162, 39, 0.08);
+  transition:
+    background var(--d2) var(--ease),
+    box-shadow var(--d2) var(--ease);
+}
+.x-pip--on {
+  background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold-deep));
+  border-color: rgba(224, 189, 74, 0.9);
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.45);
+}
+.x-pip--spent {
+  animation: pipPop var(--d3) var(--ease-out);
+}
+
+/* 时刻刻度 —— 剧本时间压力 */
+.x-ticks {
+  display: flex;
+  gap: 2px;
+}
+.x-tick {
+  flex: 1;
+  height: 4px;
+  border-radius: 1px;
+  background: rgba(242, 234, 217, 0.09);
+}
+.x-tick--used {
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold));
+}
+.x-tick--hot {
+  background: linear-gradient(90deg, var(--cinnabar-deep), var(--cinnabar));
+  animation: breathe 2.2s var(--ease-in-out) infinite;
+}
+
+/* ============================================================
+   浮层 / 抽屉 / 提示
+   ============================================================ */
+
+.x-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(8, 7, 6, 0.72);
+  backdrop-filter: blur(3px);
+  animation: fadeIn var(--d2) var(--ease) both;
+}
+
+.x-sheet {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 41;
+  width: min(100%, var(--page));
+  transform: translateX(-50%);
+  max-height: 82dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--ink-3), var(--ink-1) 42%);
+  border-top: 1px solid var(--line-strong);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.6);
+  animation: sheetUp var(--d3) var(--ease-out) both;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.x-sheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s4);
+  padding: var(--s4) var(--s5) var(--s3);
+  border-bottom: 1px solid var(--line-2);
+}
+.x-sheet__body {
+  overflow-y: auto;
+  padding: var(--s5);
+  -webkit-overflow-scrolling: touch;
+}
+
+.x-toast {
+  position: fixed;
+  left: 50%;
+  top: calc(var(--s5) + env(safe-area-inset-top, 0px));
+  transform: translateX(-50%);
+  z-index: 60;
+  max-width: min(92vw, 520px);
+  padding: var(--s3) var(--s5);
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  border-radius: var(--r-sm);
+  background: rgba(18, 16, 14, 0.94);
+  color: var(--gold-bright);
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.14em;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  animation: toastIn var(--d3) var(--ease-out) both;
+  pointer-events: none;
+}
+
+/* 结算段位印 */
+.x-band {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.3em 0.6em;
+  border: 1.5px solid currentColor;
+  border-radius: var(--r-xs);
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.2em;
+  animation: sealStamp var(--d3) var(--ease-out) both;
+}
+
+/* ============================================================
+   动画
+   ============================================================ */
+
+/* 水墨晕开 —— 启动页 */
+@keyframes inkSpread {
+  0% {
+    opacity: 0;
+    filter: blur(26px);
+    transform: scale(1.35);
+    clip-path: circle(0% at 50% 46%);
+  }
+  55% {
+    opacity: 0.9;
+    filter: blur(9px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+    clip-path: circle(78% at 50% 46%);
+  }
+}
+
+/* 一滴墨落下 */
+@keyframes inkDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.4);
+    filter: blur(8px);
+  }
+  60% {
+    opacity: 0.55;
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(38px) scale(2.6);
+    filter: blur(16px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheetUp {
+  from {
+    transform: translate(-50%, 24px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* 卷轴展开 */
+@keyframes unfurl {
+  0% {
+    clip-path: inset(49.5% 0 49.5% 0);
+    opacity: 0.2;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+@keyframes rodIn {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* 揭示的仪式感 —— 印章落下 */
+@keyframes sealStamp {
+  0% {
+    opacity: 0;
+    transform: scale(2.6) rotate(-16deg);
+    filter: blur(5px);
+  }
+  62% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-5deg);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-3deg);
+  }
+}
+
+/* 隐规则揭示：金墨渗开 */
+@keyframes goldenSeep {
+  0% {
+    background-size: 0% 100%;
+    box-shadow: 0 0 0 rgba(201, 162, 39, 0);
+  }
+  60% {
+    box-shadow: 0 0 26px rgba(201, 162, 39, 0.22);
+  }
+  100% {
+    background-size: 100% 100%;
+    box-shadow: 0 0 0 rgba(201, 162, 39, 0);
+  }
+}
+
+/* 数值浮字 */
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.94);
+  }
+  18% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-46px) scale(1);
+  }
+}
+
+@keyframes pipPop {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(201, 162, 39, 0.7);
+  }
+  40% {
+    transform: scale(1.5);
+    box-shadow: 0 0 16px rgba(201, 162, 39, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.32);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(201, 162, 39, 0);
+  }
+}
+
+@keyframes sheen {
+  0% {
+    background-position: -160% 0;
+  }
+  100% {
+    background-position: 260% 0;
+  }
+}
+
+/* 通用入场工具类 */
+.x-in {
+  animation: fadeUp var(--d3) var(--ease-out) both;
+}
+.x-in-d1 {
+  animation-delay: 60ms;
+}
+.x-in-d2 {
+  animation-delay: 120ms;
+}
+.x-in-d3 {
+  animation-delay: 190ms;
+}
+.x-in-d4 {
+  animation-delay: 260ms;
+}
+
+/* ============================================================
+   动效总开关（尊重系统设置）
+   ============================================================ */
+
+html[data-motion='off'] *,
+html[data-motion='off'] *::before,
+html[data-motion='off'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-delay: 0ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

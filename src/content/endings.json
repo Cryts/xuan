@@ -1,0 +1,2666 @@
+[
+  {
+    "id": "end_ascend_hollow",
+    "pack": [
+      "*"
+    ],
+    "tier": "S",
+    "category": "飞升",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 9
+        },
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "title_pool": [
+      "残神登天",
+      "上去的是半个",
+      "坛上留着一半"
+    ],
+    "body_key": "ending.ascend_hollow",
+    "rating": {
+      "stars_rule": "power/200 + karma/60 - corruption/40",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 80,
+      "unlock": [
+        "origin_hollow_ascendant",
+        "codex_endgame_vacant_seat",
+        "title_ascend_half"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_ascend_borrowed_name",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "飞升",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 9
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "title_pool": [
+      "一界只记得名号",
+      "借名登天",
+      "无人知其名"
+    ],
+    "body_key": "ending.ascend_borrowed_name",
+    "rating": {
+      "stars_rule": "power/200 + favor/40 - exposure/30",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 55,
+      "unlock": [
+        "origin_borrowed_name",
+        "title_endgame_borrowed_name"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_ascend_bare",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "飞升",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 9
+        },
+        {
+          "type": "var",
+          "key": "debt",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "title_pool": [
+      "空手登天",
+      "坛上欠着一笔",
+      "赤足上天门"
+    ],
+    "body_key": "ending.ascend_bare",
+    "rating": {
+      "stars_rule": "power/200 - debt/20",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 50,
+      "unlock": [
+        "origin_barefoot",
+        "title_endgame_barefoot"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_ascend_no_one_walks_you_home",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "飞升",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 9
+        },
+        {
+          "type": "relation",
+          "kind": "盟友",
+          "exists": false
+        },
+        {
+          "type": "relation",
+          "kind": "道侣",
+          "exists": false
+        }
+      ]
+    },
+    "title_pool": [
+      "天门开，无人送",
+      "独上",
+      "身后一里无人"
+    ],
+    "body_key": "ending.ascend_alone",
+    "rating": {
+      "stars_rule": "power/200 + karma/50 - debt/20",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 45,
+      "unlock": [
+        "origin_lone_climber",
+        "codex_ascend_alone"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_ascend_beneath_the_karma",
+    "pack": [
+      "*"
+    ],
+    "tier": "S",
+    "category": "飞升",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 9
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -35
+        }
+      ]
+    },
+    "title_pool": [
+      "踩着账本上去",
+      "天门为你压低三寸",
+      "血做的云梯"
+    ],
+    "body_key": "ending.ascend_beneath_karma",
+    "rating": {
+      "stars_rule": "power/200 - karma/25 - debt/20",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 70,
+      "unlock": [
+        "origin_blood_ladder",
+        "codex_ascend_blood"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_throne_iron",
+    "pack": [
+      "*"
+    ],
+    "tier": "S",
+    "category": "称尊",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 400
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -40
+        }
+      ]
+    },
+    "title_pool": [
+      "铁做的尊位",
+      "一界之主，无人敢近",
+      "座下皆是旧账"
+    ],
+    "body_key": "ending.throne_iron",
+    "rating": {
+      "stars_rule": "power/150 + favor/40 - karma/20",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 75,
+      "unlock": [
+        "origin_iron_throne",
+        "codex_throne_of_debt"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_throne_two_seals",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "称尊",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 320
+        },
+        {
+          "type": "faction_tier",
+          "ref": "云隐宗",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "title_pool": [
+      "两册上都盖着你的印",
+      "双面共主",
+      "会盟桌上的空位是你的"
+    ],
+    "body_key": "ending.throne_two_seals",
+    "rating": {
+      "stars_rule": "power/150 + currency/200 + favor/50",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 55,
+      "unlock": [
+        "origin_double_seal",
+        "codex_endgame_double_seal"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_throne_nameless",
+    "pack": [
+      "cautious"
+    ],
+    "tier": "A",
+    "category": "称尊",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 320
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 8
+        }
+      ]
+    },
+    "title_pool": [
+      "没人知道座上是谁",
+      "无名的尊主",
+      "影子坐在尊位上"
+    ],
+    "body_key": "ending.throne_nameless",
+    "rating": {
+      "stars_rule": "power/150 + lifespan/100 - exposure/20",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 60,
+      "unlock": [
+        "origin_nameless_throne",
+        "codex_throne_shadow"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_throne_ash",
+    "pack": [
+      "rebel"
+    ],
+    "tier": "S",
+    "category": "称尊",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 400
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -60
+        }
+      ]
+    },
+    "title_pool": [
+      "焦土之尊",
+      "尊位底下埋着一界",
+      "你坐上去时没人敢抬头"
+    ],
+    "body_key": "ending.throne_ash",
+    "rating": {
+      "stars_rule": "power/150 - karma/15",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 65,
+      "unlock": [
+        "origin_ash_throne",
+        "codex_throne_ash"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_throne_puppet",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "称尊",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 260
+        },
+        {
+          "type": "relation",
+          "kind": "盟友",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "title_pool": [
+      "他们推你上去的",
+      "招牌上的名字是你",
+      "尊位是别人给的"
+    ],
+    "body_key": "ending.throne_puppet",
+    "rating": {
+      "stars_rule": "power/150 + favor/40 - charm/50",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 35,
+      "unlock": [
+        "origin_borrowed_throne",
+        "codex_throne_strings"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_seclude_vegetable_rows",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "隐居",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "lifespan",
+          "op": ">=",
+          "value": 200
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 10
+        }
+      ]
+    },
+    "title_pool": [
+      "归尘谷的三垄菜",
+      "种了六十年的畦",
+      "剑挂在檐下生了锈"
+    ],
+    "body_key": "ending.seclude_vegetable_rows",
+    "rating": {
+      "stars_rule": "lifespan/150 + karma/60 - exposure/20",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 30,
+      "unlock": [
+        "origin_garden_keeper",
+        "codex_quiet_years"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_seclude_scribe",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "隐居",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 15
+        }
+      ]
+    },
+    "title_pool": [
+      "替人抄了半生经",
+      "阁楼上的抄书人",
+      "字比人活得久"
+    ],
+    "body_key": "ending.seclude_scribe",
+    "rating": {
+      "stars_rule": "wits/40 + karma/60",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 30,
+      "unlock": [
+        "origin_scribe",
+        "codex_inked_years"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_seclude_empty_shrine",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "隐居",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 40
+        },
+        {
+          "type": "var",
+          "key": "favor",
+          "op": "<=",
+          "value": 5
+        }
+      ]
+    },
+    "title_pool": [
+      "守着一座空庙",
+      "庙里没有神像",
+      "每日扫三遍台阶"
+    ],
+    "body_key": "ending.seclude_empty_shrine",
+    "rating": {
+      "stars_rule": "karma/30 + lifespan/150",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 32,
+      "unlock": [
+        "origin_shrine_keeper",
+        "codex_empty_shrine"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_seclude_two_names_on_a_door",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "隐居",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "relation",
+          "kind": "道侣",
+          "exists": true
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 20
+        }
+      ]
+    },
+    "title_pool": [
+      "门板上并排两个名",
+      "后山那间屋子",
+      "两个人，一间屋，一亩地"
+    ],
+    "body_key": "ending.seclude_two_names",
+    "rating": {
+      "stars_rule": "karma/40 + lifespan/150 + charm/50",
+      "min_stars": 4
+    },
+    "meta_reward": {
+      "legacy_points": 48,
+      "unlock": [
+        "origin_pair_retreat",
+        "codex_two_names"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_fall_own_bolt",
+    "pack": [
+      "rebel"
+    ],
+    "tier": "B",
+    "category": "道陨",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "hp",
+          "op": ">=",
+          "value": 90
+        },
+        {
+          "type": "flag",
+          "ref": "flag_bolt_maimed"
+        }
+      ]
+    },
+    "title_pool": [
+      "死在自己的劫里",
+      "最后一段雷没接住",
+      "碑上只刻了一个字"
+    ],
+    "body_key": "ending.fall_own_bolt",
+    "rating": {
+      "stars_rule": "power/150 - hp/40",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 25,
+      "unlock": [
+        "origin_bolt_fallen",
+        "codex_fallen_by_bolt"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_fall_juniors_blade",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "道陨",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "var",
+          "key": "debt",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "title_pool": [
+      "师弟的刀很快",
+      "死在自家人手里",
+      "他替你阖了眼"
+    ],
+    "body_key": "ending.fall_juniors_blade",
+    "rating": {
+      "stars_rule": "debt/10 - exposure/30",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 22,
+      "unlock": [
+        "origin_betrayed_death",
+        "codex_junior_blade"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_fall_under_the_horde",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "道陨",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -40
+        },
+        {
+          "type": "var",
+          "key": "favor",
+          "op": "<=",
+          "value": 0
+        }
+      ]
+    },
+    "title_pool": [
+      "围上来的人太多了",
+      "死于人海",
+      "最后一刀不知是谁的"
+    ],
+    "body_key": "ending.fall_horde",
+    "rating": {
+      "stars_rule": "power/200 + karma/25",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 24,
+      "unlock": [
+        "origin_horde_fallen",
+        "codex_death_by_many"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_fall_sitting_in_calm",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "道陨",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "lifespan",
+          "op": "<=",
+          "value": 3
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 30
+        }
+      ]
+    },
+    "title_pool": [
+      "坐化在蒲团上",
+      "寿元尽了，笑了一下",
+      "窗外那株梅开得正好"
+    ],
+    "body_key": "ending.fall_sitting_calm",
+    "rating": {
+      "stars_rule": "karma/25 + realm_idx/2",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 40,
+      "unlock": [
+        "origin_calm_passing",
+        "codex_sitting_quiet"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_fall_where_no_one_looked",
+    "pack": [
+      "cautious"
+    ],
+    "tier": "B",
+    "category": "道陨",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 5
+        },
+        {
+          "type": "var",
+          "key": "hp",
+          "op": ">=",
+          "value": 85
+        }
+      ]
+    },
+    "title_pool": [
+      "死在没人看的地方",
+      "三日后才被人发现",
+      "屋里还温着一壶茶"
+    ],
+    "body_key": "ending.fall_unseen",
+    "rating": {
+      "stars_rule": "lifespan/100 - exposure/10",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 28,
+      "unlock": [
+        "origin_unseen_death",
+        "codex_quiet_end"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_fall_last_enemy_standing",
+    "pack": [
+      "rebel"
+    ],
+    "tier": "A",
+    "category": "道陨",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -50
+        },
+        {
+          "type": "var",
+          "key": "hp",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "var",
+          "key": "debt",
+          "op": ">=",
+          "value": 7
+        }
+      ]
+    },
+    "title_pool": [
+      "杀到最后自己也倒了",
+      "血里站起来又倒下去",
+      "最后一个仇家还没死"
+    ],
+    "body_key": "ending.fall_last_standing",
+    "rating": {
+      "stars_rule": "power/150 - karma/20 - debt/15",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 42,
+      "unlock": [
+        "origin_last_standing",
+        "codex_endless_feud"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_deviation_thing_in_the_hills",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "走火入魔",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 80
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -20
+        }
+      ]
+    },
+    "title_pool": [
+      "山里从此多了个东西",
+      "你还在，只是不叫你了",
+      "夜里有人听见你在数名字"
+    ],
+    "body_key": "ending.deviation_thing_in_hills",
+    "rating": {
+      "stars_rule": "power/200 - corruption/40",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 30,
+      "unlock": [
+        "origin_hill_thing",
+        "codex_deviation_beast"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_deviation_same_day_again",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "走火入魔",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 85
+        },
+        {
+          "type": "flag",
+          "ref": "flag_copy_writes_itself"
+        }
+      ]
+    },
+    "title_pool": [
+      "同一天又开始了",
+      "你数到第七遍就不数了",
+      "醒来仍在雾里"
+    ],
+    "body_key": "ending.deviation_loop_day",
+    "rating": {
+      "stars_rule": "corruption/25 + insight/40",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 34,
+      "unlock": [
+        "origin_loop_dweller",
+        "codex_loop_day"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_deviation_name_gone",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "走火入魔",
+    "requires": {
+      "type": "var",
+      "key": "corruption",
+      "op": ">=",
+      "value": 90
+    },
+    "title_pool": [
+      "你记不起自己叫什么",
+      "镜子先认不出你",
+      "名字被雾收走了"
+    ],
+    "body_key": "ending.deviation_name_gone",
+    "rating": {
+      "stars_rule": "corruption/20 - temper/60",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 36,
+      "unlock": [
+        "origin_nameless_one",
+        "codex_name_taken"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_deviation_saint_in_the_town",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "S",
+    "category": "走火入魔",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "var",
+          "key": "favor",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "title_pool": [
+      "他们给你塑了像",
+      "疯子被供成了圣人",
+      "你说的每句胡话都有人抄"
+    ],
+    "body_key": "ending.deviation_saint_town",
+    "rating": {
+      "stars_rule": "favor/25 + corruption/30",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 60,
+      "unlock": [
+        "origin_false_saint",
+        "codex_saint_mad"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_fruit_devoured",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "沦为他人道果",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "hp",
+          "op": ">=",
+          "value": 85
+        },
+        {
+          "type": "var",
+          "key": "power",
+          "op": "<=",
+          "value": 60
+        }
+      ]
+    },
+    "title_pool": [
+      "他把你吃了",
+      "你成了别人的一口饭",
+      "山上那人一夜之间破了三境"
+    ],
+    "body_key": "ending.fruit_devoured",
+    "rating": {
+      "stars_rule": "realm_idx/2 - hp/30",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 26,
+      "unlock": [
+        "origin_devoured",
+        "codex_eaten_whole"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_fruit_voice_in_a_sea_of_thought",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "沦为他人道果",
+    "requires": {
+      "type": "flag",
+      "ref": "flag_self_erased"
+    },
+    "title_pool": [
+      "你成了后来者脑中的声音",
+      "在他识海里住了三百年",
+      "他喊你师父，你没答应"
+    ],
+    "body_key": "ending.fruit_voice_in_sea",
+    "rating": {
+      "stars_rule": "wits/40 + corruption/30",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 42,
+      "unlock": [
+        "origin_inner_voice",
+        "codex_voice_in_sea"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_fruit_a_furnace_pill",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "沦为他人道果",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "hp",
+          "op": ">=",
+          "value": 90
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -30
+        }
+      ]
+    },
+    "title_pool": [
+      "被投进了炉子",
+      "炼成的那炉丹卖了高价",
+      "买主夸这丹有股骨气"
+    ],
+    "body_key": "ending.fruit_furnace_pill",
+    "rating": {
+      "stars_rule": "realm_idx/2 - karma/25",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 22,
+      "unlock": [
+        "origin_pill_of_self",
+        "codex_furnace_of_self"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_fruit_cornerstone",
+    "pack": [
+      "cautious"
+    ],
+    "tier": "B",
+    "category": "沦为他人道果",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 300
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 10
+        },
+        {
+          "type": "var",
+          "key": "favor",
+          "op": "<=",
+          "value": 5
+        }
+      ]
+    },
+    "title_pool": [
+      "被砌进了阵眼",
+      "成了别人的地基",
+      "没人知道阵基里压着一个人"
+    ],
+    "body_key": "ending.fruit_cornerstone",
+    "rating": {
+      "stars_rule": "power/150 - exposure/10",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 34,
+      "unlock": [
+        "origin_cornerstone",
+        "codex_under_the_array"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_reborn_clean_slate",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "转世再来",
+    "requires": {
+      "type": "flag",
+      "ref": "flag_clean_slate"
+    },
+    "title_pool": [
+      "赤条条再来",
+      "下一世什么都不记得",
+      "眉眼还是那副眉眼"
+    ],
+    "body_key": "ending.reborn_clean_slate",
+    "rating": {
+      "stars_rule": "karma/40 + lifespan/150",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 36,
+      "unlock": [
+        "origin_clean_slate",
+        "codex_second_life_clean"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_reborn_carrying_everything",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "转世再来",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "flag",
+          "ref": "flag_memory_overflow"
+        }
+      ]
+    },
+    "title_pool": [
+      "连疤都带过去了",
+      "生下来就会写字",
+      "三岁那年他喊出了你的名字"
+    ],
+    "body_key": "ending.reborn_carrying_all",
+    "rating": {
+      "stars_rule": "corruption/25 + power/200",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 45,
+      "unlock": [
+        "origin_memory_bearer",
+        "title_endgame_memory_keeper"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_reborn_one_sentence",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "转世再来",
+    "requires": {
+      "type": "flag",
+      "ref": "flag_sentence_lost"
+    },
+    "title_pool": [
+      "只记得一句话",
+      "那句话越念越轻",
+      "老了以后连那句也忘了"
+    ],
+    "body_key": "ending.reborn_one_sentence",
+    "rating": {
+      "stars_rule": "karma/40 + temper/40",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 32,
+      "unlock": [
+        "origin_sentence_keeper",
+        "codex_one_sentence"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_reborn_borrowed_body",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "转世再来",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 45
+        },
+        {
+          "type": "relation",
+          "kind": "仇家",
+          "exists": true
+        }
+      ]
+    },
+    "title_pool": [
+      "借来的身子不好用",
+      "醒来时手上有别人的茧",
+      "原主还在里面看着你"
+    ],
+    "body_key": "ending.reborn_borrowed_body",
+    "rating": {
+      "stars_rule": "corruption/25 - exposure/25",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 40,
+      "unlock": [
+        "origin_borrowed_flesh",
+        "codex_second_tenant"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_seal_self_behind_the_door",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "S",
+    "category": "封印自身",
+    "requires": {
+      "type": "flag",
+      "ref": "flag_door_ajar"
+    },
+    "title_pool": [
+      "你从里面把门扣上了",
+      "门外的人听见你说了句什么",
+      "从此这扇门由你守着"
+    ],
+    "body_key": "ending.seal_self_behind_door",
+    "rating": {
+      "stars_rule": "karma/30 + corruption/30",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 66,
+      "unlock": [
+        "origin_door_keeper",
+        "codex_self_sealed"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_seal_self_as_anchor",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "封印自身",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 350
+        },
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 50
+        }
+      ]
+    },
+    "title_pool": [
+      "做了镇住元核的锚",
+      "你的心跳成了阵的节拍",
+      "三百年后阵还在跳"
+    ],
+    "body_key": "ending.seal_self_anchor",
+    "rating": {
+      "stars_rule": "power/150 + karma/40",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 58,
+      "unlock": [
+        "origin_anchor_of_array",
+        "codex_anchor_heart"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_seal_self_forgotten_reason",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "封印自身",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 8
+        },
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 300
+        }
+      ]
+    },
+    "title_pool": [
+      "没人记得你封了什么",
+      "冢上有碑，碑上无字",
+      "后来者只当是个古墓"
+    ],
+    "body_key": "ending.seal_self_forgotten",
+    "rating": {
+      "stars_rule": "power/150 - exposure/10",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 50,
+      "unlock": [
+        "origin_forgotten_seal",
+        "codex_wordless_stele"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_slay_all_alone_on_the_mountain",
+    "pack": [
+      "rebel"
+    ],
+    "tier": "S",
+    "category": "屠尽仇寇",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -50
+        },
+        {
+          "type": "relation",
+          "kind": "仇家",
+          "exists": false
+        }
+      ]
+    },
+    "title_pool": [
+      "仇家都死了，山上只剩你",
+      "名单划完了",
+      "你把刀插回鞘里，没人可杀"
+    ],
+    "body_key": "ending.slay_all_alone",
+    "rating": {
+      "stars_rule": "power/150 - karma/20",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 62,
+      "unlock": [
+        "origin_last_name_on_list",
+        "codex_empty_list"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_slay_all_no_line_left",
+    "pack": [
+      "rebel"
+    ],
+    "tier": "A",
+    "category": "屠尽仇寇",
+    "requires": {
+      "type": "var",
+      "key": "karma",
+      "op": "<=",
+      "value": -70
+    },
+    "title_pool": [
+      "分不清谁是仇家",
+      "你连送饭的也杀了",
+      "刀口卷了三回"
+    ],
+    "body_key": "ending.slay_all_no_line",
+    "rating": {
+      "stars_rule": "karma/15 + power/200",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 48,
+      "unlock": [
+        "origin_no_line",
+        "codex_blade_dulled"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_slay_all_last_is_self",
+    "pack": [
+      "rebel"
+    ],
+    "tier": "S",
+    "category": "屠尽仇寇",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -60
+        }
+      ]
+    },
+    "title_pool": [
+      "最后一个仇家是你自己",
+      "镜子里那个人先动的手",
+      "名单最后一行写着你的名"
+    ],
+    "body_key": "ending.slay_all_last_self",
+    "rating": {
+      "stars_rule": "power/150 - corruption/30",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 64,
+      "unlock": [
+        "origin_self_feud",
+        "codex_last_name"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_martyr_at_the_gate",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "以身殉道",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "flag",
+          "ref": "flag_gate_fell"
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 20
+        }
+      ]
+    },
+    "title_pool": [
+      "用身子堵住了门",
+      "门后的人活下来了",
+      "城志上记了你一笔"
+    ],
+    "body_key": "ending.martyr_at_gate",
+    "rating": {
+      "stars_rule": "karma/25 + favor/30",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 52,
+      "unlock": [
+        "origin_gate_martyr",
+        "codex_city_records"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_martyr_last_city",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "以身殉道",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "hp",
+          "op": ">=",
+          "value": 85
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 40
+        }
+      ]
+    },
+    "title_pool": [
+      "最后一座城保住了",
+      "你没走出城墙",
+      "满城白灯给你送行"
+    ],
+    "body_key": "ending.martyr_last_city",
+    "rating": {
+      "stars_rule": "karma/20 + favor/30",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 54,
+      "unlock": [
+        "origin_city_martyr",
+        "codex_white_lanterns"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_martyr_for_another",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "以身殉道",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "lifespan",
+          "op": "<=",
+          "value": 5
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 50
+        }
+      ]
+    },
+    "title_pool": [
+      "替他挡了那一劫",
+      "寿元烧完只够推他一把",
+      "他活着，你没了"
+    ],
+    "body_key": "ending.martyr_for_another",
+    "rating": {
+      "stars_rule": "karma/20 + charm/40",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 56,
+      "unlock": [
+        "origin_shield_for_other",
+        "codex_one_push"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_mystery_walked_into_fog",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "成谜失踪",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 40
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 12
+        }
+      ]
+    },
+    "title_pool": [
+      "走进雾里没出来",
+      "第二天雾散了，人也没了",
+      "只留下一串脚印，走到一半就断"
+    ],
+    "body_key": "ending.mystery_walked_into_fog",
+    "rating": {
+      "stars_rule": "corruption/25 + insight/40",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 44,
+      "unlock": [
+        "origin_fog_walker",
+        "codex_prints_end_half"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_mystery_left_a_pawned_robe",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "成谜失踪",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 6
+        },
+        {
+          "type": "var",
+          "key": "currency",
+          "op": "<=",
+          "value": 20
+        }
+      ]
+    },
+    "title_pool": [
+      "当铺里那件旧袍",
+      "没人来赎",
+      "袍角缝着半枚铜钱"
+    ],
+    "body_key": "ending.mystery_pawned_robe",
+    "rating": {
+      "stars_rule": "lifespan/150 - exposure/10",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 30,
+      "unlock": [
+        "origin_pawned_robe",
+        "codex_unclaimed"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_mystery_neither_body",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "成谜失踪",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 55
+        },
+        {
+          "type": "relation",
+          "kind": "仇家",
+          "exists": true
+        }
+      ]
+    },
+    "title_pool": [
+      "两具尸首都不是你",
+      "仵作验了三回",
+      "你自己去认的尸"
+    ],
+    "body_key": "ending.mystery_neither_body",
+    "rating": {
+      "stars_rule": "insight/40 + corruption/30",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 46,
+      "unlock": [
+        "origin_two_bodies",
+        "codex_coroner_puzzle"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_occult_throne_without_warmth",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "S",
+    "category": "诡秘终局",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 450
+        },
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 60
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": -30
+        }
+      ]
+    },
+    "title_pool": [
+      "登位成了没有温度的东西",
+      "你坐上去了，从此不再饿也不再笑",
+      "座上那位的脸还是你的"
+    ],
+    "body_key": "ending.occult_cold_throne",
+    "rating": {
+      "stars_rule": "power/120 + corruption/30",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 90,
+      "unlock": [
+        "origin_cold_throne",
+        "codex_ascension_without_warmth"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_occult_second_to_arrive",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "S",
+    "category": "诡秘终局",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 400
+        },
+        {
+          "type": "var",
+          "key": "debt",
+          "op": ">=",
+          "value": 5
+        }
+      ]
+    },
+    "title_pool": [
+      "晚了一步",
+      "位子上已经坐了人",
+      "他回头看了你一眼，让你站着"
+    ],
+    "body_key": "ending.occult_second_arrival",
+    "rating": {
+      "stars_rule": "power/120 - debt/20",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 74,
+      "unlock": [
+        "origin_second_arrival",
+        "codex_late_by_one_step"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_occult_someone_else_wearing_you",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "S",
+    "category": "诡秘终局",
+    "requires": {
+      "type": "var",
+      "key": "corruption",
+      "op": ">=",
+      "value": 85
+    },
+    "title_pool": [
+      "你还站着，里面换了人",
+      "镜子里那位冲你笑了笑",
+      "你的手会自己结印了"
+    ],
+    "body_key": "ending.occult_swapped_inside",
+    "rating": {
+      "stars_rule": "corruption/15 + power/200",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 78,
+      "unlock": [
+        "origin_swapped_tenant",
+        "codex_inside_replaced"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_occult_vessel_of_the_shadow",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "S",
+    "category": "诡秘终局",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 75
+        },
+        {
+          "type": "flag",
+          "ref": "flag_seat_taken"
+        }
+      ]
+    },
+    "title_pool": [
+      "成了界外之影的容器",
+      "它借你的身子走了一趟人间",
+      "你的影子比你先站起来"
+    ],
+    "body_key": "ending.occult_vessel_of_shadow",
+    "rating": {
+      "stars_rule": "corruption/15 + power/250",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 86,
+      "unlock": [
+        "origin_shadow_vessel",
+        "codex_borrowed_walk"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_occult_halfway_divinity",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "诡秘终局",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 300
+        },
+        {
+          "type": "var",
+          "key": "power",
+          "op": "<=",
+          "value": 420
+        },
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 50
+        }
+      ]
+    },
+    "title_pool": [
+      "只成了半个",
+      "上半身在天上，下半身还在泥里",
+      "你既饿又不饿"
+    ],
+    "body_key": "ending.occult_halfway_divinity",
+    "rating": {
+      "stars_rule": "power/150 + corruption/40 - realm_idx/4",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 62,
+      "unlock": [
+        "origin_half_divine",
+        "codex_stuck_halfway"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_occult_gatekeeper_who_refused",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "A",
+    "category": "诡秘终局",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "flag",
+          "ref": "flag_rite_declined"
+        },
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": "<=",
+          "value": 40
+        }
+      ]
+    },
+    "title_pool": [
+      "拒绝登位，留下看门",
+      "你在门边坐了四百年",
+      "来的人都得先跟你说话"
+    ],
+    "body_key": "ending.occult_refused_gatekeeper",
+    "rating": {
+      "stars_rule": "karma/30 + temper/40",
+      "min_stars": 4
+    },
+    "meta_reward": {
+      "legacy_points": 58,
+      "unlock": [
+        "origin_gatekeeper",
+        "codex_refused_throne"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_occult_sitting_with_the_sleeper",
+    "pack": [
+      "mystery"
+    ],
+    "tier": "S",
+    "category": "诡秘终局",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 65
+        },
+        {
+          "type": "flag",
+          "ref": "flag_refusal_marked"
+        }
+      ]
+    },
+    "title_pool": [
+      "与沉眠之主对坐",
+      "茶凉了三次，你睡着了",
+      "梦里有人在替你数呼吸"
+    ],
+    "body_key": "ending.occult_sitting_with_sleeper",
+    "rating": {
+      "stars_rule": "corruption/20 + insight/40",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 82,
+      "unlock": [
+        "origin_sleeper_companion",
+        "codex_cold_tea"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_turtle_outlived_them_all",
+    "pack": [
+      "cautious"
+    ],
+    "tier": "A",
+    "category": "苟道长寿",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 5
+        },
+        {
+          "type": "var",
+          "key": "lifespan",
+          "op": ">=",
+          "value": 400
+        }
+      ]
+    },
+    "title_pool": [
+      "活得比谁都久",
+      "同辈的碑都塌了三回",
+      "你还在，还在算下一年"
+    ],
+    "body_key": "ending.turtle_outlived_all",
+    "rating": {
+      "stars_rule": "lifespan/100 + realm_idx/2",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 50,
+      "unlock": [
+        "origin_long_liver",
+        "codex_outlived_all"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_turtle_no_one_remembers",
+    "pack": [
+      "cautious"
+    ],
+    "tier": "A",
+    "category": "苟道长寿",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "favor",
+          "op": "<=",
+          "value": 3
+        },
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "title_pool": [
+      "没人记得你来过",
+      "族谱上你的那一行被人划了",
+      "这样正好"
+    ],
+    "body_key": "ending.turtle_unremembered",
+    "rating": {
+      "stars_rule": "lifespan/150 + karma/60 - exposure/10",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 52,
+      "unlock": [
+        "origin_unremembered",
+        "codex_no_trace"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_turtle_last_disciple",
+    "pack": [
+      "cautious"
+    ],
+    "tier": "A",
+    "category": "苟道长寿",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "lifespan",
+          "op": ">=",
+          "value": 250
+        },
+        {
+          "type": "relation",
+          "kind": "师徒",
+          "exists": true
+        }
+      ]
+    },
+    "title_pool": [
+      "把后手都传给了徒弟",
+      "交底那天你说了三天三夜",
+      "他学得比你当年慢，但活得像你"
+    ],
+    "body_key": "ending.turtle_last_disciple",
+    "rating": {
+      "stars_rule": "lifespan/120 + karma/40",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 54,
+      "unlock": [
+        "origin_last_disciple",
+        "codex_three_days_of_talk"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_mortal_small_shop",
+    "pack": [
+      "*"
+    ],
+    "tier": "C",
+    "category": "凡尘终老",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_idx",
+          "op": "<=",
+          "value": 3
+        },
+        {
+          "type": "var",
+          "key": "currency",
+          "op": ">=",
+          "value": 80
+        }
+      ]
+    },
+    "title_pool": [
+      "在渡口开了间铺子",
+      "卖茶也卖旧书",
+      "账算得清，人过得慢"
+    ],
+    "body_key": "ending.mortal_small_shop",
+    "rating": {
+      "stars_rule": "currency/200 + karma/50",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 16,
+      "unlock": [
+        "origin_shopkeeper",
+        "codex_ferry_shop"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_mortal_back_to_village",
+    "pack": [
+      "*"
+    ],
+    "tier": "C",
+    "category": "凡尘终老",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "realm_idx",
+          "op": "<=",
+          "value": 2
+        },
+        {
+          "type": "var",
+          "key": "lifespan",
+          "op": ">=",
+          "value": 20
+        }
+      ]
+    },
+    "title_pool": [
+      "回村种地",
+      "村口那棵树还在",
+      "没人信你出去过"
+    ],
+    "body_key": "ending.mortal_back_to_village",
+    "rating": {
+      "stars_rule": "karma/40 + lifespan/200",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 14,
+      "unlock": [
+        "origin_villager_return",
+        "codex_old_tree"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_mortal_school_teacher",
+    "pack": [
+      "*"
+    ],
+    "tier": "C",
+    "category": "凡尘终老",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "realm_idx",
+          "op": "<=",
+          "value": 3
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 20
+        }
+      ]
+    },
+    "title_pool": [
+      "在镇上做了先生",
+      "教了三十年蒙童",
+      "有个学生后来上了山"
+    ],
+    "body_key": "ending.mortal_school_teacher",
+    "rating": {
+      "stars_rule": "wits/40 + karma/40",
+      "min_stars": 3
+    },
+    "meta_reward": {
+      "legacy_points": 18,
+      "unlock": [
+        "origin_village_teacher",
+        "codex_student_who_climbed"
+      ]
+    },
+    "ai_enhance": "l2"
+  },
+  {
+    "id": "end_karma_paid_in_full",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "因果清算",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "debt",
+          "op": "<=",
+          "value": 3
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "title_pool": [
+      "一笔一笔还清了",
+      "还到最后一件旧袍",
+      "账房先生冲你拱了拱手"
+    ],
+    "body_key": "ending.karma_paid_in_full",
+    "rating": {
+      "stars_rule": "karma/20 - debt/10",
+      "min_stars": 4
+    },
+    "meta_reward": {
+      "legacy_points": 60,
+      "unlock": [
+        "origin_debt_free",
+        "codex_ledger_closed"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_karma_told_on_you",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "因果清算",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "debt",
+          "op": ">=",
+          "value": 7
+        },
+        {
+          "type": "var",
+          "key": "favor",
+          "op": "<=",
+          "value": 0
+        }
+      ]
+    },
+    "title_pool": [
+      "有人把你告到了天上",
+      "状纸有半人高",
+      "审你那日下了三天雨"
+    ],
+    "body_key": "ending.karma_told_on_you",
+    "rating": {
+      "stars_rule": "debt/10 + power/200",
+      "min_stars": 2
+    },
+    "meta_reward": {
+      "legacy_points": 32,
+      "unlock": [
+        "origin_accused",
+        "codex_half_man_petition"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_karma_children_pay",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "因果清算",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "debt",
+          "op": ">=",
+          "value": 8
+        },
+        {
+          "type": "relation",
+          "kind": "师徒",
+          "exists": true
+        }
+      ]
+    },
+    "title_pool": [
+      "债落在了徒弟身上",
+      "他替你挨了那一记",
+      "你欠的，他还了"
+    ],
+    "body_key": "ending.karma_children_pay",
+    "rating": {
+      "stars_rule": "debt/8 - karma/25",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 44,
+      "unlock": [
+        "origin_heir_debt",
+        "codex_debt_inherited"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_karma_became_the_ledger",
+    "pack": [
+      "*"
+    ],
+    "tier": "S",
+    "category": "因果清算",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "debt",
+          "op": ">=",
+          "value": 9
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -40
+        }
+      ]
+    },
+    "title_pool": [
+      "你自己做了那本账",
+      "从此每笔债都从你身上过",
+      "翻页声就是你的心跳"
+    ],
+    "body_key": "ending.karma_became_ledger",
+    "rating": {
+      "stars_rule": "debt/8 + power/200",
+      "min_stars": 1
+    },
+    "meta_reward": {
+      "legacy_points": 70,
+      "unlock": [
+        "origin_living_ledger",
+        "codex_page_turn"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_egg_the_pot_left_boiling",
+    "pack": [
+      "*"
+    ],
+    "tier": "B",
+    "category": "特殊彩蛋",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "flag",
+          "ref": "flag_rite_seat_filled"
+        },
+        {
+          "type": "item",
+          "ref": "item_cracked_pot"
+        }
+      ]
+    },
+    "title_pool": [
+      "你还留着一把壶",
+      "壶里的水一直没凉",
+      "后来者揭开盖子，闻到了你的味道"
+    ],
+    "body_key": "ending.egg_pot_left_boiling",
+    "rating": {
+      "stars_rule": "luck/30 + karma/50",
+      "min_stars": 4
+    },
+    "meta_reward": {
+      "legacy_points": 66,
+      "unlock": [
+        "origin_pot_keeper",
+        "codex_still_warm"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_egg_same_face_again",
+    "pack": [
+      "*"
+    ],
+    "tier": "A",
+    "category": "特殊彩蛋",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "flag",
+          "ref": "flag_clean_slate"
+        },
+        {
+          "type": "var",
+          "key": "lifespan",
+          "op": ">=",
+          "value": 60
+        }
+      ]
+    },
+    "title_pool": [
+      "镜子里又是这张脸",
+      "你换了三个名字，脸没换",
+      "第十九世你终于笑了"
+    ],
+    "body_key": "ending.egg_same_face_again",
+    "rating": {
+      "stars_rule": "lifespan/100 + luck/40",
+      "min_stars": 4
+    },
+    "meta_reward": {
+      "legacy_points": 72,
+      "unlock": [
+        "origin_same_face",
+        "codex_nineteenth_life"
+      ]
+    },
+    "ai_enhance": "l3"
+  },
+  {
+    "id": "end_egg_the_book_you_are_reading",
+    "pack": [
+      "*"
+    ],
+    "tier": "S",
+    "category": "特殊彩蛋",
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "node_count",
+          "op": ">=",
+          "value": 120
+        },
+        {
+          "type": "flag",
+          "ref": "flag_name_true"
+        }
+      ]
+    },
+    "title_pool": [
+      "有人翻到了这一页",
+      "他把册子合上，又打开",
+      "这一世到此为止，下一世重新抽"
+    ],
+    "body_key": "ending.egg_book_you_read",
+    "rating": {
+      "stars_rule": "node_count/60 + karma/50 - debt/20",
+      "min_stars": 4
+    },
+    "meta_reward": {
+      "legacy_points": 88,
+      "unlock": [
+        "origin_reader",
+        "codex_page_you_are_on"
+      ]
+    },
+    "ai_enhance": "l3"
+  }
+]

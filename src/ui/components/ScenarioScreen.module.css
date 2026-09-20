@@ -1,0 +1,338 @@
+.wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  padding: var(--s4) var(--s4) calc(var(--s8) + env(safe-area-inset-bottom, 0px));
+}
+
+/* ---------- 剧名 ---------- */
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: var(--s5);
+  background:
+    linear-gradient(180deg, rgba(193, 57, 43, 0.09), rgba(242, 234, 217, 0.012)),
+    var(--ink-2);
+  border-color: rgba(193, 57, 43, 0.22);
+  animation: fadeUp var(--d3) var(--ease-out) both;
+}
+
+.headRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.clock {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+.clock b {
+  font-family: var(--font-title);
+  font-size: var(--fs-md);
+  font-weight: 500;
+}
+.clock i {
+  font-style: normal;
+  color: var(--t4);
+  margin: 0 2px;
+}
+
+.sec {
+  animation: fadeUp var(--d3) var(--ease-out) both;
+}
+
+/* ---------- 明规则 ---------- */
+.stated {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.statedItem {
+  display: flex;
+  gap: var(--s4);
+  align-items: flex-start;
+  padding: var(--s4);
+  border: 1px solid rgba(193, 57, 43, 0.24);
+  border-radius: var(--r);
+  background: linear-gradient(100deg, rgba(193, 57, 43, 0.09), rgba(242, 234, 217, 0.01));
+}
+
+/* 明规则编号：朱砂圈 */
+.statedNo {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.7em;
+  height: 1.7em;
+  border: 1px solid rgba(217, 86, 74, 0.6);
+  border-radius: 50%;
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  color: #d9564a;
+}
+
+.statedText {
+  flex: 1;
+  font-size: var(--fs-md);
+  line-height: 1.75;
+  letter-spacing: 0.03em;
+  color: var(--paper);
+}
+
+/* ---------- 隐规则 ---------- */
+.hiddenList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.hiddenOff {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s4);
+  border: 1px dashed var(--line);
+  border-radius: var(--r);
+  color: var(--t3);
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(242, 234, 217, 0.014) 0 6px,
+    transparent 6px 12px
+  );
+}
+
+.hiddenLocked {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.2em;
+  color: var(--t3);
+}
+
+.hiddenOn {
+  position: relative;
+  display: flex;
+  gap: var(--s4);
+  padding: var(--s4) var(--s4) var(--s4) var(--s5);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: var(--r);
+  background-image: linear-gradient(
+      100deg,
+      rgba(201, 162, 39, 0.16),
+      rgba(201, 162, 39, 0.03)
+    ),
+    none;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+/* 揭示那一刻：金墨渗开 */
+.ritual {
+  animation: goldenSeep 1.4s var(--ease-out) both;
+}
+
+.ritualSeal {
+  position: absolute;
+  right: var(--s4);
+  top: -0.7em;
+}
+
+.hiddenBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.hiddenText {
+  font-size: var(--fs-md);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+  color: var(--paper);
+  text-shadow: 0 0 22px rgba(201, 162, 39, 0.2);
+}
+
+/* ---------- 禁制 ---------- */
+.forbidList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.forbid {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+  padding: var(--s3) var(--s4);
+  border-left: 2px solid var(--cinnabar);
+  border-radius: 0 var(--r) var(--r) 0;
+  background: linear-gradient(90deg, rgba(193, 57, 43, 0.11), transparent);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: #e0a49a;
+}
+
+/* ---------- 破局 ---------- */
+.breakList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.breakRow {
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: rgba(242, 234, 217, 0.02);
+  overflow: hidden;
+  transition: border-color var(--d2) var(--ease);
+}
+
+.breakOn {
+  border-color: rgba(62, 124, 110, 0.45);
+  background: linear-gradient(100deg, rgba(62, 124, 110, 0.11), rgba(242, 234, 217, 0.01));
+}
+
+.breakHead {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  width: 100%;
+  padding: var(--s4);
+  text-align: left;
+}
+
+.breakMark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.8em;
+  height: 1.8em;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-xs);
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  color: var(--t3);
+}
+.breakOn .breakMark {
+  color: #6fb3a3;
+  border-color: rgba(62, 124, 110, 0.6);
+}
+
+.breakName {
+  flex: 1;
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.12em;
+  color: var(--t1);
+}
+
+.breakCost {
+  flex: none;
+  font-size: var(--fs-2xs);
+  color: var(--t3);
+  letter-spacing: 0.06em;
+  max-width: 42%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.breakBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: 0 var(--s4) var(--s4) calc(var(--s4) + 2.8em);
+  animation: fadeUp var(--d2) var(--ease-out) both;
+}
+
+.breakDone {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: var(--fs-sm);
+  color: #6fb3a3;
+  letter-spacing: 0.06em;
+}
+
+.breakGap {
+  font-size: var(--fs-sm);
+  line-height: 1.8;
+  color: var(--t1);
+}
+
+.gapLabel {
+  display: inline-block;
+  margin-right: var(--s2);
+  padding: 0 5px;
+  border: 1px solid rgba(201, 162, 39, 0.42);
+  border-radius: var(--r-xs);
+  font-size: var(--fs-2xs);
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.breakCostFull {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  color: #c9743a;
+}
+
+/* ---------- 尾注 ---------- */
+.tail {
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line-2);
+  color: var(--t4);
+  line-height: 1.9;
+}
+
+/* ---------- 底栏 ---------- */
+.foot {
+  position: sticky;
+  bottom: 0;
+  z-index: 7;
+  display: flex;
+  gap: var(--s3);
+  padding: var(--s4) var(--s4) calc(var(--s4) + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(0deg, rgba(11, 10, 9, 0.98) 62%, rgba(11, 10, 9, 0));
+  backdrop-filter: blur(8px);
+}
+
+.bagBtn {
+  flex: 1;
+  position: relative;
+}
+
+.bagCount {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 99px;
+  background: var(--ink-4);
+  border: 1px solid rgba(201, 162, 39, 0.5);
+  color: var(--gold-bright);
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.waitBtn {
+  flex: none;
+}

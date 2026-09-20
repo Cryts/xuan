@@ -1,0 +1,2972 @@
+[
+  {
+    "id": "it_0001",
+    "name": "粗铁柴刀",
+    "quality": "凡品",
+    "affixes": [
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "启户"
+    ],
+    "desc": "刃口卷了三处，砍柴尚可，砍人得看运气。"
+  },
+  {
+    "id": "it_0002",
+    "name": "断柄铁锤",
+    "quality": "凡品",
+    "affixes": [
+      "af_chentie"
+    ],
+    "affordance": [
+      "破甲",
+      "承载"
+    ],
+    "desc": "柄是后配的，锤头还是原先那一块。"
+  },
+  {
+    "id": "it_0003",
+    "name": "缺口短刀",
+    "quality": "凡品",
+    "affixes": [
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "启户"
+    ],
+    "desc": "缺口在刀背，不碍事。"
+  },
+  {
+    "id": "it_0004",
+    "name": "蒙尘铜镜",
+    "quality": "凡品",
+    "affixes": [
+      "af_yeguang"
+    ],
+    "affordance": [
+      "照明",
+      "洞察"
+    ],
+    "desc": "擦一擦，还能照见人影。"
+  },
+  {
+    "id": "it_0005",
+    "name": "旧铜铃",
+    "quality": "凡品",
+    "affixes": [
+      "af_chuanxun"
+    ],
+    "affordance": [
+      "照明",
+      "传讯"
+    ],
+    "desc": "摇起来声音发闷，半里外听不真切。"
+  },
+  {
+    "id": "it_0006",
+    "name": "油纸灯笼",
+    "quality": "凡品",
+    "affixes": [
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "纸是新的，竹骨是旧的。"
+  },
+  {
+    "id": "it_0007",
+    "name": "火折子",
+    "quality": "凡品",
+    "affixes": [
+      "af_yinhuo"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "吹一口就着，是走夜路的人最信的东西。"
+  },
+  {
+    "id": "it_0008",
+    "name": "火镰石",
+    "quality": "凡品",
+    "affixes": [
+      "af_yinhuo"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "石上有一道深槽，是几代人敲出来的。"
+  },
+  {
+    "id": "it_0009",
+    "name": "松脂火把",
+    "quality": "凡品",
+    "affixes": [
+      "af_yinhuo"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "烧得慢，烟大，招东西。"
+  },
+  {
+    "id": "it_0010",
+    "name": "粗麻绳",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "丈许长，湿了更结实。"
+  },
+  {
+    "id": "it_0011",
+    "name": "青竹钓竿",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "竿梢微弯，钓鱼也钓得着一只破鞋。"
+  },
+  {
+    "id": "it_0012",
+    "name": "旧渔网",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "补过多次，网眼大小不一。"
+  },
+  {
+    "id": "it_0013",
+    "name": "铁口药锄",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "挖药也挖坟，主家不说，锄头不问。"
+  },
+  {
+    "id": "it_0014",
+    "name": "缺口药镰",
+    "quality": "凡品",
+    "affixes": [
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "启户"
+    ],
+    "desc": "割藤割草，也割过别的东西。"
+  },
+  {
+    "id": "it_0015",
+    "name": "陶制药罐",
+    "quality": "凡品",
+    "affixes": [
+      "af_liaoshang"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤"
+    ],
+    "desc": "罐底结着一层洗不掉的黑。"
+  },
+  {
+    "id": "it_0016",
+    "name": "粗布药囊",
+    "quality": "凡品",
+    "affixes": [
+      "af_liaoshang"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤"
+    ],
+    "desc": "囊口用麻线系了三道，怕潮。"
+  },
+  {
+    "id": "it_0017",
+    "name": "陈艾草束",
+    "quality": "凡品",
+    "affixes": [
+      "af_quxie"
+    ],
+    "affordance": [
+      "驱邪",
+      "照明"
+    ],
+    "desc": "挂在门后半年了，气味反倒更沉。"
+  },
+  {
+    "id": "it_0018",
+    "name": "桃木短剑",
+    "quality": "凡品",
+    "affixes": [
+      "af_quxie"
+    ],
+    "affordance": [
+      "驱邪",
+      "照明"
+    ],
+    "desc": "木匠的手艺，剑是给孩子压惊用的。"
+  },
+  {
+    "id": "it_0019",
+    "name": "黄纸符",
+    "quality": "凡品",
+    "affixes": [
+      "af_quxie"
+    ],
+    "affordance": [
+      "驱邪",
+      "照明"
+    ],
+    "desc": "字是描的，描的人自己也不认得。"
+  },
+  {
+    "id": "it_0020",
+    "name": "朱砂小罐",
+    "quality": "凡品",
+    "affixes": [
+      "af_quxie"
+    ],
+    "affordance": [
+      "驱邪",
+      "照明"
+    ],
+    "desc": "剩了小半罐，干成了块。"
+  },
+  {
+    "id": "it_0021",
+    "name": "陈年艾香",
+    "quality": "凡品",
+    "affixes": [
+      "af_dichen"
+    ],
+    "affordance": [
+      "驱邪",
+      "隔水"
+    ],
+    "desc": "点一炷，屋里就静下来。"
+  },
+  {
+    "id": "it_0022",
+    "name": "桐油纸伞",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "伞骨断过一根，撑开时往左歪。"
+  },
+  {
+    "id": "it_0023",
+    "name": "旧蓑衣",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "棕毛掉得稀疏，雨大时后背会湿。"
+  },
+  {
+    "id": "it_0024",
+    "name": "竹编斗笠",
+    "quality": "凡品",
+    "affixes": [
+      "af_yufeng"
+    ],
+    "affordance": [
+      "御风",
+      "匿形"
+    ],
+    "desc": "压低了，就只看得见一双眼睛。"
+  },
+  {
+    "id": "it_0025",
+    "name": "旧草鞋",
+    "quality": "凡品",
+    "affixes": [
+      "af_yufeng"
+    ],
+    "affordance": [
+      "御风",
+      "匿形"
+    ],
+    "desc": "走过山路，鞋底磨得只剩一层。"
+  },
+  {
+    "id": "it_0026",
+    "name": "麻布面巾",
+    "quality": "凡品",
+    "affixes": [
+      "af_nixing"
+    ],
+    "affordance": [
+      "匿形",
+      "惑心"
+    ],
+    "desc": "遮住口鼻，认识你的人也会犹豫一下。"
+  },
+  {
+    "id": "it_0027",
+    "name": "灰布斗篷",
+    "quality": "凡品",
+    "affixes": [
+      "af_yanxi"
+    ],
+    "affordance": [
+      "匿形",
+      "镇魂"
+    ],
+    "desc": "灰得不起眼，站在墙角就像一堵墙。"
+  },
+  {
+    "id": "it_0028",
+    "name": "竹编背篓",
+    "quality": "凡品",
+    "affixes": [
+      "af_xiubu"
+    ],
+    "affordance": [
+      "启户",
+      "承载"
+    ],
+    "desc": "背带换过两回，篓身还是老样子。"
+  },
+  {
+    "id": "it_0029",
+    "name": "旧木匣",
+    "quality": "凡品",
+    "affixes": [
+      "af_xiubu"
+    ],
+    "affordance": [
+      "启户",
+      "承载"
+    ],
+    "desc": "没有锁，只有一个松了的搭扣。"
+  },
+  {
+    "id": "it_0030",
+    "name": "黄铜锁",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "钥匙早丢了，锁却还锁着。"
+  },
+  {
+    "id": "it_0031",
+    "name": "锈蚀铜钥",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "锈得看不出齿形，插进去要试很久。"
+  },
+  {
+    "id": "it_0032",
+    "name": "黄铜戒尺",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "一面刻着刻度，一面磨得发亮。"
+  },
+  {
+    "id": "it_0033",
+    "name": "乌木小秤",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "秤星是自己点的，准不准只有他知道。"
+  },
+  {
+    "id": "it_0034",
+    "name": "旧木算盘",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "缺了两颗珠子，账却从没算错过。"
+  },
+  {
+    "id": "it_0035",
+    "name": "牛皮水囊",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "能装一日的水，塞子用牙咬紧。"
+  },
+  {
+    "id": "it_0036",
+    "name": "粗陶碗",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "碗沿磕掉一块，盛汤会漏。"
+  },
+  {
+    "id": "it_0037",
+    "name": "粗陶酒壶",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "壶里那点酒，是留给走夜路的人的。"
+  },
+  {
+    "id": "it_0038",
+    "name": "竹水筒",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "山里人进山，腰上都挂一个。"
+  },
+  {
+    "id": "it_0039",
+    "name": "柘木猎弓",
+    "quality": "凡品",
+    "affixes": [
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "启户"
+    ],
+    "desc": "弦是新换的，弓身有旧年的裂纹。"
+  },
+  {
+    "id": "it_0040",
+    "name": "铁镞短箭",
+    "quality": "凡品",
+    "affixes": [
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "启户"
+    ],
+    "desc": "一共九支，他记得每一支的轻重。"
+  },
+  {
+    "id": "it_0041",
+    "name": "缺口柴斧",
+    "quality": "凡品",
+    "affixes": [
+      "af_chentie"
+    ],
+    "affordance": [
+      "破甲",
+      "承载"
+    ],
+    "desc": "砍柴的斧，握着比刀顺手。"
+  },
+  {
+    "id": "it_0042",
+    "name": "短柄铁铲",
+    "quality": "凡品",
+    "affixes": [
+      "af_chentie"
+    ],
+    "affordance": [
+      "破甲",
+      "承载"
+    ],
+    "desc": "铲口磨得薄，挖土极快。"
+  },
+  {
+    "id": "it_0043",
+    "name": "枣木短棍",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "一头包着铁箍，压在肩上沉甸甸的。"
+  },
+  {
+    "id": "it_0044",
+    "name": "老藤鞭",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "藤是活藤晒干的，越用越韧。"
+  },
+  {
+    "id": "it_0045",
+    "name": "黄铜钩索",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "钩是三爪的，攀墙、拖人都使得。"
+  },
+  {
+    "id": "it_0046",
+    "name": "麻线卷",
+    "quality": "凡品",
+    "affixes": [
+      "af_xiubu"
+    ],
+    "affordance": [
+      "启户",
+      "承载"
+    ],
+    "desc": "线不算结实，胜在有一整卷。"
+  },
+  {
+    "id": "it_0047",
+    "name": "兽骨针",
+    "quality": "凡品",
+    "affixes": [
+      "af_xiubu"
+    ],
+    "affordance": [
+      "启户",
+      "承载"
+    ],
+    "desc": "磨得很细，缝皮子比铁针好用。"
+  },
+  {
+    "id": "it_0048",
+    "name": "铜顶针",
+    "quality": "凡品",
+    "affixes": [
+      "af_xiubu"
+    ],
+    "affordance": [
+      "启户",
+      "承载"
+    ],
+    "desc": "戴在指上，是药童的第一件家伙。"
+  },
+  {
+    "id": "it_0049",
+    "name": "草编蒲团",
+    "quality": "凡品",
+    "affixes": [
+      "af_yanxi"
+    ],
+    "affordance": [
+      "匿形",
+      "镇魂"
+    ],
+    "desc": "坐得久了，中间会凹下去一个坑。"
+  },
+  {
+    "id": "it_0050",
+    "name": "旧木鱼",
+    "quality": "凡品",
+    "affixes": [
+      "af_yanxi"
+    ],
+    "affordance": [
+      "匿形",
+      "镇魂"
+    ],
+    "desc": "敲它的人早已不在，声音还留着。"
+  },
+  {
+    "id": "it_0051",
+    "name": "黄铜锣",
+    "quality": "凡品",
+    "affixes": [
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "召引"
+    ],
+    "desc": "一响，半个镇子的人都出门看。"
+  },
+  {
+    "id": "it_0052",
+    "name": "牛角号",
+    "quality": "凡品",
+    "affixes": [
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "召引"
+    ],
+    "desc": "吹法有讲究，两声是回，三声是急。"
+  },
+  {
+    "id": "it_0053",
+    "name": "竹哨",
+    "quality": "凡品",
+    "affixes": [
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "召引"
+    ],
+    "desc": "小孩子玩的，山里的猎户也用它唤狗。"
+  },
+  {
+    "id": "it_0054",
+    "name": "传信竹筒",
+    "quality": "凡品",
+    "affixes": [
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "召引"
+    ],
+    "desc": "封蜡上按着指印，收信的人一认便知。"
+  },
+  {
+    "id": "it_0055",
+    "name": "烽火筒",
+    "quality": "凡品",
+    "affixes": [
+      "af_chuanxun"
+    ],
+    "affordance": [
+      "照明",
+      "传讯"
+    ],
+    "desc": "点着了能烧一炷香，远处看得见。"
+  },
+  {
+    "id": "it_0056",
+    "name": "河灯",
+    "quality": "凡品",
+    "affixes": [
+      "af_chuanxun"
+    ],
+    "affordance": [
+      "照明",
+      "传讯"
+    ],
+    "desc": "放下去的人不说话，捞上来的人也不说。"
+  },
+  {
+    "id": "it_0057",
+    "name": "油纸提灯",
+    "quality": "凡品",
+    "affixes": [
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "灯罩上画着一条褪了色的鱼。"
+  },
+  {
+    "id": "it_0058",
+    "name": "白蜡炬",
+    "quality": "凡品",
+    "affixes": [
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "烧到底会塌，撑不过一整夜。"
+  },
+  {
+    "id": "it_0059",
+    "name": "青磷石",
+    "quality": "凡品",
+    "affixes": [
+      "af_yeguang"
+    ],
+    "affordance": [
+      "照明",
+      "洞察"
+    ],
+    "desc": "在暗处会自己亮，亮得让人不安。"
+  },
+  {
+    "id": "it_0060",
+    "name": "粗磨刀石",
+    "quality": "凡品",
+    "affixes": [
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "启户"
+    ],
+    "desc": "中间磨出一道弧，像被年月咬过。"
+  },
+  {
+    "id": "it_0061",
+    "name": "铁砧",
+    "quality": "凡品",
+    "affixes": [
+      "af_chentie"
+    ],
+    "affordance": [
+      "破甲",
+      "承载"
+    ],
+    "desc": "谁也没搬动过它，它就一直在这儿。"
+  },
+  {
+    "id": "it_0062",
+    "name": "竹梯",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "长是长了点，靠上墙就颤。"
+  },
+  {
+    "id": "it_0063",
+    "name": "麻绳软梯",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "收起来只有一抱，放下去够得着窗。"
+  },
+  {
+    "id": "it_0064",
+    "name": "旧布幡",
+    "quality": "凡品",
+    "affixes": [
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "召引"
+    ],
+    "desc": "幡上字迹模糊，远看还认得出半个。"
+  },
+  {
+    "id": "it_0065",
+    "name": "苦艾囊",
+    "quality": "凡品",
+    "affixes": [
+      "af_liaoshang"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤"
+    ],
+    "desc": "苦得舌根发麻，虫蛇却怕这个味。"
+  },
+  {
+    "id": "it_0066",
+    "name": "蛇药散",
+    "quality": "凡品",
+    "affixes": [
+      "af_liaoshang"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤"
+    ],
+    "desc": "用酒送服，卖药的说三日便好。"
+  },
+  {
+    "id": "it_0067",
+    "name": "干止血草",
+    "quality": "凡品",
+    "affixes": [
+      "af_liaoshang"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤"
+    ],
+    "desc": "嚼烂了敷上，是山里人的老法子。"
+  },
+  {
+    "id": "it_0068",
+    "name": "蜂蜡块",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "用来封口，封得住坛子也封得住嘴。"
+  },
+  {
+    "id": "it_0069",
+    "name": "桐油罐",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "半罐油，涂在纸上就不怕雨。"
+  },
+  {
+    "id": "it_0070",
+    "name": "生石灰包",
+    "quality": "凡品",
+    "affixes": [
+      "af_quxie"
+    ],
+    "affordance": [
+      "驱邪",
+      "照明"
+    ],
+    "desc": "撒下去白了一片，见者都要捂眼睛。"
+  },
+  {
+    "id": "it_0071",
+    "name": "蒙尘罗盘",
+    "quality": "凡品",
+    "affixes": [
+      "af_yeguang"
+    ],
+    "affordance": [
+      "照明",
+      "洞察"
+    ],
+    "desc": "针总在抖，像是怕什么。"
+  },
+  {
+    "id": "it_0072",
+    "name": "旧皮囊",
+    "quality": "凡品",
+    "affixes": [
+      "af_geshui"
+    ],
+    "affordance": [
+      "隔水",
+      "承载"
+    ],
+    "desc": "皮子发硬，装水会有一点腥味。"
+  },
+  {
+    "id": "it_0073",
+    "name": "打火石",
+    "quality": "凡品",
+    "affixes": [
+      "af_yinhuo"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "两块石头，敲了半辈子还剩大半。"
+  },
+  {
+    "id": "it_0074",
+    "name": "兽骨哨",
+    "quality": "凡品",
+    "affixes": [
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "召引"
+    ],
+    "desc": "声音尖，能传过两道山梁。"
+  },
+  {
+    "id": "it_0075",
+    "name": "麻布手套",
+    "quality": "凡品",
+    "affixes": [
+      "af_xiubu"
+    ],
+    "affordance": [
+      "启户",
+      "承载"
+    ],
+    "desc": "掌心补过，磨破的地方总是同一处。"
+  },
+  {
+    "id": "it_0076",
+    "name": "铁钳",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "用来夹烧红的东西，也用来夹不该看的。"
+  },
+  {
+    "id": "it_0077",
+    "name": "硬木楔",
+    "quality": "凡品",
+    "affixes": [
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户"
+    ],
+    "desc": "塞进门缝，门就再也推不动了。"
+  },
+  {
+    "id": "it_0078",
+    "name": "草绳",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "粗粗一捆，绑人绑柴都行。"
+  },
+  {
+    "id": "it_0079",
+    "name": "牛皮索",
+    "quality": "凡品",
+    "affixes": [
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "越挣越紧，是猎户对付大家伙的。"
+  },
+  {
+    "id": "it_0080",
+    "name": "灰陶灯盏",
+    "quality": "凡品",
+    "affixes": [
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "照明"
+    ],
+    "desc": "盏里积着旧灯油，点起来有一股味。"
+  },
+  {
+    "id": "it_0081",
+    "name": "粗盐包",
+    "quality": "凡品",
+    "affixes": [
+      "af_dichen"
+    ],
+    "affordance": [
+      "驱邪",
+      "隔水"
+    ],
+    "desc": "除了做菜，老人说它还能撒出一条界线。"
+  },
+  {
+    "id": "it_0082",
+    "name": "陈旧桃符",
+    "quality": "凡品",
+    "affixes": [
+      "af_quxie"
+    ],
+    "affordance": [
+      "驱邪",
+      "照明"
+    ],
+    "desc": "换了新的，旧的也舍不得扔。"
+  },
+  {
+    "id": "it_0083",
+    "name": "温养·寒铁·短剑",
+    "quality": "灵品",
+    "affixes": [
+      "af_pojia",
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "启户"
+    ],
+    "desc": "剑身养得极润，握上去凉而不刺。"
+  },
+  {
+    "id": "it_0084",
+    "name": "初开·青铜·长剑",
+    "quality": "灵品",
+    "affixes": [
+      "af_pojia",
+      "af_chentie"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "承载"
+    ],
+    "desc": "开刃那日下过雨，剑上至今有一点暗斑。"
+  },
+  {
+    "id": "it_0085",
+    "name": "沉水·乌木·剑鞘",
+    "quality": "灵品",
+    "affixes": [
+      "af_ningshuang",
+      "af_geshui"
+    ],
+    "affordance": [
+      "缚身",
+      "隔水",
+      "承载"
+    ],
+    "desc": "鞘在潭底压了很多年，取出来还是沉的。"
+  },
+  {
+    "id": "it_0086",
+    "name": "缠丝·桑皮·护腕",
+    "quality": "灵品",
+    "affixes": [
+      "af_chansi",
+      "af_huzhu"
+    ],
+    "affordance": [
+      "缚身",
+      "护主",
+      "匿形",
+      "承载"
+    ],
+    "desc": "丝是活蚕吐的，缠上便再不肯松。"
+  },
+  {
+    "id": "it_0087",
+    "name": "流火·赤铜·短戟",
+    "quality": "灵品",
+    "affixes": [
+      "af_liuhuo",
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "引火",
+      "御风",
+      "启户"
+    ],
+    "desc": "挥动时带起一道热风，落叶会被燎出卷边。"
+  },
+  {
+    "id": "it_0088",
+    "name": "淬月·银·细针",
+    "quality": "灵品",
+    "affixes": [
+      "af_jinzhen",
+      "af_cuidu"
+    ],
+    "affordance": [
+      "淬毒",
+      "匿形",
+      "疗伤",
+      "洞察"
+    ],
+    "desc": "针尖黑得发亮，医人的手和杀人的手都认得它。"
+  },
+  {
+    "id": "it_0089",
+    "name": "毒瘴·青竹·囊",
+    "quality": "灵品",
+    "affixes": [
+      "af_duzhang",
+      "af_yanxi"
+    ],
+    "affordance": [
+      "镇魂",
+      "淬毒",
+      "匿形",
+      "惑心"
+    ],
+    "desc": "囊口一开，竹叶先黄。"
+  },
+  {
+    "id": "it_0090",
+    "name": "清心·寒玉·佩",
+    "quality": "灵品",
+    "affixes": [
+      "af_qingxin",
+      "af_yeguang"
+    ],
+    "affordance": [
+      "解毒",
+      "镇魂",
+      "照明",
+      "洞察"
+    ],
+    "desc": "贴在胸口，心跳会慢下来。"
+  },
+  {
+    "id": "it_0091",
+    "name": "安神·沉香·枕",
+    "quality": "灵品",
+    "affixes": [
+      "af_yanxi",
+      "af_zhenhun"
+    ],
+    "affordance": [
+      "镇魂",
+      "缚身",
+      "匿形"
+    ],
+    "desc": "枕上有一道旧压痕，不像人的形状。"
+  },
+  {
+    "id": "it_0092",
+    "name": "生肌·血玉·膏",
+    "quality": "灵品",
+    "affixes": [
+      "af_shengji",
+      "af_liaoshang"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤",
+      "续命"
+    ],
+    "desc": "膏体是暗红的，涂上会有灼意。"
+  },
+  {
+    "id": "it_0093",
+    "name": "回灵·暖玉·珠",
+    "quality": "灵品",
+    "affixes": [
+      "af_huiling",
+      "af_chengzai"
+    ],
+    "affordance": [
+      "疗伤",
+      "储灵",
+      "承载"
+    ],
+    "desc": "握久了珠子发烫，人反倒清醒。"
+  },
+  {
+    "id": "it_0094",
+    "name": "辟秽·艾绒·香",
+    "quality": "灵品",
+    "affixes": [
+      "af_bihui",
+      "af_quxie"
+    ],
+    "affordance": [
+      "解毒",
+      "驱邪",
+      "照明"
+    ],
+    "desc": "烟气笔直向上，不散。"
+  },
+  {
+    "id": "it_0095",
+    "name": "御风·轻羽·靴",
+    "quality": "灵品",
+    "affixes": [
+      "af_yufeng",
+      "af_liuhuo"
+    ],
+    "affordance": [
+      "引火",
+      "御风",
+      "匿形"
+    ],
+    "desc": "落地无声，踩在枯枝上也不响。"
+  },
+  {
+    "id": "it_0096",
+    "name": "潜迹·灰麻·斗篷",
+    "quality": "灵品",
+    "affixes": [
+      "af_qianji",
+      "af_yanxi"
+    ],
+    "affordance": [
+      "镇魂",
+      "匿形",
+      "遁地"
+    ],
+    "desc": "披上它的人，影子会比人先消失。"
+  },
+  {
+    "id": "it_0097",
+    "name": "遁地·黄石·锄",
+    "quality": "灵品",
+    "affixes": [
+      "af_dundi",
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户",
+      "匿形",
+      "遁地"
+    ],
+    "desc": "入土如入水，出来时锄上不沾泥。"
+  },
+  {
+    "id": "it_0098",
+    "name": "锁魂·玄铁·链",
+    "quality": "灵品",
+    "affixes": [
+      "af_zhenhun",
+      "af_suolian"
+    ],
+    "affordance": [
+      "镇魂",
+      "缚身",
+      "承载"
+    ],
+    "desc": "链子拖过地面，会有第二道声音跟上来。"
+  },
+  {
+    "id": "it_0099",
+    "name": "凝霜·寒玉·环",
+    "quality": "灵品",
+    "affixes": [
+      "af_ningshuang",
+      "af_geshui"
+    ],
+    "affordance": [
+      "缚身",
+      "隔水",
+      "承载"
+    ],
+    "desc": "环内壁结霜，天越热结得越厚。"
+  },
+  {
+    "id": "it_0100",
+    "name": "灼目·琉璃·镜",
+    "quality": "灵品",
+    "affixes": [
+      "af_zhuomu",
+      "af_yeguang"
+    ],
+    "affordance": [
+      "照明",
+      "洞察",
+      "惑心"
+    ],
+    "desc": "对着日头一晃，看的人眼泪就下来了。"
+  },
+  {
+    "id": "it_0101",
+    "name": "照影·青铜·镜",
+    "quality": "灵品",
+    "affixes": [
+      "af_dongcha",
+      "af_yeguang"
+    ],
+    "affordance": [
+      "照明",
+      "洞察",
+      "溯源"
+    ],
+    "desc": "镜里的人比本人慢半息才动。"
+  },
+  {
+    "id": "it_0102",
+    "name": "传音·青玉·铃",
+    "quality": "灵品",
+    "affixes": [
+      "af_qianli",
+      "af_mingqi"
+    ],
+    "affordance": [
+      "洞察",
+      "传讯",
+      "召引"
+    ],
+    "desc": "铃响的时候，另一头的人正在想你。"
+  },
+  {
+    "id": "it_0103",
+    "name": "通灵·兽骨·笛",
+    "quality": "灵品",
+    "affixes": [
+      "af_tongling",
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "通灵",
+      "召引"
+    ],
+    "desc": "骨笛有三个孔，第三个孔从不吹。"
+  },
+  {
+    "id": "it_0104",
+    "name": "启机·黄铜·尺",
+    "quality": "灵品",
+    "affixes": [
+      "af_qiji",
+      "af_chengliang"
+    ],
+    "affordance": [
+      "洞察",
+      "称量",
+      "启户"
+    ],
+    "desc": "尺上刻的不是寸，是别人看不懂的格子。"
+  },
+  {
+    "id": "it_0105",
+    "name": "承露·白瓷·瓶",
+    "quality": "灵品",
+    "affixes": [
+      "af_chengzai",
+      "af_geshui"
+    ],
+    "affordance": [
+      "储灵",
+      "隔水",
+      "承载"
+    ],
+    "desc": "瓶口永远潮着，哪怕三个月不下雨。"
+  },
+  {
+    "id": "it_0106",
+    "name": "蓄水·灰陶·瓮",
+    "quality": "灵品",
+    "affixes": [
+      "af_geshui",
+      "af_chengzai"
+    ],
+    "affordance": [
+      "储灵",
+      "隔水",
+      "承载"
+    ],
+    "desc": "空瓮抬起来，比装满时还重。"
+  },
+  {
+    "id": "it_0107",
+    "name": "称心·乌木·秤",
+    "quality": "灵品",
+    "affixes": [
+      "af_chengliang",
+      "af_yijia"
+    ],
+    "affordance": [
+      "洞察",
+      "称量",
+      "议价"
+    ],
+    "desc": "秤杆上有一处磨白，是常年压同一个数。"
+  },
+  {
+    "id": "it_0108",
+    "name": "议价·黄铜·算珠",
+    "quality": "灵品",
+    "affixes": [
+      "af_yijia",
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户",
+      "议价"
+    ],
+    "desc": "珠子拨到底，对面的脸色就变了。"
+  },
+  {
+    "id": "it_0109",
+    "name": "解印·朱砂·笔",
+    "quality": "灵品",
+    "affixes": [
+      "af_jieyin",
+      "af_luomo"
+    ],
+    "affordance": [
+      "断法",
+      "传讯",
+      "启户",
+      "dl_ink"
+    ],
+    "desc": "笔尖含朱，落纸即成，擦不掉的。"
+  },
+  {
+    "id": "it_0110",
+    "name": "落墨·松烟·墨",
+    "quality": "灵品",
+    "affixes": [
+      "af_luomo",
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户",
+      "传讯",
+      "dl_ink"
+    ],
+    "desc": "墨色沉得像一小块夜。"
+  },
+  {
+    "id": "it_0111",
+    "name": "福缘·桃木·牌",
+    "quality": "灵品",
+    "affixes": [
+      "af_fuyuan",
+      "af_quxie"
+    ],
+    "affordance": [
+      "疗伤",
+      "驱邪",
+      "照明",
+      "聚运"
+    ],
+    "desc": "牌角磨圆了，是被人攥着走了很多路。"
+  },
+  {
+    "id": "it_0112",
+    "name": "惑心·狐骨·簪",
+    "quality": "灵品",
+    "affixes": [
+      "af_huoxin",
+      "af_nixing"
+    ],
+    "affordance": [
+      "匿形",
+      "惑心"
+    ],
+    "desc": "簪头是一只蜷着的兽，眼睛处空着。"
+  },
+  {
+    "id": "it_0113",
+    "name": "隐息·灰布·面幕",
+    "quality": "灵品",
+    "affixes": [
+      "af_qianji",
+      "af_nixing"
+    ],
+    "affordance": [
+      "匿形",
+      "惑心",
+      "遁地"
+    ],
+    "desc": "戴上之后，连自己都记不清自己的脸。"
+  },
+  {
+    "id": "it_0114",
+    "name": "断法·陨铁·锥",
+    "quality": "灵品",
+    "affixes": [
+      "af_pojia",
+      "af_jieyin"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "启户"
+    ],
+    "desc": "锥身有星纹，落地时砸出过一个坑。"
+  },
+  {
+    "id": "it_0115",
+    "name": "引火·火石·囊",
+    "quality": "灵品",
+    "affixes": [
+      "af_liuhuo",
+      "af_yinhuo"
+    ],
+    "affordance": [
+      "引火",
+      "御风",
+      "照明"
+    ],
+    "desc": "囊里的石头互相碰撞，会溅出火星。"
+  },
+  {
+    "id": "it_0116",
+    "name": "金创·白瓷·瓶",
+    "quality": "灵品",
+    "affixes": [
+      "af_liaoshang",
+      "af_shengji"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤",
+      "续命"
+    ],
+    "desc": "瓶塞上缠着布条，布条沾过血。"
+  },
+  {
+    "id": "it_0117",
+    "name": "解毒·雄黄·酒",
+    "quality": "灵品",
+    "affixes": [
+      "af_qingxin",
+      "af_bihui"
+    ],
+    "affordance": [
+      "解毒",
+      "镇魂",
+      "驱邪"
+    ],
+    "desc": "酒色浑黄，喝下去喉咙像被擦过一遍。"
+  },
+  {
+    "id": "it_0118",
+    "name": "镇魂·青铜·铃",
+    "quality": "灵品",
+    "affixes": [
+      "af_zhenhun",
+      "af_mingqi"
+    ],
+    "affordance": [
+      "镇魂",
+      "缚身",
+      "传讯",
+      "召引"
+    ],
+    "desc": "铃舌被缠住了，摇不响，却一直在动。"
+  },
+  {
+    "id": "it_0119",
+    "name": "缚身·铁藤·索",
+    "quality": "灵品",
+    "affixes": [
+      "af_suolian",
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "承载"
+    ],
+    "desc": "藤上生着倒刺，越挣扎扎得越深。"
+  },
+  {
+    "id": "it_0120",
+    "name": "匿形·蝉翼·纱",
+    "quality": "灵品",
+    "affixes": [
+      "af_nixing",
+      "af_chansi"
+    ],
+    "affordance": [
+      "缚身",
+      "匿形",
+      "惑心"
+    ],
+    "desc": "薄得能看见光，却看不见纱。"
+  },
+  {
+    "id": "it_0121",
+    "name": "明察·猫眼·珠",
+    "quality": "灵品",
+    "affixes": [
+      "af_dongcha",
+      "af_yeguang"
+    ],
+    "affordance": [
+      "照明",
+      "洞察",
+      "溯源"
+    ],
+    "desc": "珠中那道竖纹，会在夜里张开。"
+  },
+  {
+    "id": "it_0122",
+    "name": "溯源·水滴·玉",
+    "quality": "灵品",
+    "affixes": [
+      "af_dongcha",
+      "af_chengliang"
+    ],
+    "affordance": [
+      "洞察",
+      "称量",
+      "溯源"
+    ],
+    "desc": "据说它认得每一滴水的来处。"
+  },
+  {
+    "id": "it_0123",
+    "name": "蓄势·暖玉·环",
+    "quality": "灵品",
+    "affixes": [
+      "af_chuling",
+      "af_huiling"
+    ],
+    "affordance": [
+      "疗伤",
+      "储灵",
+      "承载"
+    ],
+    "desc": "环里像有什么在缓慢地转。"
+  },
+  {
+    "id": "it_0124",
+    "name": "承重·黄铜·箱",
+    "quality": "灵品",
+    "affixes": [
+      "af_chengzai",
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户",
+      "储灵",
+      "承载"
+    ],
+    "desc": "箱盖一合，外面的声音就轻了一半。"
+  },
+  {
+    "id": "it_0125",
+    "name": "启户·铁·钩",
+    "quality": "灵品",
+    "affixes": [
+      "af_qihu",
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "称量",
+      "启户"
+    ],
+    "desc": "钩尖有一处缺口，正是开过最难的锁留下的。"
+  },
+  {
+    "id": "it_0126",
+    "name": "敛息·草编·蒲团",
+    "quality": "灵品",
+    "affixes": [
+      "af_yanxi",
+      "af_qingxin"
+    ],
+    "affordance": [
+      "解毒",
+      "镇魂",
+      "匿形"
+    ],
+    "desc": "坐上去，鼻息会慢慢和草的味道合成一种。"
+  },
+  {
+    "id": "it_0127",
+    "name": "净水·细砂·囊",
+    "quality": "灵品",
+    "affixes": [
+      "af_bihui",
+      "af_dichen"
+    ],
+    "affordance": [
+      "解毒",
+      "驱邪",
+      "隔水"
+    ],
+    "desc": "浊水过一遍，出来是清的。"
+  },
+  {
+    "id": "it_0128",
+    "name": "定神·柏木·珠",
+    "quality": "灵品",
+    "affixes": [
+      "af_qingxin",
+      "af_zhenhun"
+    ],
+    "affordance": [
+      "解毒",
+      "镇魂",
+      "缚身"
+    ],
+    "desc": "柏木有股冷香，攥紧了手就不抖。"
+  },
+  {
+    "id": "it_0129",
+    "name": "追风·白羽·履",
+    "quality": "灵品",
+    "affixes": [
+      "af_yufeng",
+      "af_qianji"
+    ],
+    "affordance": [
+      "御风",
+      "匿形",
+      "遁地"
+    ],
+    "desc": "走过的路，风会替它抹平。"
+  },
+  {
+    "id": "it_0130",
+    "name": "拾遗·旧藤·箱",
+    "quality": "灵品",
+    "affixes": [
+      "af_xiubu",
+      "af_chengzai"
+    ],
+    "affordance": [
+      "启户",
+      "储灵",
+      "承载"
+    ],
+    "desc": "箱里曾装过什么，藤条记得。"
+  },
+  {
+    "id": "it_0131",
+    "name": "补缀·麻·囊",
+    "quality": "灵品",
+    "affixes": [
+      "af_xiubu",
+      "af_geshui"
+    ],
+    "affordance": [
+      "启户",
+      "隔水",
+      "承载"
+    ],
+    "desc": "补丁用了七种线，缝的人是闭着眼缝的。"
+  },
+  {
+    "id": "it_0132",
+    "name": "无声·毡·靴",
+    "quality": "灵品",
+    "affixes": [
+      "af_yanxi",
+      "af_nixing"
+    ],
+    "affordance": [
+      "镇魂",
+      "匿形",
+      "惑心"
+    ],
+    "desc": "穿上它，连自己的脚步声都听不见。"
+  },
+  {
+    "id": "it_0133",
+    "name": "借光·萤·瓶",
+    "quality": "灵品",
+    "affixes": [
+      "af_yeguang",
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "照明",
+      "洞察"
+    ],
+    "desc": "瓶中那点萤火，几十年没灭过。"
+  },
+  {
+    "id": "it_0134",
+    "name": "回声·空竹·筒",
+    "quality": "灵品",
+    "affixes": [
+      "af_mingqi",
+      "af_qianli"
+    ],
+    "affordance": [
+      "洞察",
+      "传讯",
+      "召引"
+    ],
+    "desc": "对着筒口说话，回来的不只是回声。"
+  },
+  {
+    "id": "it_0135",
+    "name": "引路·黄铜·罗盘",
+    "quality": "灵品",
+    "affixes": [
+      "af_qiji",
+      "af_dongcha"
+    ],
+    "affordance": [
+      "洞察",
+      "溯源",
+      "启户"
+    ],
+    "desc": "针不指北，指它想去的地方。"
+  },
+  {
+    "id": "it_0136",
+    "name": "藏锋·乌木·匣",
+    "quality": "灵品",
+    "affixes": [
+      "af_chengzai",
+      "af_yanxi"
+    ],
+    "affordance": [
+      "镇魂",
+      "匿形",
+      "储灵",
+      "承载"
+    ],
+    "desc": "匣子在暗处比在亮处更沉。"
+  },
+  {
+    "id": "it_0137",
+    "name": "温酒·紫铜·壶",
+    "quality": "灵品",
+    "affixes": [
+      "af_yinhuo",
+      "af_geshui"
+    ],
+    "affordance": [
+      "引火",
+      "照明",
+      "隔水",
+      "承载"
+    ],
+    "desc": "不放火也温，壶身常年是暖的。"
+  },
+  {
+    "id": "it_0138",
+    "name": "采药·寒铁·锄",
+    "quality": "灵品",
+    "affixes": [
+      "af_liaoshang",
+      "af_qihu"
+    ],
+    "affordance": [
+      "解毒",
+      "疗伤",
+      "称量",
+      "启户"
+    ],
+    "desc": "挖药不伤根，这是祖上传下的规矩。"
+  },
+  {
+    "id": "it_0139",
+    "name": "缚妖·朱绳",
+    "quality": "灵品",
+    "affixes": [
+      "af_fushen",
+      "af_quxie"
+    ],
+    "affordance": [
+      "缚身",
+      "驱邪",
+      "照明",
+      "承载"
+    ],
+    "desc": "绳上打着许多结，每个结都记着一件事。"
+  },
+  {
+    "id": "it_0140",
+    "name": "照夜·琉璃·灯",
+    "quality": "灵品",
+    "affixes": [
+      "af_zhuomu",
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "照明",
+      "惑心"
+    ],
+    "desc": "灯芯是青的，点起来屋里的人都变好看了。"
+  },
+  {
+    "id": "it_0141",
+    "name": "探路·青竹·杖",
+    "quality": "灵品",
+    "affixes": [
+      "af_qiji",
+      "af_yufeng"
+    ],
+    "affordance": [
+      "御风",
+      "匿形",
+      "洞察",
+      "启户"
+    ],
+    "desc": "杖头点地三下，前面有没有坑就知道了。"
+  },
+  {
+    "id": "it_0142",
+    "name": "分水·鱼皮·衣",
+    "quality": "灵品",
+    "affixes": [
+      "af_geshui",
+      "af_yufeng"
+    ],
+    "affordance": [
+      "御风",
+      "匿形",
+      "隔水",
+      "承载"
+    ],
+    "desc": "下水时衣服贴在身上，像另一层皮。"
+  },
+  {
+    "id": "it_0143",
+    "name": "定风·青铜·铃",
+    "quality": "灵品",
+    "affixes": [
+      "af_ningshuang",
+      "af_mingqi"
+    ],
+    "affordance": [
+      "缚身",
+      "隔水",
+      "传讯",
+      "召引"
+    ],
+    "desc": "风大的地方，它偏偏不响。"
+  },
+  {
+    "id": "it_0144",
+    "name": "守夜·铁·灯",
+    "quality": "灵品",
+    "affixes": [
+      "af_huzhu",
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "照明",
+      "护主",
+      "承载"
+    ],
+    "desc": "灯灭的那一夜，屋里的人都活着。"
+  },
+  {
+    "id": "it_0145",
+    "name": "血沁·青铜·古剑",
+    "quality": "宝品",
+    "affixes": [
+      "af_duanren",
+      "af_shixue"
+    ],
+    "affordance": [
+      "破甲",
+      "噬主"
+    ],
+    "desc": "铜色里透出暗红，像锈，又不像锈。"
+  },
+  {
+    "id": "it_0146",
+    "name": "断契·朱砂·笔",
+    "quality": "宝品",
+    "affixes": [
+      "af_qimo",
+      "af_fanshi"
+    ],
+    "affordance": [
+      "断法",
+      "dl_ink",
+      "噬主",
+      "封印"
+    ],
+    "desc": "写过一次契，笔杆上就裂了一道。"
+  },
+  {
+    "id": "it_0147",
+    "name": "焚心·赤铜·炉",
+    "quality": "宝品",
+    "affixes": [
+      "af_fenxin",
+      "af_shizhu"
+    ],
+    "affordance": [
+      "引火",
+      "储灵",
+      "噬主"
+    ],
+    "desc": "炉不用添炭，烧的是别的东西。"
+  },
+  {
+    "id": "it_0148",
+    "name": "蚀骨·白骨·匕",
+    "quality": "宝品",
+    "affixes": [
+      "af_shigu",
+      "af_cuidu"
+    ],
+    "affordance": [
+      "破甲",
+      "淬毒",
+      "匿形",
+      "噬主"
+    ],
+    "desc": "匕柄是人的，匕身不是。"
+  },
+  {
+    "id": "it_0149",
+    "name": "断法·玄铁·戈",
+    "quality": "宝品",
+    "affixes": [
+      "af_duanfa",
+      "af_zhaoxu"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "洞察"
+    ],
+    "desc": "戈锋所向，空中的纹路会断成一截一截。"
+  },
+  {
+    "id": "it_0150",
+    "name": "冰魄·寒玉·印",
+    "quality": "宝品",
+    "affixes": [
+      "af_bingpo",
+      "af_zhenya"
+    ],
+    "affordance": [
+      "缚身",
+      "封印"
+    ],
+    "desc": "印面刻着一道封条，封条上结了冰。"
+  },
+  {
+    "id": "it_0151",
+    "name": "剑心·青锋·长剑",
+    "quality": "宝品",
+    "affixes": [
+      "af_jianxin",
+      "af_ruifeng"
+    ],
+    "affordance": [
+      "破甲",
+      "洞察",
+      "启户"
+    ],
+    "desc": "剑身上有一线青光，只在出鞘那一刻显。"
+  },
+  {
+    "id": "it_0152",
+    "name": "追魂·青铜·铃",
+    "quality": "宝品",
+    "affixes": [
+      "af_zhuihun",
+      "af_mingqi"
+    ],
+    "affordance": [
+      "传讯",
+      "溯源",
+      "召引"
+    ],
+    "desc": "铃响过后，地上会留下一串不是人的脚印。"
+  },
+  {
+    "id": "it_0153",
+    "name": "代灾·桃木·人偶",
+    "quality": "宝品",
+    "affixes": [
+      "af_daizai",
+      "af_huzhu"
+    ],
+    "affordance": [
+      "护主",
+      "聚运",
+      "承载"
+    ],
+    "desc": "人偶背上写着一个名字，名字被划掉了。"
+  },
+  {
+    "id": "it_0154",
+    "name": "安魂·白玉·灯",
+    "quality": "宝品",
+    "affixes": [
+      "af_anhen",
+      "af_zhaoming"
+    ],
+    "affordance": [
+      "引火",
+      "镇魂",
+      "疗伤",
+      "照明"
+    ],
+    "desc": "灯下坐着，人会想起不该想的事，然后放下。"
+  },
+  {
+    "id": "it_0155",
+    "name": "定魂·青铜·鼎",
+    "quality": "宝品",
+    "affixes": [
+      "af_dinghun",
+      "af_zhenhun"
+    ],
+    "affordance": [
+      "镇魂",
+      "缚身",
+      "封印"
+    ],
+    "desc": "鼎有三足，其中一足比另两足凉。"
+  },
+  {
+    "id": "it_0156",
+    "name": "凌虚·白羽·靴",
+    "quality": "宝品",
+    "affixes": [
+      "af_lingxu",
+      "af_yufeng"
+    ],
+    "affordance": [
+      "御风",
+      "匿形",
+      "挪移"
+    ],
+    "desc": "迈出一步，落脚处比想的地方远三寸。"
+  },
+  {
+    "id": "it_0157",
+    "name": "悬空·黄铜·铃",
+    "quality": "宝品",
+    "affixes": [
+      "af_xuankong",
+      "af_mingqi"
+    ],
+    "affordance": [
+      "缚身",
+      "御风",
+      "传讯",
+      "召引"
+    ],
+    "desc": "铃不挂在任何东西上，也不落下来。"
+  },
+  {
+    "id": "it_0158",
+    "name": "土行·黄石·铲",
+    "quality": "宝品",
+    "affixes": [
+      "af_tuxing",
+      "af_dundi"
+    ],
+    "affordance": [
+      "匿形",
+      "遁地",
+      "承载"
+    ],
+    "desc": "铲过的土会自己合拢，像水面上的一道痕。"
+  },
+  {
+    "id": "it_0159",
+    "name": "延年·暖玉·枕",
+    "quality": "宝品",
+    "affixes": [
+      "af_yannian",
+      "af_chuling"
+    ],
+    "affordance": [
+      "续命",
+      "储灵",
+      "承载"
+    ],
+    "desc": "枕着它睡的人，第二日醒得比鸡早，也比鸡精神。"
+  },
+  {
+    "id": "it_0160",
+    "name": "重明·琉璃·灯",
+    "quality": "宝品",
+    "affixes": [
+      "af_chongming",
+      "af_zhuomu"
+    ],
+    "affordance": [
+      "驱邪",
+      "照明",
+      "洞察",
+      "惑心"
+    ],
+    "desc": "灯有两层焰，里层照着人，外层照着别处。"
+  },
+  {
+    "id": "it_0161",
+    "name": "照虚·青铜·镜",
+    "quality": "宝品",
+    "affixes": [
+      "af_zhaoxu",
+      "af_dongcha"
+    ],
+    "affordance": [
+      "断法",
+      "洞察",
+      "溯源"
+    ],
+    "desc": "镜里没有你，只有你身后那件东西。"
+  },
+  {
+    "id": "it_0162",
+    "name": "溯源·水晶·盘",
+    "quality": "宝品",
+    "affixes": [
+      "af_suyuan",
+      "af_shuijian"
+    ],
+    "affordance": [
+      "称量",
+      "通灵",
+      "溯源",
+      "隔水"
+    ],
+    "desc": "盘中盛水，水面上会浮出物件的旧影。"
+  },
+  {
+    "id": "it_0163",
+    "name": "魂语·兽骨·笛",
+    "quality": "宝品",
+    "affixes": [
+      "af_hunyu",
+      "af_tongling"
+    ],
+    "affordance": [
+      "镇魂",
+      "通灵",
+      "溯源",
+      "召引"
+    ],
+    "desc": "吹它的人要少吹一孔，留一个孔给听者。"
+  },
+  {
+    "id": "it_0164",
+    "name": "召引·朱砂·幡",
+    "quality": "宝品",
+    "affixes": [
+      "af_zhaoyin",
+      "af_mingqi"
+    ],
+    "affordance": [
+      "缚身",
+      "传讯",
+      "通灵",
+      "召引"
+    ],
+    "desc": "幡无风自动，方向永远朝着来路。"
+  },
+  {
+    "id": "it_0165",
+    "name": "纳虚·乌木·匣",
+    "quality": "宝品",
+    "affixes": [
+      "af_naxu",
+      "af_chengzai"
+    ],
+    "affordance": [
+      "储灵",
+      "封印",
+      "承载"
+    ],
+    "desc": "匣里比匣外大，多出来的那点地方据说会咬人。"
+  },
+  {
+    "id": "it_0166",
+    "name": "蓄势·紫铜·印",
+    "quality": "宝品",
+    "affixes": [
+      "af_xushi",
+      "af_chengliang"
+    ],
+    "affordance": [
+      "洞察",
+      "储灵",
+      "称量",
+      "聚运"
+    ],
+    "desc": "印在手心压久了，会自己发烫。"
+  },
+  {
+    "id": "it_0167",
+    "name": "锁灵·玄铁·枷",
+    "quality": "宝品",
+    "affixes": [
+      "af_suoling",
+      "af_fushen"
+    ],
+    "affordance": [
+      "缚身",
+      "锁灵",
+      "承载"
+    ],
+    "desc": "枷上无锁，扣上便再也找不到接缝。"
+  },
+  {
+    "id": "it_0168",
+    "name": "契墨·松烟·砚",
+    "quality": "宝品",
+    "affixes": [
+      "af_qimo",
+      "af_luomo"
+    ],
+    "affordance": [
+      "传讯",
+      "dl_ink",
+      "封印"
+    ],
+    "desc": "砚中的墨从不干，也从不被用完。"
+  },
+  {
+    "id": "it_0169",
+    "name": "衡心·白玉·秤",
+    "quality": "宝品",
+    "affixes": [
+      "af_hengxin",
+      "af_chengliang"
+    ],
+    "affordance": [
+      "镇魂",
+      "洞察",
+      "称量"
+    ],
+    "desc": "秤上放什么，秤杆都纹丝不动，除非放的是心思。"
+  },
+  {
+    "id": "it_0170",
+    "name": "商道·黄铜·算盘",
+    "quality": "宝品",
+    "affixes": [
+      "af_shangdao",
+      "af_yijia"
+    ],
+    "affordance": [
+      "称量",
+      "聚运",
+      "议价"
+    ],
+    "desc": "拨一遍珠子，买卖就定了一半。"
+  },
+  {
+    "id": "it_0171",
+    "name": "噬主·黑铁·刃",
+    "quality": "宝品",
+    "affixes": [
+      "af_shizhu",
+      "af_duanren"
+    ],
+    "affordance": [
+      "破甲",
+      "储灵",
+      "噬主"
+    ],
+    "desc": "用它的那晚，睡梦里会听见磨刀声。"
+  },
+  {
+    "id": "it_0172",
+    "name": "反噬·陨铁·锥",
+    "quality": "宝品",
+    "affixes": [
+      "af_fanshi",
+      "af_pojia"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "噬主"
+    ],
+    "desc": "锥尖崩过，崩掉的那一截至今没人找着。"
+  },
+  {
+    "id": "it_0173",
+    "name": "血誓·朱砂·契",
+    "quality": "宝品",
+    "affixes": [
+      "af_qimo",
+      "af_qingxin"
+    ],
+    "affordance": [
+      "解毒",
+      "镇魂",
+      "dl_ink",
+      "封印"
+    ],
+    "desc": "契上只有半个指印，另一半在别人身上。"
+  },
+  {
+    "id": "it_0174",
+    "name": "夺魄·青铜·镜",
+    "quality": "宝品",
+    "affixes": [
+      "af_hunyu",
+      "af_zhuihun",
+      "af_mihun"
+    ],
+    "affordance": [
+      "镇魂",
+      "通灵",
+      "溯源",
+      "惑心",
+      "召引"
+    ],
+    "desc": "镜背铸着许多小字，凑近看全是人名。"
+  },
+  {
+    "id": "it_0175",
+    "name": "缚灵·朱绳·网",
+    "quality": "宝品",
+    "affixes": [
+      "af_zhaoyin",
+      "af_chansi"
+    ],
+    "affordance": [
+      "缚身",
+      "匿形",
+      "通灵",
+      "召引"
+    ],
+    "desc": "网眼是空的，可什么东西都漏不下去。"
+  },
+  {
+    "id": "it_0176",
+    "name": "辟火·赤铜·袍",
+    "quality": "宝品",
+    "affixes": [
+      "af_fenxin",
+      "af_geshui"
+    ],
+    "affordance": [
+      "引火",
+      "隔水",
+      "噬主",
+      "承载"
+    ],
+    "desc": "袍角有焦痕，穿着它的人却从没被烧过。"
+  },
+  {
+    "id": "it_0177",
+    "name": "镇水·寒玉·珠",
+    "quality": "宝品",
+    "affixes": [
+      "af_ningshuang",
+      "af_shuijian"
+    ],
+    "affordance": [
+      "缚身",
+      "称量",
+      "溯源",
+      "隔水"
+    ],
+    "desc": "扔进水里，水面会朝四面退开一步。"
+  },
+  {
+    "id": "it_0178",
+    "name": "破妄·琉璃·镜",
+    "quality": "宝品",
+    "affixes": [
+      "af_zhaoxu",
+      "af_chongming"
+    ],
+    "affordance": [
+      "断法",
+      "驱邪",
+      "照明",
+      "洞察"
+    ],
+    "desc": "照过一次的人，再不敢照第二次。"
+  },
+  {
+    "id": "it_0179",
+    "name": "问心·白玉·尺",
+    "quality": "宝品",
+    "affixes": [
+      "af_hengxin",
+      "af_qingxin"
+    ],
+    "affordance": [
+      "解毒",
+      "镇魂",
+      "称量"
+    ],
+    "desc": "尺子量不出长短，量得出轻重。"
+  },
+  {
+    "id": "it_0180",
+    "name": "衔月·银·钩",
+    "quality": "宝品",
+    "affixes": [
+      "af_zhuihun",
+      "af_qihu"
+    ],
+    "affordance": [
+      "称量",
+      "启户",
+      "溯源",
+      "召引"
+    ],
+    "desc": "钩上挂着极细的一根线，线的另一头不知在何处。"
+  },
+  {
+    "id": "it_0181",
+    "name": "覆雨·鱼皮·囊",
+    "quality": "宝品",
+    "affixes": [
+      "af_geshui",
+      "af_bihui"
+    ],
+    "affordance": [
+      "解毒",
+      "驱邪",
+      "隔水",
+      "承载"
+    ],
+    "desc": "囊中倒出来的水是干净的，倒多少有多少。"
+  },
+  {
+    "id": "it_0182",
+    "name": "藏机·乌木·匣",
+    "quality": "宝品",
+    "affixes": [
+      "af_naxu",
+      "af_qiji"
+    ],
+    "affordance": [
+      "洞察",
+      "储灵",
+      "启户",
+      "封印",
+      "承载"
+    ],
+    "desc": "匣盖上有九道缝，只有一道是真的。"
+  },
+  {
+    "id": "it_0183",
+    "name": "借命·血玉·灯",
+    "quality": "宝品",
+    "affixes": [
+      "af_yannian",
+      "af_anhen"
+    ],
+    "affordance": [
+      "镇魂",
+      "疗伤",
+      "续命",
+      "储灵"
+    ],
+    "desc": "灯油是红的，添一次，人就轻一分。"
+  },
+  {
+    "id": "it_0184",
+    "name": "化血·白骨·珠",
+    "quality": "宝品",
+    "affixes": [
+      "af_shigu",
+      "af_shengji"
+    ],
+    "affordance": [
+      "破甲",
+      "淬毒",
+      "疗伤",
+      "续命",
+      "噬主"
+    ],
+    "desc": "珠是温的，握久了掌心会留下一点红。"
+  },
+  {
+    "id": "it_0185",
+    "name": "洗剑·青石·砚",
+    "quality": "宝品",
+    "affixes": [
+      "af_zhaoxu",
+      "af_xiubu"
+    ],
+    "affordance": [
+      "断法",
+      "洞察",
+      "启户",
+      "承载"
+    ],
+    "desc": "石上有旧水痕，据说曾洗过一把不肯入鞘的剑。"
+  },
+  {
+    "id": "it_0186",
+    "name": "禁法·陨铁·剑",
+    "quality": "仙品",
+    "affixes": [
+      "af_jinfa",
+      "af_pojia"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "锁灵",
+      "封印"
+    ],
+    "desc": "出鞘时四周会静下来，静得能听见血在流。"
+  },
+  {
+    "id": "it_0187",
+    "name": "雷霆·青铜·锏",
+    "quality": "仙品",
+    "affixes": [
+      "af_leiting",
+      "af_chentie"
+    ],
+    "affordance": [
+      "破甲",
+      "驱邪",
+      "承载"
+    ],
+    "desc": "锏身没有锋，落下来的时候也不需要锋。"
+  },
+  {
+    "id": "it_0188",
+    "name": "续命·血玉·灯",
+    "quality": "仙品",
+    "affixes": [
+      "af_xuming",
+      "af_anhen"
+    ],
+    "affordance": [
+      "镇魂",
+      "疗伤",
+      "续命",
+      "噬主"
+    ],
+    "desc": "灯亮着，人就活着；灯是谁点的，没人问。"
+  },
+  {
+    "id": "it_0189",
+    "name": "挪移·青玉·环",
+    "quality": "仙品",
+    "affixes": [
+      "af_nuoyi",
+      "af_lingxu"
+    ],
+    "affordance": [
+      "御风",
+      "匿形",
+      "挪移"
+    ],
+    "desc": "环中空处，看得见手指，摸不着手指。"
+  },
+  {
+    "id": "it_0190",
+    "name": "隐身·蝉翼·纱",
+    "quality": "仙品",
+    "affixes": [
+      "af_yinshen",
+      "af_nixing"
+    ],
+    "affordance": [
+      "匿形",
+      "惑心",
+      "挪移"
+    ],
+    "desc": "披上它的人，连自己都要伸手摸一摸才知道还在。"
+  },
+  {
+    "id": "it_0191",
+    "name": "收魂·青铜·鼎",
+    "quality": "仙品",
+    "affixes": [
+      "af_shouhun",
+      "af_dinghun"
+    ],
+    "affordance": [
+      "镇魂",
+      "封印",
+      "召引"
+    ],
+    "desc": "鼎口贴着符，符纸上的字一夜比一夜淡。"
+  },
+  {
+    "id": "it_0192",
+    "name": "封灵·玄铁·匣",
+    "quality": "仙品",
+    "affixes": [
+      "af_fengling",
+      "af_naxu"
+    ],
+    "affordance": [
+      "储灵",
+      "锁灵",
+      "封印",
+      "承载"
+    ],
+    "desc": "匣缝里渗出的不是光，是一种沉默。"
+  },
+  {
+    "id": "it_0193",
+    "name": "封印·黄铜·印",
+    "quality": "仙品",
+    "affixes": [
+      "af_fengyin",
+      "af_zhenya"
+    ],
+    "affordance": [
+      "缚身",
+      "锁灵",
+      "封印"
+    ],
+    "desc": "印一落，纸上那名字就再也不出声了。"
+  },
+  {
+    "id": "it_0194",
+    "name": "聚运·暖玉·珠",
+    "quality": "仙品",
+    "affixes": [
+      "af_juyun",
+      "af_fuyuan"
+    ],
+    "affordance": [
+      "疗伤",
+      "护主",
+      "聚运"
+    ],
+    "desc": "珠随人走，走的路总比别人顺一点。"
+  },
+  {
+    "id": "it_0195",
+    "name": "斩运·黑铁·刀",
+    "quality": "仙品",
+    "affixes": [
+      "af_leiting",
+      "af_duanren"
+    ],
+    "affordance": [
+      "破甲",
+      "驱邪",
+      "噬主"
+    ],
+    "desc": "刀身上刻着许多划痕，像有人替它记过账。"
+  },
+  {
+    "id": "it_0196",
+    "name": "定劫·白玉·尺",
+    "quality": "仙品",
+    "affixes": [
+      "af_jinfa",
+      "af_hengxin"
+    ],
+    "affordance": [
+      "镇魂",
+      "断法",
+      "称量",
+      "锁灵",
+      "封印"
+    ],
+    "desc": "尺上刻度停在某处，从没人见它移动过。"
+  },
+  {
+    "id": "it_0197",
+    "name": "无相·灰麻·衣",
+    "quality": "仙品",
+    "affixes": [
+      "af_yinshen",
+      "af_yanxi"
+    ],
+    "affordance": [
+      "镇魂",
+      "匿形",
+      "挪移"
+    ],
+    "desc": "衣裳挂在墙上时最好看，穿上就找不着了。"
+  },
+  {
+    "id": "it_0198",
+    "name": "换命·血玉·符",
+    "quality": "仙品",
+    "affixes": [
+      "af_xuming",
+      "af_daizai"
+    ],
+    "affordance": [
+      "续命",
+      "护主",
+      "聚运",
+      "噬主"
+    ],
+    "desc": "符上写着一人的生辰，却贴着另一人的血。"
+  },
+  {
+    "id": "it_0199",
+    "name": "断劫·陨铁·锥",
+    "quality": "仙品",
+    "affixes": [
+      "af_jinfa",
+      "af_leiting"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "驱邪",
+      "锁灵",
+      "封印"
+    ],
+    "desc": "锥落之处，天上那道弯雷会断成两截。"
+  },
+  {
+    "id": "it_0200",
+    "name": "承天·黄铜·鼎",
+    "quality": "仙品",
+    "affixes": [
+      "af_juyun",
+      "af_chengzai"
+    ],
+    "affordance": [
+      "护主",
+      "储灵",
+      "聚运",
+      "承载"
+    ],
+    "desc": "鼎里是空的，却重得需要四个人抬。"
+  },
+  {
+    "id": "it_0201",
+    "name": "藏形·乌木·匣",
+    "quality": "仙品",
+    "affixes": [
+      "af_yinshen",
+      "af_naxu"
+    ],
+    "affordance": [
+      "匿形",
+      "储灵",
+      "挪移",
+      "封印",
+      "承载"
+    ],
+    "desc": "匣子打开的那一瞬，附近的人会短暂地忘掉你的脸。"
+  },
+  {
+    "id": "it_0202",
+    "name": "雷罚·紫铜·锥",
+    "quality": "道品",
+    "affixes": [
+      "af_leifa",
+      "af_pojia"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "驱邪"
+    ],
+    "desc": "锥上缠着一线不散的白光，靠近时头发会竖起来。"
+  },
+  {
+    "id": "it_0203",
+    "name": "叠空·白玉·环",
+    "quality": "道品",
+    "affixes": [
+      "af_diekong",
+      "af_naxu"
+    ],
+    "affordance": [
+      "储灵",
+      "挪移",
+      "封印",
+      "承载"
+    ],
+    "desc": "环内那一寸空处，比这间屋子还大。"
+  },
+  {
+    "id": "it_0204",
+    "name": "劫运·青铜·秤",
+    "quality": "道品",
+    "affixes": [
+      "af_jieyun",
+      "af_hengxin"
+    ],
+    "affordance": [
+      "镇魂",
+      "称量",
+      "聚运",
+      "噬主"
+    ],
+    "desc": "秤上称的是运数，称过一次的人，走路都会绕开井口。"
+  },
+  {
+    "id": "it_0205",
+    "name": "天宪·玄铁·尺",
+    "quality": "道品",
+    "affixes": [
+      "af_leifa",
+      "af_diekong",
+      "af_jieyun"
+    ],
+    "affordance": [
+      "破甲",
+      "断法",
+      "驱邪",
+      "称量",
+      "聚运",
+      "噬主",
+      "挪移",
+      "封印"
+    ],
+    "desc": "尺上没有刻度，据说规矩是它划的，不是刻在上面的。"
+  }
+]

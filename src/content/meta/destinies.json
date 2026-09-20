@@ -1,0 +1,345 @@
+[
+  {
+    "id": "dest_reborn",
+    "name": "重生者",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "trait_past_life_memory" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "origin_orphan" },
+            { "type": "flag", "ref": "origin_castoff" },
+            { "type": "flag", "ref": "origin_beggar" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "开局多出一段前世记忆：早期节点中，凡是与你记忆吻合的判定额外获得优势。但你会不自觉说出「还没发生的事」，疑心由此而生。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_reborn" },
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "add_var", "key": "exposure", "delta": -5 },
+      { "type": "unlock_title", "ref": "title_reborn" }
+    ],
+    "desc": "你记得一些不该记得的事。记得最清楚的那一件，是你自己的死法。"
+  },
+  {
+    "id": "dest_outsider",
+    "name": "局外人",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "origin_outlander" },
+        { "type": "flag", "ref": "no_register" }
+      ]
+    },
+    "rule_rewrite": "本体系的强制事件（清算、审查、征召、清算式追杀）对你首次失效。代价是你被所有阵营的馈赠名单排除在外。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_outsider" },
+      { "type": "add_var", "key": "exposure", "delta": -10 },
+      { "type": "add_var", "key": "favor", "delta": -10 }
+    ],
+    "desc": "你不在任何一本册子上。册子管不到你，册子里的好处也轮不到你。"
+  },
+  {
+    "id": "dest_defier",
+    "name": "逆命者",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "trait_defiant_bone" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "origin_convict" },
+            { "type": "flag", "ref": "origin_castoff" },
+            { "type": "flag", "ref": "origin_orphan" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "天劫类判定失败时可重掷一次。每次重掷累加天债，且不可连续重掷——天道也记账。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_defier" },
+      { "type": "add_var", "key": "debt", "delta": 5 },
+      { "type": "add_attr", "key": "temper", "delta": 2 }
+    ],
+    "desc": "别人渡劫靠备货，你渡劫靠不认。天雷劈下来的时候，你抬着头。"
+  },
+  {
+    "id": "dest_relic_picker",
+    "name": "拾遗人",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "origin_fallen_sect" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "trait_gap_eye" },
+            { "type": "flag", "ref": "trait_alchemy_gift" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "遗府与秘境类事件的收获提升一档；但每次额外收获都会同步写入暴露度，藏不住第二次。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_relic_picker" },
+      { "type": "add_var", "key": "rare_mat", "delta": 4 },
+      { "type": "add_var", "key": "exposure", "delta": 6 }
+    ],
+    "desc": "你捡别人不要的东西，并且总能捡对。破门而入的人死了，你跟在后面活着。"
+  },
+  {
+    "id": "dest_twin_soul",
+    "name": "双生魂",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "old_soul" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "trait_dream_walker" },
+            { "type": "flag", "ref": "trait_unbroken_daoheart" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "神魂类污染减半。每次失控会短暂切换人格：数节点内六维属性的权重互换，判定依据随之改变。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_twin_soul" },
+      { "type": "add_var", "key": "corruption", "delta": -10 }
+    ],
+    "desc": "你脑子里住着另一个人。他比你懂得多，也比你更想活。"
+  },
+  {
+    "id": "dest_hidden_edge",
+    "name": "藏锋者",
+    "combo": {
+      "type": "all",
+      "of": [
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "origin_castoff" },
+            { "type": "flag", "ref": "origin_beggar" }
+          ]
+        },
+        { "type": "flag", "ref": "trait_unbound_register" }
+      ]
+    },
+    "rule_rewrite": "常规手段无法识破你的真实境界与底牌。但一旦你主动全力出手，隐蔽永久失效，且无法再恢复。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_hidden_edge" },
+      { "type": "add_var", "key": "exposure", "delta": -15 }
+    ],
+    "desc": "所有人对你的评估都低了一档。这正是你要的——直到你需要他们高估你。"
+  },
+  {
+    "id": "dest_debt_master",
+    "name": "债多不压身",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "origin_convict" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "trait_merchant_marrow" },
+            { "type": "flag", "ref": "trait_patron_favor" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "因果债务可按比例折算为战力与判定加成。开局负债越高，前期越强；每局结束时按剩余债务结算结局评级。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_debt_master" },
+      { "type": "add_var", "key": "debt", "delta": 10 },
+      { "type": "modify_power_index", "delta": 15 }
+    ],
+    "desc": "欠得越多，别人越不敢让你死。这门生意，你做得很熟练。"
+  },
+  {
+    "id": "dest_under_lamp",
+    "name": "灯下黑",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "lamp_rite" },
+        { "type": "flag", "ref": "trait_gap_eye" }
+      ]
+    },
+    "rule_rewrite": "追查与搜捕类事件对你的判定降低三成。代价是你在暗处获得的情报同样减少——你只能看见灯照到的地方。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_under_lamp" },
+      { "type": "add_var", "key": "exposure", "delta": -8 },
+      { "type": "add_attr", "key": "insight", "delta": -1 }
+    ],
+    "desc": "最亮的地方最容易被忽略。你在那里站了很多年，没人低头找过。"
+  },
+  {
+    "id": "dest_omen_child",
+    "name": "谶言之子",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "heaven_watched" },
+        { "type": "flag", "ref": "origin_exiled_immortal" }
+      ]
+    },
+    "rule_rewrite": "每局随机获知三条谶语：两条为真，一条为假。假的那条不会报错，只会把你推往最坏的那条结局线。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_omen_child" },
+      { "type": "add_attr", "key": "luck", "delta": 2 },
+      { "type": "unlock_codex", "ref": "codex_omen" }
+    ],
+    "desc": "天机漏给你几句话。听懂的人不多，听懂的都没有好下场。"
+  },
+  {
+    "id": "dest_night_walker",
+    "name": "长夜行者",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "night_errand" },
+        { "type": "flag", "ref": "trait_dream_walker" }
+      ]
+    },
+    "rule_rewrite": "夜间与阴属判定获得加成，隐蔽类判定尤甚；白昼行动时寿元持续流失，且无法通过闭关弥补。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_night_walker" },
+      { "type": "modify_power_index", "delta": 10 },
+      { "type": "add_var", "key": "lifespan", "delta": -5 }
+    ],
+    "desc": "太阳一出你就犯困。你这一生最好的事，都发生在别人睡着的时候。"
+  },
+  {
+    "id": "dest_stone_heart",
+    "name": "石心",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "trait_unbroken_daoheart" },
+        { "type": "flag", "ref": "origin_convict" }
+      ]
+    },
+    "rule_rewrite": "免疫心魔与诱惑类事件，也不会被情感要挟。代价是无法结成道侣与护道人关系，相关机缘永久关闭。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_stone_heart" },
+      { "type": "add_var", "key": "corruption", "delta": -15 },
+      { "type": "add_var", "key": "favor", "delta": -5 }
+    ],
+    "desc": "他们把刀架在你朋友的脖子上。你看了一眼，然后继续往前走。"
+  },
+  {
+    "id": "dest_life_borrower",
+    "name": "借命者",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "has_patron" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "trait_patron_favor" },
+            { "type": "flag", "ref": "trait_loyal_hound" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "可向护道人借取寿元应急，借多少还多少。护道人若先你而死，这笔账会一次性计入你的因果。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_life_borrower" },
+      { "type": "add_var", "key": "lifespan", "delta": 20 },
+      { "type": "add_var", "key": "debt", "delta": 8 }
+    ],
+    "desc": "有人愿意分你几年。他不说，你不问。你们都知道这笔账最后怎么算。"
+  },
+  {
+    "id": "dest_rootless",
+    "name": "无根之人",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "no_sect" },
+        { "type": "flag", "ref": "trait_unbound_register" }
+      ]
+    },
+    "rule_rewrite": "宗门与教会的追缉手段对你无效；所有以「出身来历」为门槛的机缘同时对你关闭，包括传人、衣钵、真传三类。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_rootless" },
+      { "type": "add_var", "key": "exposure", "delta": -12 },
+      { "type": "add_var", "key": "favor", "delta": -8 }
+    ],
+    "desc": "没有师门，就没有人可以替你说话，也没有人可以拿你顶罪。"
+  },
+  {
+    "id": "dest_luck_eater",
+    "name": "噬运者",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "origin_beast_blood" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "trait_sword_bone" },
+            { "type": "flag", "ref": "trait_defiant_bone" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "每次大成功可从位面之子处夺取气运，被夺者气运池直接扣减。但仇恨永久累积，且他会针对你的手段生出抗性。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_luck_eater" },
+      { "type": "destiny_drain", "ref": "destiny_child_active", "delta": 1 },
+      { "type": "add_var", "key": "debt", "delta": 6 }
+    ],
+    "desc": "本该属于别人的东西，到你手里特别顺。你知道有人在背后记着这笔账。"
+  },
+  {
+    "id": "dest_keep_dull",
+    "name": "守拙者",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "origin_orphan" },
+        { "type": "flag", "ref": "trait_loyal_hound" }
+      ]
+    },
+    "rule_rewrite": "主动示弱、认输、退让时获得额外补偿。但连胜与连捷会推高天机评价，下一次劫数的强度随之提升，且评价有滞后。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_keep_dull" },
+      { "type": "add_var", "key": "exposure", "delta": -8 },
+      { "type": "add_var", "key": "karma", "delta": 5 }
+    ],
+    "desc": "每次都输一点点，输到最后还站着。赢的人早就不见了。"
+  },
+  {
+    "id": "dest_last_page",
+    "name": "残卷一页",
+    "combo": {
+      "type": "all",
+      "of": [
+        { "type": "flag", "ref": "inherited_manual" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "trait_alchemy_gift" },
+            { "type": "flag", "ref": "trait_past_life_memory" }
+          ]
+        }
+      ]
+    },
+    "rule_rewrite": "开局即刻解锁本体系的一条隐规则，无需满足揭示条件。但该规则全局限用一次，用后永久遗忘，且不可再被揭示。",
+    "effects": [
+      { "type": "set_flag", "key": "destiny_last_page" },
+      { "type": "add_attr", "key": "insight", "delta": 2 },
+      { "type": "unlock_codex", "ref": "codex_last_page" }
+    ],
+    "desc": "师门被烧那天，你从火里抢出了半页纸。看懂它花了你二十年。"
+  }
+]

@@ -1,0 +1,379 @@
+{
+  "mortal": [
+    {
+      "id": "fm_mortal_betrothal",
+      "name": "退婚立誓",
+      "narrative": "他被退了婚的那一夜站在雪里，天亮时雪停了，他也换了个人。",
+      "power_gain": 10,
+      "world_effect": { "region_tag": "homestead", "danger_delta": 1, "closes": ["evt_mortal_peace_road"] }
+    },
+    {
+      "id": "fm_mortal_soul_mentor",
+      "name": "残魂拜师",
+      "narrative": "一枚旧玉佩里住着半个死人，那半个死人收了他做徒弟。",
+      "power_gain": 15,
+      "world_effect": { "region_tag": "wilds", "opens": ["evt_mortal_old_road"] }
+    },
+    {
+      "id": "fm_mortal_herb_fame",
+      "name": "药庐扬名",
+      "narrative": "他救了一个不该救的人，名声从此比他的刀快。",
+      "power_gain": 12,
+      "world_effect": { "region_tag": "market", "danger_delta": 1 }
+    },
+    {
+      "id": "fm_mortal_cavern",
+      "name": "秘地得宝",
+      "narrative": "山塌了半边，他从塌下来的地方走了出来，身上多了件东西。",
+      "power_gain": 18,
+      "world_effect": { "region_tag": "ruins", "danger_delta": 2, "opens": ["evt_mortal_cavern_rush"] }
+    },
+    {
+      "id": "fm_mortal_breakthrough",
+      "name": "结丹冲关",
+      "narrative": "关了他九日，第十日门开了，屋里的木器都老了一圈。",
+      "power_gain": 24
+    },
+    {
+      "id": "fm_mortal_sect_found",
+      "name": "开宗立派",
+      "narrative": "他在荒山上立了一块木牌，来投的人比他想的多。",
+      "power_gain": 28,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 2, "opens": ["evt_mortal_sect_war"] }
+    },
+    {
+      "id": "fm_mortal_city_ally",
+      "name": "一城结盟",
+      "narrative": "城主把女儿和城门钥匙一并交给他，只交了一样是真的。",
+      "power_gain": 22,
+      "world_effect": { "region_tag": "city", "danger_delta": -1 }
+    },
+    {
+      "id": "fm_mortal_relic",
+      "name": "古器认主",
+      "narrative": "那件东西在他手里烫了一夜，第二日就凉了，像是认了。",
+      "power_gain": 30
+    },
+    {
+      "id": "fm_mortal_ascend",
+      "name": "登临真仙",
+      "narrative": "他飞升那日，山下有人放了一夜的灯，没人知道是为了送他还是为了留他。",
+      "power_gain": 40,
+      "world_effect": { "region_tag": "homestead", "danger_delta": 3, "closes": ["evt_mortal_old_road"] }
+    }
+  ],
+  "genius": [
+    {
+      "id": "fm_genius_flame_seed",
+      "name": "炎灵入体",
+      "narrative": "火种落进他胸口的那一刻，方圆十里的雪都化了。",
+      "power_gain": 16,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 1 }
+    },
+    {
+      "id": "fm_genius_tournament",
+      "name": "大比夺魁",
+      "narrative": "他赢下最后一战的时候，台上台下都安静了一息，才有人喊出他的名字。",
+      "power_gain": 20,
+      "world_effect": { "region_tag": "city", "danger_delta": 1, "opens": ["evt_genius_ranking_board"] }
+    },
+    {
+      "id": "fm_genius_alchemy",
+      "name": "丹会折桂",
+      "narrative": "炉盖掀开时没有药香，只有一股焦味，可那一炉偏偏成了。",
+      "power_gain": 14
+    },
+    {
+      "id": "fm_genius_burn",
+      "name": "焚身涅槃",
+      "narrative": "他在火里烧了三日，出来时皮肉是新的，眼神是旧的。",
+      "power_gain": 26,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 2 }
+    },
+    {
+      "id": "fm_genius_rival",
+      "name": "宿敌折剑",
+      "narrative": "那人把断剑插在他脚边，说下一次见面，两个人只能活一个。",
+      "power_gain": 22,
+      "world_effect": { "region_tag": "city", "danger_delta": 2 }
+    },
+    {
+      "id": "fm_genius_rank",
+      "name": "炎灵谱列名",
+      "narrative": "谱上添了一行小字，添字的人手在抖。",
+      "power_gain": 24,
+      "world_effect": { "opens": ["evt_genius_flame_contest"] }
+    },
+    {
+      "id": "fm_genius_faction",
+      "name": "执掌一脉",
+      "narrative": "老掌门把印交给他时，堂下跪了一半的人，也站了一半的人。",
+      "power_gain": 28,
+      "world_effect": { "region_tag": "city", "danger_delta": 2, "opens": ["evt_genius_inner_war"] }
+    },
+    {
+      "id": "fm_genius_pill",
+      "name": "九转丹成",
+      "narrative": "丹成那日雷云压了整座山，他站在丹炉前一步没退。",
+      "power_gain": 32
+    },
+    {
+      "id": "fm_genius_ascend",
+      "name": "成神",
+      "narrative": "他踏空而上，回头看了一眼，那一眼里已经没有人了。",
+      "power_gain": 45,
+      "world_effect": { "region_tag": "city", "danger_delta": 4, "closes": ["evt_genius_flame_contest"] }
+    }
+  ],
+  "physique": [
+    {
+      "id": "fm_physique_bone",
+      "name": "骨篆初成",
+      "narrative": "第一道纹从骨里长出来时，他疼得把牙咬碎了半颗。",
+      "power_gain": 14
+    },
+    {
+      "id": "fm_physique_relic_body",
+      "name": "遗蜕入体",
+      "narrative": "他把那具不知名的躯壳按进自己身上，醒来时手上的纹路不是自己的了。",
+      "power_gain": 22,
+      "world_effect": { "region_tag": "ruins", "danger_delta": 2 }
+    },
+    {
+      "id": "fm_physique_arena",
+      "name": "力压同辈",
+      "narrative": "他一拳把擂台砸塌了，裁判看了很久，才想起来该判谁赢。",
+      "power_gain": 16,
+      "world_effect": { "region_tag": "city", "danger_delta": 1 }
+    },
+    {
+      "id": "fm_physique_ancient_corpse",
+      "name": "古尸复苏",
+      "narrative": "山里那具坐了很久的尸体，在他靠近时动了一下手指。",
+      "power_gain": 26,
+      "world_effect": { "region_tag": "ruins", "danger_delta": 3, "opens": ["evt_physique_tomb_walk"] }
+    },
+    {
+      "id": "fm_physique_era",
+      "name": "纪元清算",
+      "narrative": "天上落下的不是雨，是上一个纪元没结清的账。",
+      "power_gain": 34,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 3, "closes": ["evt_physique_tomb_walk"] }
+    },
+    {
+      "id": "fm_physique_indestructible",
+      "name": "肉身不坏",
+      "narrative": "刀砍上去只留下一道白痕，他低头看了看，像是有点失望。",
+      "power_gain": 28
+    },
+    {
+      "id": "fm_physique_inscription_full",
+      "name": "满篆加身",
+      "narrative": "纹路爬满全身那夜，他做了一梦，梦里他是一头兽。",
+      "power_gain": 32,
+      "world_effect": { "region_tag": "ruins", "danger_delta": 2 }
+    },
+    {
+      "id": "fm_physique_bloodline",
+      "name": "古血觉醒",
+      "narrative": "他流血的时候，地上的草先枯了，随后又长得比原先高。",
+      "power_gain": 30
+    },
+    {
+      "id": "fm_physique_eternal",
+      "name": "万载不朽",
+      "narrative": "同辈的人一个个老了，他的脸还是当年那张。",
+      "power_gain": 42,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 2, "opens": ["evt_physique_old_ones"] }
+    }
+  ],
+  "mystery": [
+    {
+      "id": "fm_mystery_whisper",
+      "name": "雾中低语",
+      "narrative": "他在雾里听见有人叫他的名字，那个名字他自己都记不清了。",
+      "power_gain": 12,
+      "world_effect": { "region_tag": "fog", "danger_delta": 1 }
+    },
+    {
+      "id": "fm_mystery_rank",
+      "name": "阶位九品",
+      "narrative": "他在那册子上按了手印，从此有了一个不属于自己的位次。",
+      "power_gain": 16,
+      "world_effect": { "opens": ["evt_mystery_rank_meeting"] }
+    },
+    {
+      "id": "fm_mystery_sealed",
+      "name": "启封一件",
+      "narrative": "盒盖开了，里面关着的东西没有出来，外面的东西进去了。",
+      "power_gain": 18,
+      "world_effect": { "region_tag": "ruins", "danger_delta": 2 }
+    },
+    {
+      "id": "fm_mystery_hunter",
+      "name": "聚合者追至",
+      "narrative": "追他的那个人从不说话，只在墙上留下一道很长的影子。",
+      "power_gain": 20,
+      "world_effect": { "region_tag": "fog", "danger_delta": 2, "opens": ["evt_mystery_hunt"] }
+    },
+    {
+      "id": "fm_mystery_path_lock",
+      "name": "道途定型",
+      "narrative": "他把退路一条条封死的时候，脸上是笑着的。",
+      "power_gain": 24,
+      "world_effect": { "closes": ["evt_mystery_rank_meeting"] }
+    },
+    {
+      "id": "fm_mystery_play",
+      "name": "换了张脸",
+      "narrative": "他换了身份，换了口音，连自己照镜子时都要先愣一下。",
+      "power_gain": 22
+    },
+    {
+      "id": "fm_mystery_gate",
+      "name": "门后之影",
+      "narrative": "门开了一条缝，缝里的东西也在看他，两边都没动。",
+      "power_gain": 30,
+      "world_effect": { "region_tag": "fog", "danger_delta": 3, "opens": ["evt_mystery_gate_watch"] }
+    },
+    {
+      "id": "fm_mystery_nameless",
+      "name": "失名",
+      "narrative": "有人问起他是谁，那人想了想，说记不起来了。",
+      "power_gain": 26
+    },
+    {
+      "id": "fm_mystery_crown",
+      "name": "十三阶之冠",
+      "narrative": "他坐上那个位次时，身后所有的人都低下了头，只有影子没有。",
+      "power_gain": 44,
+      "world_effect": { "region_tag": "fog", "danger_delta": 4, "closes": ["evt_mystery_hunt", "evt_mystery_gate_watch"] }
+    }
+  ],
+  "rebel": [
+    {
+      "id": "fm_rebel_oath",
+      "name": "断剑立誓",
+      "narrative": "他把剑折了半截插进土里，说这一世不跪。",
+      "power_gain": 12,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 1 }
+    },
+    {
+      "id": "fm_rebel_defy",
+      "name": "逆天改命",
+      "narrative": "他把自己那条早该断的命线，硬生生接了回去。",
+      "power_gain": 20,
+      "world_effect": { "opens": ["evt_rebel_watchers"] }
+    },
+    {
+      "id": "fm_rebel_tribulation",
+      "name": "渡劫残躯",
+      "narrative": "雷停了，他还站着，站的地方比四周低了三尺。",
+      "power_gain": 24,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 2 }
+    },
+    {
+      "id": "fm_rebel_sword_will",
+      "name": "剑意成形",
+      "narrative": "他睁眼时，屋里的剑全都在鞘里响了一声。",
+      "power_gain": 22
+    },
+    {
+      "id": "fm_rebel_alone",
+      "name": "一人一剑",
+      "narrative": "山门在他面前开了，他身后一个人也没有。",
+      "power_gain": 28,
+      "world_effect": { "region_tag": "city", "danger_delta": 3 }
+    },
+    {
+      "id": "fm_rebel_cut",
+      "name": "斩劫",
+      "narrative": "那道劈下来的东西，被他抬头看了一眼，就散了。",
+      "power_gain": 32,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 1 }
+    },
+    {
+      "id": "fm_rebel_sit",
+      "name": "与天对坐",
+      "narrative": "他坐在那里三天，谁也不知道他看见了什么，只知道他起来时头发白了一半。",
+      "power_gain": 34,
+      "world_effect": { "opens": ["evt_rebel_sky_gaze"] }
+    },
+    {
+      "id": "fm_rebel_split",
+      "name": "天裂",
+      "narrative": "天上裂开的那道口子，很多年后还在那里。",
+      "power_gain": 38,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 4, "opens": ["evt_rebel_rift_spill"] }
+    },
+    {
+      "id": "fm_rebel_ascend",
+      "name": "逆天证道",
+      "narrative": "他走的时候没有回头，身后的天低了半寸。",
+      "power_gain": 46,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 3, "closes": ["evt_rebel_watchers"] }
+    }
+  ],
+  "cautious": [
+    {
+      "id": "fm_cautious_hide",
+      "name": "藏拙三载",
+      "narrative": "他在药铺里抓了三年药，没人知道抓药的手能捏碎石头。",
+      "power_gain": 12,
+      "world_effect": { "region_tag": "market", "danger_delta": -1 }
+    },
+    {
+      "id": "fm_cautious_backup",
+      "name": "备下后手",
+      "narrative": "他在七个地方埋了七样东西，埋的时候连月亮都没看见。",
+      "power_gain": 14
+    },
+    {
+      "id": "fm_cautious_fake_death",
+      "name": "假死脱身",
+      "narrative": "他的葬礼办得很像，来吊唁的人里有一个是他自己。",
+      "power_gain": 18,
+      "world_effect": { "region_tag": "city", "danger_delta": -2, "closes": ["evt_cautious_bounty"] }
+    },
+    {
+      "id": "fm_cautious_clone",
+      "name": "分身代死",
+      "narrative": "替他死的那具身子睁开眼时，还笑着冲他点了点头。",
+      "power_gain": 22
+    },
+    {
+      "id": "fm_cautious_seclusion",
+      "name": "潜修出关",
+      "narrative": "洞门开时，门外那棵树已经能遮住半个山头了。",
+      "power_gain": 26,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 1 }
+    },
+    {
+      "id": "fm_cautious_nofame",
+      "name": "名不显于人",
+      "narrative": "他做过的那些事，后来都被记在了别人头上。",
+      "power_gain": 20,
+      "world_effect": { "danger_delta": -1 }
+    },
+    {
+      "id": "fm_cautious_escape",
+      "name": "绝地脱身",
+      "narrative": "四面都封死了，他偏偏从所有人脚下走了出去。",
+      "power_gain": 24
+    },
+    {
+      "id": "fm_cautious_all_in",
+      "name": "后手尽出",
+      "narrative": "他把埋了半生的东西一件件取出，那一日连风都换了方向。",
+      "power_gain": 30,
+      "world_effect": { "region_tag": "city", "danger_delta": 2, "opens": ["evt_cautious_settle"] }
+    },
+    {
+      "id": "fm_cautious_longevity",
+      "name": "长生久视",
+      "narrative": "他见过的人一代代埋下去，他还在原地，慢慢喝茶。",
+      "power_gain": 40,
+      "world_effect": { "region_tag": "wilds", "danger_delta": 1, "closes": ["evt_cautious_bounty"] }
+    }
+  ]
+}

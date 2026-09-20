@@ -1,0 +1,383 @@
+{
+  "pack_id": "rebel",
+  "display_name": "逆天问道",
+  "inspiration_tag": "逆天长线流·杀伐问道",
+  "essence": "will",
+  "version": "1.0.0",
+  "rule_ref": "engine@2026-09",
+  "realms": [
+    {
+      "idx": 0,
+      "name": "凡心",
+      "power_index": [
+        0,
+        6
+      ],
+      "lifespan": 70,
+      "breakthrough": 0.9
+    },
+    {
+      "idx": 1,
+      "name": "凝念",
+      "power_index": [
+        6,
+        15
+      ],
+      "lifespan": 100,
+      "breakthrough": 0.85
+    },
+    {
+      "idx": 2,
+      "name": "立誓",
+      "power_index": [
+        15,
+        27
+      ],
+      "lifespan": 140,
+      "breakthrough": 0.81
+    },
+    {
+      "idx": 3,
+      "name": "铸意",
+      "power_index": [
+        27,
+        43
+      ],
+      "lifespan": 190,
+      "breakthrough": 0.76
+    },
+    {
+      "idx": 4,
+      "name": "引劫",
+      "power_index": [
+        43,
+        63
+      ],
+      "lifespan": 260,
+      "breakthrough": 0.71
+    },
+    {
+      "idx": 5,
+      "name": "化劫",
+      "power_index": [
+        63,
+        88
+      ],
+      "lifespan": 350,
+      "breakthrough": 0.67
+    },
+    {
+      "idx": 6,
+      "name": "定魄",
+      "power_index": [
+        88,
+        118
+      ],
+      "lifespan": 460,
+      "breakthrough": 0.62
+    },
+    {
+      "idx": 7,
+      "name": "逆脉",
+      "power_index": [
+        118,
+        154
+      ],
+      "lifespan": 600,
+      "breakthrough": 0.57
+    },
+    {
+      "idx": 8,
+      "name": "夺基",
+      "power_index": [
+        154,
+        196
+      ],
+      "lifespan": 780,
+      "breakthrough": 0.52
+    },
+    {
+      "idx": 9,
+      "name": "问心",
+      "power_index": [
+        196,
+        245
+      ],
+      "lifespan": 1000,
+      "breakthrough": 0.48
+    },
+    {
+      "idx": 10,
+      "name": "明心",
+      "power_index": [
+        245,
+        302
+      ],
+      "lifespan": 1300,
+      "breakthrough": 0.43
+    },
+    {
+      "idx": 11,
+      "name": "见性",
+      "power_index": [
+        302,
+        367
+      ],
+      "lifespan": 1700,
+      "breakthrough": 0.38
+    },
+    {
+      "idx": 12,
+      "name": "斩妄",
+      "power_index": [
+        367,
+        441
+      ],
+      "lifespan": 2200,
+      "breakthrough": 0.33
+    },
+    {
+      "idx": 13,
+      "name": "逆生",
+      "power_index": [
+        441,
+        525
+      ],
+      "lifespan": 2900,
+      "breakthrough": 0.29
+    },
+    {
+      "idx": 14,
+      "name": "逆命",
+      "power_index": [
+        525,
+        620
+      ],
+      "lifespan": 3800,
+      "breakthrough": 0.24
+    },
+    {
+      "idx": 15,
+      "name": "逆天",
+      "power_index": [
+        620,
+        727
+      ],
+      "lifespan": 5000,
+      "breakthrough": 0.19
+    },
+    {
+      "idx": 16,
+      "name": "劫主",
+      "power_index": [
+        727,
+        846
+      ],
+      "lifespan": 6500,
+      "breakthrough": 0.14
+    },
+    {
+      "idx": 17,
+      "name": "问道",
+      "power_index": [
+        846,
+        1000
+      ],
+      "lifespan": null,
+      "breakthrough": 0.1
+    }
+  ],
+  "resource_map": {
+    "currency": {
+      "name": "道晶",
+      "tiers": [
+        "碎道晶",
+        "整道晶",
+        "道髓",
+        "劫晶"
+      ]
+    },
+    "power": {
+      "name": "意志"
+    },
+    "rare_mat": {
+      "name": "劫材",
+      "subtypes": [
+        "雷髓",
+        "劫灰",
+        "心印",
+        "逆鳞"
+      ]
+    },
+    "favor": {
+      "name": "道望",
+      "tiers": [
+        "散修",
+        "盟众",
+        "执事",
+        "盟主"
+      ]
+    },
+    "debt": {
+      "name": "天债"
+    },
+    "exposure": {
+      "name": "逆痕",
+      "tiers": [
+        "无痕",
+        "浅痕",
+        "深痕",
+        "天诛"
+      ]
+    },
+    "corruption": {
+      "name": "反噬"
+    },
+    "karma": {
+      "name": "阴德"
+    },
+    "hp": {
+      "name": "道伤"
+    },
+    "lifespan": {
+      "name": "寿元"
+    },
+    "will": {
+      "name": "意志值",
+      "tiers": [
+        "凡志",
+        "坚志",
+        "逆志",
+        "天志"
+      ]
+    },
+    "tribulation": {
+      "name": "劫数",
+      "tiers": [
+        "一劫",
+        "三劫",
+        "六劫",
+        "大劫"
+      ]
+    }
+  },
+  "goldfinger_slots": [
+    {
+      "id": "unbending_will",
+      "name": "不折之意",
+      "rarity": "S",
+      "effects": [
+        "will_burst",
+        "tribulation_resist",
+        "temper_lock",
+        "no_retreat"
+      ]
+    },
+    {
+      "id": "tribulation_seed",
+      "name": "劫种",
+      "rarity": "A",
+      "effects": [
+        "tribulation_convert",
+        "power_surge",
+        "debt+2"
+      ]
+    },
+    {
+      "id": "sword_spirit",
+      "name": "器灵残响",
+      "rarity": "A",
+      "effects": [
+        "combat_bonus",
+        "teach_sword",
+        "spirit_demand"
+      ]
+    },
+    {
+      "id": "death_seal",
+      "name": "九死印记",
+      "rarity": "B",
+      "effects": [
+        "survive_fatal_once",
+        "hp_cost",
+        "karma-3"
+      ]
+    },
+    {
+      "id": "defiant_scale",
+      "name": "逆鳞之怒",
+      "rarity": "C",
+      "effects": [
+        "anger_burst",
+        "temper_check",
+        "exposure+2"
+      ]
+    }
+  ],
+  "fail_modes": [
+    {
+      "id": "tribulation_backlash",
+      "trigger": "corruption>=85",
+      "text_ref": "flavor_tribulation_backlash"
+    },
+    {
+      "id": "heart_broken",
+      "trigger": "temper<20 && corruption>=50",
+      "text_ref": "flavor_heart_broken"
+    },
+    {
+      "id": "debt_reckoning",
+      "trigger": "debt>=8",
+      "text_ref": "flavor_debt_reckoning"
+    },
+    {
+      "id": "mark_of_defiance",
+      "trigger": "exposure>=85",
+      "text_ref": "flavor_mark_of_defiance"
+    },
+    {
+      "id": "will_snuffed",
+      "trigger": "will<=0 && hp<=20",
+      "text_ref": "flavor_will_snuffed"
+    }
+  ],
+  "motif_weights": {
+    "m_cave_relic": 1.0,
+    "m_mystic_treasure": 0.9,
+    "m_broken_betrothal": 1.1,
+    "m_mentor_soul": 1.0,
+    "m_waste_root_test": 1.2,
+    "m_body_seize": 1.4,
+    "m_market_bargain": 0.4,
+    "m_auction": 0.6,
+    "m_source_fusion": 1.0,
+    "m_ancient_relic": 0.7,
+    "m_sect_tournament": 1.2,
+    "m_sect_betrayal": 1.6,
+    "m_guardian_sacrifice": 1.4,
+    "m_beast_backlash": 1.0,
+    "m_secret_realm": 1.3,
+    "m_tribulation": 2.0,
+    "m_ancient_battlefield": 1.5,
+    "m_pill_furnace": 0.4,
+    "m_reincarnation": 1.0,
+    "m_sword_debate": 1.8,
+    "m_faction_choice": 1.3,
+    "m_city_defense": 1.2,
+    "m_sealed_object": 0.4,
+    "m_playacting": 0.3,
+    "m_aggregation_hunt": 0.5,
+    "m_outer_god": 0.4,
+    "m_time_loop": 0.5,
+    "m_dual_world": 0.3,
+    "m_forbidden_knowledge": 1.1,
+    "m_contingency": 0.7,
+    "m_cross_world": 1.0,
+    "m_ascension_rite": 1.9
+  },
+  "tone": {
+    "narration": "悲怆、肃杀、有金石声；把代价写在明面上，不写侥幸",
+    "humor": 0.08,
+    "violence": 0.7
+  }
+}

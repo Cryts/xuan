@@ -1,0 +1,385 @@
+{
+  "pack_id": "physique",
+  "display_name": "太古遗蜕",
+  "inspiration_tag": "肉身纪元流·高强度成长",
+  "essence": "body",
+  "version": "1.0.0",
+  "rule_ref": "engine@2026-09",
+  "realms": [
+    {
+      "idx": 0,
+      "name": "凡胎",
+      "power_index": [
+        0,
+        6
+      ],
+      "lifespan": 70,
+      "breakthrough": 0.9
+    },
+    {
+      "idx": 1,
+      "name": "淬皮",
+      "power_index": [
+        6,
+        15
+      ],
+      "lifespan": 100,
+      "breakthrough": 0.85
+    },
+    {
+      "idx": 2,
+      "name": "锻筋",
+      "power_index": [
+        15,
+        27
+      ],
+      "lifespan": 130,
+      "breakthrough": 0.81
+    },
+    {
+      "idx": 3,
+      "name": "铸骨",
+      "power_index": [
+        27,
+        43
+      ],
+      "lifespan": 170,
+      "breakthrough": 0.76
+    },
+    {
+      "idx": 4,
+      "name": "换血",
+      "power_index": [
+        43,
+        63
+      ],
+      "lifespan": 220,
+      "breakthrough": 0.71
+    },
+    {
+      "idx": 5,
+      "name": "凝脏",
+      "power_index": [
+        63,
+        88
+      ],
+      "lifespan": 300,
+      "breakthrough": 0.67
+    },
+    {
+      "idx": 6,
+      "name": "开窍",
+      "power_index": [
+        88,
+        118
+      ],
+      "lifespan": 400,
+      "breakthrough": 0.62
+    },
+    {
+      "idx": 7,
+      "name": "蜕凡",
+      "power_index": [
+        118,
+        154
+      ],
+      "lifespan": 520,
+      "breakthrough": 0.57
+    },
+    {
+      "idx": 8,
+      "name": "骨篆",
+      "power_index": [
+        154,
+        196
+      ],
+      "lifespan": 680,
+      "breakthrough": 0.52
+    },
+    {
+      "idx": 9,
+      "name": "血纹",
+      "power_index": [
+        196,
+        245
+      ],
+      "lifespan": 880,
+      "breakthrough": 0.48
+    },
+    {
+      "idx": 10,
+      "name": "髓海",
+      "power_index": [
+        245,
+        302
+      ],
+      "lifespan": 1100,
+      "breakthrough": 0.43
+    },
+    {
+      "idx": 11,
+      "name": "象骨",
+      "power_index": [
+        302,
+        367
+      ],
+      "lifespan": 1400,
+      "breakthrough": 0.38
+    },
+    {
+      "idx": 12,
+      "name": "篆域",
+      "power_index": [
+        367,
+        441
+      ],
+      "lifespan": 1800,
+      "breakthrough": 0.33
+    },
+    {
+      "idx": 13,
+      "name": "遗蜕",
+      "power_index": [
+        441,
+        525
+      ],
+      "lifespan": 2400,
+      "breakthrough": 0.29
+    },
+    {
+      "idx": 14,
+      "name": "古尊",
+      "power_index": [
+        525,
+        620
+      ],
+      "lifespan": 3200,
+      "breakthrough": 0.24
+    },
+    {
+      "idx": 15,
+      "name": "纪元",
+      "power_index": [
+        620,
+        727
+      ],
+      "lifespan": 4500,
+      "breakthrough": 0.19
+    },
+    {
+      "idx": 16,
+      "name": "不朽",
+      "power_index": [
+        727,
+        846
+      ],
+      "lifespan": 6000,
+      "breakthrough": 0.14
+    },
+    {
+      "idx": 17,
+      "name": "归一",
+      "power_index": [
+        846,
+        1000
+      ],
+      "lifespan": null,
+      "breakthrough": 0.1
+    }
+  ],
+  "resource_map": {
+    "currency": {
+      "name": "遗石",
+      "tiers": [
+        "碎遗石",
+        "整遗石",
+        "遗髓",
+        "祖遗石"
+      ]
+    },
+    "power": {
+      "name": "气血"
+    },
+    "rare_mat": {
+      "name": "遗骨",
+      "subtypes": [
+        "真骨",
+        "髓晶",
+        "蜕壳",
+        "血珀"
+      ]
+    },
+    "favor": {
+      "name": "族望",
+      "tiers": [
+        "外姓",
+        "旁支",
+        "嫡支",
+        "族老"
+      ]
+    },
+    "debt": {
+      "name": "血债"
+    },
+    "exposure": {
+      "name": "气机",
+      "tiers": [
+        "蛰",
+        "显",
+        "炽",
+        "烈"
+      ]
+    },
+    "corruption": {
+      "name": "崩解"
+    },
+    "karma": {
+      "name": "纪功"
+    },
+    "hp": {
+      "name": "伤损"
+    },
+    "lifespan": {
+      "name": "寿数"
+    },
+    "bone_inscription": {
+      "name": "太古骨篆",
+      "tiers": [
+        "凡篆",
+        "灵篆",
+        "宝篆",
+        "仙篆",
+        "道篆"
+      ]
+    },
+    "era": {
+      "name": "纪元值",
+      "tiers": [
+        "残纪",
+        "平纪",
+        "盛纪",
+        "末纪"
+      ]
+    }
+  },
+  "goldfinger_slots": [
+    {
+      "id": "bone_script",
+      "name": "太古骨篆",
+      "rarity": "S",
+      "effects": [
+        "bone_slot_up",
+        "power_burst",
+        "era+2",
+        "body_locked"
+      ]
+    },
+    {
+      "id": "era_mark",
+      "name": "纪元烙印",
+      "rarity": "A",
+      "effects": [
+        "foresee_era_event",
+        "insight_bonus",
+        "exposure+2"
+      ]
+    },
+    {
+      "id": "ancestor_molt",
+      "name": "先祖遗蜕",
+      "rarity": "A",
+      "effects": [
+        "inherit_affix",
+        "hp_restore",
+        "debt+2",
+        "kin_wrath"
+      ]
+    },
+    {
+      "id": "beast_blood",
+      "name": "妖兽血裔",
+      "rarity": "B",
+      "effects": [
+        "root_bonus",
+        "beast_sense",
+        "corruption+2"
+      ]
+    },
+    {
+      "id": "iron_body",
+      "name": "铁骨胚子",
+      "rarity": "C",
+      "effects": [
+        "hp_bonus",
+        "damage_reduce",
+        "power_gain_slow"
+      ]
+    }
+  ],
+  "fail_modes": [
+    {
+      "id": "body_collapse",
+      "trigger": "corruption>=85",
+      "text_ref": "flavor_body_collapse"
+    },
+    {
+      "id": "era_reckoning",
+      "trigger": "era>=90",
+      "text_ref": "flavor_era_reckoning"
+    },
+    {
+      "id": "blood_backlash",
+      "trigger": "debt>=7 && hp<=25",
+      "text_ref": "flavor_blood_backlash"
+    },
+    {
+      "id": "molt_taken",
+      "trigger": "exposure>=60 && realm_idx>=8",
+      "text_ref": "flavor_molt_taken"
+    },
+    {
+      "id": "line_erased",
+      "trigger": "favor<0 && karma<=-40",
+      "text_ref": "flavor_line_erased"
+    }
+  ],
+  "motif_weights": {
+    "m_cave_relic": 1.2,
+    "m_mystic_treasure": 0.9,
+    "m_broken_betrothal": 0.7,
+    "m_mentor_soul": 0.9,
+    "m_waste_root_test": 1.6,
+    "m_body_seize": 1.3,
+    "m_market_bargain": 0.6,
+    "m_auction": 0.9,
+    "m_source_fusion": 1.4,
+    "m_ancient_relic": 2.0,
+    "m_sect_tournament": 1.4,
+    "m_sect_betrayal": 0.8,
+    "m_guardian_sacrifice": 1.2,
+    "m_beast_backlash": 1.8,
+    "m_secret_realm": 1.5,
+    "m_tribulation": 1.3,
+    "m_ancient_battlefield": 1.7,
+    "m_pill_furnace": 0.7,
+    "m_reincarnation": 0.9,
+    "m_sword_debate": 0.5,
+    "m_faction_choice": 1.0,
+    "m_city_defense": 1.6,
+    "m_sealed_object": 0.3,
+    "m_playacting": 0.2,
+    "m_aggregation_hunt": 0.2,
+    "m_outer_god": 0.1,
+    "m_time_loop": 0.1,
+    "m_dual_world": 0.2,
+    "m_forbidden_knowledge": 0.8,
+    "m_contingency": 0.6,
+    "m_cross_world": 1.2,
+    "m_ascension_rite": 1.1
+  },
+  "tone": {
+    "narration": "厚重、粗粝、带土腥与血腥味；痛感写得具体，荣耀写得简短",
+    "humor": 0.1,
+    "violence": 0.75
+  }
+}

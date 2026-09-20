@@ -1,0 +1,6380 @@
+[
+  {
+    "id": "evt_endgame_final_ascension_rite_01",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_ascension_rite",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 10,
+    "tension": 10,
+    "once_per_run": true,
+    "narrative": {
+      "title_pool": [
+        "祭坛上的空位",
+        "天门未锁"
+      ],
+      "body_key": "loose.m_ascension_rite.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "把此生最重的一段记忆填进空位，替自己抵账",
+        "intent": "sacrifice",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "从此记不起那张脸",
+        "resolve": {
+          "roll": {
+            "base": 0.52,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 14
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 12
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_vacant_seat"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_rite_seat_filled"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_rite_seat_gaping"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "空手登坛，一步踏进天门",
+        "intent": "greedy",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "坛上每一道纹路都会记住你的脚印",
+        "resolve": {
+          "roll": {
+            "base": 0.24,
+            "attr": "root",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 52
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 18
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "title_endgame_barefoot"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 38
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_rite_scorched"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "退下祭坛，把位置留给后头的人",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "这一步退下去，天门就合了",
+        "resolve": {
+          "roll": {
+            "base": 0.82,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 20
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_step_back"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_rite_declined"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_rite_declined"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_d",
+        "text": "取一件镇物顶上那个空位，让器物代替你献祭",
+        "intent": "scheme",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "镇物会替你记住这笔账",
+        "requires": {
+          "type": "affordance",
+          "ref": "镇魂"
+        },
+        "resolve": {
+          "roll": {
+            "base": 0.38,
+            "attr": "insight",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 36
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                },
+                {
+                  "type": "consume_item",
+                  "ref": "item_sealed_vessel",
+                  "count": 1
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_vessel_stand_in"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                },
+                {
+                  "type": "consume_item",
+                  "ref": "item_sealed_vessel",
+                  "count": 1
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_vessel_broke_loose"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "仪式",
+      "突破",
+      "代价"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_final_ascension_rite_02",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_ascension_rite",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 9,
+    "tension": 9,
+    "narrative": {
+      "title_pool": [
+        "坛前报一名",
+        "真名与假名"
+      ],
+      "body_key": "loose.m_ascension_rite.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "报出本名，连乡音一起报上去",
+        "intent": "study",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "从今往后人人知道你是谁",
+        "resolve": {
+          "roll": {
+            "base": 0.66,
+            "attr": "charm",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_name_true"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 11
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_name_taken"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "报那个借来的名号，声音学得和从前一样",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "名号会开始反过来认领你",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "insight",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 42
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "title_endgame_borrowed_name"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -4
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_name_mismatch"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "坛上报假名，回身在坛底把本名刻下",
+        "intent": "scheme",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "两笔账都要你自己还",
+        "resolve": {
+          "roll": {
+            "base": 0.36,
+            "attr": "insight",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_two_names"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 11
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -4
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "仪式",
+      "身份",
+      "抉择"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_final_ascension_rite_03",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_ascension_rite",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 9,
+    "tension": 9,
+    "requires": {
+      "type": "any",
+      "of": [
+        {
+          "type": "relation",
+          "kind": "仇家",
+          "exists": true
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": "<=",
+          "value": -20
+        }
+      ]
+    },
+    "narrative": {
+      "title_pool": [
+        "登坛路上的三个人",
+        "拦路者"
+      ],
+      "body_key": "loose.m_ascension_rite.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "绕后山那条小路，快半个时辰",
+        "intent": "flee",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "错过祭坛开门的第一刻",
+        "resolve": {
+          "roll": {
+            "base": 0.68,
+            "attr": "insight",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 14
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "从他们中间走过去，谁伸手就断谁的手",
+        "intent": "evil",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "这是你最后一批仇家",
+        "resolve": {
+          "roll": {
+            "base": 0.26,
+            "attr": "root",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 44
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 14
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 32
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 9
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_road_blocked"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "把身后那具旧身推出去，还给他们",
+        "intent": "sacrifice",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "那具旧身替你受过三百年",
+        "resolve": {
+          "roll": {
+            "base": 0.48,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 16
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -4
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_d",
+        "text": "停下脚，听他们把这笔账说完",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "祭坛不等听完账的人",
+        "resolve": {
+          "roll": {
+            "base": 0.62,
+            "attr": "charm",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 18
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_feud_settled_road"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -3
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_rite_missed"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "追杀",
+      "抉择",
+      "清算"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_final_ascension_rite_04",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_ascension_rite",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 8,
+    "narrative": {
+      "title_pool": [
+        "一界的香火",
+        "念想挂在你名上"
+      ],
+      "body_key": "loose.m_ascension_rite.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "接下香火，让千万人的念想落在肩上",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "从此你欠众生一笔",
+        "resolve": {
+          "roll": {
+            "base": 0.64,
+            "attr": "charm",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 28
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_incense_burden"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_incense_crushed"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "一掌打散香火，谁的念想也不欠",
+        "intent": "steady",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "庙塌时砸死的人算你的",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "root",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -16
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_shrine_smashed"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "把香火转给山门外那个扫地的少年",
+        "intent": "scheme",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "他扛不住就是死",
+        "resolve": {
+          "roll": {
+            "base": 0.6,
+            "attr": "insight",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 70
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 14
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_incense_given"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 45
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -16
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "阵营",
+      "仪式",
+      "因果"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_final_ascension_rite_05",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_ascension_rite",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 6,
+    "tension": 8,
+    "once_per_run": true,
+    "narrative": {
+      "title_pool": [
+        "阵已起",
+        "脚底的纹路"
+      ],
+      "body_key": "loose.m_ascension_rite.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "站定不动，让纹路从脚底烧上来",
+        "intent": "sacrifice",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "此阵不进则退，退则废",
+        "outcome": {
+          "effects": [
+            {
+              "type": "add_var",
+              "key": "power",
+              "delta": 20
+            },
+            {
+              "type": "add_var",
+              "key": "hp",
+              "delta": 5
+            },
+            {
+              "type": "add_var",
+              "key": "lifespan",
+              "delta": -4
+            },
+            {
+              "type": "set_flag",
+              "key": "flag_rite_begun"
+            }
+          ],
+          "narrative": "loose.m_ascension_rite.endgame.outcome"
+        }
+      }
+    ],
+    "tags": [
+      "仪式",
+      "命运",
+      "代价"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_final_ascension_rite_06",
+    "kind": "loose",
+    "pack": [
+      "rebel"
+    ],
+    "motif": "m_ascension_rite",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 9,
+    "tension": 10,
+    "narrative": {
+      "title_pool": [
+        "逆天者的一叩",
+        "认一句顺字"
+      ],
+      "body_key": "loose.m_ascension_rite.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "不认，把这三个字咬碎了咽回去",
+        "intent": "greedy",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "天会记住你不肯低头的样子",
+        "resolve": {
+          "roll": {
+            "base": 0.22,
+            "attr": "temper",
+            "attr_weight": 0.009
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 55
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 20
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "title_endgame_unbowed"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 40
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 11
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_will_cracked"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "认一半，把「顺」字拆开只念半边",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "半句谎话要拿半条命垫",
+        "resolve": {
+          "roll": {
+            "base": 0.48,
+            "attr": "insight",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 32
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_half_bow"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 3
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "认了，低头把这句顺字念完",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "从此你身上少一样东西",
+        "resolve": {
+          "roll": {
+            "base": 0.8,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 10
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -20
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_will_bowed"
+                }
+              ],
+              "narrative": "loose.m_ascension_rite.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "劫数",
+      "突破",
+      "抉择"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_tribulation_01",
+    "kind": "loose",
+    "pack": [
+      "rebel"
+    ],
+    "motif": "m_tribulation",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 10,
+    "tension": 10,
+    "once_per_run": true,
+    "narrative": {
+      "title_pool": [
+        "末劫九段",
+        "劫云压在头顶"
+      ],
+      "body_key": "loose.m_tribulation.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "撤了护身法宝，拿肉身去接第一段",
+        "intent": "greedy",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "接得住是造化，接不住是碑",
+        "resolve": {
+          "roll": {
+            "base": 0.25,
+            "attr": "root",
+            "attr_weight": 0.009
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 48
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 16
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_body_through_bolt"
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 36
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -14
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 28
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_bolt_maimed"
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "起早年布下的引雷阵，把劫分作九份",
+        "intent": "steady",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "阵基要吃掉你半库灵石",
+        "resolve": {
+          "roll": {
+            "base": 0.54,
+            "attr": "wits",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 40
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -6
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -70
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "把劫云往仇家那座山门引",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "那一门上下都会记着你",
+        "requires": {
+          "type": "relation",
+          "kind": "仇家",
+          "exists": true
+        },
+        "resolve": {
+          "roll": {
+            "base": 0.36,
+            "attr": "insight",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -18
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_pei_wujiu",
+                  "kind": "仇家",
+                  "delta": 20
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 28
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -24
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_gu_changeng",
+                  "kind": "仇家",
+                  "delta": 25
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_d",
+        "text": "散了三成修为，让劫认不出你",
+        "intent": "flee",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "境界退回一档",
+        "resolve": {
+          "roll": {
+            "base": 0.68,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -25
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -30
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -40
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_realm_lost"
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "劫数",
+      "突破",
+      "复仇"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_tribulation_02",
+    "kind": "loose",
+    "pack": [
+      "rebel"
+    ],
+    "motif": "m_tribulation",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 9,
+    "requires": {
+      "type": "var",
+      "key": "debt",
+      "op": ">=",
+      "value": 5
+    },
+    "narrative": {
+      "title_pool": [
+        "劫下来了一把刀",
+        "有人递手"
+      ],
+      "body_key": "loose.m_tribulation.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "接住那把刀，用它劈开下一段雷",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "刀柄上刻着你仇家的姓",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "root",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                },
+                {
+                  "type": "add_item",
+                  "ref": "item_borrowed_blade",
+                  "quality": "宝品"
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 13
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 19
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_blade_taken"
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "把刀原样打回去，连人带礼一并退回",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "退礼即是宣战",
+        "resolve": {
+          "roll": {
+            "base": 0.38,
+            "attr": "temper",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 10
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_yan_xun",
+                  "kind": "仇家",
+                  "delta": 20
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 20
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -18
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "不收不问，任那把刀插在脚边",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "刀会一直插在那里",
+        "resolve": {
+          "roll": {
+            "base": 0.76,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 12
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 3
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -10
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -6
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_blade_left_standing"
+                }
+              ],
+              "narrative": "loose.m_tribulation.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "劫数",
+      "复仇",
+      "抉择"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_tribulation_contingency_01",
+    "kind": "loose",
+    "pack": [
+      "cautious"
+    ],
+    "motif": "m_contingency",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 9,
+    "tension": 9,
+    "narrative": {
+      "title_pool": [
+        "第九套预案",
+        "该让哪一具去死"
+      ],
+      "body_key": "loose.m_contingency.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "启用第九套预案，让替身替你受这一劫",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "这具替身跟了你四十年",
+        "requires": {
+          "type": "flag",
+          "ref": "flag_backup_ninth"
+        },
+        "resolve": {
+          "roll": {
+            "base": 0.82,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 18
+                },
+                {
+                  "type": "clear_flag",
+                  "key": "flag_backup_ninth"
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_ninth_plan"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 12
+                },
+                {
+                  "type": "clear_flag",
+                  "key": "flag_backup_ninth"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 8
+                },
+                {
+                  "type": "clear_flag",
+                  "key": "flag_backup_ninth"
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "clear_flag",
+                  "key": "flag_backup_ninth"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "不用替身，自己上，赌这一劫认不出你",
+        "intent": "greedy",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "没有第二具替你挡",
+        "resolve": {
+          "roll": {
+            "base": 0.24,
+            "attr": "root",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 42
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 14
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 32
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -6
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_no_backup_left"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "连夜再添两具替身，把库底翻空",
+        "intent": "scheme",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "库底翻空，来年无粮",
+        "resolve": {
+          "roll": {
+            "base": 0.66,
+            "attr": "wits",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -50
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_backup_ninth"
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_backup_tenth"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_backup_tenth"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -4
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "布局",
+      "劫数",
+      "潜伏"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_tribulation_contingency_02",
+    "kind": "loose",
+    "pack": [
+      "cautious"
+    ],
+    "motif": "m_contingency",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 8,
+    "narrative": {
+      "title_pool": [
+        "替身不肯死",
+        "分身里有一个想活"
+      ],
+      "body_key": "loose.m_contingency.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "抹去它的神识，只留一副空壳",
+        "intent": "evil",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "它陪你说了四十年话",
+        "resolve": {
+          "roll": {
+            "base": 0.8,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_puppet_blank"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -12
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_puppet_awake"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "放它走，从账上划掉这一具",
+        "intent": "sacrifice",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "少一具，也少一层遮掩",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 11
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_puppet_rogue"
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "让它顶着你的脸，去别处走一趟",
+        "intent": "scheme",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "它会在外头替你结下账",
+        "resolve": {
+          "roll": {
+            "base": 0.36,
+            "attr": "insight",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -10
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 13
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_contingency.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "布局",
+      "身份",
+      "牺牲"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_aggregation_hunt_01",
+    "kind": "loose",
+    "pack": [
+      "mystery"
+    ],
+    "motif": "m_aggregation_hunt",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 10,
+    "tension": 10,
+    "requires": {
+      "type": "var",
+      "key": "corruption",
+      "op": ">=",
+      "value": 40
+    },
+    "narrative": {
+      "title_pool": [
+        "最后一位聚合者",
+        "雾里那件大衣"
+      ],
+      "body_key": "loose.m_aggregation_hunt.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "走上前，与它合成一个东西",
+        "intent": "greedy",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "合完就不再有你",
+        "resolve": {
+          "roll": {
+            "base": 0.23,
+            "attr": "temper",
+            "attr_weight": 0.008
+          },
+          "affinity_sensitive": true,
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 50
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 18
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_one_body"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 38
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 10
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_self_erased"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "一层层拆开它，看里头有几张脸",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "拆到第几张会轮到你",
+        "resolve": {
+          "roll": {
+            "base": 0.48,
+            "attr": "insight",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_faces_within"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 13
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 9
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_face_borrowed"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "把它引向另一个正在聚合的人",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "那人昨天还喊你一声师兄",
+        "resolve": {
+          "roll": {
+            "base": 0.38,
+            "attr": "insight",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -18
+                },
+                {
+                  "type": "destiny_drain",
+                  "ref": "destiny_child_mystery",
+                  "delta": -20
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_hunt_turned_back"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_d",
+        "text": "把它引进界外那片雾里，自己退回来",
+        "intent": "flee",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "雾会记下你的味道",
+        "resolve": {
+          "roll": {
+            "base": 0.62,
+            "attr": "wits",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -10
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_scent_recorded"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "追杀",
+      "污染",
+      "身份"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_aggregation_hunt_02",
+    "kind": "loose",
+    "pack": [
+      "mystery"
+    ],
+    "motif": "m_aggregation_hunt",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 9,
+    "requires": {
+      "type": "var",
+      "key": "power",
+      "op": ">=",
+      "value": 180
+    },
+    "narrative": {
+      "title_pool": [
+        "把阶位还回去",
+        "卸下来的那一层"
+      ],
+      "body_key": "loose.m_aggregation_hunt.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "当众把阶位退回雾中，一身干净",
+        "intent": "sacrifice",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "退回的不只是位子",
+        "resolve": {
+          "roll": {
+            "base": 0.66,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -18
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -22
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -30
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -40
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_rank_returned_void"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "不退，把下一阶也一并吞下",
+        "intent": "greedy",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "每吞一口，记得的人就少一个",
+        "resolve": {
+          "roll": {
+            "base": 0.34,
+            "attr": "wits",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 44
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 15
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_swallowed_too_far"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "退半阶，把剩下的分给身边那个人",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "他不知道你分了什么给他",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "charm",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 12
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_shen_yan",
+                  "kind": "盟友",
+                  "delta": 20
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_gift_backfired"
+                }
+              ],
+              "narrative": "loose.m_aggregation_hunt.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "污染",
+      "交易",
+      "身份"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_outside_whisper_01",
+    "kind": "loose",
+    "pack": [
+      "mystery"
+    ],
+    "motif": "m_outer_god",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 9,
+    "tension": 10,
+    "requires": {
+      "type": "var",
+      "key": "corruption",
+      "op": ">=",
+      "value": 30
+    },
+    "narrative": {
+      "title_pool": [
+        "门后之物要一个名字",
+        "它还没有名字"
+      ],
+      "body_key": "loose.m_outer_god.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "给它起一个名字，清清楚楚地念出来",
+        "intent": "study",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "名字一旦被念，它就有了形状",
+        "resolve": {
+          "roll": {
+            "base": 0.4,
+            "attr": "wits",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_named_thing"
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_it_bears_your_name"
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "报一个假名，看它认不认",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "假名也是名",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "insight",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -4
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_false_name_taken"
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "一个字也不给，捂住耳朵退出去",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "它会在门外等很久",
+        "resolve": {
+          "roll": {
+            "base": 0.8,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -16
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_door_ajar"
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "污染",
+      "理智",
+      "仪式"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_outside_whisper_02",
+    "kind": "loose",
+    "pack": [
+      "mystery"
+    ],
+    "motif": "m_outer_god",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 9,
+    "requires": {
+      "type": "all",
+      "of": [
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 150
+        }
+      ]
+    },
+    "narrative": {
+      "title_pool": [
+        "沉眠之主的请帖",
+        "一封没有落款的信"
+      ],
+      "body_key": "loose.m_outer_god.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "赴约，坐到它对面那把椅子上",
+        "intent": "greedy",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "椅子是给人坐的，也是给别的坐的",
+        "resolve": {
+          "roll": {
+            "base": 0.2,
+            "attr": "temper",
+            "attr_weight": 0.009
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 46
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "modify_power_index",
+                  "delta": 16
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 11
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_seat_taken"
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "当着使者的面把信烧了，灰撒进井里",
+        "intent": "steady",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "拒客的账也要还",
+        "resolve": {
+          "roll": {
+            "base": 0.52,
+            "attr": "temper",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -5
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_refusal_marked"
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "抄一份留着，再把原件烧掉",
+        "intent": "scheme",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "抄本会自己多出几行",
+        "resolve": {
+          "roll": {
+            "base": 0.38,
+            "attr": "wits",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_copied_letter"
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 3
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 3
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 9
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_copy_writes_itself"
+                }
+              ],
+              "narrative": "loose.m_outer_god.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "污染",
+      "理智",
+      "交易"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_dual_world_truth_01",
+    "kind": "loose",
+    "pack": [
+      "mystery"
+    ],
+    "motif": "m_dual_world",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 9,
+    "narrative": {
+      "title_pool": [
+        "两个世界只留一个",
+        "哪一边是真的"
+      ],
+      "body_key": "loose.m_dual_world.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "认脚下这一界，把另一边当成梦",
+        "intent": "steady",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "梦里那些人会一起消失",
+        "resolve": {
+          "roll": {
+            "base": 0.66,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_world_chosen_a"
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "认另一边，把这一界的名字忘掉",
+        "intent": "greedy",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "忘掉的名字里有一个是你自己",
+        "resolve": {
+          "roll": {
+            "base": 0.48,
+            "attr": "wits",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 38
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 28
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 11
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -5
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 15
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_world_chosen_b"
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "造一份两界都认的凭据，骑在缝上",
+        "intent": "scheme",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "骑缝的人两界都不收尸",
+        "resolve": {
+          "roll": {
+            "base": 0.34,
+            "attr": "insight",
+            "attr_weight": 0.009
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 26
+                },
+                {
+                  "type": "unlock_codex",
+                  "ref": "codex_endgame_both_worlds"
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_seam_dweller"
+                }
+              ],
+              "narrative": "loose.m_dual_world.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "解谜",
+      "身份",
+      "抉择"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_faction_choice_01",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_faction_choice",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 9,
+    "tension": 9,
+    "narrative": {
+      "title_pool": [
+        "最后一队",
+        "会盟桌上的空位"
+      ],
+      "body_key": "loose.m_faction_choice.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "在正道那一册上落名，用真印",
+        "intent": "social",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "从此你是别人手里的旗",
+        "resolve": {
+          "roll": {
+            "base": 0.68,
+            "attr": "charm",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 60
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 14
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 40
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -6
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -60
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_signed_righteous"
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "把名字写在魔道那一册，署血印",
+        "intent": "evil",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "那册子上的旧名字会先认你",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "temper",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -16
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -18
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "两册都签，中间人做到底",
+        "intent": "scheme",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "两边都有你的把柄",
+        "resolve": {
+          "roll": {
+            "base": 0.35,
+            "attr": "insight",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 80
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 60
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -12
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_double_signed"
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_d",
+        "text": "站起来走出会盟的帐子",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "两边的门都对你关了",
+        "resolve": {
+          "roll": {
+            "base": 0.8,
+            "attr": "temper",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -10
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -12
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -18
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -50
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -24
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_walked_out"
+                }
+              ],
+              "narrative": "loose.m_faction_choice.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "阵营",
+      "抉择",
+      "身份"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_city_defense_01",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_city_defense",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 9,
+    "narrative": {
+      "title_pool": [
+        "最后一座城",
+        "城墙比人先老"
+      ],
+      "body_key": "loose.m_city_defense.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "站在城门洞里，谁上来就接谁",
+        "intent": "sacrifice",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "这道门只能挡住你一个人的宽度",
+        "resolve": {
+          "roll": {
+            "base": 0.38,
+            "attr": "root",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 24
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -14
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_gate_fell"
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "开西渠，赶在天亮前把满城人迁走",
+        "intent": "steady",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "粮仓带不走",
+        "resolve": {
+          "roll": {
+            "base": 0.64,
+            "attr": "wits",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 3
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -70
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -3
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -18
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "请界外那片影子上城头",
+        "intent": "evil",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "它守完城会想吃点什么",
+        "resolve": {
+          "roll": {
+            "base": 0.22,
+            "attr": "charm",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 44
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 16
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 32
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 14
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -24
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_city_devoured"
+                }
+              ],
+              "narrative": "loose.m_city_defense.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "阵营",
+      "危机",
+      "牺牲"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_guardian_sacrifice_01",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_guardian_sacrifice",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 9,
+    "requires": {
+      "type": "relation",
+      "kind": "护道人",
+      "exists": true
+    },
+    "narrative": {
+      "title_pool": [
+        "护道人的最后一程",
+        "他把袖子挽起来了"
+      ],
+      "body_key": "loose.m_guardian_sacrifice.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "受他这一程，站在原地不动",
+        "intent": "sacrifice",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "你欠的这笔再也还不上",
+        "resolve": {
+          "roll": {
+            "base": 0.52,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 34
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_linyuan",
+                  "kind": "护道人",
+                  "delta": -20
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 26
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 9
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_guardian_gone_for_naught"
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "把他推开，自己站到前面去",
+        "intent": "sacrifice",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "寿元换他一条命",
+        "resolve": {
+          "roll": {
+            "base": 0.26,
+            "attr": "root",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 4
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_linyuan",
+                  "kind": "护道人",
+                  "delta": 25
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 16
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_both_fell"
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "把仪式的时辰往后挪半刻",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "半刻之差，天机就变了",
+        "resolve": {
+          "roll": {
+            "base": 0.46,
+            "attr": "insight",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 24
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -50
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 14
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -5
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 12
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_timing_lost"
+                }
+              ],
+              "narrative": "loose.m_guardian_sacrifice.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "牺牲",
+      "传承",
+      "抉择"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_sect_betrayal_01",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_sect_betrayal",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 8,
+    "tension": 9,
+    "requires": {
+      "type": "var",
+      "key": "debt",
+      "op": ">=",
+      "value": 4
+    },
+    "narrative": {
+      "title_pool": [
+        "旧账上门",
+        "账房里的那本册子"
+      ],
+      "body_key": "loose.m_sect_betrayal.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "把库底翻出来，一笔一笔还清",
+        "intent": "steady",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "还清了也就空了",
+        "resolve": {
+          "roll": {
+            "base": 0.68,
+            "attr": "charm",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 10
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": -2
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": -80
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "把上门的人留在山门里，一个不留",
+        "intent": "evil",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "账本会被人接着往下写",
+        "resolve": {
+          "roll": {
+            "base": 0.36,
+            "attr": "root",
+            "attr_weight": 0.008
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -18
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -16
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 15
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 20
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "把账推到那个已经死了的师兄头上",
+        "intent": "scheme",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "死人不会辩解，但有人记得他",
+        "resolve": {
+          "roll": {
+            "base": 0.5,
+            "attr": "insight",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": -6
+                },
+                {
+                  "type": "add_var",
+                  "key": "currency",
+                  "delta": 50
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -16
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 13
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -14
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -18
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_d",
+        "text": "把这笔账转给那位气运正盛的小辈",
+        "intent": "scheme",
+        "risk_tier": "绝",
+        "odds_hint": "九死一生",
+        "cost_hint": "他背得起，也查得出",
+        "resolve": {
+          "roll": {
+            "base": 0.24,
+            "attr": "insight",
+            "attr_weight": 0.009
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 20
+                },
+                {
+                  "type": "destiny_drain",
+                  "ref": "destiny_child_rebel",
+                  "delta": -25
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 6
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 11
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 4
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -20
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_debt_transfer_failed"
+                }
+              ],
+              "narrative": "loose.m_sect_betrayal.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "清算",
+      "因果",
+      "抉择"
+    ],
+    "version": "1.0"
+  },
+  {
+    "id": "evt_endgame_reincarnation_memory_01",
+    "kind": "loose",
+    "pack": [
+      "*"
+    ],
+    "motif": "m_reincarnation",
+    "stage": [
+      "endgame"
+    ],
+    "weight": 7,
+    "tension": 8,
+    "narrative": {
+      "title_pool": [
+        "转世前那一晚",
+        "留不留这一世"
+      ],
+      "body_key": "loose.m_reincarnation.endgame"
+    },
+    "options": [
+      {
+        "id": "opt_a",
+        "text": "把这一世全刻进魂里，一字不落",
+        "intent": "greedy",
+        "risk_tier": "狠",
+        "odds_hint": "凶险",
+        "cost_hint": "记得太多的人容易被认出来",
+        "resolve": {
+          "roll": {
+            "base": 0.36,
+            "attr": "wits",
+            "attr_weight": 0.007
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 30
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "title_endgame_memory_keeper"
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 22
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 7
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 10
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 8
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 15
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 10
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_memory_overflow"
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_b",
+        "text": "只留一句话，其余随手抹去",
+        "intent": "scheme",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "那句话往后会越念越轻",
+        "resolve": {
+          "roll": {
+            "base": 0.64,
+            "attr": "temper",
+            "attr_weight": 0.006
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 18
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -5
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 12
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -3
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 3
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": -4
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": 7
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": -8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_sentence_lost"
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.crit_fail"
+            }
+          }
+        }
+      },
+      {
+        "id": "opt_c",
+        "text": "一并洗干净，赤条条去下一世",
+        "intent": "flee",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "下一世的你什么也不知道",
+        "resolve": {
+          "roll": {
+            "base": 0.82,
+            "attr": "luck",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 8
+                },
+                {
+                  "type": "add_var",
+                  "key": "karma",
+                  "delta": 16
+                },
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -10
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.crit"
+            },
+            "success": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "corruption",
+                  "delta": -12
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -16
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 5
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.success"
+            },
+            "fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -22
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -8
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.fail"
+            },
+            "crit_fail": {
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": -30
+                },
+                {
+                  "type": "add_var",
+                  "key": "lifespan",
+                  "delta": 6
+                },
+                {
+                  "type": "set_flag",
+                  "key": "flag_clean_slate"
+                }
+              ],
+              "narrative": "loose.m_reincarnation.endgame.crit_fail"
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "传承",
+      "身份",
+      "抉择"
+    ],
+    "version": "1.0"
+  }
+]

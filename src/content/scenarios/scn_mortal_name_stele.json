@@ -1,0 +1,157 @@
+{
+  "id": "scn_mortal_name_stele",
+  "kind": "scenario",
+  "name": "碑下问名",
+  "pack": ["mortal"],
+  "span": 5,
+  "tension": 6,
+  "weight": 35,
+  "requires": { "type": "realm_idx", "op": ">=", "value": 2 },
+  "rules_stated": [
+    "碑上刻你此行功过之名次，功过愈著，名次愈高。",
+    "名次高者，守碑人出手愈重——碑不试无名之辈。",
+    "碑不可毁。毁碑者名次归零，此生不得再入碑下。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_rank_lags",
+      "hint": "碑刻的是你上一程的功过，它慢你一站。此刻你在碑上的名次，是离开此地之后的你。",
+      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 65 }
+    },
+    {
+      "id": "rule_unnamed",
+      "hint": "『归零』不是抹去，是从未有名。碑上本就有许多空处——空处不算名次。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          { "type": "flag", "ref": "saw_blank_line" },
+          { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+        ]
+      }
+    },
+    {
+      "id": "rule_keeper_blind",
+      "hint": "守碑人按名次出招，可他并没见过你。他打的是碑上那个名字——那名字是谁的，他分不出来。",
+      "reveal": { "type": "known_rule", "ref": "rule_rank_lags" }
+    }
+  ],
+  "forbidden": [
+    "毁碑",
+    "以他人之名刻碑",
+    "对守碑人自陈名次"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_borrow_name",
+      "name": "借名",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_keeper_blind" },
+        { "type": "relation", "kind": "仇家", "exists": true },
+        { "type": "attr", "key": "charm", "op": ">=", "value": 55 }
+      ],
+      "cost": "守碑人记住了那张脸——不是你的",
+      "outcome": {
+        "ref": "end_stele_borrowed",
+        "narrative": "scn_name_stele.borrowed",
+        "effects": [
+          { "type": "set_relation", "npc_id": "npc_stele_keeper", "kind": "仇家", "delta": 40 },
+          { "type": "modify_power_index", "delta": 5 },
+          { "type": "add_var", "key": "exposure", "delta": 15 }
+        ]
+      }
+    },
+    {
+      "id": "solve_blank_line",
+      "name": "刻空",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_unnamed" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "affordance", "ref": "留白" },
+            { "type": "affix_count", "ref": "空", "count": 1 }
+          ]
+        }
+      ],
+      "cost": "空处不记功过，也不记你——你从碑上消失了",
+      "outcome": {
+        "ref": "end_stele_blank",
+        "narrative": "scn_name_stele.blank",
+        "effects": [
+          { "type": "add_var", "key": "exposure", "delta": -30 },
+          { "type": "add_var", "key": "favor", "delta": -20 },
+          { "type": "unlock_title", "ref": "title_blank_line" }
+        ]
+      }
+    },
+    {
+      "id": "solve_slow_one_step",
+      "name": "慢一站",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_rank_lags" },
+        { "type": "node_count", "op": ">=", "value": 3 },
+        { "type": "attr", "key": "wits", "op": ">=", "value": 70 }
+      ],
+      "cost": "你把步调压慢，让碑永远慢你一步——代价是寿元",
+      "outcome": {
+        "ref": "end_stele_slow",
+        "narrative": "scn_name_stele.slow",
+        "effects": [
+          { "type": "add_var", "key": "lifespan", "delta": -15 },
+          { "type": "add_var", "key": "power", "delta": 20 },
+          { "type": "unlock_codex", "ref": "codex_stele_lag" }
+        ]
+      }
+    },
+    {
+      "id": "solve_low_seat",
+      "name": "自居于下",
+      "conditions": [
+        { "type": "var", "key": "karma", "op": ">=", "value": 50 },
+        { "type": "attr", "key": "temper", "op": ">=", "value": 65 },
+        { "type": "not", "of": { "type": "flag", "ref": "killed_innocent" } }
+      ],
+      "cost": "你自居末位，把名次让与同行者——他从此欠你，也从此防你",
+      "outcome": {
+        "ref": "end_stele_low",
+        "narrative": "scn_name_stele.low",
+        "effects": [
+          { "type": "add_var", "key": "debt", "delta": 2 },
+          { "type": "add_var", "key": "favor", "delta": 15 },
+          { "type": "set_relation", "npc_id": "npc_fellow_traveler", "kind": "盟友", "delta": 20 }
+        ]
+      }
+    },
+    {
+      "id": "solve_name_of_none",
+      "name": "无名之名",
+      "hidden": true,
+      "conditions": [
+        { "type": "solved_any_of", "refs": ["solve_blank_line", "solve_low_seat"] },
+        { "type": "known_rule", "ref": "rule_keeper_blind" },
+        { "type": "attr", "key": "wits", "op": ">=", "value": 85 }
+      ],
+      "cost": "极低——只是守碑人从此见了你便低头，他从没对谁低过头",
+      "outcome": {
+        "ref": "end_stele_none",
+        "narrative": "scn_name_stele.none",
+        "effects": [
+          { "type": "modify_power_index", "delta": 8 },
+          { "type": "add_var", "key": "karma", "delta": 20 },
+          { "type": "unlock_title", "ref": "title_no_rank" }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_name_stele.idle",
+    "ref": "end_stele_idle",
+    "effects": [
+      { "type": "trigger_end", "ref": "end_stele_idle" },
+      { "type": "add_var", "key": "lifespan", "delta": -5 },
+      { "type": "add_var", "key": "exposure", "delta": -10 },
+      { "type": "unlock_codex", "ref": "codex_half_carved_name" }
+    ]
+  },
+  "version": "1.0.0"
+}

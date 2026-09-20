@@ -1,0 +1,68 @@
+.layer {
+  position: fixed;
+  left: 50%;
+  bottom: 34dvh;
+  transform: translateX(-50%);
+  z-index: 30;
+  pointer-events: none;
+  width: min(92vw, 460px);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.row {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s3);
+  padding: var(--s2) var(--s4);
+  border-radius: 99px;
+  background: rgba(11, 10, 9, 0.82);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  animation: floatUp 1.5s var(--ease-out) both;
+}
+
+.label {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
+  color: var(--t3);
+}
+
+.value {
+  font-family: var(--font-title);
+  font-size: var(--fs-lg);
+  letter-spacing: 0.03em;
+  color: var(--t1);
+}
+
+.delta {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  opacity: 0.9;
+}
+
+.good {
+  border-color: rgba(62, 124, 110, 0.5);
+}
+.good .delta {
+  color: #6fb3a3;
+}
+
+.bad {
+  border-color: rgba(193, 57, 43, 0.5);
+}
+.bad .delta {
+  color: #e0705f;
+}
+
+@media (max-width: 420px) {
+  .layer {
+    bottom: 30dvh;
+  }
+}

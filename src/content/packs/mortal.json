@@ -1,0 +1,333 @@
+{
+  "pack_id": "mortal",
+  "display_name": "青冥仙途",
+  "inspiration_tag": "凡人流·慢热经营",
+  "essence": "qi",
+  "version": "1.0.0",
+  "rule_ref": "engine@2026-09",
+  "realms": [
+    {
+      "idx": 0,
+      "name": "凡人",
+      "power_index": [
+        0,
+        10
+      ],
+      "lifespan": 80,
+      "breakthrough": 0.9
+    },
+    {
+      "idx": 1,
+      "name": "炼气",
+      "power_index": [
+        10,
+        30
+      ],
+      "lifespan": 120,
+      "breakthrough": 0.83
+    },
+    {
+      "idx": 2,
+      "name": "筑基",
+      "power_index": [
+        30,
+        60
+      ],
+      "lifespan": 200,
+      "breakthrough": 0.77
+    },
+    {
+      "idx": 3,
+      "name": "结丹",
+      "power_index": [
+        60,
+        100
+      ],
+      "lifespan": 400,
+      "breakthrough": 0.7
+    },
+    {
+      "idx": 4,
+      "name": "元婴",
+      "power_index": [
+        100,
+        150
+      ],
+      "lifespan": 800,
+      "breakthrough": 0.63
+    },
+    {
+      "idx": 5,
+      "name": "化神",
+      "power_index": [
+        150,
+        210
+      ],
+      "lifespan": 1600,
+      "breakthrough": 0.57
+    },
+    {
+      "idx": 6,
+      "name": "炼虚",
+      "power_index": [
+        210,
+        280
+      ],
+      "lifespan": 3200,
+      "breakthrough": 0.5
+    },
+    {
+      "idx": 7,
+      "name": "合体",
+      "power_index": [
+        280,
+        360
+      ],
+      "lifespan": 6400,
+      "breakthrough": 0.43
+    },
+    {
+      "idx": 8,
+      "name": "大乘",
+      "power_index": [
+        360,
+        460
+      ],
+      "lifespan": 12800,
+      "breakthrough": 0.37
+    },
+    {
+      "idx": 9,
+      "name": "渡劫",
+      "power_index": [
+        460,
+        580
+      ],
+      "lifespan": 25600,
+      "breakthrough": 0.3
+    },
+    {
+      "idx": 10,
+      "name": "真仙",
+      "power_index": [
+        580,
+        720
+      ],
+      "lifespan": null,
+      "breakthrough": 0.23
+    },
+    {
+      "idx": 11,
+      "name": "金仙",
+      "power_index": [
+        720,
+        860
+      ],
+      "lifespan": null,
+      "breakthrough": 0.17
+    },
+    {
+      "idx": 12,
+      "name": "大罗",
+      "power_index": [
+        860,
+        1000
+      ],
+      "lifespan": null,
+      "breakthrough": 0.1
+    }
+  ],
+  "resource_map": {
+    "currency": {
+      "name": "灵石",
+      "tiers": [
+        "下品",
+        "中品",
+        "上品",
+        "极品"
+      ]
+    },
+    "power": {
+      "name": "灵力"
+    },
+    "rare_mat": {
+      "name": "灵药",
+      "subtypes": [
+        "灵草",
+        "灵矿",
+        "丹材",
+        "虫蜕"
+      ]
+    },
+    "favor": {
+      "name": "宗门贡献",
+      "tiers": [
+        "外门",
+        "内门",
+        "真传",
+        "长老"
+      ]
+    },
+    "debt": {
+      "name": "因果"
+    },
+    "exposure": {
+      "name": "行藏",
+      "tiers": [
+        "隐",
+        "显",
+        "扬",
+        "彰"
+      ]
+    },
+    "corruption": {
+      "name": "心魔"
+    },
+    "karma": {
+      "name": "功德"
+    },
+    "hp": {
+      "name": "伤势"
+    },
+    "lifespan": {
+      "name": "寿元"
+    },
+    "time_skip": {
+      "name": "闭关跳跃",
+      "tiers": [
+        "旬月",
+        "三载",
+        "十载",
+        "甲子"
+      ]
+    },
+    "alchemy": {
+      "name": "丹道",
+      "tiers": [
+        "丹童",
+        "丹工",
+        "丹师",
+        "丹宗"
+      ]
+    }
+  },
+  "goldfinger_slots": [
+    {
+      "id": "bottle",
+      "name": "催熟残瓶",
+      "rarity": "S",
+      "effects": [
+        "herb_growth_x3",
+        "rare_mat_auto_age",
+        "exposure+2",
+        "cannot_sell"
+      ]
+    },
+    {
+      "id": "soul_jade",
+      "name": "寄魂旧玉",
+      "rarity": "A",
+      "effects": [
+        "teach_skill",
+        "refine_knowledge",
+        "debt+1",
+        "sleep_penalty"
+      ]
+    },
+    {
+      "id": "spirit_field",
+      "name": "半亩灵田",
+      "rarity": "B",
+      "effects": [
+        "passive_herb_income",
+        "lifespan+5",
+        "needs_guard"
+      ]
+    },
+    {
+      "id": "broken_scroll",
+      "name": "无名残卷",
+      "rarity": "B",
+      "effects": [
+        "unlock_affix_slot",
+        "insight_check_bonus",
+        "incomplete"
+      ]
+    },
+    {
+      "id": "turtle_shell",
+      "name": "玄息龟甲",
+      "rarity": "C",
+      "effects": [
+        "survive_fatal_once",
+        "power_gain_slow"
+      ]
+    }
+  ],
+  "fail_modes": [
+    {
+      "id": "resource_drought",
+      "trigger": "currency<10 && rare_mat==0",
+      "text_ref": "flavor_drought"
+    },
+    {
+      "id": "robbed",
+      "trigger": "debt>=5 && exposure>=40",
+      "text_ref": "flavor_robbed"
+    },
+    {
+      "id": "heart_demon",
+      "trigger": "corruption>=80",
+      "text_ref": "flavor_heart_demon"
+    },
+    {
+      "id": "lifespan_out",
+      "trigger": "lifespan<=0",
+      "text_ref": "flavor_lifespan_out"
+    },
+    {
+      "id": "sect_purge",
+      "trigger": "favor<0 && exposure>=60",
+      "text_ref": "flavor_sect_purge"
+    }
+  ],
+  "motif_weights": {
+    "m_cave_relic": 1.8,
+    "m_mystic_treasure": 1.6,
+    "m_broken_betrothal": 0.6,
+    "m_mentor_soul": 1.2,
+    "m_waste_root_test": 1.5,
+    "m_body_seize": 0.9,
+    "m_market_bargain": 1.8,
+    "m_auction": 1.2,
+    "m_source_fusion": 0.5,
+    "m_ancient_relic": 0.8,
+    "m_sect_tournament": 1.3,
+    "m_sect_betrayal": 1.1,
+    "m_guardian_sacrifice": 0.9,
+    "m_beast_backlash": 1.0,
+    "m_secret_realm": 1.7,
+    "m_tribulation": 1.2,
+    "m_ancient_battlefield": 0.7,
+    "m_pill_furnace": 1.6,
+    "m_reincarnation": 0.6,
+    "m_sword_debate": 0.5,
+    "m_faction_choice": 0.8,
+    "m_city_defense": 0.4,
+    "m_sealed_object": 0.2,
+    "m_playacting": 0.3,
+    "m_aggregation_hunt": 0.1,
+    "m_outer_god": 0.0,
+    "m_time_loop": 0.1,
+    "m_dual_world": 0.1,
+    "m_forbidden_knowledge": 0.5,
+    "m_contingency": 0.9,
+    "m_cross_world": 0.1,
+    "m_ascension_rite": 1.0
+  },
+  "tone": {
+    "narration": "克制、冷静、留白；重账目与人情，轻口号",
+    "humor": 0.15,
+    "violence": 0.3
+  }
+}

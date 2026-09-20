@@ -1,0 +1,31 @@
+{
+  "name": "xuan",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "《玄》— 可切换修炼体系的文字修仙 Roguelike",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run",
+    "lint:content": "tsx tools/content-lint.ts",
+    "sim": "tsx tools/sim.ts",
+    "check:core": "tsx tools/check-core-purity.ts"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^3.0.2"
+  }
+}

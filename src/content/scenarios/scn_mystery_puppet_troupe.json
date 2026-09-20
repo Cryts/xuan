@@ -1,0 +1,164 @@
+{
+  "id": "scn_mystery_puppet_troupe",
+  "kind": "scenario",
+  "name": "皮影七人",
+  "pack": ["mystery"],
+  "span": 6,
+  "tension": 8,
+  "weight": 40,
+  "requires": { "type": "realm_idx", "op": ">=", "value": 1 },
+  "rules_stated": [
+    "戏班七人，各掌一职，缺一人则戏不成。",
+    "台上所演之事，台下必成真。",
+    "看客不得上台——上台者，即为戏中之人。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_seven_are_one",
+      "hint": "七人不是你遇见的七个人，是你身上的七样东西。杀一个，就是割自己一刀。",
+      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 65 }
+    },
+    {
+      "id": "rule_empty_seat",
+      "hint": "看客席上那把椅子是空的。戏班从不给自己留座——那是留给戏里人的。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          { "type": "var", "key": "corruption", "op": ">=", "value": 30 },
+          { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+        ]
+      }
+    },
+    {
+      "id": "rule_can_rewrite",
+      "hint": "『所演之事必成真』——那就不演他们会死。戏文是你写的。",
+      "reveal": { "type": "known_rule", "ref": "rule_seven_are_one" }
+    }
+  ],
+  "forbidden": [
+    "杀戏班中人",
+    "撕毁皮影",
+    "背对戏台"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_rewrite_play",
+      "name": "改戏",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_can_rewrite" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "affordance", "ref": "提线" },
+            { "type": "attr", "key": "charm", "op": ">=", "value": 70 }
+          ]
+        },
+        { "type": "node_count", "op": "<=", "value": 4 }
+      ],
+      "cost": "你把七人的结局写在纸上，纸却认得你的笔迹——此后你写死的，都会真死",
+      "outcome": {
+        "ref": "end_troupe_rewritten",
+        "narrative": "scn_puppet_troupe.rewritten",
+        "effects": [
+          { "type": "add_var", "key": "corruption", "delta": 25 },
+          { "type": "add_var", "key": "karma", "delta": 15 },
+          { "type": "unlock_title", "ref": "title_playwright" }
+        ]
+      }
+    },
+    {
+      "id": "solve_own_seven",
+      "name": "认下",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_seven_are_one" },
+        { "type": "attr", "key": "temper", "op": ">=", "value": 70 },
+        { "type": "var", "key": "corruption", "op": "<=", "value": 40 }
+      ],
+      "cost": "你认下七人皆是自己，要一个个收回体内——有人不肯回来",
+      "outcome": {
+        "ref": "end_troupe_recalled",
+        "narrative": "scn_puppet_troupe.recalled",
+        "effects": [
+          { "type": "set_relation", "npc_id": "npc_lantern_bearer", "kind": "道侣", "delta": -100 },
+          { "type": "add_var", "key": "power", "delta": 30 },
+          { "type": "unlock_codex", "ref": "codex_seven_selves" }
+        ]
+      }
+    },
+    {
+      "id": "solve_smash_stage",
+      "name": "破台",
+      "conditions": [
+        { "type": "attr", "key": "root", "op": ">=", "value": 75 },
+        { "type": "affix_count", "ref": "破甲", "count": 2 }
+      ],
+      "cost": "你拆了戏台，戏散了，七个人也就散了——他们本是你的一部分",
+      "outcome": {
+        "ref": "end_troupe_smashed",
+        "narrative": "scn_puppet_troupe.smashed",
+        "effects": [
+          { "type": "add_var", "key": "hp", "delta": 40 },
+          { "type": "add_var", "key": "corruption", "delta": 30 },
+          { "type": "modify_power_index", "delta": 6 }
+        ]
+      }
+    },
+    {
+      "id": "solve_take_seat",
+      "name": "入座",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_empty_seat" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "flag", "ref": "took_watcher_seat" },
+            { "type": "affordance", "ref": "隐身" }
+          ]
+        }
+      ],
+      "cost": "你坐上看客席，成了看客——戏里再没有你的位置，你也再回不去戏外",
+      "outcome": {
+        "ref": "end_troupe_spectator",
+        "narrative": "scn_puppet_troupe.spectator",
+        "effects": [
+          { "type": "add_var", "key": "exposure", "delta": -50 },
+          { "type": "add_var", "key": "power", "delta": -20 },
+          { "type": "unlock_title", "ref": "title_spectator" }
+        ]
+      }
+    },
+    {
+      "id": "solve_seventh_man",
+      "name": "第七人",
+      "hidden": true,
+      "conditions": [
+        { "type": "solved_any_of", "refs": ["solve_rewrite_play", "solve_own_seven"] },
+        { "type": "known_rule", "ref": "rule_empty_seat" },
+        { "type": "attr", "key": "insight", "op": ">=", "value": 85 }
+      ],
+      "cost": "极低——只是你从此知道，你也在别人的戏里",
+      "outcome": {
+        "ref": "end_troupe_seventh",
+        "narrative": "scn_puppet_troupe.seventh",
+        "effects": [
+          { "type": "add_var", "key": "power", "delta": 25 },
+          { "type": "add_var", "key": "corruption", "delta": -20 },
+          { "type": "learn_rule", "pack": "mystery", "ref": "rule_empty_seat" },
+          { "type": "unlock_title", "ref": "title_seventh_puppet" },
+          { "type": "unlock_codex", "ref": "codex_other_play" }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_puppet_troupe.unbroken",
+    "ref": "end_troupe_unbroken",
+    "effects": [
+      { "type": "trigger_end", "ref": "end_troupe_unbroken" },
+      { "type": "add_var", "key": "corruption", "delta": 25 },
+      { "type": "add_var", "key": "lifespan", "delta": -10 },
+      { "type": "unlock_codex", "ref": "codex_never_turned_around" }
+    ]
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,326 @@
+[
+  {
+    "id": "origin_scion_1",
+    "name": "世家子弟·嫡系长子",
+    "variant": 1,
+    "attr_mods": { "root": 1, "wits": 2, "temper": 1, "charm": 2 },
+    "start_resources": { "currency": 400, "favor": 12, "exposure": 10 },
+    "inherent_flags": ["origin_scion", "has_patron", "family_name"],
+    "recommended_pack": "mortal"
+  },
+  {
+    "id": "origin_scion_2",
+    "name": "世家子弟·旁支庶子",
+    "variant": 2,
+    "attr_mods": { "wits": 2, "insight": 2, "luck": 1, "temper": 1 },
+    "start_resources": { "currency": 180, "favor": 4, "exposure": 4 },
+    "inherent_flags": ["origin_scion", "family_name", "branch_line"],
+    "recommended_pack": "mortal"
+  },
+  {
+    "id": "origin_scion_3",
+    "name": "世家子弟·外室私生",
+    "variant": 3,
+    "attr_mods": { "charm": 2, "luck": 2, "insight": 1, "wits": 1 },
+    "start_resources": { "currency": 120, "exposure": 16, "debt": 8 },
+    "inherent_flags": ["origin_scion", "family_name", "hidden_birth"],
+    "recommended_pack": "mystery"
+  },
+  {
+    "id": "origin_orphan_1",
+    "name": "山村孤儿·猎户遗孤",
+    "variant": 1,
+    "attr_mods": { "root": 3, "temper": 2, "luck": 1 },
+    "start_resources": { "hp": 90, "currency": 20 },
+    "inherent_flags": ["origin_orphan", "no_backing", "wild_born"],
+    "recommended_pack": "physique"
+  },
+  {
+    "id": "origin_orphan_2",
+    "name": "山村孤儿·药农遗孤",
+    "variant": 2,
+    "attr_mods": { "root": 2, "insight": 2, "wits": 1, "luck": 1 },
+    "start_resources": { "currency": 30, "rare_mat": 2 },
+    "inherent_flags": ["origin_orphan", "no_backing", "herb_hands"],
+    "recommended_pack": "mortal"
+  },
+  {
+    "id": "origin_orphan_3",
+    "name": "山村孤儿·樵夫遗孤",
+    "variant": 3,
+    "attr_mods": { "root": 2, "temper": 3, "wits": 1 },
+    "start_resources": { "hp": 95, "currency": 10 },
+    "inherent_flags": ["origin_orphan", "no_backing", "hard_boned"],
+    "recommended_pack": "rebel"
+  },
+  {
+    "id": "origin_convict_1",
+    "name": "罪奴之后·流徙之后",
+    "variant": 1,
+    "attr_mods": { "root": 3, "temper": 2, "wits": 1 },
+    "start_resources": { "hp": 85, "debt": 12 },
+    "inherent_flags": ["origin_convict", "branded", "wanted_kin"],
+    "recommended_pack": "physique"
+  },
+  {
+    "id": "origin_convict_2",
+    "name": "罪奴之后·逆党之后",
+    "variant": 2,
+    "attr_mods": { "temper": 2, "wits": 2, "insight": 1, "root": 1 },
+    "start_resources": { "debt": 18, "exposure": 12 },
+    "inherent_flags": ["origin_convict", "branded", "old_network"],
+    "recommended_pack": "rebel"
+  },
+  {
+    "id": "origin_convict_3",
+    "name": "罪奴之后·矿奴之后",
+    "variant": 3,
+    "attr_mods": { "root": 4, "temper": 1, "luck": 1 },
+    "start_resources": { "hp": 80, "currency": 60 },
+    "inherent_flags": ["origin_convict", "branded", "deep_lung"],
+    "recommended_pack": "physique"
+  },
+  {
+    "id": "origin_beggar_1",
+    "name": "乞儿·街巷乞儿",
+    "variant": 1,
+    "attr_mods": { "luck": 2, "wits": 2, "charm": 1, "insight": 1 },
+    "start_resources": { "currency": 5, "exposure": 2 },
+    "inherent_flags": ["origin_beggar", "street_wits", "no_backing"],
+    "recommended_pack": "cautious"
+  },
+  {
+    "id": "origin_beggar_2",
+    "name": "乞儿·荒野乞儿",
+    "variant": 2,
+    "attr_mods": { "root": 2, "luck": 2, "temper": 2 },
+    "start_resources": { "hp": 88, "currency": 2 },
+    "inherent_flags": ["origin_beggar", "wild_born", "no_backing"],
+    "recommended_pack": "rebel"
+  },
+  {
+    "id": "origin_beggar_3",
+    "name": "乞儿·庙祝乞儿",
+    "variant": 3,
+    "attr_mods": { "charm": 2, "insight": 2, "luck": 2 },
+    "start_resources": { "currency": 15, "favor": 6, "karma": 5 },
+    "inherent_flags": ["origin_beggar", "temple_raised", "no_backing"],
+    "recommended_pack": "mystery"
+  },
+  {
+    "id": "origin_fallen_sect_1",
+    "name": "没落宗门遗孤·剑冢遗孤",
+    "variant": 1,
+    "attr_mods": { "root": 2, "wits": 2, "temper": 2 },
+    "start_resources": { "power": 10, "debt": 6 },
+    "inherent_flags": ["origin_fallen_sect", "sect_debt", "inherited_manual"],
+    "recommended_pack": "rebel"
+  },
+  {
+    "id": "origin_fallen_sect_2",
+    "name": "没落宗门遗孤·丹阁遗孤",
+    "variant": 2,
+    "attr_mods": { "wits": 2, "insight": 3, "luck": 1 },
+    "start_resources": { "rare_mat": 4, "currency": 60 },
+    "inherent_flags": ["origin_fallen_sect", "sect_debt", "herb_hands"],
+    "recommended_pack": "mortal"
+  },
+  {
+    "id": "origin_fallen_sect_3",
+    "name": "没落宗门遗孤·符楼遗孤",
+    "variant": 3,
+    "attr_mods": { "insight": 2, "wits": 2, "charm": 1, "luck": 1 },
+    "start_resources": { "currency": 40, "favor": 3 },
+    "inherent_flags": ["origin_fallen_sect", "sect_debt", "talisman_lore"],
+    "recommended_pack": "cautious"
+  },
+  {
+    "id": "origin_beast_blood_1",
+    "name": "妖兽混血·狼裔",
+    "variant": 1,
+    "attr_mods": { "root": 3, "temper": 2, "luck": 1 },
+    "start_resources": { "hp": 100, "corruption": 8 },
+    "inherent_flags": ["origin_beast_blood", "beast_scent", "body_gift"],
+    "recommended_pack": "physique"
+  },
+  {
+    "id": "origin_beast_blood_2",
+    "name": "妖兽混血·蛟裔",
+    "variant": 2,
+    "attr_mods": { "root": 2, "charm": 2, "insight": 1, "luck": 1 },
+    "start_resources": { "hp": 95, "power": 8, "corruption": 6 },
+    "inherent_flags": ["origin_beast_blood", "beast_scent", "scale_hide"],
+    "recommended_pack": "physique"
+  },
+  {
+    "id": "origin_beast_blood_3",
+    "name": "妖兽混血·鸦裔",
+    "variant": 3,
+    "attr_mods": { "wits": 2, "luck": 2, "insight": 2 },
+    "start_resources": { "hp": 80, "corruption": 10 },
+    "inherent_flags": ["origin_beast_blood", "beast_scent", "bird_omen"],
+    "recommended_pack": "mystery"
+  },
+  {
+    "id": "origin_exiled_immortal_1",
+    "name": "谪仙残魂·残魂附身",
+    "variant": 1,
+    "attr_mods": { "insight": 3, "wits": 2, "temper": 1 },
+    "start_resources": { "power": 20, "corruption": 12 },
+    "inherent_flags": ["origin_exiled_immortal", "old_soul", "heaven_watched"],
+    "recommended_pack": "rebel"
+  },
+  {
+    "id": "origin_exiled_immortal_2",
+    "name": "谪仙残魂·残忆入梦",
+    "variant": 2,
+    "attr_mods": { "wits": 2, "insight": 2, "luck": 2 },
+    "start_resources": { "power": 12, "corruption": 8 },
+    "inherent_flags": ["origin_exiled_immortal", "old_soul", "dream_memory"],
+    "recommended_pack": "mystery"
+  },
+  {
+    "id": "origin_exiled_immortal_3",
+    "name": "谪仙残魂·残骨为凭",
+    "variant": 3,
+    "attr_mods": { "root": 3, "insight": 2, "temper": 1 },
+    "start_resources": { "hp": 90, "power": 15 },
+    "inherent_flags": ["origin_exiled_immortal", "old_soul", "bone_relic"],
+    "recommended_pack": "physique"
+  },
+  {
+    "id": "origin_outlander_1",
+    "name": "异域来客·界隙坠客",
+    "variant": 1,
+    "attr_mods": { "luck": 2, "wits": 2, "insight": 2 },
+    "start_resources": { "exposure": 6, "currency": 20 },
+    "inherent_flags": ["origin_outlander", "no_register", "rule_foreign"],
+    "recommended_pack": "mystery"
+  },
+  {
+    "id": "origin_outlander_2",
+    "name": "异域来客·星舟遗民",
+    "variant": 2,
+    "attr_mods": { "wits": 3, "insight": 2, "root": 1 },
+    "start_resources": { "rare_mat": 3, "currency": 80 },
+    "inherent_flags": ["origin_outlander", "no_register", "star_wreck"],
+    "recommended_pack": "genius"
+  },
+  {
+    "id": "origin_outlander_3",
+    "name": "异域来客·古阵误入",
+    "variant": 3,
+    "attr_mods": { "insight": 2, "luck": 1, "charm": 2, "wits": 1 },
+    "start_resources": { "exposure": 10, "debt": 4 },
+    "inherent_flags": ["origin_outlander", "no_register", "array_scarred"],
+    "recommended_pack": "cautious"
+  },
+  {
+    "id": "origin_herb_lad_1",
+    "name": "药庐童子·采药童",
+    "variant": 1,
+    "attr_mods": { "root": 2, "insight": 2, "luck": 2 },
+    "start_resources": { "rare_mat": 3, "currency": 25 },
+    "inherent_flags": ["origin_herb_lad", "herb_hands", "clinic_favor"],
+    "recommended_pack": "mortal"
+  },
+  {
+    "id": "origin_herb_lad_2",
+    "name": "药庐童子·碾药童",
+    "variant": 2,
+    "attr_mods": { "wits": 2, "insight": 2, "temper": 2 },
+    "start_resources": { "rare_mat": 2, "currency": 40 },
+    "inherent_flags": ["origin_herb_lad", "herb_hands", "clinic_favor"],
+    "recommended_pack": "mortal"
+  },
+  {
+    "id": "origin_herb_lad_3",
+    "name": "药庐童子·守炉童",
+    "variant": 3,
+    "attr_mods": { "temper": 2, "root": 2, "insight": 2 },
+    "start_resources": { "rare_mat": 4, "corruption": 4 },
+    "inherent_flags": ["origin_herb_lad", "herb_hands", "furnace_scarred"],
+    "recommended_pack": "genius"
+  },
+  {
+    "id": "origin_frontier_1",
+    "name": "边镇军户·戍卒",
+    "variant": 1,
+    "attr_mods": { "root": 3, "temper": 2, "wits": 1 },
+    "start_resources": { "hp": 95, "favor": 4, "currency": 50 },
+    "inherent_flags": ["origin_frontier", "camp_training", "war_debt"],
+    "recommended_pack": "physique"
+  },
+  {
+    "id": "origin_frontier_2",
+    "name": "边镇军户·斥候",
+    "variant": 2,
+    "attr_mods": { "wits": 3, "luck": 2, "root": 1 },
+    "start_resources": { "hp": 90, "exposure": 4, "currency": 40 },
+    "inherent_flags": ["origin_frontier", "camp_training", "scout_lore"],
+    "recommended_pack": "cautious"
+  },
+  {
+    "id": "origin_frontier_3",
+    "name": "边镇军户·军医",
+    "variant": 3,
+    "attr_mods": { "insight": 2, "wits": 2, "temper": 2 },
+    "start_resources": { "hp": 92, "rare_mat": 2, "karma": 6 },
+    "inherent_flags": ["origin_frontier", "camp_training", "field_leech"],
+    "recommended_pack": "mortal"
+  },
+  {
+    "id": "origin_lampkeeper_1",
+    "name": "掌灯人之后·守灯者",
+    "variant": 1,
+    "attr_mods": { "temper": 3, "insight": 2, "luck": 1 },
+    "start_resources": { "power": 8, "corruption": 6 },
+    "inherent_flags": ["origin_lampkeeper", "lamp_rite", "night_errand"],
+    "recommended_pack": "mystery"
+  },
+  {
+    "id": "origin_lampkeeper_2",
+    "name": "掌灯人之后·添油者",
+    "variant": 2,
+    "attr_mods": { "insight": 3, "charm": 2, "wits": 1 },
+    "start_resources": { "power": 10, "favor": 5, "exposure": 4 },
+    "inherent_flags": ["origin_lampkeeper", "lamp_rite", "oil_bearer"],
+    "recommended_pack": "mystery"
+  },
+  {
+    "id": "origin_lampkeeper_3",
+    "name": "掌灯人之后·剪芯者",
+    "variant": 3,
+    "attr_mods": { "wits": 2, "insight": 2, "temper": 2 },
+    "start_resources": { "power": 6, "exposure": 10, "debt": 5 },
+    "inherent_flags": ["origin_lampkeeper", "lamp_rite", "wick_cutter"],
+    "recommended_pack": "cautious"
+  },
+  {
+    "id": "origin_castoff_1",
+    "name": "弃徒·逐徒",
+    "variant": 1,
+    "attr_mods": { "temper": 2, "wits": 2, "root": 2 },
+    "start_resources": { "hp": 85, "debt": 8 },
+    "inherent_flags": ["origin_castoff", "no_sect", "self_taught"],
+    "recommended_pack": "rebel"
+  },
+  {
+    "id": "origin_castoff_2",
+    "name": "弃徒·逃徒",
+    "variant": 2,
+    "attr_mods": { "luck": 2, "wits": 2, "charm": 2 },
+    "start_resources": { "currency": 70, "exposure": 8 },
+    "inherent_flags": ["origin_castoff", "no_sect", "self_taught"],
+    "recommended_pack": "cautious"
+  },
+  {
+    "id": "origin_castoff_3",
+    "name": "弃徒·赎徒",
+    "variant": 3,
+    "attr_mods": { "root": 2, "temper": 2, "charm": 2 },
+    "start_resources": { "currency": 120, "favor": 3, "debt": 10 },
+    "inherent_flags": ["origin_castoff", "no_sect", "ransom_bound"],
+    "recommended_pack": "mortal"
+  }
+]

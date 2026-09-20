@@ -1,0 +1,157 @@
+{
+  "id": "scn_mystery_fog_judge",
+  "kind": "scenario",
+  "name": "雾中判官",
+  "pack": ["mystery"],
+  "span": 5,
+  "tension": 7,
+  "weight": 38,
+  "requires": { "type": "realm_idx", "op": ">=", "value": 1 },
+  "rules_stated": [
+    "入雾者须自陈其名，陈名而后，判官以名定罪。",
+    "名正则行正，名邪则行邪——判官不看人，只看名。",
+    "陈名之后不可改口，改口者魂飞。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_name_is_claim",
+      "hint": "判官无从核验你的名。他判的其实是你陈名时那一口气——正邪全在口气里。",
+      "reveal": { "type": "attr", "key": "charm", "op": ">=", "value": 60 }
+    },
+    {
+      "id": "rule_name_can_be_empty",
+      "hint": "『名』不必是姓名。道号、绰号、庙号、乃至一个虚字，都算名——只要你自己认。",
+      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 60 }
+    },
+    {
+      "id": "rule_voice_not_person",
+      "hint": "『不可改口』禁的是同一口气改两次。换一个人替你陈，那口气就不是你的了。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          { "type": "relation", "kind": "盟友", "exists": true },
+          { "type": "relation", "kind": "护道人", "exists": true }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "陈名之后再吐第二句",
+    "对判官行礼",
+    "在雾中回头"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_empty_name",
+      "name": "陈空名",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_name_can_be_empty" },
+        { "type": "attr", "key": "charm", "op": ">=", "value": 65 },
+        { "type": "not", "of": { "type": "flag", "ref": "swore_true_name_before" } }
+      ],
+      "cost": "判官放你过去，可灰雾记住了那个虚字——往后凡念此字者，都会看见你的脸",
+      "outcome": {
+        "ref": "end_fog_empty_name",
+        "narrative": "scn_fog_judge.empty_name",
+        "effects": [
+          { "type": "add_var", "key": "exposure", "delta": 30 },
+          { "type": "add_var", "key": "corruption", "delta": 10 },
+          { "type": "unlock_title", "ref": "title_nameless_voice" }
+        ]
+      }
+    },
+    {
+      "id": "solve_proxy_voice",
+      "name": "借口",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_voice_not_person" },
+        {
+          "type": "any",
+          "of": [
+            { "type": "relation", "kind": "护道人", "exists": true },
+            { "type": "relation", "kind": "盟友", "op": ">=", "value": 30 }
+          ]
+        }
+      ],
+      "cost": "旁人替你答了那一句，从此你欠他一次开口",
+      "outcome": {
+        "ref": "end_fog_proxy",
+        "narrative": "scn_fog_judge.proxy",
+        "effects": [
+          { "type": "add_var", "key": "debt", "delta": 3 },
+          { "type": "add_var", "key": "favor", "delta": -10 },
+          { "type": "unlock_codex", "ref": "codex_borrowed_voice" }
+        ]
+      }
+    },
+    {
+      "id": "solve_walk_through",
+      "name": "硬闯",
+      "conditions": [
+        { "type": "attr", "key": "root", "op": ">=", "value": 80 },
+        { "type": "var", "key": "corruption", "op": "<=", "value": 30 },
+        { "type": "realm_idx", "op": ">=", "value": 3 }
+      ],
+      "cost": "你不陈名，径直走进去。判官没有拦你，灰雾却在你身上留了印",
+      "outcome": {
+        "ref": "end_fog_walked",
+        "narrative": "scn_fog_judge.walked",
+        "effects": [
+          { "type": "add_var", "key": "hp", "delta": 35 },
+          { "type": "add_var", "key": "exposure", "delta": 20 },
+          { "type": "modify_power_index", "delta": 7 }
+        ]
+      }
+    },
+    {
+      "id": "solve_true_name",
+      "name": "陈真名",
+      "conditions": [
+        { "type": "known_rule", "ref": "rule_name_is_claim" },
+        { "type": "var", "key": "karma", "op": ">=", "value": 60 },
+        { "type": "attr", "key": "temper", "op": ">=", "value": 70 }
+      ],
+      "cost": "你说出真名，口气坦荡，判官自惭而退——可雾外的人也都听见了",
+      "outcome": {
+        "ref": "end_fog_true_name",
+        "narrative": "scn_fog_judge.true_name",
+        "effects": [
+          { "type": "add_var", "key": "exposure", "delta": 45 },
+          { "type": "add_var", "key": "karma", "delta": 15 },
+          { "type": "add_var", "key": "favor", "delta": 25 }
+        ]
+      }
+    },
+    {
+      "id": "solve_name_and_truth",
+      "name": "名实俱",
+      "hidden": true,
+      "conditions": [
+        { "type": "solved_any_of", "refs": ["solve_empty_name", "solve_true_name"] },
+        { "type": "known_rule", "ref": "rule_name_is_claim" },
+        { "type": "attr", "key": "wits", "op": ">=", "value": 85 }
+      ],
+      "cost": "极低——只是往后你报出任何一个名字，都得先想一想是不是自己的",
+      "outcome": {
+        "ref": "end_fog_name_and_truth",
+        "narrative": "scn_fog_judge.both",
+        "effects": [
+          { "type": "add_var", "key": "power", "delta": 25 },
+          { "type": "add_var", "key": "exposure", "delta": -20 },
+          { "type": "unlock_title", "ref": "title_two_names" }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_fog_judge.mute",
+    "ref": "end_fog_mute",
+    "effects": [
+      { "type": "trigger_end", "ref": "end_fog_mute" },
+      { "type": "add_var", "key": "corruption", "delta": 20 },
+      { "type": "add_var", "key": "lifespan", "delta": -10 },
+      { "type": "unlock_codex", "ref": "codex_white_frost" }
+    ]
+  },
+  "version": "1.0.0"
+}

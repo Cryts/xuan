@@ -1,0 +1,211 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: calc(var(--s3) + env(safe-area-inset-top, 0px)) var(--s4) var(--s3);
+  background: linear-gradient(180deg, rgba(11, 10, 9, 0.97) 62%, rgba(11, 10, 9, 0.72) 88%, rgba(11, 10, 9, 0));
+  backdrop-filter: blur(8px);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.who {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.pack {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  color: var(--t3);
+  white-space: nowrap;
+}
+
+.dot {
+  color: var(--t4);
+}
+
+.realm {
+  font-family: var(--font-title);
+  font-size: var(--fs-md);
+  letter-spacing: 0.16em;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+.acts {
+  display: flex;
+  gap: var(--s2);
+}
+
+.act {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--t2);
+  transition: color var(--d2) var(--ease), border-color var(--d2) var(--ease);
+}
+.act:hover {
+  color: var(--gold-bright);
+  border-color: rgba(201, 162, 39, 0.4);
+}
+
+.badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 99px;
+  background: var(--cinnabar);
+  color: #fff;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.mid {
+  display: flex;
+  align-items: center;
+  gap: var(--s4);
+}
+
+.ringCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.ringLabel {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: var(--t3);
+}
+
+.ringWrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+}
+
+.ringTrack {
+  fill: none;
+  stroke: rgba(242, 234, 217, 0.09);
+  stroke-width: 2.5;
+}
+
+.ringFill {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset var(--d4) var(--ease-out);
+}
+
+.ringNum {
+  position: absolute;
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  color: var(--paper);
+}
+
+.vitals {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.shallow {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.shallowLabel {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: var(--t3);
+  width: 2.2em;
+}
+
+.shallowNum {
+  font-size: var(--fs-2xs);
+  color: var(--t2);
+  min-width: 2.4em;
+  text-align: right;
+}
+
+/* ---------- 六维 ---------- */
+.attrs {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--s2);
+}
+
+.attr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.attrName {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  color: var(--t3);
+  white-space: nowrap;
+}
+
+.attrNum {
+  font-size: var(--fs-2xs);
+  color: var(--t2);
+}
+
+/* ---------- 资源 ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s3);
+  padding-top: 2px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  opacity: 0.86;
+}
+
+.chip b {
+  font-weight: 500;
+  font-size: var(--fs-xs);
+}
+
+.chipDim {
+  font-size: var(--fs-2xs);
+  color: var(--t3);
+  letter-spacing: 0.08em;
+}

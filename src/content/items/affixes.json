@@ -1,0 +1,635 @@
+[
+  {
+    "id": "af_ruifeng",
+    "name": "锐锋",
+    "tier": "凡品",
+    "affordance": ["破甲", "启户"],
+    "effects": [{ "type": "add_attr", "key": "root", "delta": 1 }]
+  },
+  {
+    "id": "af_chentie",
+    "name": "沉铁",
+    "tier": "凡品",
+    "affordance": ["破甲", "承载"],
+    "effects": [{ "type": "add_attr", "key": "root", "delta": 1 }]
+  },
+  {
+    "id": "af_pojia",
+    "name": "破甲",
+    "tier": "灵品",
+    "affordance": ["破甲", "断法"],
+    "effects": [{ "type": "add_var", "key": "power", "delta": 3 }]
+  },
+  {
+    "id": "af_duanren",
+    "name": "断刃",
+    "tier": "宝品",
+    "affordance": ["破甲", "噬主"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 6 },
+      { "type": "add_var", "key": "debt", "delta": 2 }
+    ]
+  },
+  {
+    "id": "af_shixue",
+    "name": "嗜血",
+    "tier": "宝品",
+    "affordance": ["噬主", "破甲"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 5 },
+      { "type": "add_var", "key": "corruption", "delta": 2 }
+    ]
+  },
+  {
+    "id": "af_yinhuo",
+    "name": "引火",
+    "tier": "凡品",
+    "affordance": ["引火", "照明"]
+  },
+  {
+    "id": "af_liuhuo",
+    "name": "流火",
+    "tier": "灵品",
+    "affordance": ["引火", "御风"],
+    "effects": [{ "type": "add_var", "key": "power", "delta": 3 }]
+  },
+  {
+    "id": "af_fenxin",
+    "name": "焚心",
+    "tier": "宝品",
+    "affordance": ["引火", "噬主"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 7 },
+      { "type": "add_var", "key": "corruption", "delta": 3 }
+    ]
+  },
+  {
+    "id": "af_cuidu",
+    "name": "淬毒",
+    "tier": "凡品",
+    "affordance": ["淬毒", "匿形"]
+  },
+  {
+    "id": "af_duzhang",
+    "name": "毒瘴",
+    "tier": "灵品",
+    "affordance": ["淬毒", "惑心", "匿形"],
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -1 }]
+  },
+  {
+    "id": "af_shigu",
+    "name": "蚀骨",
+    "tier": "宝品",
+    "affordance": ["淬毒", "破甲", "噬主"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 5 },
+      { "type": "add_var", "key": "corruption", "delta": 2 }
+    ]
+  },
+  {
+    "id": "af_duanfa",
+    "name": "断法",
+    "tier": "宝品",
+    "affordance": ["断法", "破甲"],
+    "effects": [{ "type": "add_var", "key": "power", "delta": 4 }]
+  },
+  {
+    "id": "af_jinfa",
+    "name": "禁法",
+    "tier": "仙品",
+    "affordance": ["断法", "锁灵", "封印"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 8 },
+      { "type": "add_var", "key": "exposure", "delta": 3 }
+    ]
+  },
+  {
+    "id": "af_leifa",
+    "name": "雷罚",
+    "tier": "道品",
+    "affordance": ["破甲", "断法", "驱邪"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 12 },
+      { "type": "add_var", "key": "karma", "delta": -3 }
+    ]
+  },
+  {
+    "id": "af_leiting",
+    "name": "雷霆",
+    "tier": "仙品",
+    "affordance": ["破甲", "驱邪"],
+    "effects": [{ "type": "add_var", "key": "power", "delta": 9 }]
+  },
+  {
+    "id": "af_ningshuang",
+    "name": "凝霜",
+    "tier": "灵品",
+    "affordance": ["缚身", "隔水"]
+  },
+  {
+    "id": "af_bingpo",
+    "name": "冰魄",
+    "tier": "宝品",
+    "affordance": ["缚身", "封印"],
+    "effects": [{ "type": "add_var", "key": "power", "delta": 4 }]
+  },
+  {
+    "id": "af_fushen",
+    "name": "缚身",
+    "tier": "凡品",
+    "affordance": ["缚身", "承载"]
+  },
+  {
+    "id": "af_suolian",
+    "name": "锁链",
+    "tier": "灵品",
+    "affordance": ["缚身", "承载"]
+  },
+  {
+    "id": "af_chansi",
+    "name": "缠丝",
+    "tier": "灵品",
+    "affordance": ["缚身", "匿形"]
+  },
+  {
+    "id": "af_jianxin",
+    "name": "剑心",
+    "tier": "宝品",
+    "affordance": ["破甲", "洞察"],
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 2 }]
+  },
+  {
+    "id": "af_zhuihun",
+    "name": "追魂",
+    "tier": "宝品",
+    "affordance": ["溯源", "召引"]
+  },
+  {
+    "id": "af_huzhu",
+    "name": "护主",
+    "tier": "灵品",
+    "affordance": ["护主", "承载"],
+    "effects": [{ "type": "add_attr", "key": "temper", "delta": 1 }]
+  },
+  {
+    "id": "af_daizai",
+    "name": "代灾",
+    "tier": "宝品",
+    "affordance": ["护主", "聚运"],
+    "effects": [
+      { "type": "add_var", "key": "karma", "delta": 3 },
+      { "type": "add_var", "key": "debt", "delta": 2 }
+    ]
+  },
+  {
+    "id": "af_liaoshang",
+    "name": "疗伤",
+    "tier": "凡品",
+    "affordance": ["疗伤", "解毒"],
+    "effects": [{ "type": "add_var", "key": "karma", "delta": 1 }]
+  },
+  {
+    "id": "af_shengji",
+    "name": "生肌",
+    "tier": "灵品",
+    "affordance": ["疗伤", "续命"],
+    "effects": [{ "type": "add_var", "key": "karma", "delta": 2 }]
+  },
+  {
+    "id": "af_jinzhen",
+    "name": "金针",
+    "tier": "灵品",
+    "affordance": ["疗伤", "洞察"],
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 1 }]
+  },
+  {
+    "id": "af_xuming",
+    "name": "续命",
+    "tier": "仙品",
+    "affordance": ["续命", "噬主"],
+    "effects": [
+      { "type": "add_var", "key": "lifespan", "delta": 20 },
+      { "type": "add_var", "key": "corruption", "delta": 3 }
+    ]
+  },
+  {
+    "id": "af_yannian",
+    "name": "延年",
+    "tier": "宝品",
+    "affordance": ["续命", "储灵"],
+    "effects": [{ "type": "add_var", "key": "lifespan", "delta": 10 }]
+  },
+  {
+    "id": "af_huiling",
+    "name": "回灵",
+    "tier": "灵品",
+    "affordance": ["储灵", "疗伤"],
+    "effects": [{ "type": "add_var", "key": "power", "delta": 2 }]
+  },
+  {
+    "id": "af_bihui",
+    "name": "辟秽",
+    "tier": "灵品",
+    "affordance": ["驱邪", "解毒"],
+    "effects": [{ "type": "add_var", "key": "corruption", "delta": -2 }]
+  },
+  {
+    "id": "af_quxie",
+    "name": "驱邪",
+    "tier": "凡品",
+    "affordance": ["驱邪", "照明"],
+    "effects": [{ "type": "add_var", "key": "corruption", "delta": -1 }]
+  },
+  {
+    "id": "af_qingxin",
+    "name": "清心",
+    "tier": "灵品",
+    "affordance": ["解毒", "镇魂"],
+    "effects": [{ "type": "add_var", "key": "corruption", "delta": -2 }]
+  },
+  {
+    "id": "af_zhenhun",
+    "name": "镇魂",
+    "tier": "灵品",
+    "affordance": ["镇魂", "缚身"],
+    "effects": [{ "type": "add_var", "key": "corruption", "delta": -2 }]
+  },
+  {
+    "id": "af_anhen",
+    "name": "安魂",
+    "tier": "宝品",
+    "affordance": ["镇魂", "疗伤"],
+    "effects": [
+      { "type": "add_var", "key": "corruption", "delta": -3 },
+      { "type": "add_var", "key": "karma", "delta": 2 }
+    ]
+  },
+  {
+    "id": "af_dinghun",
+    "name": "定魂",
+    "tier": "宝品",
+    "affordance": ["镇魂", "封印"],
+    "effects": [{ "type": "add_var", "key": "corruption", "delta": -4 }]
+  },
+  {
+    "id": "af_dichen",
+    "name": "涤尘",
+    "tier": "凡品",
+    "affordance": ["驱邪", "隔水"]
+  },
+  {
+    "id": "af_yufeng",
+    "name": "御风",
+    "tier": "凡品",
+    "affordance": ["御风", "匿形"]
+  },
+  {
+    "id": "af_lingxu",
+    "name": "凌虚",
+    "tier": "宝品",
+    "affordance": ["御风", "挪移"],
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 1 }]
+  },
+  {
+    "id": "af_xuankong",
+    "name": "悬空",
+    "tier": "宝品",
+    "affordance": ["御风", "缚身"]
+  },
+  {
+    "id": "af_dundi",
+    "name": "遁地",
+    "tier": "灵品",
+    "affordance": ["遁地", "匿形"]
+  },
+  {
+    "id": "af_tuxing",
+    "name": "土行",
+    "tier": "宝品",
+    "affordance": ["遁地", "承载"]
+  },
+  {
+    "id": "af_nuoyi",
+    "name": "挪移",
+    "tier": "仙品",
+    "affordance": ["挪移", "匿形"],
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 2 }]
+  },
+  {
+    "id": "af_diekong",
+    "name": "叠空",
+    "tier": "道品",
+    "affordance": ["挪移", "封印"],
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 3 }]
+  },
+  {
+    "id": "af_qianji",
+    "name": "潜迹",
+    "tier": "灵品",
+    "affordance": ["匿形", "遁地"],
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -2 }]
+  },
+  {
+    "id": "af_nixing",
+    "name": "匿形",
+    "tier": "凡品",
+    "affordance": ["匿形", "惑心"],
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -1 }]
+  },
+  {
+    "id": "af_yanxi",
+    "name": "掩息",
+    "tier": "凡品",
+    "affordance": ["匿形", "镇魂"],
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -1 }]
+  },
+  {
+    "id": "af_yinshen",
+    "name": "隐身",
+    "tier": "仙品",
+    "affordance": ["匿形", "挪移"],
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -4 }]
+  },
+  {
+    "id": "af_zhaoming",
+    "name": "照明",
+    "tier": "凡品",
+    "affordance": ["照明", "引火"]
+  },
+  {
+    "id": "af_yeguang",
+    "name": "夜光",
+    "tier": "凡品",
+    "affordance": ["照明", "洞察"]
+  },
+  {
+    "id": "af_zhuomu",
+    "name": "灼目",
+    "tier": "灵品",
+    "affordance": ["照明", "惑心"]
+  },
+  {
+    "id": "af_chongming",
+    "name": "重明",
+    "tier": "宝品",
+    "affordance": ["照明", "洞察", "驱邪"],
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 2 }]
+  },
+  {
+    "id": "af_dongcha",
+    "name": "洞察",
+    "tier": "灵品",
+    "affordance": ["洞察", "溯源"],
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 2 }]
+  },
+  {
+    "id": "af_zhaoxu",
+    "name": "照虚",
+    "tier": "宝品",
+    "affordance": ["洞察", "断法"],
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 3 }]
+  },
+  {
+    "id": "af_suyuan",
+    "name": "溯源",
+    "tier": "宝品",
+    "affordance": ["溯源", "通灵"]
+  },
+  {
+    "id": "af_shuijian",
+    "name": "水鉴",
+    "tier": "宝品",
+    "affordance": ["溯源", "隔水", "称量"],
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 2 }]
+  },
+  {
+    "id": "af_chuanxun",
+    "name": "传讯",
+    "tier": "凡品",
+    "affordance": ["传讯", "照明"]
+  },
+  {
+    "id": "af_qianli",
+    "name": "千里",
+    "tier": "灵品",
+    "affordance": ["传讯", "洞察"],
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 1 }]
+  },
+  {
+    "id": "af_mingqi",
+    "name": "鸣器",
+    "tier": "凡品",
+    "affordance": ["传讯", "召引"]
+  },
+  {
+    "id": "af_tongling",
+    "name": "通灵",
+    "tier": "灵品",
+    "affordance": ["通灵", "召引"]
+  },
+  {
+    "id": "af_hunyu",
+    "name": "魂语",
+    "tier": "宝品",
+    "affordance": ["通灵", "溯源", "镇魂"],
+    "effects": [{ "type": "add_attr", "key": "insight", "delta": 2 }]
+  },
+  {
+    "id": "af_zhaoyin",
+    "name": "召引",
+    "tier": "宝品",
+    "affordance": ["召引", "通灵", "缚身"]
+  },
+  {
+    "id": "af_shouhun",
+    "name": "收魂",
+    "tier": "仙品",
+    "affordance": ["召引", "封印", "镇魂"],
+    "effects": [{ "type": "add_var", "key": "karma", "delta": -3 }]
+  },
+  {
+    "id": "af_qihu",
+    "name": "启户",
+    "tier": "凡品",
+    "affordance": ["启户", "称量"]
+  },
+  {
+    "id": "af_qiji",
+    "name": "启机",
+    "tier": "灵品",
+    "affordance": ["启户", "洞察"]
+  },
+  {
+    "id": "af_xiubu",
+    "name": "修补",
+    "tier": "凡品",
+    "affordance": ["承载", "启户"]
+  },
+  {
+    "id": "af_geshui",
+    "name": "隔水",
+    "tier": "凡品",
+    "affordance": ["隔水", "承载"]
+  },
+  {
+    "id": "af_chengzai",
+    "name": "承载",
+    "tier": "灵品",
+    "affordance": ["承载", "储灵"]
+  },
+  {
+    "id": "af_naxu",
+    "name": "纳虚",
+    "tier": "宝品",
+    "affordance": ["承载", "储灵", "封印"]
+  },
+  {
+    "id": "af_chuling",
+    "name": "储灵",
+    "tier": "灵品",
+    "affordance": ["储灵", "承载"]
+  },
+  {
+    "id": "af_xushi",
+    "name": "蓄势",
+    "tier": "宝品",
+    "affordance": ["储灵", "聚运"]
+  },
+  {
+    "id": "af_suoling",
+    "name": "锁灵",
+    "tier": "宝品",
+    "affordance": ["锁灵", "缚身"],
+    "effects": [{ "type": "add_var", "key": "power", "delta": -2 }]
+  },
+  {
+    "id": "af_fengling",
+    "name": "封灵",
+    "tier": "仙品",
+    "affordance": ["锁灵", "封印"],
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -3 }]
+  },
+  {
+    "id": "af_fengyin",
+    "name": "封印",
+    "tier": "仙品",
+    "affordance": ["封印", "锁灵"],
+    "effects": [{ "type": "add_var", "key": "exposure", "delta": -2 }]
+  },
+  {
+    "id": "af_zhenya",
+    "name": "镇押",
+    "tier": "宝品",
+    "affordance": ["封印", "缚身"],
+    "effects": [{ "type": "add_var", "key": "karma", "delta": 2 }]
+  },
+  {
+    "id": "af_jieyin",
+    "name": "解印",
+    "tier": "灵品",
+    "affordance": ["启户", "断法"]
+  },
+  {
+    "id": "af_chengliang",
+    "name": "称量",
+    "tier": "灵品",
+    "affordance": ["称量", "洞察"],
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 1 }]
+  },
+  {
+    "id": "af_hengxin",
+    "name": "衡心",
+    "tier": "宝品",
+    "affordance": ["称量", "镇魂"],
+    "effects": [{ "type": "add_attr", "key": "temper", "delta": 2 }]
+  },
+  {
+    "id": "af_yijia",
+    "name": "议价",
+    "tier": "灵品",
+    "affordance": ["议价", "称量"],
+    "effects": [{ "type": "add_attr", "key": "charm", "delta": 1 }]
+  },
+  {
+    "id": "af_shangdao",
+    "name": "商道",
+    "tier": "宝品",
+    "affordance": ["议价", "聚运"],
+    "effects": [
+      { "type": "add_var", "key": "currency", "delta": 6 },
+      { "type": "add_attr", "key": "charm", "delta": 2 }
+    ]
+  },
+  {
+    "id": "af_qimo",
+    "name": "契墨",
+    "tier": "宝品",
+    "affordance": ["dl_ink", "封印"],
+    "effects": [{ "type": "add_var", "key": "debt", "delta": 2 }]
+  },
+  {
+    "id": "af_luomo",
+    "name": "落墨",
+    "tier": "灵品",
+    "affordance": ["dl_ink", "传讯"],
+    "effects": [{ "type": "add_attr", "key": "wits", "delta": 1 }]
+  },
+  {
+    "id": "af_shizhu",
+    "name": "噬主",
+    "tier": "宝品",
+    "affordance": ["噬主", "储灵"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 5 },
+      { "type": "add_var", "key": "corruption", "delta": 3 }
+    ]
+  },
+  {
+    "id": "af_fanshi",
+    "name": "反噬",
+    "tier": "宝品",
+    "affordance": ["噬主", "断法"],
+    "effects": [
+      { "type": "add_var", "key": "power", "delta": 4 },
+      { "type": "add_var", "key": "corruption", "delta": 3 }
+    ]
+  },
+  {
+    "id": "af_juyun",
+    "name": "聚运",
+    "tier": "仙品",
+    "affordance": ["聚运", "护主"],
+    "effects": [{ "type": "add_attr", "key": "luck", "delta": 4 }]
+  },
+  {
+    "id": "af_fuyuan",
+    "name": "福缘",
+    "tier": "灵品",
+    "affordance": ["聚运", "疗伤"],
+    "effects": [{ "type": "add_attr", "key": "luck", "delta": 2 }]
+  },
+  {
+    "id": "af_huoxin",
+    "name": "惑心",
+    "tier": "灵品",
+    "affordance": ["惑心", "匿形"],
+    "effects": [{ "type": "add_attr", "key": "charm", "delta": 1 }]
+  },
+  {
+    "id": "af_mihun",
+    "name": "迷魂",
+    "tier": "宝品",
+    "affordance": ["惑心", "镇魂"],
+    "effects": [{ "type": "add_attr", "key": "charm", "delta": 2 }]
+  },
+  {
+    "id": "af_jieyun",
+    "name": "劫运",
+    "tier": "道品",
+    "affordance": ["聚运", "噬主", "称量"],
+    "effects": [
+      { "type": "add_attr", "key": "luck", "delta": 5 },
+      { "type": "add_var", "key": "debt", "delta": 6 }
+    ]
+  }
+]

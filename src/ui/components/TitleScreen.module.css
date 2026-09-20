@@ -1,0 +1,101 @@
+.wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--s8) + env(safe-area-inset-top, 0px)) var(--s5)
+    calc(var(--s6) + env(safe-area-inset-bottom, 0px));
+  text-align: center;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s4);
+}
+
+.markWrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+/* 一滴墨：落下、晕开 */
+.drop {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 234, 217, 0.5), rgba(242, 234, 217, 0) 68%);
+  animation: inkDrop 1.6s var(--ease-out) both;
+}
+
+.mark {
+  position: relative;
+  font-family: var(--font-title);
+  font-size: var(--fs-4xl);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--paper);
+  text-shadow:
+    0 0 42px rgba(242, 234, 217, 0.16),
+    0 0 90px rgba(201, 162, 39, 0.1);
+  animation: inkSpread 1.9s var(--ease-out) both;
+}
+
+.sub {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  color: var(--t2);
+  animation: fadeUp var(--d5) var(--ease-out) 500ms both;
+}
+
+.slogan {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.22em;
+  color: var(--t4);
+  animation: fadeUp var(--d5) var(--ease-out) 800ms both;
+}
+
+.actions {
+  width: min(100%, 340px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--d3) var(--ease-out), transform var(--d3) var(--ease-out);
+}
+
+.actionsOn {
+  opacity: 1;
+  transform: none;
+}
+
+.big {
+  padding: var(--s4) var(--s5);
+  font-size: var(--fs-md);
+  letter-spacing: 0.4em;
+  text-indent: 0.4em;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s1);
+  padding-top: var(--s5);
+  opacity: 0.75;
+}
+
+.warn {
+  color: var(--gold);
+}

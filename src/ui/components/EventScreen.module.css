@@ -1,0 +1,210 @@
+.wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s5);
+  padding: var(--s4) var(--s4) calc(var(--s6) + env(safe-area-inset-bottom, 0px));
+  animation: fadeIn var(--d2) var(--ease) both;
+}
+
+/* ---------- 叙事区 ---------- */
+.narr {
+  display: flex;
+  gap: var(--s4);
+  padding: var(--s5) var(--s4) var(--s5) var(--s5);
+  min-height: 34dvh;
+  background:
+    linear-gradient(180deg, rgba(242, 234, 217, 0.045), rgba(242, 234, 217, 0.012)),
+    var(--ink-2);
+}
+
+.narrBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+  min-width: 0;
+}
+
+.lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s4);
+}
+
+.line {
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  letter-spacing: 0.03em;
+  color: var(--t1);
+  text-indent: 2em;
+  animation: fadeIn var(--d3) var(--ease) both;
+}
+
+.skip {
+  align-self: flex-start;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.24em;
+  color: var(--t4);
+  animation: breathe 2.4s ease-in-out infinite;
+}
+
+.verdict {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  margin-top: auto;
+  padding-top: var(--s3);
+  border-top: 1px solid var(--line-2);
+}
+
+/* 竖排标题：卷轴签条 */
+.titleCol {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 1.6em;
+  padding-top: var(--s1);
+  border-left: 1px solid var(--line-2);
+  padding-left: var(--s3);
+}
+
+/* ---------- 选项 ---------- */
+.opts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  opacity: 0;
+  transition: opacity var(--d3) var(--ease);
+}
+.opts[data-ready='1'] {
+  opacity: 1;
+}
+
+.optWrap {
+  display: contents;
+}
+
+.opt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  width: 100%;
+  padding: var(--s4) var(--s4) var(--s4) calc(var(--s4) + 4px);
+  border: 1px solid var(--edge, var(--line));
+  border-left-width: 3px;
+  border-left-color: var(--risk, var(--line-strong));
+  border-radius: var(--r);
+  background: linear-gradient(100deg, rgba(242, 234, 217, 0.035), rgba(242, 234, 217, 0.012));
+  text-align: left;
+  transition:
+    background var(--d2) var(--ease),
+    border-color var(--d2) var(--ease),
+    transform var(--d1) var(--ease);
+}
+
+.opt:hover {
+  background: linear-gradient(100deg, rgba(242, 234, 217, 0.075), rgba(242, 234, 217, 0.02));
+  transform: translateX(2px);
+}
+.opt:active {
+  transform: translateX(2px) scale(0.994);
+}
+
+.optRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+}
+
+/* 风险档位：小方印 */
+.risk {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.85em;
+  height: 1.85em;
+  margin-top: 0.1em;
+  border: 1px solid var(--risk);
+  border-radius: var(--r-xs);
+  color: var(--risk);
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+}
+
+.optText {
+  flex: 1;
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--t1);
+  letter-spacing: 0.02em;
+}
+
+.optMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+  padding-left: calc(1.85em + var(--s3));
+}
+
+.odds {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.16em;
+  color: var(--risk);
+  opacity: 0.92;
+}
+
+.cost {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  color: #c9743a;
+}
+
+.intent {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  color: var(--t4);
+  margin-left: auto;
+}
+
+.optIndex {
+  position: absolute;
+  right: var(--s3);
+  top: var(--s3);
+  font-size: var(--fs-2xs);
+  color: var(--t5);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 无选项 ---------- */
+.sealed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s3);
+  padding: var(--s6);
+  border: 1px dashed var(--line);
+  border-radius: var(--r);
+}
+
+.warnLine {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  padding: var(--s3) var(--s4) calc(var(--s4) + env(safe-area-inset-bottom, 0px));
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: rgba(193, 57, 43, 0.8);
+  animation: fadeIn var(--d4) var(--ease) both;
+}

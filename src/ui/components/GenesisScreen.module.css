@@ -1,0 +1,269 @@
+.wrap {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  padding: calc(var(--s4) + env(safe-area-inset-top, 0px)) var(--s4) var(--s4);
+  background: linear-gradient(180deg, rgba(11, 10, 9, 0.96) 55%, rgba(11, 10, 9, 0));
+  backdrop-filter: blur(6px);
+}
+
+.headMid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.headBtn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  color: var(--t2);
+  transition: color var(--d2) var(--ease), border-color var(--d2) var(--ease);
+}
+.headBtn:hover {
+  color: var(--t1);
+  border-color: var(--line-strong);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s6);
+  padding: var(--s4) var(--s5) var(--s6);
+}
+
+.sec {
+  animation: fadeUp var(--d3) var(--ease-out) both;
+}
+
+/* ---------- 槽位卡 ---------- */
+.slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  width: 100%;
+  text-align: left;
+  transition: border-color var(--d2) var(--ease), background var(--d2) var(--ease);
+}
+.slot:hover {
+  border-color: var(--line-strong);
+}
+
+.flaw {
+  border-color: rgba(193, 57, 43, 0.24);
+}
+.flaw:hover {
+  border-color: rgba(193, 57, 43, 0.5);
+}
+
+.slotTop {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  flex-wrap: wrap;
+}
+
+.desc {
+  font-size: var(--fs-xs);
+  line-height: 1.85;
+  color: var(--t2);
+}
+
+.mods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+.mod {
+  padding: 1px var(--s2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.06em;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+.modUp {
+  color: #6fb3a3;
+  border-color: rgba(62, 124, 110, 0.36);
+}
+.modDown {
+  color: #e0705f;
+  border-color: rgba(193, 57, 43, 0.34);
+}
+
+/* ---------- 天赋 ---------- */
+.traits {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.traitCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  width: 100%;
+  text-align: left;
+  padding: var(--s4);
+  transition: border-color var(--d2) var(--ease);
+}
+.traitCard:hover {
+  border-color: var(--line-strong);
+}
+
+/* ---------- 体系包 ---------- */
+.packs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s3);
+}
+
+.pack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: var(--s4) var(--s4) var(--s4) calc(var(--s4) + 34px);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: rgba(242, 234, 217, 0.022);
+  text-align: left;
+  transition:
+    border-color var(--d2) var(--ease),
+    background var(--d2) var(--ease),
+    transform var(--d2) var(--ease);
+}
+.pack:hover {
+  border-color: var(--line-strong);
+  background: rgba(242, 234, 217, 0.045);
+}
+.pack:active {
+  transform: scale(0.985);
+}
+
+.packOn {
+  border-color: rgba(201, 162, 39, 0.5);
+  background: linear-gradient(140deg, rgba(201, 162, 39, 0.12), rgba(201, 162, 39, 0.03));
+}
+
+/* 本体大字 —— 唯一以「字」作图标的地方 */
+.benti {
+  position: absolute;
+  left: var(--s4);
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  color: var(--paper);
+}
+
+.benti[data-shi='1'] {
+  border-style: dashed;
+  border-color: rgba(201, 162, 39, 0.55);
+  color: var(--gold-bright);
+}
+
+.packName {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.1em;
+  color: var(--t1);
+}
+
+.packMark {
+  position: absolute;
+  right: var(--s3);
+  top: var(--s3);
+  color: var(--gold);
+}
+
+.note {
+  margin-top: var(--s4);
+  font-size: var(--fs-2xs);
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+  color: var(--t3);
+}
+
+/* ---------- 底栏 ---------- */
+.foot {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  gap: var(--s3);
+  padding: var(--s4) var(--s5) calc(var(--s4) + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(0deg, rgba(11, 10, 9, 0.97) 60%, rgba(11, 10, 9, 0));
+  backdrop-filter: blur(6px);
+}
+
+/* ---------- 抽屉列表 ---------- */
+.pickList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+.pick {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  width: 100%;
+  padding: var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: rgba(242, 234, 217, 0.022);
+  text-align: left;
+  transition: border-color var(--d2) var(--ease), background var(--d2) var(--ease);
+}
+.pick:hover {
+  border-color: var(--line-strong);
+  background: rgba(242, 234, 217, 0.05);
+}
+
+.pickOn {
+  border-color: rgba(201, 162, 39, 0.5);
+  background: rgba(201, 162, 39, 0.07);
+}
+
+.pickMods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+
+@media (min-width: 560px) {
+  .packs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .traits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -574,7 +574,7 @@
         "有人替他算过一笔账",
         "谶语只说了一半"
       ],
-      "body_key": "loose.m_destiny_first_sight.growth",
+      "body_key": "evt.evt_x_destiny_first_sight_04",
       "ai_enhance": "l2"
     },
     "options": [
@@ -1185,7 +1185,7 @@
         "两个人分了一半",
         "他先停了手"
       ],
-      "body_key": "loose.m_destiny_first_sight.growth",
+      "body_key": "evt.evt_x_destiny_first_sight_07",
       "ai_enhance": "l2"
     },
     "options": [
@@ -1912,7 +1912,7 @@
         "火候偏了半分",
         "谁先撤的手"
       ],
-      "body_key": "loose.m_destiny_crossing.growth",
+      "body_key": "evt.evt_x_destiny_crossing_02",
       "ai_enhance": "l2"
     },
     "options": [
@@ -2368,7 +2368,7 @@
         "他从坡上过",
         "他没有停"
       ],
-      "body_key": "loose.m_destiny_crossing.growth",
+      "body_key": "evt.evt_x_destiny_crossing_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -5105,7 +5105,7 @@
         "船家只肯载一个",
         "他先付了钱"
       ],
-      "body_key": "loose.m_destiny_crossing.growth",
+      "body_key": "evt.evt_x_destiny_crossing_09",
       "ai_enhance": "l2"
     },
     "options": [

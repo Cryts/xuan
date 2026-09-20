@@ -54,7 +54,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -73,7 +73,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -88,7 +88,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_contingency.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -103,7 +103,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -139,7 +139,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -154,7 +154,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_contingency.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -169,7 +169,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_contingency.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -184,7 +184,7 @@
                   "delta": -14
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -221,7 +221,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -241,7 +241,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_contingency.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -261,7 +261,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_contingency.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -280,7 +280,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -294,7 +294,16 @@
       "劫数",
       "善后"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_contingency",
+      "next": [
+        {
+          "id": "evt_cautious_tribulation_contingency_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_tribulation_contingency_02",
@@ -365,7 +374,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -380,7 +389,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_contingency.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -395,7 +404,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_contingency.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -414,7 +423,7 @@
                   "key": "flag_double_ready"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -455,7 +464,7 @@
                   "key": "flag_double_untouched"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -475,7 +484,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_contingency.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -495,7 +504,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_contingency.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -515,7 +524,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -552,7 +561,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -572,7 +581,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_contingency.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -592,7 +601,7 @@
                   "delta": -12
                 }
               ],
-              "narrative": "loose.m_contingency.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -617,7 +626,7 @@
                   "delta": 20
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -649,7 +658,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -668,7 +677,7 @@
                   "key": "flag_window_shut"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -687,7 +696,7 @@
                   "key": "flag_window_shut"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -706,7 +715,7 @@
                   "key": "flag_window_shut"
                 }
               ],
-              "narrative": "loose.m_contingency.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -767,7 +776,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -786,7 +795,7 @@
                   "key": "flag_aptitude_hidden"
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -805,7 +814,7 @@
                   "key": "flag_aptitude_hidden"
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -820,7 +829,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -861,7 +870,7 @@
                   "key": "flag_aptitude_true"
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -881,7 +890,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -901,7 +910,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -927,7 +936,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -959,7 +968,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -979,7 +988,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -999,7 +1008,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1024,7 +1033,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1038,7 +1047,16 @@
       "身份",
       "传承"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_waste_root_test",
+      "next": [
+        {
+          "id": "evt_cautious_aptitude_test_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_aptitude_test_02",
@@ -1099,7 +1117,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1114,7 +1132,7 @@
                   "delta": -15
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1133,7 +1151,7 @@
                   "key": "flag_aptitude_exposed"
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1152,7 +1170,7 @@
                   "key": "flag_aptitude_exposed"
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1184,7 +1202,7 @@
                   "delta": -4
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1204,7 +1222,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1224,7 +1242,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1244,7 +1262,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_waste_root_test.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1278,7 +1296,7 @@
         "摊底压着账页",
         "散场前那一眼"
       ],
-      "body_key": "loose.m_market_bargain.growth"
+      "body_key": "evt.evt_cautious_market_bargain_01"
     },
     "options": [
       {
@@ -1317,7 +1335,7 @@
                   "quality": "宝品"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1341,7 +1359,7 @@
                   "quality": "宝品"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1361,7 +1379,7 @@
                   "quality": "凡品"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1386,7 +1404,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1423,7 +1441,7 @@
                   "quality": "宝品"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1438,7 +1456,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1458,7 +1476,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1484,7 +1502,7 @@
                   "delta": 12
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1525,7 +1543,7 @@
                   "quality": "宝品"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1549,7 +1567,7 @@
                   "key": "flag_ledger_page"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1569,7 +1587,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1593,7 +1611,7 @@
                   "key": "flag_ledger_page"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1625,7 +1643,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1644,7 +1662,7 @@
                   "key": "flag_market_gate_shut"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1663,7 +1681,7 @@
                   "key": "flag_market_gate_shut"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1687,7 +1705,7 @@
                   "key": "flag_market_gate_shut"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1701,7 +1719,16 @@
       "情报",
       "潜伏"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_market_bargain",
+      "next": [
+        {
+          "id": "evt_cautious_market_bargain_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_market_bargain_02",
@@ -1727,7 +1754,7 @@
         "三年后的那一行",
         "谁在记账"
       ],
-      "body_key": "loose.m_market_bargain.growth"
+      "body_key": "evt.evt_cautious_market_bargain_02"
     },
     "options": [
       {
@@ -1766,7 +1793,7 @@
                   "key": "flag_ledger_unmarked"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1781,7 +1808,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1801,7 +1828,7 @@
                   "delta": -20
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1826,7 +1853,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1858,7 +1885,7 @@
                   "delta": 12
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1877,7 +1904,7 @@
                   "key": "flag_ledger_copy"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1892,7 +1919,7 @@
                   "delta": -14
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -1912,7 +1939,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -1944,7 +1971,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -1963,7 +1990,7 @@
                   "key": "flag_ledger_burnt"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -1987,7 +2014,7 @@
                   "key": "flag_ledger_burnt"
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2007,7 +2034,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_market_bargain.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2068,7 +2095,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2092,7 +2119,7 @@
                   "key": "flag_bond_declined"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2111,7 +2138,7 @@
                   "key": "flag_bond_declined"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2131,7 +2158,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2167,7 +2194,7 @@
                   "key": "flag_bond_boxed"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2186,7 +2213,7 @@
                   "key": "flag_bond_boxed"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2206,7 +2233,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2231,7 +2258,7 @@
                   "delta": -25
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2272,7 +2299,7 @@
                   "key": "flag_bond_hidden"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2292,7 +2319,7 @@
                   "delta": 7
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2312,7 +2339,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2342,7 +2369,7 @@
                   "key": "flag_bond_boxed"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2413,7 +2440,7 @@
                   "delta": -4
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2433,7 +2460,7 @@
                   "delta": -1
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2453,7 +2480,7 @@
                   "delta": -5
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2473,7 +2500,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2505,7 +2532,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2524,7 +2551,7 @@
                   "key": "flag_seal_buried"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2543,7 +2570,7 @@
                   "key": "flag_seal_buried"
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2563,7 +2590,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_mystic_treasure.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2624,7 +2651,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2643,7 +2670,7 @@
                   "key": "flag_tournament_yielded"
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2662,7 +2689,7 @@
                   "key": "flag_tournament_yielded"
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2682,7 +2709,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2719,7 +2746,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2739,7 +2766,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2759,7 +2786,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2779,7 +2806,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2816,7 +2843,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2836,7 +2863,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2856,7 +2883,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2880,7 +2907,7 @@
                   "key": "flag_aptitude_hidden"
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -2912,7 +2939,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -2932,7 +2959,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -2952,7 +2979,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -2977,7 +3004,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3045,7 +3072,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3064,7 +3091,7 @@
                   "key": "flag_final_thrown"
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3083,7 +3110,7 @@
                   "key": "flag_final_thrown"
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3103,7 +3130,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3140,7 +3167,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3160,7 +3187,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3180,7 +3207,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3206,7 +3233,7 @@
                   "delta": 18
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3243,7 +3270,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3263,7 +3290,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3283,7 +3310,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3303,7 +3330,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_sect_tournament.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3367,7 +3394,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3386,7 +3413,7 @@
                   "key": "flag_migrants_moved"
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3405,7 +3432,7 @@
                   "key": "flag_migrants_moved"
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3425,7 +3452,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3466,7 +3493,7 @@
                   "key": "flag_cellar_kept"
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3486,7 +3513,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3506,7 +3533,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3530,7 +3557,7 @@
                   "key": "flag_cellar_sealed"
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3572,7 +3599,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3597,7 +3624,7 @@
                   "delta": -25
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3622,7 +3649,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3653,7 +3680,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3667,7 +3694,16 @@
       "善后",
       "布局"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_city_defense",
+      "next": [
+        {
+          "id": "evt_cautious_city_defense_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_city_defense_02",
@@ -3729,7 +3765,7 @@
                   "delta": 20
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3749,7 +3785,7 @@
                   "delta": -20
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3769,7 +3805,7 @@
                   "delta": -30
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3795,7 +3831,7 @@
                   "delta": 18
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3836,7 +3872,7 @@
                   "key": "flag_old_commander_knows"
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3856,7 +3892,7 @@
                   "delta": 9
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3881,7 +3917,7 @@
                   "delta": -12
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -3912,7 +3948,7 @@
                   "delta": 25
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -3949,7 +3985,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -3974,7 +4010,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -3999,7 +4035,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4030,7 +4066,7 @@
                   "delta": 20
                 }
               ],
-              "narrative": "loose.m_city_defense.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4102,7 +4138,9 @@
       "机缘",
       "情报"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_reincarnation_memory_02",
@@ -4161,7 +4199,7 @@
                   "key": "flag_savior_found"
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4181,7 +4219,7 @@
                   "delta": -15
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4201,7 +4239,7 @@
                   "delta": -5
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4227,7 +4265,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4263,7 +4301,7 @@
                   "key": "flag_memory_sealed"
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4287,7 +4325,7 @@
                   "key": "flag_memory_sealed"
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4307,7 +4345,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4331,7 +4369,7 @@
                   "key": "flag_memory_sealed"
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4368,7 +4406,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4388,7 +4426,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4408,7 +4446,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4433,7 +4471,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_reincarnation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4444,7 +4482,9 @@
       "机缘",
       "理智"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_cross_rule_suppression_01",
@@ -4480,7 +4520,7 @@
         "谷里没有灵气",
         "走进别人的规矩"
       ],
-      "body_key": "loose.m_cross_world.growth"
+      "body_key": "evt.evt_cautious_cross_rule_suppression_01"
     },
     "options": [
       {
@@ -4515,7 +4555,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4535,7 +4575,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4555,7 +4595,7 @@
                   "delta": -25
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4579,7 +4619,7 @@
                   "key": "flag_ward_stack"
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4611,7 +4651,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4630,7 +4670,7 @@
                   "key": "flag_valley_bypassed"
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4649,7 +4689,7 @@
                   "key": "flag_valley_bypassed"
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4669,7 +4709,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4706,7 +4746,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4726,7 +4766,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4751,7 +4791,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4780,7 +4820,7 @@
                   "key": "flag_ward_stack"
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4791,7 +4831,9 @@
       "探索",
       "理智"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_cross_rule_suppression_02",
@@ -4812,7 +4854,7 @@
         "此处不认你",
         "把本事收起来"
       ],
-      "body_key": "loose.m_cross_world.growth"
+      "body_key": "evt.evt_cautious_cross_rule_suppression_02"
     },
     "options": [
       {
@@ -4842,7 +4884,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4862,7 +4904,7 @@
                   "delta": -1
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4882,7 +4924,7 @@
                   "delta": -5
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -4907,7 +4949,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -4944,7 +4986,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -4969,7 +5011,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -4989,7 +5031,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5014,7 +5056,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5051,7 +5093,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5071,7 +5113,7 @@
                   "delta": -30
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5091,7 +5133,7 @@
                   "delta": -35
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5117,7 +5159,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_cross_world.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5128,7 +5170,9 @@
       "探索",
       "清算"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_faction_choice_01",
@@ -5148,7 +5192,7 @@
         "同一支笔",
         "谁都不去"
       ],
-      "body_key": "loose.m_faction_choice.growth"
+      "body_key": "evt.evt_cautious_faction_choice_01"
     },
     "options": [
       {
@@ -5178,7 +5222,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5197,7 +5241,7 @@
                   "key": "flag_neutral_watched"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5216,7 +5260,7 @@
                   "key": "flag_neutral_watched"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5236,7 +5280,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5272,7 +5316,7 @@
                   "key": "flag_post_burnt"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5292,7 +5336,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5312,7 +5356,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5338,7 +5382,7 @@
                   "delta": 18
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5375,7 +5419,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5399,7 +5443,7 @@
                   "key": "flag_both_refused"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5423,7 +5467,7 @@
                   "key": "flag_both_refused"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5448,7 +5492,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5462,7 +5506,16 @@
       "社交",
       "潜伏"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_faction_choice",
+      "next": [
+        {
+          "id": "evt_cautious_faction_choice_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_faction_choice_02",
@@ -5499,7 +5552,7 @@
         "会盟那夜的座次",
         "该坐哪一边"
       ],
-      "body_key": "loose.m_faction_choice.growth"
+      "body_key": "evt.evt_cautious_faction_choice_02"
     },
     "options": [
       {
@@ -5529,7 +5582,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5548,7 +5601,7 @@
                   "key": "flag_end_seat"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5563,7 +5616,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5583,7 +5636,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5620,7 +5673,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5645,7 +5698,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5665,7 +5718,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5696,7 +5749,7 @@
                   "delta": 22
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5737,7 +5790,7 @@
                   "key": "flag_never_quoted"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5757,7 +5810,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5782,7 +5835,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5812,7 +5865,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5844,7 +5897,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5868,7 +5921,7 @@
                   "key": "flag_league_left"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -5892,7 +5945,7 @@
                   "key": "flag_league_left"
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -5912,7 +5965,7 @@
                   "delta": -25
                 }
               ],
-              "narrative": "loose.m_faction_choice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -5978,7 +6031,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -5997,7 +6050,7 @@
                   "key": "flag_relic_abandoned"
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6016,7 +6069,7 @@
                   "key": "flag_relic_abandoned"
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6036,7 +6089,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6073,7 +6126,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6098,7 +6151,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6118,7 +6171,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6142,7 +6195,7 @@
                   "key": "flag_relic_abandoned"
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6156,7 +6209,16 @@
       "机缘",
       "危机"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_cave_relic",
+      "next": [
+        {
+          "id": "evt_cautious_cave_relic_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_cave_relic_02",
@@ -6222,7 +6284,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6247,7 +6309,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6272,7 +6334,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6301,7 +6363,7 @@
                   "key": "flag_relic_abandoned"
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6333,7 +6395,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6353,7 +6415,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6373,7 +6435,7 @@
                   "delta": -15
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6398,7 +6460,7 @@
                   "delta": -20
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6430,7 +6492,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6449,7 +6511,7 @@
                   "key": "flag_relic_sunk"
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6468,7 +6530,7 @@
                   "key": "flag_relic_sunk"
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6492,7 +6554,7 @@
                   "key": "flag_relic_sunk"
                 }
               ],
-              "narrative": "loose.m_cave_relic.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6556,7 +6618,7 @@
                   "delta": 12
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6581,7 +6643,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6601,7 +6663,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6631,7 +6693,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6673,7 +6735,7 @@
                   "quality": "仙品"
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6703,7 +6765,7 @@
                   "quality": "宝品"
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6733,7 +6795,7 @@
                   "quality": "凡品"
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6768,7 +6830,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6834,7 +6896,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6854,7 +6916,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6874,7 +6936,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -6899,7 +6961,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -6935,7 +6997,7 @@
                   "key": "flag_witness_bought"
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -6955,7 +7017,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -6980,7 +7042,7 @@
                   "delta": -30
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7011,7 +7073,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7043,7 +7105,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7067,7 +7129,7 @@
                   "key": "flag_cave_moved"
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7091,7 +7153,7 @@
                   "key": "flag_cave_moved"
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7111,7 +7173,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_pill_furnace.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7183,7 +7245,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7203,7 +7265,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7223,7 +7285,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7243,7 +7305,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7280,7 +7342,7 @@
                   "delta": -5
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7300,7 +7362,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7324,7 +7386,7 @@
                   "key": "flag_last_trump"
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7352,7 +7414,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7389,7 +7451,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7418,7 +7480,7 @@
                   "key": "flag_guardian_carried"
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7443,7 +7505,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7472,7 +7534,7 @@
                   "key": "flag_guardian_carried"
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7486,7 +7548,16 @@
       "传承",
       "危机"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_guardian_sacrifice",
+      "next": [
+        {
+          "id": "evt_cautious_guardian_sacrifice_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_guardian_sacrifice_02",
@@ -7541,7 +7612,7 @@
                   "delta": -4
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7565,7 +7636,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7589,7 +7660,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7609,7 +7680,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7646,7 +7717,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7666,7 +7737,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7686,7 +7757,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7717,7 +7788,7 @@
                   "delta": 12
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7753,7 +7824,7 @@
                   "key": "flag_guardian_truth"
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7773,7 +7844,7 @@
                   "delta": -1
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7793,7 +7864,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7818,7 +7889,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_guardian_sacrifice.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7882,7 +7953,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -7906,7 +7977,7 @@
                   "key": "flag_beast_released"
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -7930,7 +8001,7 @@
                   "key": "flag_beast_released"
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -7950,7 +8021,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -7987,7 +8058,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8007,7 +8078,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8027,7 +8098,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8047,7 +8118,7 @@
                   "delta": 7
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8112,7 +8183,7 @@
                   "key": "flag_scent_buried"
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8132,7 +8203,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8152,7 +8223,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8176,7 +8247,7 @@
                   "key": "flag_scent_buried"
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8222,7 +8293,7 @@
                   "key": "flag_gate_held"
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8247,7 +8318,7 @@
                   "delta": -20
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8267,7 +8338,7 @@
                   "delta": -25
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8292,7 +8363,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8324,7 +8395,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8348,7 +8419,7 @@
                   "key": "flag_beast_window_lost"
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8372,7 +8443,7 @@
                   "key": "flag_beast_window_lost"
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8392,7 +8463,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_beast_backlash.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8465,7 +8536,7 @@
                   "delta": -4
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8489,7 +8560,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8513,7 +8584,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8541,7 +8612,7 @@
                   "key": "flag_double_ready"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8573,7 +8644,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8597,7 +8668,7 @@
                   "key": "flag_tribulation_softened"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8622,7 +8693,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8647,7 +8718,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8684,7 +8755,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8708,7 +8779,7 @@
                   "key": "flag_tribulation_deferred"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8733,7 +8804,7 @@
                   "delta": -12
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8764,7 +8835,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8778,7 +8849,16 @@
       "突破",
       "危机"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_tribulation",
+      "next": [
+        {
+          "id": "evt_cautious_tribulation_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_tribulation_02",
@@ -8799,7 +8879,7 @@
         "埋东西的地方",
         "分雷的人"
       ],
-      "body_key": "loose.m_tribulation.growth"
+      "body_key": "evt.evt_cautious_tribulation_02"
     },
     "options": [
       {
@@ -8838,7 +8918,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8858,7 +8938,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8882,7 +8962,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -8910,7 +8990,7 @@
                   "key": "flag_double_ready"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -8946,7 +9026,7 @@
                   "key": "flag_borrowed_tribulation"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -8970,7 +9050,7 @@
                   "key": "flag_borrowed_tribulation"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -8995,7 +9075,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9025,7 +9105,7 @@
                   "delta": 20
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9062,7 +9142,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9082,7 +9162,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9111,7 +9191,7 @@
                   "key": "flag_tribulation_solo"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9140,7 +9220,7 @@
                   "key": "flag_tribulation_solo"
                 }
               ],
-              "narrative": "loose.m_tribulation.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9174,7 +9254,7 @@
         "走后门的那件",
         "今晚别出门"
       ],
-      "body_key": "loose.m_auction.growth"
+      "body_key": "evt.evt_cautious_auction_01"
     },
     "options": [
       {
@@ -9208,7 +9288,7 @@
                   "key": "flag_auction_marked"
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9232,7 +9312,7 @@
                   "key": "flag_auction_marked"
                 }
               ],
-              "narrative": "loose.m_auction.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9252,7 +9332,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_auction.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9278,7 +9358,7 @@
                   "delta": 18
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9324,7 +9404,7 @@
                   "key": "flag_never_seen_on_road"
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9349,7 +9429,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_auction.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9374,7 +9454,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_auction.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9410,7 +9490,7 @@
                   "delta": 25
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9442,7 +9522,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9471,7 +9551,7 @@
                   "key": "flag_auction_withdrawn"
                 }
               ],
-              "narrative": "loose.m_auction.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9495,7 +9575,7 @@
                   "key": "flag_auction_withdrawn"
                 }
               ],
-              "narrative": "loose.m_auction.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9515,7 +9595,7 @@
                   "delta": -35
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9529,7 +9609,16 @@
       "情报",
       "追杀"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_auction",
+      "next": [
+        {
+          "id": "evt_cautious_auction_02",
+          "window": "1-6"
+        }
+      ]
+    }
   },
   {
     "id": "evt_cautious_auction_02",
@@ -9556,7 +9645,7 @@
         "举牌的三个人",
         "抬价的那只手"
       ],
-      "body_key": "loose.m_auction.growth"
+      "body_key": "evt.evt_cautious_auction_02"
     },
     "options": [
       {
@@ -9595,7 +9684,7 @@
                   "quality": "仙品"
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9620,7 +9709,7 @@
                   "quality": "宝品"
                 }
               ],
-              "narrative": "loose.m_auction.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9645,7 +9734,7 @@
                   "quality": "凡品"
                 }
               ],
-              "narrative": "loose.m_auction.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9680,7 +9769,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9717,7 +9806,7 @@
                   "quality": "宝品"
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9736,7 +9825,7 @@
                   "key": "flag_auction_ledger"
                 }
               ],
-              "narrative": "loose.m_auction.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9756,7 +9845,7 @@
                   "delta": -5
                 }
               ],
-              "narrative": "loose.m_auction.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9786,7 +9875,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9828,7 +9917,7 @@
                   "quality": "仙品"
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9848,7 +9937,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_auction.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9868,7 +9957,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_auction.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9899,7 +9988,7 @@
                   "delta": 20
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -9931,7 +10020,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -9955,7 +10044,7 @@
                   "key": "flag_auction_left"
                 }
               ],
-              "narrative": "loose.m_auction.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -9979,7 +10068,7 @@
                   "key": "flag_auction_left"
                 }
               ],
-              "narrative": "loose.m_auction.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -9999,7 +10088,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_auction.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10068,7 +10157,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10087,7 +10176,7 @@
                   "key": "flag_realm_order_read"
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10107,7 +10196,7 @@
                   "delta": -5
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10127,7 +10216,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10164,7 +10253,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10189,7 +10278,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10209,7 +10298,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10234,7 +10323,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10266,7 +10355,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10290,7 +10379,7 @@
                   "key": "flag_realm_bridge_kept"
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10315,7 +10404,7 @@
                   "delta": -20
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10346,7 +10435,7 @@
                   "delta": 20
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10412,7 +10501,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10432,7 +10521,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10452,7 +10541,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10477,7 +10566,7 @@
                   "delta": -25
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10523,7 +10612,7 @@
                   "key": "flag_rope_spared"
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10548,7 +10637,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10573,7 +10662,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10602,7 +10691,7 @@
                   "key": "flag_backup_pile_set"
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10634,7 +10723,7 @@
                   "delta": 8
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10653,7 +10742,7 @@
                   "key": "flag_well_marked"
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10672,7 +10761,7 @@
                   "key": "flag_well_marked"
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10697,7 +10786,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_secret_realm.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10728,7 +10817,7 @@
         "三年前的化名",
         "台上喊你"
       ],
-      "body_key": "loose.m_sword_debate.growth"
+      "body_key": "evt.evt_cautious_dao_debate_01"
     },
     "options": [
       {
@@ -10763,7 +10852,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10783,7 +10872,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10803,7 +10892,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10834,7 +10923,7 @@
                   "delta": 18
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10866,7 +10955,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -10890,7 +10979,7 @@
                   "key": "flag_debate_silent"
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -10914,7 +11003,7 @@
                   "key": "flag_debate_silent"
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -10934,7 +11023,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_sword_debate.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -10966,7 +11055,7 @@
         "名字挪了一栏",
         "师门清册"
       ],
-      "body_key": "loose.m_sect_betrayal.growth"
+      "body_key": "evt.evt_cautious_sect_betrayal_01"
     },
     "options": [
       {
@@ -11000,7 +11089,7 @@
                   "key": "flag_roster_copied"
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11019,7 +11108,7 @@
                   "key": "flag_roster_copied"
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11039,7 +11128,7 @@
                   "delta": -12
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11070,7 +11159,7 @@
                   "delta": 22
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11102,7 +11191,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11122,7 +11211,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11142,7 +11231,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11167,7 +11256,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11199,7 +11288,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11223,7 +11312,7 @@
                   "key": "flag_sect_left"
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11252,7 +11341,7 @@
                   "key": "flag_sect_left"
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11277,7 +11366,7 @@
                   "delta": -40
                 }
               ],
-              "narrative": "loose.m_sect_betrayal.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11343,7 +11432,7 @@
                   "delta": 2
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11368,7 +11457,7 @@
                   "delta": -1
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11388,7 +11477,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11408,7 +11497,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11454,7 +11543,7 @@
                   "key": "flag_flag_left_standing"
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11479,7 +11568,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11504,7 +11593,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11534,7 +11623,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_ancient_battlefield.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11599,7 +11688,7 @@
                   "key": "flag_betrothal_watched"
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11619,7 +11708,7 @@
                   "delta": -15
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11639,7 +11728,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11665,7 +11754,7 @@
                   "delta": 18
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11711,7 +11800,7 @@
                   "key": "flag_betrothal_brokered"
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11736,7 +11825,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11761,7 +11850,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11791,7 +11880,7 @@
                   "delta": 9
                 }
               ],
-              "narrative": "loose.m_broken_betrothal.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11857,7 +11946,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11881,7 +11970,7 @@
                   "key": "flag_essence_split"
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -11901,7 +11990,7 @@
                   "delta": -8
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -11926,7 +12015,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -11963,7 +12052,7 @@
                   "delta": 3
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -11988,7 +12077,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -12013,7 +12102,7 @@
                   "delta": -5
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -12042,7 +12131,7 @@
                   "key": "flag_essence_broken"
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -12074,7 +12163,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -12098,7 +12187,7 @@
                   "key": "flag_essence_buried"
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -12122,7 +12211,7 @@
                   "key": "flag_essence_buried"
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -12142,7 +12231,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_source_fusion.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -12173,7 +12262,7 @@
         "残魂的第二句话",
         "残魂的规矩"
       ],
-      "body_key": "loose.m_mentor_soul.growth"
+      "body_key": "evt.evt_cautious_remnant_mentor_01"
     },
     "options": [
       {
@@ -12208,7 +12297,7 @@
                   "delta": -2
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -12228,7 +12317,7 @@
                   "delta": -1
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -12248,7 +12337,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -12273,7 +12362,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -12309,7 +12398,7 @@
                   "key": "flag_mentor_death_known"
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -12334,7 +12423,7 @@
                   "delta": -1
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -12359,7 +12448,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -12390,7 +12479,7 @@
                   "delta": 15
                 }
               ],
-              "narrative": "loose.m_mentor_soul.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -12462,7 +12551,7 @@
                   "delta": -3
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -12482,7 +12571,7 @@
                   "delta": 4
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -12502,7 +12591,7 @@
                   "delta": 6
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -12527,7 +12616,7 @@
                   "delta": -10
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -12559,7 +12648,7 @@
                   "delta": -6
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -12583,7 +12672,7 @@
                   "key": "flag_mirror_broken"
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -12612,7 +12701,7 @@
                   "key": "flag_mirror_broken"
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -12632,7 +12721,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -12669,7 +12758,7 @@
                   "delta": 1
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.crit"
+              "narrative": "after.crit"
             },
             "success": {
               "effects": [
@@ -12694,7 +12783,7 @@
                   "delta": -30
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.success"
+              "narrative": "after.success"
             },
             "fail": {
               "effects": [
@@ -12719,7 +12808,7 @@
                   "delta": 5
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.fail"
+              "narrative": "after.fail"
             },
             "crit_fail": {
               "effects": [
@@ -12750,7 +12839,7 @@
                   "delta": 20
                 }
               ],
-              "narrative": "loose.m_body_seize.growth.crit_fail"
+              "narrative": "after.crit_fail"
             }
           }
         }
@@ -12761,7 +12850,9 @@
       "危机",
       "身份"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_ancient_relic_body_01",

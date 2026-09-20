@@ -1219,7 +1219,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_dual_world_truth_62",
@@ -1407,7 +1409,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_outside_whisper_61",
@@ -1639,7 +1643,9 @@
     "meta_unlock": {
       "codex": "codex_outer_god"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_outside_whisper_62",
@@ -1718,7 +1724,9 @@
     "meta_unlock": {
       "codex": "codex_outer_god"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_time_loop_61",
@@ -1908,7 +1916,9 @@
     "meta_unlock": {
       "codex": "codex_time_loop"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_forbidden_lore_61",
@@ -2446,7 +2456,9 @@
     "meta_unlock": {
       "codex": "codex_body_seize"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_artifact_bond_61",
@@ -5298,7 +5310,9 @@
     "meta_unlock": {
       "codex": "codex_outer_god"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_forbidden_lore_76",
@@ -5708,7 +5722,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_time_loop_76",
@@ -5935,7 +5951,9 @@
     "meta_unlock": {
       "codex": "codex_time_loop"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mystery_cave_relic_76",
@@ -7048,7 +7066,9 @@
     "meta_unlock": {
       "codex": "codex_reincarnation"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_rebel_aptitude_test_61",
@@ -8901,7 +8921,9 @@
     "meta_unlock": {
       "codex": "codex_body_seize"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_rebel_ancient_relic_body_61",
@@ -17587,7 +17609,9 @@
     "meta_unlock": {
       "codex": "codex_cross_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_possession_backlash_61",
@@ -17811,7 +17835,9 @@
     "meta_unlock": {
       "codex": "codex_body_seize"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_reincarnation_memory_61",
@@ -17959,7 +17985,9 @@
     "meta_unlock": {
       "codex": "codex_reincarnation"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_cautious_sealed_relic_61",
@@ -21738,7 +21766,9 @@
     "meta_unlock": {
       "codex": "codex_cross_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_any_remnant_mentor_91",
@@ -21763,7 +21793,7 @@
         "他先教你怎么坐",
         "坐不住的人他不收"
       ],
-      "body_key": "loose.m_mentor_soul.childhood",
+      "body_key": "evt.evt_any_remnant_mentor_91",
       "ai_enhance": "l2"
     },
     "options": [
@@ -21994,7 +22024,7 @@
         "他把书留给你",
         "他说别送"
       ],
-      "body_key": "loose.m_mentor_soul.childhood",
+      "body_key": "evt.evt_any_remnant_mentor_92",
       "ai_enhance": "l2"
     },
     "options": [
@@ -22140,7 +22170,7 @@
         "是长辈从旧箱里翻出来的",
         "它上面有别人的名字"
       ],
-      "body_key": "loose.m_mystic_treasure.childhood",
+      "body_key": "evt.evt_any_artifact_bond_93",
       "ai_enhance": "l2"
     },
     "options": [
@@ -22321,7 +22351,7 @@
         "是替邻家杀的那只鸡",
         "刀下去的时候你手没抖"
       ],
-      "body_key": "loose.m_beast_backlash.childhood",
+      "body_key": "evt.evt_any_beast_backlash_94",
       "ai_enhance": "l2"
     },
     "options": [
@@ -22597,7 +22627,7 @@
         "集上人多，你被挤散过一次",
         "第二次你就知道该站在哪"
       ],
-      "body_key": "loose.m_market_bargain.childhood",
+      "body_key": "evt.evt_any_market_bargain_95",
       "ai_enhance": "l2"
     },
     "options": [
@@ -22768,7 +22798,7 @@
         "他没念你的数",
         "他说：下一个"
       ],
-      "body_key": "loose.m_waste_root_test.childhood",
+      "body_key": "evt.evt_any_aptitude_test_96",
       "ai_enhance": "l2"
     },
     "options": [
@@ -22902,7 +22932,7 @@
         "说到一半让你出去",
         "你站在门外听完了"
       ],
-      "body_key": "loose.m_broken_betrothal.childhood",
+      "body_key": "evt.evt_any_broken_betrothal_97",
       "ai_enhance": "l2"
     },
     "options": [
@@ -23255,7 +23285,7 @@
         "里面比外头凉",
         "凉得不像山里的凉"
       ],
-      "body_key": "loose.m_cave_relic.childhood",
+      "body_key": "evt.evt_any_cave_relic_98",
       "ai_enhance": "l2"
     },
     "options": [
@@ -23440,7 +23470,7 @@
         "挡的时候他甚至没看你",
         "你不知道该叫他什么"
       ],
-      "body_key": "loose.m_guardian_sacrifice.childhood",
+      "body_key": "evt.evt_any_guardian_sacrifice_99",
       "ai_enhance": "l2"
     },
     "options": [
@@ -23524,7 +23554,7 @@
         "碑上的字比先生的字老",
         "你照着描了一遍"
       ],
-      "body_key": "loose.m_ancient_relic.childhood",
+      "body_key": "evt.evt_any_ancient_relic_body_100",
       "ai_enhance": "l2"
     },
     "options": [
@@ -23602,7 +23632,7 @@
         "头一道看筋骨",
         "第三道没人说得清看什么"
       ],
-      "body_key": "loose.m_sect_tournament.entry",
+      "body_key": "evt.evt_any_sect_tournament_101",
       "ai_enhance": "l2"
     },
     "options": [
@@ -23962,7 +23992,7 @@
         "一处管库，一处管巡",
         "两处的人都在等"
       ],
-      "body_key": "loose.m_faction_choice.entry",
+      "body_key": "evt.evt_any_faction_choice_102",
       "ai_enhance": "l2"
     },
     "options": [
@@ -24152,7 +24182,7 @@
         "问完才收你",
         "他说：离家越远越好"
       ],
-      "body_key": "loose.m_mentor_soul.entry",
+      "body_key": "evt.evt_any_remnant_mentor_103",
       "ai_enhance": "l2"
     },
     "options": [
@@ -24392,7 +24422,7 @@
         "管事给的钱刚好够",
         "同去的人说可以多买三成"
       ],
-      "body_key": "loose.m_market_bargain.entry",
+      "body_key": "evt.evt_any_market_bargain_104",
       "ai_enhance": "l2"
     },
     "options": [
@@ -24551,7 +24581,7 @@
         "领队说里面只待三日",
         "第三日的出口会移到别处"
       ],
-      "body_key": "loose.m_secret_realm.entry",
+      "body_key": "evt.evt_any_secret_realm_105",
       "ai_enhance": "l2"
     },
     "options": [
@@ -24933,7 +24963,7 @@
         "那件事发生时你不在场",
         "在场的人都不说话"
       ],
-      "body_key": "loose.m_sect_betrayal.entry",
+      "body_key": "evt.evt_any_sect_betrayal_106",
       "ai_enhance": "l2"
     },
     "options": [
@@ -25178,7 +25208,7 @@
         "他把东西塞给你",
         "他说：别说是我给的"
       ],
-      "body_key": "loose.m_guardian_sacrifice.entry",
+      "body_key": "evt.evt_any_guardian_sacrifice_107",
       "ai_enhance": "l2"
     },
     "options": [
@@ -25472,7 +25502,7 @@
         "来得比同批的人都早",
         "护法的人还没到"
       ],
-      "body_key": "loose.m_tribulation.entry",
+      "body_key": "evt.evt_any_tribulation_108",
       "ai_enhance": "l2"
     },
     "options": [
@@ -25627,7 +25657,7 @@
         "院里的井还盖着",
         "井沿上放着一只碗"
       ],
-      "body_key": "loose.m_cave_relic.entry",
+      "body_key": "evt.evt_any_cave_relic_109",
       "ai_enhance": "l2"
     },
     "options": [
@@ -25785,7 +25815,7 @@
         "火候照着书上的来",
         "书是抄本，抄的人漏了一行"
       ],
-      "body_key": "loose.m_pill_furnace.entry",
+      "body_key": "evt.evt_any_furnace_blast_110",
       "ai_enhance": "l2"
     },
     "options": [

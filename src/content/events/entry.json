@@ -226,7 +226,16 @@
     "meta_unlock": {
       "codex": "codex_waste_root_test"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_waste_root_test",
+      "next": [
+        {
+          "id": "evt_mortal_sect_tournament_02",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_cave_relic_02",
@@ -474,7 +483,16 @@
       "codex": "codex_cave_relic",
       "title": "守炉人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_cave_relic",
+      "next": [
+        {
+          "id": "evt_mortal_market_bargain_02",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_mentor_soul_02",
@@ -1443,7 +1461,16 @@
     "meta_unlock": {
       "codex": "codex_faction_choice"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_faction_choice",
+      "next": [
+        {
+          "id": "evt_mortal_guardian_sacrifice_02",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_secret_realm_02",
@@ -1954,7 +1981,16 @@
     "meta_unlock": {
       "codex": "codex_pill_furnace"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_pill_furnace",
+      "next": [
+        {
+          "id": "evt_mortal_market_bargain_02",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_contingency_02",
@@ -4055,7 +4091,16 @@
     "meta_unlock": {
       "codex": "codex_mystic_treasure"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_mystic_treasure",
+      "next": [
+        {
+          "id": "evt_genius_source_fusion_02",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_source_fusion_02",
@@ -7038,7 +7083,16 @@
     "meta_unlock": {
       "codex": "codex_cave_relic"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_cave_relic",
+      "next": [
+        {
+          "id": "evt_genius_pill_furnace_02",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_playacting_02",
@@ -7596,7 +7650,9 @@
     "meta_unlock": {
       "codex": "codex_cross_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_genius_city_defense_02",
@@ -8293,7 +8349,16 @@
       "codex": "codex_ancient_relic",
       "title": "同源者"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_ancient_relic",
+      "next": [
+        {
+          "id": "evt_physique_aggregation_hunt_02",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_cave_relic_02",
@@ -8547,7 +8612,16 @@
       "codex": "codex_cave_relic",
       "title": "破门者"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_cave_relic",
+      "next": [
+        {
+          "id": "evt_physique_sealed_object_02",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_market_bargain_02",
@@ -9122,7 +9196,16 @@
       "codex": "codex_auction",
       "title": "不举牌"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_auction",
+      "next": [
+        {
+          "id": "evt_physique_source_fusion_02",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_sect_tournament_02",
@@ -11126,7 +11209,16 @@
       "codex": "codex_sealed_object",
       "title": "作镇人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_sealed_object",
+      "next": [
+        {
+          "id": "evt_physique_dual_world_02",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_dual_world_02",
@@ -11369,7 +11461,9 @@
       "codex": "codex_dual_world",
       "title": "两界人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_aggregation_hunt_02",

@@ -803,6 +803,148 @@ for (const n of new Set(realmIdxInEndings)) {
   }
 }
 
+// ---- 7. 事件衔接：链、奇遇、段位正文、正文归属 ----
+//
+// 这一组是 narrative-designer 的四个闸门。它们的共同点是：
+// **这四类东西失效时都不会报错，只会静默地少给玩家一点东西。**
+//   链式链接断了 → 那一拍不来，玩家不知道本该有；
+//   段位正文取不到 → 结果叙事回落到正文，玩家把开场白念第二遍；
+//   奇遇不声明间隔 → 奇遇变成天天有的日常；
+//   正文共用 → 六件事共用一段话，读起来像同一件事发生了六次。
+{
+  const eventIds = new Set((c.events as { id?: string }[]).map((e) => e.id).filter(Boolean) as string[])
+  const scenarioIds = new Set((c.scenarios as { id?: string }[]).map((s) => s.id).filter(Boolean) as string[])
+  const exists = (id: string) => eventIds.has(id) || scenarioIds.has(id)
+
+  // 正文池（含候选数为 0 的）
+  const poolSize = new Map<string, number>()
+  for (const [k, v] of Object.entries(c.l2)) {
+    poolSize.set(k, Array.isArray(v) ? (v as string[]).filter((s) => s && s.trim().length > 0).length : 0)
+  }
+
+  // 每个 body_key 被多少事件用
+  const bodyUsers = new Map<string, string[]>()
+  for (const e of c.events as { id: string; narrative?: { body_key?: string } }[]) {
+    const k = e.narrative?.body_key
+    if (k) bodyUsers.set(k, [...(bodyUsers.get(k) ?? []), e.id])
+  }
+
+  let omenCount = 0
+  let chainLinks = 0
+  for (const e of c.events as AnyEv[]) {
+    const where = `event:${e.id}`
+    const anyE = e as {
+      id: string
+      channel?: string
+      omen_gap?: number
+      chain?: { root?: string; next?: { id?: string; window?: string }[] }
+      followups?: string[]
+      narrative?: { body_key?: string }
+      options?: { resolve?: { bands?: Record<string, { narrative?: string; queue_followup?: string }> } }[]
+    }
+
+    // (a) 链式链接必须解析得到 —— 悬空的那一条会让"承诺的下一拍"永远不来。
+    // 判据覆盖三处：事件级 followups、chain.next、以及段位里的 queue_followup。
+    // （旧版只查了第一处，而引擎根本不读那个字段 —— 全库唯一一处悬空引用就是从这儿漏掉的。）
+    const linkRefs = [
+      ...(anyE.followups ?? []).map((f) => ['followups', f] as const),
+      ...(anyE.chain?.next ?? []).map((n) => ['chain.next', String(n.id ?? '')] as const),
+      ...(anyE.options ?? []).flatMap((o) =>
+        Object.values(o.resolve?.bands ?? {}).map((b) => ['queue_followup', String(b.queue_followup ?? '')] as const),
+      ),
+    ]
+    for (const [src, raw] of linkRefs) {
+      const id = raw.split('@')[0]
+      if (!id) continue
+      chainLinks++
+      if (raw.startsWith('@') || !exists(id)) {
+        err('chain_resolves', where, `${src} 指向不存在的事件：${id} —— 那一拍永远等不到`)
+      }
+    }
+    if (anyE.chain?.next) {
+      for (const n of anyE.chain.next) {
+        if (n.window && !/^\d+-\d+$/.test(n.window)) {
+          err('chain_resolves', where, `chain.next[].window 格式应为 "a-b"：${n.window}`)
+        }
+      }
+    }
+
+    // (b) 段位正文必须取得到 —— 取不到时引擎回落到事件正文，
+    // 玩家会在"选完之后"把开场白再读一遍（实测曾 2181 条全取不到）。
+    for (const o of anyE.options ?? []) {
+      for (const [band, b] of Object.entries(o.resolve?.bands ?? {})) {
+        const k = b.narrative
+        if (!k) continue
+        const n = poolSize.get(k)
+        if (n === undefined) {
+          err('band_narrative_resolvable', where, `段位 ${band} 的正文键 "${k}" 不在叙事池中 —— 选完只会重念开场白`)
+        } else if (n === 0) {
+          err('band_narrative_resolvable', where, `段位 ${band} 的正文键 "${k}" 在池中但为空`)
+        }
+      }
+    }
+
+    // (c) 奇遇通道：声明了就必须给间隔，否则"奇遇"变成天天有的日常。
+    if (anyE.channel !== undefined && anyE.channel !== 'chain' && anyE.channel !== 'omen') {
+      err('omen_channel_valid', where, `channel 只能是 'chain' | 'omen'，收到：${anyE.channel}`)
+    }
+    if (anyE.channel === 'omen') {
+      omenCount++
+      if (!anyE.omen_gap || anyE.omen_gap < 4) {
+        err('omen_channel_valid', where, `奇遇事件必须声明 omen_gap >= 4（当前 ${anyE.omen_gap ?? '未声明'}）`)
+      }
+    } else if (anyE.omen_gap !== undefined) {
+      err('omen_channel_valid', where, `只有 channel='omen' 才该有 omen_gap`)
+    }
+
+    // (d) 事件级正文的键名形状：`evt.` 命名空间必须与事件 id 一致。
+    // 键名写歪了不会报错，只会让别的事件读到你的正文 —— 这是"归属"最容易腐化的地方。
+    const key = anyE.narrative?.body_key
+    if (key && key.startsWith('evt.') && key !== `evt.${anyE.id}`) {
+      err('event_text_selfcoverage', where, `事件级正文的键应为 "evt.${anyE.id}"，实际是 "${key}"`)
+    }
+    void where
+  }
+
+  // (e) 全局棘轮：共用正文的事件数只许减不许增。
+  // 逐个改太慢、也拦不住"顺手接一个共用池"，所以直接锁总数。
+  // 加新事件时要么给它自己的正文，要么把别的挪走 —— 不许把水位抬回去。
+  const SHARED_BASELINE = 503
+  let sharedEvents = 0
+  for (const e of c.events as { narrative?: { body_key?: string } }[]) {
+    const k = e.narrative?.body_key
+    if (k && (bodyUsers.get(k) ?? []).length > 1) sharedEvents++
+  }
+  if (sharedEvents > SHARED_BASELINE) {
+    err(
+      'event_text_selfcoverage',
+      'events',
+      `共用正文的事件数 ${sharedEvents} 超过基线 ${SHARED_BASELINE} —— 正文归属在退步（新事件请自带 evt.<id> 正文）`,
+    )
+  }
+
+  // (f) 高频事件的正文归属：weight >= 100 的那批（=玩家最常读到的）**只许减不许增**。
+  // 宁可共用不要假装独有 —— 所以这里不要求逐个写完，只锁住水位，让每一轮内容都只能往下推。
+  const HIGH_W_SHARED_BASELINE = 42
+  const highShared: string[] = []
+  for (const e of c.events as { id: string; weight?: number; narrative?: { body_key?: string } }[]) {
+    const k = e.narrative?.body_key
+    if (k && (e.weight ?? 0) >= 100 && (bodyUsers.get(k) ?? []).length > 1) highShared.push(e.id)
+  }
+  if (highShared.length > HIGH_W_SHARED_BASELINE) {
+    err(
+      'event_text_selfcoverage',
+      'events',
+      `高权重（weight>=100）且与他人共用正文的事件 ${highShared.length} 个，超过基线 ${HIGH_W_SHARED_BASELINE} —— ` +
+        `玩家最常读到的那些必须自带正文（body_key = evt.<id>）`,
+    )
+  }
+
+  console.log(
+    `  衔接门禁：链式链接 ${chainLinks} 条 · 奇遇事件 ${omenCount} 个 · 共用正文的事件 ${sharedEvents}（基线 ${SHARED_BASELINE}）`,
+  )
+}
+
 // ---- 报告 ----
 const errors = issues.filter((i) => i.level === 'error')
 const warns = issues.filter((i) => i.level === 'warn')

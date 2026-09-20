@@ -177,7 +177,7 @@
         "耳边那个声音",
         "他开的价又涨了"
       ],
-      "body_key": "loose.m_mentor_soul.growth",
+      "body_key": "evt.evt_mortal_mentor_soul_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -569,7 +569,9 @@
     "meta_unlock": {
       "codex": "codex_reincarnation"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_sect_betrayal_03",
@@ -1178,7 +1180,16 @@
     "meta_unlock": {
       "codex": "codex_sealed_object"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_sealed_object",
+      "next": [
+        {
+          "id": "evt_mortal_mentor_soul_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_dual_world_03",
@@ -1431,7 +1442,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_ancient_battlefield_03",
@@ -2008,7 +2021,9 @@
     "meta_unlock": {
       "codex": "codex_time_loop"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_source_fusion_03",
@@ -2644,7 +2659,16 @@
     "meta_unlock": {
       "codex": "codex_auction"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_auction",
+      "next": [
+        {
+          "id": "evt_mortal_source_fusion_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_tribulation_03",
@@ -3115,7 +3139,7 @@
         "这块地不认灵气",
         "灵气沉不下去的地方"
       ],
-      "body_key": "loose.m_cross_world.growth",
+      "body_key": "evt.evt_mortal_cross_world_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -3365,7 +3389,9 @@
     "meta_unlock": {
       "codex": "codex_cross_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_city_defense_03",
@@ -3984,7 +4010,16 @@
       "exposure",
       "market"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_aggregation_hunt",
+      "next": [
+        {
+          "id": "evt_mortal_market_bargain_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_outer_god_03",
@@ -4052,7 +4087,9 @@
       "codex": "codex_outer_god",
       "title": "回话人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_ascension_rite_03",
@@ -4526,7 +4563,16 @@
       "realm",
       "debt"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_secret_realm",
+      "next": [
+        {
+          "id": "evt_mortal_pill_furnace_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_sect_tournament_03",
@@ -5150,7 +5196,16 @@
       "betrayal",
       "exposure"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_faction_choice",
+      "next": [
+        {
+          "id": "evt_mortal_guardian_sacrifice_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_beast_backlash_03",
@@ -5385,7 +5440,7 @@
         "石阶尽头的灯灭了",
         "手札缺了最后几页"
       ],
-      "body_key": "loose.m_cave_relic.growth",
+      "body_key": "evt.evt_mortal_cave_relic_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -5617,7 +5672,16 @@
       "codex": "codex_cave_relic",
       "title": "拾遗者"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_cave_relic",
+      "next": [
+        {
+          "id": "evt_mortal_pill_furnace_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_market_bargain_03",
@@ -5640,7 +5704,7 @@
         "摊主收摊收得急",
         "只换不卖的那件"
       ],
-      "body_key": "loose.m_market_bargain.growth",
+      "body_key": "evt.evt_mortal_market_bargain_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -5853,7 +5917,7 @@
         "炉裂的声音很轻",
         "账本上多了个洞"
       ],
-      "body_key": "loose.m_pill_furnace.growth",
+      "body_key": "evt.evt_mortal_pill_furnace_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -6030,7 +6094,16 @@
       "debt",
       "market"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_pill_furnace",
+      "next": [
+        {
+          "id": "evt_mortal_contingency_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_sword_debate_03",
@@ -6053,7 +6126,7 @@
         "崖顶的风比话多",
         "你的剑是借来的"
       ],
-      "body_key": "loose.m_sword_debate.growth",
+      "body_key": "evt.evt_mortal_sword_debate_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -6604,7 +6677,16 @@
       "betrayal",
       "exposure"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_contingency",
+      "next": [
+        {
+          "id": "evt_mortal_faction_choice_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_guardian_sacrifice_03",
@@ -7143,7 +7225,18 @@
       "codex": "codex_body_seize",
       "title": "共炉人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6,
+    "chain": {
+      "root": "m_body_seize",
+      "next": [
+        {
+          "id": "evt_genius_source_fusion_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_broken_betrothal_03",
@@ -7166,7 +7259,7 @@
         "退婚书上的旧印",
         "她来求一件事"
       ],
-      "body_key": "loose.m_broken_betrothal.growth",
+      "body_key": "evt.evt_genius_broken_betrothal_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -7821,7 +7914,16 @@
       "codex": "codex_ancient_relic",
       "title": "像不像"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_ancient_relic",
+      "next": [
+        {
+          "id": "evt_genius_body_seize_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_time_loop_03",
@@ -8091,7 +8193,9 @@
       "codex": "codex_time_loop",
       "title": "记得的人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_genius_secret_realm_03",
@@ -8976,7 +9080,7 @@
         "崖顶那一剑",
         "他问的是火还是剑"
       ],
-      "body_key": "loose.m_sword_debate.growth",
+      "body_key": "evt.evt_genius_sword_debate_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -9751,7 +9855,16 @@
       "codex": "codex_aggregation_hunt",
       "title": "最亮的灯"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_aggregation_hunt",
+      "next": [
+        {
+          "id": "evt_genius_cross_world_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_outer_god_03",
@@ -9822,7 +9935,9 @@
       "codex": "codex_outer_god",
       "title": "不烧柴"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_genius_ascension_rite_03",
@@ -10482,7 +10597,7 @@
         "这边不认你的火",
         "隔界的一堵墙"
       ],
-      "body_key": "loose.m_cross_world.growth",
+      "body_key": "evt.evt_genius_cross_world_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -10746,7 +10861,9 @@
       "codex": "codex_cross_world",
       "title": "换炉人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_genius_source_fusion_03",
@@ -11568,7 +11685,16 @@
       "codex": "codex_auction",
       "title": "举牌人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_auction",
+      "next": [
+        {
+          "id": "evt_genius_broken_betrothal_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_mystic_treasure_03",
@@ -11728,7 +11854,16 @@
     "meta_unlock": {
       "codex": "codex_mystic_treasure"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_mystic_treasure",
+      "next": [
+        {
+          "id": "evt_genius_tribulation_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_mentor_soul_03",
@@ -12014,7 +12149,16 @@
     "meta_unlock": {
       "codex": "codex_mentor_soul"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_mentor_soul",
+      "next": [
+        {
+          "id": "evt_genius_faction_choice_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_cave_relic_03",
@@ -12229,7 +12373,16 @@
     "meta_unlock": {
       "codex": "codex_cave_relic"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_cave_relic",
+      "next": [
+        {
+          "id": "evt_genius_pill_furnace_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_sect_betrayal_03",
@@ -12253,7 +12406,7 @@
         "对不上的那半页",
         "谁动过那一笔"
       ],
-      "body_key": "loose.m_sect_betrayal.growth",
+      "body_key": "evt.evt_genius_sect_betrayal_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -12519,7 +12672,16 @@
     "meta_unlock": {
       "codex": "codex_sect_betrayal"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_sect_betrayal",
+      "next": [
+        {
+          "id": "evt_genius_sect_tournament_03",
+          "window": "3-8"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_city_defense_03",
@@ -14864,7 +15026,16 @@
     "meta_unlock": {
       "codex": "codex_sealed_object"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_sealed_object",
+      "next": [
+        {
+          "id": "evt_genius_tribulation_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_dual_world_03",
@@ -15131,7 +15302,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_waste_root_test_03",
@@ -15154,7 +15327,7 @@
         "测石裂在谁手里",
         "量不出的那一种"
       ],
-      "body_key": "loose.m_waste_root_test.growth",
+      "body_key": "evt.evt_physique_waste_root_test_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -15336,7 +15509,16 @@
     "meta_unlock": {
       "codex": "codex_waste_root_test"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_waste_root_test",
+      "next": [
+        {
+          "id": "evt_physique_cross_world_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_mentor_soul_03",
@@ -15735,7 +15917,7 @@
         "洞天将合，先裂的是人",
         "出口只有一个"
       ],
-      "body_key": "loose.m_secret_realm.growth",
+      "body_key": "evt.evt_physique_secret_realm_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -16046,7 +16228,16 @@
     "meta_unlock": {
       "codex": "codex_secret_realm"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_secret_realm",
+      "next": [
+        {
+          "id": "evt_physique_outer_god_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_contingency_03",
@@ -16285,7 +16476,16 @@
     "meta_unlock": {
       "codex": "codex_contingency"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_contingency",
+      "next": [
+        {
+          "id": "evt_physique_cross_world_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_sword_debate_03",
@@ -17080,7 +17280,9 @@
     "meta_unlock": {
       "codex": "codex_cross_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_outer_god_03",
@@ -17448,7 +17650,18 @@
     "meta_unlock": {
       "codex": "codex_outer_god"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6,
+    "chain": {
+      "root": "m_outer_god",
+      "next": [
+        {
+          "id": "evt_physique_ancient_relic_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_ascension_rite_03",
@@ -17747,7 +17960,20 @@
     "meta_unlock": {
       "codex": "codex_ascension_rite"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_ascension_rite",
+      "next": [
+        {
+          "id": "evt_physique_ancient_relic_03",
+          "window": "4-9"
+        },
+        {
+          "id": "evt_physique_cross_world_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_ancient_relic_03",
@@ -17770,7 +17996,7 @@
         "它挑的不是资质",
         "像不像，它自己会认"
       ],
-      "body_key": "loose.m_ancient_relic.growth",
+      "body_key": "evt.evt_physique_ancient_relic_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -18088,7 +18314,16 @@
     "meta_unlock": {
       "codex": "codex_ancient_relic"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_ancient_relic",
+      "next": [
+        {
+          "id": "evt_physique_outer_god_03",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_market_bargain_03",
@@ -18792,7 +19027,16 @@
     "meta_unlock": {
       "codex": "codex_auction"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_auction",
+      "next": [
+        {
+          "id": "evt_physique_contingency_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_sect_tournament_03",
@@ -19500,7 +19744,16 @@
       "codex": "codex_sealed_object",
       "title": "镇物人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_sealed_object",
+      "next": [
+        {
+          "id": "evt_physique_mystic_treasure_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_dual_world_03",
@@ -19652,7 +19905,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_ancient_battlefield_03",
@@ -20482,7 +20737,16 @@
       "codex": "codex_tribulation",
       "title": "接劫人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_tribulation",
+      "next": [
+        {
+          "id": "evt_physique_source_fusion_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_source_fusion_03",
@@ -20847,7 +21111,16 @@
     "meta_unlock": {
       "codex": "codex_source_fusion"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_source_fusion",
+      "next": [
+        {
+          "id": "evt_physique_mystic_treasure_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_city_defense_03",
@@ -20870,7 +21143,7 @@
         "你挡的那一下",
         "骨裂到今天还没合"
       ],
-      "body_key": "loose.m_city_defense.growth",
+      "body_key": "evt.evt_physique_city_defense_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -21651,7 +21924,20 @@
     "meta_unlock": {
       "codex": "codex_aggregation_hunt"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_aggregation_hunt",
+      "next": [
+        {
+          "id": "evt_physique_cave_relic_03",
+          "window": "4-9"
+        },
+        {
+          "id": "evt_physique_mystic_treasure_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_mystic_treasure_03",
@@ -21674,7 +21960,7 @@
         "它唤的不是你",
         "阴雨夜里它先热"
       ],
-      "body_key": "loose.m_mystic_treasure.growth",
+      "body_key": "evt.evt_physique_mystic_treasure_03",
       "ai_enhance": "l2"
     },
     "options": [
@@ -21945,7 +22231,16 @@
     "meta_unlock": {
       "codex": "codex_mystic_treasure"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_mystic_treasure",
+      "next": [
+        {
+          "id": "evt_physique_sealed_object_03",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_cave_relic_03",

@@ -768,7 +768,9 @@
     "meta_unlock": {
       "codex": "codex_body_seize"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_beast_backlash_01",
@@ -3489,7 +3491,9 @@
     "meta_unlock": {
       "codex": "codex_body_seize"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_genius_beast_backlash_01",
@@ -4551,7 +4555,16 @@
     "meta_unlock": {
       "codex": "codex_forbidden_lore"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_forbidden_knowledge",
+      "next": [
+        {
+          "id": "evt_genius_mentor_soul_02",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_cave_relic_01",
@@ -4856,7 +4869,9 @@
       "codex": "codex_reincarnation",
       "title": "重来者"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_waste_root_test_01",
@@ -5096,7 +5111,16 @@
       "codex": "codex_waste_root_test",
       "title": "不认判词"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_waste_root_test",
+      "next": [
+        {
+          "id": "evt_physique_market_bargain_01",
+          "window": "3-8"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_mystic_treasure_01",
@@ -5335,7 +5359,16 @@
       "codex": "codex_mystic_treasure",
       "title": "旧纹在身"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_mystic_treasure",
+      "next": [
+        {
+          "id": "evt_physique_ancient_relic_01",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_mentor_soul_01",
@@ -5840,7 +5873,9 @@
       "codex": "codex_body_seize",
       "title": "守身人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_beast_backlash_01",
@@ -6985,7 +7020,9 @@
       "codex": "codex_reincarnation",
       "title": "两世人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_guardian_sacrifice_01",

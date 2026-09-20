@@ -266,7 +266,16 @@
     "meta_unlock": {
       "codex": "codex_tribulation"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_tribulation",
+      "next": [
+        {
+          "id": "evt_mortal_aggregation_hunt_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_contingency_04",
@@ -1808,7 +1817,16 @@
     "meta_unlock": {
       "codex": "codex_aggregation_hunt"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_aggregation_hunt",
+      "next": [
+        {
+          "id": "evt_mortal_guardian_sacrifice_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_outer_god_04",
@@ -1977,7 +1995,9 @@
     "meta_unlock": {
       "codex": "codex_outer_god"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_ascension_rite_04",
@@ -2268,7 +2288,16 @@
     "meta_unlock": {
       "codex": "codex_ascension_rite"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_ascension_rite",
+      "next": [
+        {
+          "id": "evt_mortal_tribulation_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_time_loop_04",
@@ -2518,7 +2547,9 @@
     "meta_unlock": {
       "codex": "codex_time_loop"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_dual_world_04",
@@ -2688,7 +2719,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_sealed_object_04",
@@ -3384,7 +3417,9 @@
       "twist",
       "corruption"
     ],
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_mortal_guardian_sacrifice_04",
@@ -3875,7 +3910,18 @@
     "meta_unlock": {
       "codex": "codex_reincarnation"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6,
+    "chain": {
+      "root": "m_reincarnation",
+      "next": [
+        {
+          "id": "evt_mortal_aggregation_hunt_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_mortal_auction_04",
@@ -4176,7 +4222,16 @@
     "meta_unlock": {
       "codex": "codex_tribulation"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_tribulation",
+      "next": [
+        {
+          "id": "evt_genius_contingency_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_contingency_04",
@@ -4489,7 +4544,16 @@
     "meta_unlock": {
       "codex": "codex_contingency"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_contingency",
+      "next": [
+        {
+          "id": "evt_genius_tribulation_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_source_fusion_04",
@@ -5777,7 +5841,16 @@
     "meta_unlock": {
       "codex": "codex_city_defense"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_city_defense",
+      "next": [
+        {
+          "id": "evt_genius_aggregation_hunt_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_aggregation_hunt_04",
@@ -6057,7 +6130,16 @@
     "meta_unlock": {
       "codex": "codex_aggregation_hunt"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_aggregation_hunt",
+      "next": [
+        {
+          "id": "evt_genius_outer_god_04",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_outer_god_04",
@@ -6311,7 +6393,18 @@
     "meta_unlock": {
       "codex": "codex_outer_god"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6,
+    "chain": {
+      "root": "m_outer_god",
+      "next": [
+        {
+          "id": "evt_genius_source_fusion_04",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_ascension_rite_04",
@@ -7159,7 +7252,9 @@
     "meta_unlock": {
       "codex": "codex_cross_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_genius_auction_04",
@@ -7719,7 +7814,16 @@
     "meta_unlock": {
       "codex": "codex_playacting"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_playacting",
+      "next": [
+        {
+          "id": "evt_genius_sect_betrayal_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_genius_ancient_battlefield_04",
@@ -8154,7 +8258,16 @@
       "codex": "codex_tribulation",
       "title": "承劫者"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_tribulation",
+      "next": [
+        {
+          "id": "evt_physique_contingency_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_time_loop_04",
@@ -8429,7 +8542,18 @@
     "meta_unlock": {
       "codex": "codex_time_loop"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6,
+    "chain": {
+      "root": "m_time_loop",
+      "next": [
+        {
+          "id": "evt_physique_ascension_rite_04",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_ancient_relic_04",
@@ -9616,7 +9740,16 @@
     "meta_unlock": {
       "codex": "codex_city_defense"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_city_defense",
+      "next": [
+        {
+          "id": "evt_physique_dual_world_04",
+          "window": "4-9"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_aggregation_hunt_04",
@@ -9934,7 +10067,9 @@
       "codex": "codex_outer_god",
       "title": "多骨人"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_ascension_rite_04",
@@ -10580,7 +10715,16 @@
     "meta_unlock": {
       "codex": "codex_sealed_object"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "chain": {
+      "root": "m_sealed_object",
+      "next": [
+        {
+          "id": "evt_physique_outer_god_04",
+          "window": "6-14"
+        }
+      ]
+    }
   },
   {
     "id": "evt_physique_dual_world_04",
@@ -10818,7 +10962,9 @@
     "meta_unlock": {
       "codex": "codex_dual_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_cross_world_04",
@@ -11081,7 +11227,9 @@
     "meta_unlock": {
       "codex": "codex_cross_world"
     },
-    "version": "1.0"
+    "version": "1.0",
+    "channel": "omen",
+    "omen_gap": 6
   },
   {
     "id": "evt_physique_playacting_04",
@@ -11482,7 +11630,7 @@
         "洞天在合拢",
         "搬血到一半就压下来"
       ],
-      "body_key": "loose.m_secret_realm.turn",
+      "body_key": "evt.evt_physique_secret_realm_04",
       "ai_enhance": "l2"
     },
     "options": [
@@ -12047,6 +12195,287 @@
       "codex": "codex_forbidden_knowledge",
       "title": "承字人"
     },
+    "version": "1.0",
+    "chain": {
+      "root": "m_forbidden_knowledge",
+      "next": [
+        {
+          "id": "evt_physique_outer_god_04",
+          "window": "6-14"
+        }
+      ]
+    }
+  },
+  {
+    "id": "evt_physique_contingency_04",
+    "kind": "loose",
+    "pack": [
+      "physique"
+    ],
+    "motif": "m_contingency",
+    "stage": [
+      "turn"
+    ],
+    "weight": 85,
+    "tension": 7,
+    "cooldown": {
+      "same_motif": 5,
+      "same_tag": 3
+    },
+    "narrative": {
+      "title_pool": [
+        "备劫那几日，你把仓底翻了个遍",
+        "册子上缺的那半页，正是要命的那半页",
+        "旧裂在阴天先疼"
+      ],
+      "body_key": "loose.m_contingency.turn",
+      "ai_enhance": "l2"
+    },
+    "options": [
+      {
+        "id": "a",
+        "text": "按最坏那一档备，一样不减",
+        "intent": "steady",
+        "risk_tier": "常",
+        "odds_hint": "有把握",
+        "cost_hint": "备到极处，仓底就空了",
+        "resolve": {
+          "roll": {
+            "base": 0.72,
+            "attr": "insight",
+            "attr_weight": 0.004
+          },
+          "bands": {
+            "crit": {
+              "narrative": "after.crit",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 9
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "contingency_layered"
+                }
+              ]
+            },
+            "success": {
+              "narrative": "after.success",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "contingency_layered"
+                }
+              ]
+            },
+            "fail": {
+              "narrative": "after.fail",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 2
+                },
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "rare_mat",
+                  "delta": -3
+                },
+                {
+                  "type": "set_flag",
+                  "key": "contingency_thin"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "b",
+        "text": "把最要紧的那一样，先托给护道人",
+        "intent": "social",
+        "risk_tier": "险",
+        "odds_hint": "未卜",
+        "cost_hint": "托出去的东西，取回来时要看人脸色",
+        "resolve": {
+          "roll": {
+            "base": 0.58,
+            "attr": "wits",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "narrative": "after.crit",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -3
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 2
+                },
+                {
+                  "type": "set_relation",
+                  "npc_id": "npc_baili_hanshan",
+                  "kind": "护道人",
+                  "delta": 8
+                },
+                {
+                  "type": "set_flag",
+                  "key": "contingency_entrusted"
+                },
+                {
+                  "type": "unlock_title",
+                  "ref": "托底人"
+                }
+              ]
+            },
+            "success": {
+              "narrative": "after.success",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": -2
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "contingency_entrusted"
+                }
+              ]
+            },
+            "fail": {
+              "narrative": "after.fail",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "favor",
+                  "delta": -2
+                },
+                {
+                  "type": "add_var",
+                  "key": "debt",
+                  "delta": 2
+                },
+                {
+                  "type": "set_flag",
+                  "key": "contingency_called_in"
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c",
+        "text": "什么都不备，先把身上的旧裂养住",
+        "intent": "steady",
+        "risk_tier": "稳",
+        "odds_hint": "十拿九稳",
+        "cost_hint": "养住的这几天，别人把该占的先占了",
+        "resolve": {
+          "roll": {
+            "base": 0.68,
+            "attr": "root",
+            "attr_weight": 0.005
+          },
+          "bands": {
+            "crit": {
+              "narrative": "after.crit",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -8
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 4
+                },
+                {
+                  "type": "set_flag",
+                  "key": "physique_mended_first"
+                }
+              ]
+            },
+            "success": {
+              "narrative": "after.success",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": -5
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 2
+                }
+              ]
+            },
+            "fail": {
+              "narrative": "after.fail",
+              "effects": [
+                {
+                  "type": "add_var",
+                  "key": "hp",
+                  "delta": 4
+                },
+                {
+                  "type": "add_var",
+                  "key": "power",
+                  "delta": 1
+                },
+                {
+                  "type": "set_flag",
+                  "key": "contingency_thin"
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "tags": [
+      "tribulation",
+      "crisis",
+      "endure"
+    ],
     "version": "1.0"
   }
 ]

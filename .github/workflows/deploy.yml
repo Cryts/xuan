@@ -27,9 +27,13 @@ jobs:
 
       - run: npm ci
 
-      # 首次运行自动开启 Pages（source = GitHub Actions），
-      # 否则 deploy-pages 会因仓库未启用 Pages 而失败
+      # 尝试自动开启 Pages（source = GitHub Actions）。
+      # 启用 Pages 需要仓库管理员权限，而默认的 GITHUB_TOKEN 没有，
+      # 所以这一步可能失败 —— 设成非致命，让后续步骤照常跑。
+      # 若仓库尚未开启 Pages，请在 Settings → Pages 把 Source 设为
+      # "GitHub Actions"，之后再跑一次本工作流即可。
       - uses: actions/configure-pages@v5
+        continue-on-error: true
         with:
           enablement: true
 

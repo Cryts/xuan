@@ -8,6 +8,7 @@
  */
 
 import { evaluate } from './conditions'
+import { resolveFreeAction, type IntentResult } from './intent'
 import { divideInitAttrs } from './genesis'
 import {
   ARCHETYPE_NAMES,
@@ -1262,6 +1263,143 @@ function buildEntryPresentation(
       },
     ],
   }
+}
+
+/**
+ * 自由输入的一次落地结果 —— 给 UI 交代"你这一手到底落到了哪里"。
+ * 玩家需要知道系统是怎么理解他的，否则自由输入就成了抽奖。
+ */
+export interface FreeActionReport {
+  outcome: 'mapped' | 'trial' | 'novel' | 'grounded' | 'refused'
+  /** 落到既有选项/物证时，它的名字 */
+  landing?: string
+  band?: Band
+  fuse?: boolean
+  /** 系统怎么理解你写的这句话 */
+  understood: string
+  /** 旁白（模型写的或引擎兜底的） */
+  narration?: string[]
+}
+
+/**
+ * 执行一次自由输入。
+ *
+ * **模型不参与结算**：它只把句子翻译成意图，走哪条路、成不成、
+ * 掉什么数值，全在这里由规则层决定。所以模型说错话最多是"理解偏了"，
+ * 不会凭空变出收益。
+ */
+export function submitFreeAction(
+  state: GameState,
+  intent: IntentResult,
+  content: ContentDB,
+  pres: NodePresentation,
+  narrationLines?: string[],
+): EngineResult & { free: FreeActionReport } {
+  const rng = new Rng(makeSeed(state.seed, state.node_index, `free:${intent.intent}`))
+  const event = content.events.find((e) => e.id === pres.event_id)
+
+  const outcome = resolveFreeAction(intent, { state, pres, event, rng })
+
+  const understoodOf = (): string => {
+    const t = intent.target ? `「${intent.target}」` : '眼前这场面'
+    const a = intent.approach ? `，${intent.approach}` : ''
+    return `你打算对${t}${a}。`
+  }
+
+  switch (outcome.kind) {
+    case 'mapped': {
+      const r = event
+        ? submitOption(state, outcome.option.id, content, event)
+        : fail(state, content, '当前无可执行的事件')
+      return {
+        ...r,
+        free: {
+          outcome: 'mapped',
+          landing: outcome.option.text,
+          band: r.band,
+          understood: `照旧法行事：${outcome.option.text}`,
+          narration: narrationLines,
+        },
+      }
+    }
+
+    case 'trial': {
+      const r = submitTrial(state, 'item', outcome.ref, content)
+      return {
+        ...r,
+        free: {
+          outcome: 'trial',
+          landing: outcome.ref,
+          understood: understoodOf(),
+          narration: narrationLines,
+        },
+      }
+    }
+
+    case 'grounded':
+      // 提了身上没有的东西：不认，但不当失败 —— 只走时间，不作惩罚
+      return {
+        ...advanceWith(state, content),
+        free: {
+          outcome: 'grounded',
+          understood: understoodOf(),
+          narration: [outcome.reason],
+        },
+      }
+
+    case 'refused':
+      return {
+        ...fail(state, content, outcome.reason),
+        free: { outcome: 'refused', understood: understoodOf() },
+      }
+
+    case 'novel': {
+      // 新路：按判定段位给一笔**克制的**得失。
+      // 刻意比正常事件小 —— 自创招式该有回报，但不该比踏踏实实选路更赚，
+      // 否则玩家会绕开所有既有选项只写小作文。
+      const table: Record<Band, Effect[]> = {
+        crit: [
+          { type: 'add_var', key: 'power', delta: 18 },
+          { type: 'add_attr', key: outcome.attr, delta: 2 },
+        ],
+        success: [{ type: 'add_var', key: 'power', delta: 10 }],
+        fail: [{ type: 'add_var', key: 'hp', delta: 5 }],
+        crit_fail: [
+          { type: 'add_var', key: 'hp', delta: 12 },
+          { type: 'add_var', key: 'exposure', delta: 3 },
+        ],
+      }
+      const effects = [...table[outcome.band]]
+      if (outcome.fuse && (outcome.band === 'crit' || outcome.band === 'success')) {
+        // 跨体系融合成了 —— 多给一条线头，玩家能顺着它往下走
+        effects.push({ type: 'add_var', key: 'rare_mat', delta: 1 })
+      }
+
+      let next = applyEffectsState(state, effects, `free:novel:${outcome.band}`)
+      next = advanceNode(next, content)
+
+      return {
+        ok: true,
+        delta: applyEffects(effects, state, 'free').delta,
+        band: outcome.band,
+        presentation: presentCurrent(next, content),
+        state: next,
+        free: {
+          outcome: 'novel',
+          band: outcome.band,
+          fuse: outcome.fuse,
+          understood: understoodOf(),
+          narration: narrationLines ?? [outcome.reason],
+        },
+      }
+    }
+  }
+}
+
+/** 只走时间、不做判定的推进（用于"说得通但落空"的情形） */
+function advanceWith(state: GameState, content: ContentDB): EngineResult {
+  const next = advanceNode(state, content)
+  return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
 }
 
 /**

@@ -160,6 +160,26 @@ export interface Option {
   risk_tier: RiskTier
   odds_hint: string // 模糊概率，不显示精确数字
   cost_hint?: string
+  /**
+   * 可能得到什么 —— 模糊地预告收益方向，不写精确数值。
+   *
+   * 玩家原话：「它没有一个切实的引导和导向说明结果会怎么样，
+   * 同时玩家无法了解这些选项背后的价值」。
+   * 只有代价没有收益的选项，玩家是在盲选，选完才知道值不值 ——
+   * 那不是抉择，是抽奖。所以每个选项都要说得出"它可能给你什么"。
+   *
+   * 措辞保持模糊（「或许能得一两味好药」），既给方向又不剧透。
+   */
+  gain_hint?: string
+  /**
+   * 这条选项偏向哪条路 —— 把选择与"你想成为什么样的人"接上。
+   *
+   * 玩家原话：「跟玩家想成为什么样的人无关」。原设计里选项的代价
+   * 只服务于"把剧本推向某个结局"，是一条封闭回路，玩家在里面看不见自己。
+   * 这一栏用来标出这条路在喂养哪种人设（如「毒功一路」「守正一道」），
+   * 让同一场景对不同构筑的玩家意味着不同的东西。
+   */
+  path_hint?: string
   requires?: Condition
   resolve?: Resolve // 无 resolve = 纯演出（1 选项的"命运已定"）
   outcome?: OutcomeBand // 无判定的直通结果
@@ -429,6 +449,8 @@ export interface HistoryEntry {
   node_index: number
   event_id: string
   option_id: string
+  /** 这一手是什么性质 —— 用来判断"这段时间在不在修行" */
+  intent?: Intent
   roll?: number
   band?: Band
   delta: Partial<Record<VarKey | AttrKey, number>>
@@ -504,6 +526,10 @@ export interface GameState {
   completed_scenarios: string[]
   /** 引擎用：已触发过 once_per_run 的事件 id */
   fired_events: string[]
+  /** 上一次日常选了什么 —— 供叙事与统计用 */
+  last_daily?: string
+  /** 连着闭关了几次 —— 闭关收益递减的依据（闭门造车） */
+  daily_streak?: number
 }
 
 // ============================================================
@@ -539,6 +565,8 @@ export interface NodePresentation {
   trials?: TrialOption[]
   /** 剧本内的通用手段（探查/交涉/硬闯/静待/抽身） */
   actions?: ScenarioAction[]
+  /** 日常节点：这一段年月怎么过，玩家自己定 */
+  daily?: DailyAction[]
   /**
    * 承上启下的过渡句 —— 上一件事与这一件事之间的接缝。
    *
@@ -575,6 +603,30 @@ export interface ScenarioAction {
   cost: string
   /** 主要依赖的属性，供 UI 提示成功率倾向 */
   attr?: AttrKey
+}
+
+/**
+ * 日常行动 —— 每隔几个节点，玩家自己决定这段时间花在哪。
+ *
+ * 玩家原话：「缺乏可交互的场景（例如日常是选择修炼还是拍卖会等等这些
+ * 自由度高的设计）」，以及「不是每一次事件都会增长修为的」。
+ *
+ * 这两条其实是同一件事：一局里玩家得有**自己分配时间**的地方。
+ * 没有它，修为只能靠被动上涨（时间一推就涨），玩家也在局中没有主张。
+ */
+export type DailyActionId = 'cultivate' | 'roam' | 'market' | 'befriend' | 'gather'
+
+export interface DailyAction {
+  id: DailyActionId
+  name: string
+  desc: string
+  /** 可能得到什么 —— 与选项的 gain_hint 同一套口径 */
+  gain_hint: string
+  cost_hint?: string
+  /** 当前处境下做不做得了（如坊市没钱、无伤可疗） */
+  available: boolean
+  /** 不可用时说明原因 */
+  blocked_reason?: string
 }
 
 /** 剧本触发时的入选项 —— 玩家有权不进去 */

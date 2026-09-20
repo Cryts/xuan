@@ -26,6 +26,8 @@ import type {
   AttrKey,
   Band,
   Condition,
+  DailyAction,
+  DailyActionId,
   DeltaEntry,
   DestinyChild,
   Effect,
@@ -352,11 +354,27 @@ export function cultivationCondition(state: GameState): number {
   // 85 之后就已经是硬撑着运功，该开始伤根基了。
   const injury = (85 - hp) / 85
 
-  // 最近这段在不在修行：按走过的母题看。
-  // 闭关、渡劫、参悟禁书这类是"静下来"的；夺宝、追杀、大比是"在动"的。
-  const QUIET = ['m_tribulation', 'm_forbidden_knowledge', 'm_waste_root_test']
-  const recentMotifs = (state.recent_motifs ?? []).slice(-4)
-  const practice = recentMotifs.filter((m) => QUIET.includes(m)).length * 0.15
+  // **修行有快慢，但不是"除了闭关就一无所得"。**
+  //
+  // 玩家原话："不是每一次事件都会增长修为的"。第一版我把它读成了
+  // "某些打法修为恒为零" —— 夺宝、厮杀、逃命一律不涨。结果是：
+  // 敢冒险的玩家把代价全付了、收益一分没拿，战力只有稳健路线的四成，
+  // 支配性检测直接报警。那不是"修行有快慢"，那是罚人。
+  //
+  // 改成**宽幅**：参悟最丰，厮杀最薄，但都有 —— 历练也是修行的一种。
+  // 八倍差距足够让"你把时间花在哪"看得出来，又不至于把一条路堵死。
+  const last = (state.history ?? [])[state.history.length - 1]
+  const PRACTICE: Record<string, number> = {
+    study: 1.0,     // 参悟研习
+    steady: 0.9,    // 闭关打坐
+    scheme: 0.6,    // 用计也是动脑子
+    social: 0.5,    // 交游长见识
+    sacrifice: 0.45,
+    greedy: 0.35,   // 夺宝是历练
+    evil: 0.3,
+    flee: 0.25,     // 逃命学到的也是东西
+  }
+  const practice = last?.intent ? (PRACTICE[last.intent] ?? 0.5) : 0.5
 
   // 心境：污染与因果都拖慢修行
   const mind = Math.max(0.5, 1 - corruption / 200 - debt / 300)
@@ -372,6 +390,10 @@ export function cultivationCondition(state: GameState): number {
   // 但它只在**真的快不行了**的时候发生：hp ≥ 75（垂危）才可能转负，
   // 且最深只到 −0.25 —— 一个节点掉掉百分之几的修为，是挫折不是毁灭。
   // 想让玩家跌境，该由事件显式写 modify_power_index 负值，而不是靠被动流失。
+  // 这一手根本不在修行 —— 不涨，也不掉（伤势造成的倒退另算，见下）
+  const dormant = practice <= 0 && hp < 85
+  if (dormant) return 0
+
   // 下界 −0.25：掉是掉，但一个节点掉掉百分之几，是挫折不是毁灭。
   return Math.max(-0.25, Math.min(1.6, mult))
 }
@@ -997,6 +1019,7 @@ export function submitOption(
         node_index: state.node_index,
         event_id: currentEvent.id,
         option_id: optionId,
+        intent: opt.intent,
         band,
         delta: Object.fromEntries(
           applyEffects(allEffects, state, 'x').delta.map((d) => [d.key, d.to - d.from]),
@@ -1452,6 +1475,162 @@ function advanceWith(state: GameState, content: ContentDB): EngineResult {
   return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
 }
 
+// ============================================================
+// 日常行动 —— 这段时间花在哪，玩家自己定
+// ============================================================
+
+/**
+ * 每几个节点插入一次日常。
+ *
+ * 25 个节点里插 5~6 次：够玩家感到"我在安排自己的修行"，
+ * 又不至于把一局 5–8 分钟的节奏拖散。事件仍是主体。
+ */
+export const DAILY_EVERY = 4
+
+/** 该不该是日常节点 */
+export function isDailyNode(state: GameState): boolean {
+  if (state.active_scenario || state.pending_scenario) return false
+  if (state.node_index === 0) return false // 开局第一拍先给事件
+  return state.node_index % DAILY_EVERY === 0
+}
+
+/** 当前处境下可做的日常 —— available 为假时给明原因 */
+export function dailyActions(state: GameState): DailyAction[] {
+  const v = state.vars
+  return [
+    {
+      id: 'cultivate',
+      name: '闭关',
+      desc: '把这段时间整个投进修行里，不见人，不出门。',
+      gain_hint: '修为大进；若身上有伤或心魔，进项会打折',
+      available: true,
+    },
+    {
+      id: 'roam',
+      name: '游历',
+      desc: '出门走走。你会遇到什么，说不准。',
+      gain_hint: '一段际遇 —— 机缘与凶险都在里头',
+      available: true,
+    },
+    {
+      id: 'gather',
+      name: '采药',
+      desc: '上山下涧，找些用得上的东西。',
+      gain_hint: '或有灵草矿石入账',
+      cost_hint: '费些脚力（伤势略增）',
+      available: true,
+    },
+    {
+      id: 'market',
+      name: '坊市',
+      desc: '去人多的地方换些物事。',
+      gain_hint: '以灵石易物',
+      cost_hint: '破费',
+      available: v.currency >= 30,
+      blocked_reason: v.currency < 30 ? '囊中羞涩，去了也只是看' : undefined,
+    },
+    {
+      id: 'befriend',
+      name: '交游',
+      desc: '拜访旧识，或结识新交。',
+      gain_hint: '人情与声望；日久或成助力',
+      available: true,
+    },
+  ]
+}
+
+/**
+ * 执行一次日常行动。
+ *
+ * 「游历」是唯一的例外：不结算日常收益，而是**去抽一个事件** ——
+ * 它是"我不想安排，让天意安排"的那条路。
+ */
+export function submitDaily(
+  state: GameState,
+  actionId: DailyActionId,
+  content: ContentDB,
+): EngineResult {
+  const rng = new Rng(makeSeed(state.seed, state.node_index, `daily:${actionId}`))
+
+  // 游历：主要收益是"遇到什么"，但行万里路本身也是修行 ——
+  // 给一笔小进项，免得"出门"变成纯粹的零收益选项。
+  if (actionId === 'roam') {
+    const next = advanceNode({ ...state, last_daily: 'roam' } as GameState, content)
+    return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
+  }
+
+  const effects: Effect[] = []
+
+  switch (actionId) {
+    case 'cultivate': {
+      // 闭关一次约等于三个节点的日常修行 —— 代价是这段时间只干了这一件事。
+      //
+      // 但它同时是**养伤**：闭关就是哪也不去、不见人、不动手。
+      // 先前这里写反了 —— 带伤闭关反而 `hp +8`（伤上加伤），
+      // 于是受伤的玩家越闭越重，直接陷进"伤—闭关—更伤"的死循环。
+      // 实测把 aggressive 原型压到 steady 的四成。那不是难度，是陷阱。
+      // **一味道闭关会闭门造车。**
+      //
+      // 没有这条之前，闭关是严格最优解：给修为、能养伤、不要钱、没风险，
+      // 于是"每次都闭关"成了支配性策略 —— 实测稳健原型战力是激进原型的
+      // 两倍半，支配性检测报警。一个选择如果永远是对的，它就不是选择。
+      //
+      // 递减之后，闭关是"最稳的那条路"而不是"唯一的路"：
+      // 连着闭三次，收益就只剩三成，逼你去游历、去坊市、去结交。
+      const streak = state.daily_streak ?? 0
+      const dim = 1 / (1 + streak * 0.6)
+      const gain = cultivateGain(state) * 3
+      effects.push({ type: 'add_var', key: 'power', delta: Math.round(Math.max(0, gain) * 1.4 * dim) })
+      if (streak >= 2) {
+        // 闭久了心不静
+        effects.push({ type: 'add_var', key: 'corruption', delta: 2 })
+      }
+
+      const hp = state.vars.hp
+      if (hp >= 75) {
+        // 垂危之人强行闭关是拿命换修为：要么搏回来，要么走火入魔
+        const survived = rng.chance(0.55)
+        effects.push({ type: 'add_var', key: 'hp', delta: survived ? -25 : 12 })
+        if (!survived) effects.push({ type: 'add_var', key: 'corruption', delta: 6 })
+      } else {
+        // 寻常带伤：静养，伤会收口
+        effects.push({ type: 'add_var', key: 'hp', delta: -Math.round(6 + hp * 0.25) })
+      }
+      break
+    }
+    case 'gather': {
+      const luck = rng.chance(0.4 + (state.attrs.luck ?? 50) * 0.004)
+      effects.push({ type: 'add_var', key: 'rare_mat', delta: luck ? rng.int(2, 4) : rng.int(0, 1) })
+      effects.push({ type: 'add_var', key: 'hp', delta: rng.int(2, 5) }) // 爬山涉水的磕碰
+      break
+    }
+    case 'market': {
+      const spend = Math.min(state.vars.currency, 40)
+      effects.push({ type: 'add_var', key: 'currency', delta: -spend })
+      effects.push({ type: 'add_var', key: 'rare_mat', delta: Math.max(1, Math.round(spend / 15)) })
+      break
+    }
+    case 'befriend': {
+      effects.push({ type: 'add_var', key: 'favor', delta: rng.int(4, 10) })
+      effects.push({ type: 'add_var', key: 'exposure', delta: 1 }) // 露面多了也容易被认出来
+      break
+    }
+    default:
+      break
+  }
+
+  let next = applyEffectsState(state, effects, `daily:${actionId}`)
+  const streak = actionId === 'cultivate' ? (state.daily_streak ?? 0) + 1 : 0
+  next = advanceNode({ ...next, last_daily: actionId, daily_streak: streak } as GameState, content)
+
+  return {
+    ok: true,
+    delta: applyEffects(effects, state, `daily:${actionId}`).delta,
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
 /**
  * 入场抉择：进去，或者绕开。
  *
@@ -1556,14 +1735,28 @@ function resolveDestinyEncounter(state: GameState, child: DestinyChild): GameSta
 
   // 气运耗尽：他真的会死。玩家继承他的金手指与因果。
   const reward = killDestinyChild(child)
-  const next = applyEffectsState(
-    state,
-    [
-      { type: 'unlock_title', ref: reward.title },
-      { type: 'add_var', key: 'debt', delta: reward.inherited_debt },
-    ],
-    `kill:${child.id}`,
-  )
+
+  // **两半都要给。**
+  //
+  // 设计上写的是"你继承他的金手指与他的因果"，但先前只兑了因果那一半：
+  // 杀完拿到一个称号 + 一笔债（他的仇家从此来找你），金手指那一半没兑现。
+  // 于是敢动手的玩家把代价全付了，收益一分没拿 —— 实测走激进路线的原型
+  // 战力只有稳健路线的四成，支配性检测直接报警。
+  //
+  // 他走到哪一步，金手指就养到哪一步：这是"截杀主角"该有的分量。
+  const wasAt = child.fate_progress
+  const spoils: Effect[] = [
+    { type: 'unlock_title', ref: reward.title },
+    { type: 'add_var', key: 'debt', delta: reward.inherited_debt },
+    // 他的金手指
+    { type: 'add_var', key: 'power', delta: 60 + wasAt * 40 },
+    // 他身上带着的东西
+    { type: 'add_var', key: 'rare_mat', delta: 2 + wasAt },
+    { type: 'add_var', key: 'currency', delta: 80 + wasAt * 30 },
+    { type: 'add_var', key: 'exposure', delta: 4 }, // 杀主角是藏不住的
+  ]
+
+  const next = applyEffectsState(state, spoils, `kill:${child.id}`)
   return {
     ...next,
     destiny_children: next.destiny_children.map((d) => (d.id === child.id ? child : d)),
@@ -1676,6 +1869,20 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
     if (sc) {
       const rng = new Rng(makeSeed(state.seed, state.node_index, `entry:${sc.id}`))
       return buildEntryPresentation(state, content, sc, rng)
+    }
+  }
+
+  // 日常节点：这段时间怎么过，玩家自己定
+  if (isDailyNode(state)) {
+    return {
+      node_index: state.node_index,
+      kind: 'loose',
+      event_id: '__daily__',
+      title: '日常',
+      lines: ['又过了一段日子。接下来的时间，你打算怎么用？'],
+      mood: 'somber',
+      options: [],
+      daily: dailyActions(state),
     }
   }
 

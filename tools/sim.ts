@@ -20,6 +20,7 @@ import {
   startRun,
   submitOption,
   submitScenarioAction,
+  submitDaily,
   submitScenarioEntry,
   submitTrial,
 } from '../src/core/engine'
@@ -27,6 +28,7 @@ import { rollGenesis } from '../src/core/genesis'
 import { Rng } from '../src/core/rng'
 import type {
   Affix,
+  DailyActionId,
   Destiny,
   Ending,
   FateMilestone,
@@ -152,6 +154,30 @@ function simulateOne(runIndex: number, arch: Archetype): RunStat | null {
   while (state.status === 'alive' && guard < 300) {
     guard++
     const pres = presentCurrent(state, content)
+
+    // 日常节点：怎么过这段时间。游历等于"让天意安排"，其余是主动安排。
+    if (pres.daily) {
+      // 日常偏好要**跟着原型走** —— 三种人不可能用同一套时间安排。
+      // 激进的人往外跑找架打，稳健的人关起门来练功，
+      // 否则测出来的不是"打法优劣"，是"谁更像我写的那条 if"。
+      const acts = pres.daily.filter((a) => a.available)
+      const hurt = state.vars.hp >= 55
+      // 激进的人也**要闭关** —— 打完架得养伤、得消化战果。
+      // 先前把他写成"永不闭关"，测出来的就不是打法优劣，
+      // 而是"谁更像我写的那条 if"。真人不会这么玩。
+      const wish: Record<Archetype, DailyActionId[]> = {
+        aggressive: hurt
+          ? ['cultivate', 'market']
+          : ['roam', 'roam', 'cultivate', 'gather', 'befriend'],
+        steady: hurt ? ['cultivate'] : ['cultivate', 'cultivate', 'gather', 'market'],
+        schemer: hurt ? ['cultivate', 'market'] : ['befriend', 'market', 'roam', 'cultivate'],
+      }
+      const order = wish[arch]
+      const pick =
+        order.map((id) => acts.find((a) => a.id === id)).find(Boolean) ?? acts[0]!
+      state = submitDaily(state, pick.id, content).state
+      continue
+    }
 
     // 剧本触发：多数人进，偶尔绕开 —— 入场本身就是一个选择
     if (pres.scenario_entry) {

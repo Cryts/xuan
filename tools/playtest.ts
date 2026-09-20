@@ -27,6 +27,7 @@ import {
   startRun,
   submitOption,
   submitScenarioAction,
+  submitDaily,
   submitScenarioEntry,
   submitTrial,
 } from '../src/core/engine'
@@ -153,6 +154,15 @@ function playOne(idx: number): void {
     ) {
       emptyNodes.push(`${pres.event_id} (node ${s.node_index}, ${pack})`)
       s = { ...s, node_index: s.node_index + 1, status: s.node_index + 1 >= s.total_nodes ? 'ended' : 'alive' }
+      continue
+    }
+
+    // 日常节点：会琢磨的玩家优先闭关养伤，伤好了再去游历找机缘
+    if (pres.daily) {
+      const acts = pres.daily.filter((a) => a.available)
+      const want = s.vars.hp >= 40 ? 'roam' : 'cultivate'
+      const pick = acts.find((a) => a.id === want) ?? acts[0]!
+      s = submitDaily(s, pick.id, content).state
       continue
     }
 

@@ -248,3 +248,110 @@
   color: rgba(var(--cinnabar-rgb), 0.8);
   animation: fadeIn var(--d4) var(--ease) both;
 }
+
+/* 收益：与「代价」并列，一红一青，让玩家一眼看见这笔交易的两头 */
+.gain {
+  color: var(--jade-txt, #7fb69f);
+  opacity: 0.9;
+}
+
+/* 路数：这条选择在喂养哪种人设 */
+.path {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32em;
+  margin-top: 0.35em;
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  color: var(--gold-txt, #c9a227);
+  opacity: 0.82;
+}
+.pathMark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.15em;
+  height: 1.15em;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: 0.82em;
+  opacity: 0.75;
+}
+
+/* ── 日常节点 ──
+   与事件选项分开：事件是际遇（被动遇到），日常是安排（主动分配时间）。
+   视觉上给一个横向的卡片阵列，一眼看出"这是在挑事做"而不是"这是在应对"。 */
+.daily {
+  margin: 1.1em 0 0.4em;
+  animation: x-fade-up 0.35s ease both;
+}
+.dailyHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.7em;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.08em;
+  color: var(--t2);
+  opacity: 0.8;
+}
+.dailyMark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid var(--accent, #4f9e8a);
+  border-radius: 2px;
+  color: var(--accent, #4f9e8a);
+  font-size: 0.85em;
+}
+.dailyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6em;
+}
+.dailyCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28em;
+  padding: 0.72em 0.8em;
+  text-align: left;
+  background: rgba(var(--paper-rgb, 242 234 217), 0.035);
+  border: 1px solid rgba(var(--paper-rgb, 242 234 217), 0.14);
+  border-radius: 3px;
+  color: var(--t1);
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, transform 0.18s;
+}
+.dailyCard:hover:not(:disabled) {
+  border-color: var(--accent, #4f9e8a);
+  background: rgba(var(--accent-rgb, 79 158 138), 0.1);
+  transform: translateY(-1px);
+}
+.dailyCard:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+.dailyName {
+  font-size: var(--fs-md);
+  letter-spacing: 0.1em;
+}
+.dailyDesc {
+  font-size: var(--fs-xs);
+  color: var(--t3);
+  line-height: 1.5;
+}
+.dailyGain {
+  font-size: var(--fs-xs);
+  color: var(--jade-txt, #7fb69f);
+  opacity: 0.9;
+}
+.dailyCost {
+  font-size: var(--fs-xs);
+  color: var(--cinnabar-txt, #c1392b);
+  opacity: 0.85;
+}
+.dailyBlocked {
+  font-size: var(--fs-xs);
+  color: var(--t3);
+  font-style: italic;
+}

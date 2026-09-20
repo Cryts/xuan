@@ -18,6 +18,7 @@ import {
   submitFreeAction,
   submitOption,
   submitScenarioAction,
+  submitDaily,
   submitScenarioEntry,
   submitTrial,
   type EndingResult,
@@ -31,6 +32,7 @@ import { DEFAULT_FREE_INPUT, normalizeFreeInput, type FreeInputSettings } from '
 import { Rng, deriveSeed } from '@/core/rng'
 import { PACK_IDS, type ContentDB, type Motif, type NameBank } from '@/core/content'
 import type {
+  DailyActionId,
   Affix,
   AttrKey,
   Condition,
@@ -688,6 +690,7 @@ export type Action =
   | { type: 'play/trial'; kind: TrialOption['kind']; ref: string }
   /** 剧本内的通用手段（细察 / 交涉 / 硬闯 / 感气 / 静待 / 抽身）—— 不依赖行囊 */
   | { type: 'play/action'; id: ScenarioActionId }
+  | { type: 'play/daily'; id: DailyActionId }
   | { type: 'play/wait' }
   /**
    * 自由输入的落地。**意图已在 reducer 之外算好**（那一步要等模型，
@@ -921,6 +924,21 @@ export function reducer(st: AppState, action: Action): AppState {
         resumable: false,
         gen: rollDraft(st.content, makeSeedString(), st.gen.packId),
       }
+    }
+
+    case 'play/daily': {
+      // 日常：这段时间花在哪，玩家自己定。游历那条会转去抽事件，
+      // 其余四条各自结算（闭关涨修为、坊市换材料、交游攒人情、采药得材料带伤）。
+      const { state, content, pres } = st
+      if (!state || !pres?.daily) return st
+      const act = pres.daily.find((a) => a.id === action.id)
+      if (!act) return st
+      if (!act.available) {
+        return { ...st, toast: act.blocked_reason ?? '此刻做不得' }
+      }
+      const res = submitDaily(state, action.id, content)
+      if (!res.ok) return { ...st, toast: '行不得' }
+      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
     }
 
     case 'play/option': {

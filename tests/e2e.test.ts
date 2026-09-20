@@ -26,6 +26,10 @@ describe('端到端：一局完整对局', () => {
       ids.add(p.event_id)
       if (p.kind === 'scenario') scenarioTouches++
 
+      if (p.daily) {
+        st = act(st, { type: 'play/daily', id: p.daily[0]!.id })
+        continue
+      }
       if (p.scenario_entry) {
         st = act(st, { type: 'play/entry', enter: steps % 3 !== 0 })
       } else if (p.kind === 'scenario' && p.actions?.length) {
@@ -66,7 +70,11 @@ describe('端到端：一局完整对局', () => {
         const p = st.pres
         if (!p || p.kind === 'ending') break
         ids.add(p.event_id)
-        if (p.scenario_entry) {
+        if (p.daily) {
+        st = act(st, { type: 'play/daily', id: p.daily[0]!.id })
+        continue
+      }
+      if (p.scenario_entry) {
           st = act(st, { type: 'play/entry', enter: steps % 3 !== 0 })
         } else if (p.kind === 'scenario' && p.actions?.length) {
           const a = p.actions[steps % (p.actions.length - 1)]!

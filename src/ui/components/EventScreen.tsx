@@ -42,10 +42,22 @@ function OptionCard({
       <span className={s.optMeta}>
         <span className={s.odds}>{opt.odds_hint}</span>
         {opt.cost_hint ? <span className={s.cost}>代价 · {opt.cost_hint}</span> : null}
+        {/* 收益与代价并列。原先只有"代价 · …"，玩家看得见要付什么、
+            看不见可能得什么 —— 那是盲选，不是抉择。 */}
+        {opt.gain_hint ? <span className={s.gain}>或可得 · {opt.gain_hint}</span> : null}
         <span className={s.intent}>
           {INTENT_NAMES[opt.intent] ?? '行'} · {INTENT_DESC[opt.intent] ?? ''}
         </span>
       </span>
+      {/* 这条路在喂养什么样的人 —— 把选择与"你想成为谁"接上 */}
+      {opt.path_hint ? (
+        <span className={s.path}>
+          <span className={s.pathMark} aria-hidden>
+            途
+          </span>
+          {opt.path_hint}
+        </span>
+      ) : null}
       <span className={s.optIndex}>{index + 1}</span>
     </button>
   )
@@ -128,6 +140,40 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
 
         {/* 上一次自由输入被听成了什么 —— 就摆在正文之后、选项之前 */}
         <FreeEcho />
+
+        {/* 日常节点：这段时间花在哪，玩家自己定。
+            与"事件选项"刻意分开摆 —— 事件是际遇，日常是安排，不是一回事。 */}
+        {pres.daily ? (
+          <section className={s.daily} data-ready={typed ? '1' : '0'}>
+            <div className={s.dailyHead}>
+              <span className={s.dailyMark} aria-hidden>
+                日
+              </span>
+              <span>这段时间，你打算怎么用？</span>
+            </div>
+            <div className={s.dailyGrid}>
+              {pres.daily.map((a, i) => (
+                <button
+                  key={a.id}
+                  type="button"
+                  className={`${s.dailyCard} x-in`}
+                  style={{ animationDelay: `${i * 60}ms` }}
+                  disabled={!a.available}
+                  title={a.blocked_reason ?? undefined}
+                  onClick={() => dispatch({ type: 'play/daily', id: a.id })}
+                >
+                  <span className={s.dailyName}>{a.name}</span>
+                  <span className={s.dailyDesc}>{a.desc}</span>
+                  <span className={s.dailyGain}>{a.gain_hint}</span>
+                  {a.cost_hint ? <span className={s.dailyCost}>{a.cost_hint}</span> : null}
+                  {!a.available && a.blocked_reason ? (
+                    <span className={s.dailyBlocked}>{a.blocked_reason}</span>
+                  ) : null}
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className={s.opts} data-ready={typed ? '1' : '0'}>
           {typed

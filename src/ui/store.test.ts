@@ -32,6 +32,11 @@ function play(steps: number, pack: PackId) {
   for (let i = 0; i < steps; i++) {
     if (st.screen !== 'play') break
     const p = st.pres!
+    // 日常节点没有 options，先在这里处理掉
+    if (p.daily) {
+      st = reducer(st, { type: 'play/daily', id: p.daily[0]!.id })
+      continue
+    }
     if (p.kind === 'scenario') {
       const t = (p.trials ?? [])[0]
       st = t

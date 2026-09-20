@@ -425,6 +425,70 @@ export interface Destiny {
 }
 
 // ============================================================
+// 斗法（实现见 core/duel.ts）
+// ============================================================
+
+export type StanceId = 'assault' | 'guard' | 'bait' | 'conceal'
+export type AffinityResult = 'counter' | 'countered' | 'neutral'
+
+export interface Stance {
+  id: StanceId
+  name: string
+  desc: string
+  attack: number
+  defense: number
+  /**
+   * 起伏：这一场你打得有多飘。
+   *
+   * 架势真正的差别**不在攻守**——斗法比的是谁推得多，而"削他"与"涨我"
+   * 在数学上是同一根轴，所以"攻高守低"这种设计是假的取舍。
+   * 真正的取舍是**赌一把还是稳扎稳打**：期望相当，方差不同。
+   * 强攻能翻天也能崩盘，稳守赢不快也输不惨。
+   */
+  swing: number
+  note?: string
+}
+
+export interface StanceOption {
+  essence: Essence
+  name: string
+  from_pack?: PackId
+  affinity: AffinityResult
+  hint: string
+}
+
+export interface DuelOpponent {
+  id: string
+  name: string
+  essence: Essence
+  power_index: number
+  realm_name: string
+  is_destiny?: boolean
+  fate_progress?: number
+  note?: string
+}
+
+export interface DuelSpoils {
+  win: { power: number; currency: number; rare_mat: number; favor: number }
+  kill: { power: number; currency: number; rare_mat: number }
+  kill_cost: { debt: number; exposure: number; karma: number }
+}
+
+export interface DuelSetup {
+  opponent: DuelOpponent
+  stances: Stance[]
+  ways: StanceOption[]
+  matchup: {
+    my_power: number
+    their_power: number
+    odds: number
+    odds_hint: string
+    base_affinity: AffinityResult
+  }
+  spoils: DuelSpoils
+}
+
+// ============================================================
 // 运行时状态
 // ============================================================
 
@@ -528,6 +592,16 @@ export interface GameState {
   fired_events: string[]
   /** 上一次日常选了什么 —— 供叙事与统计用 */
   last_daily?: string
+  /** 斗法：已摆开明牌。duel_committed 为假时是在问"打不打" */
+  pending_duel?: DuelSetup
+  /** 玩家已经决定出手，接下来该选路数与架势了 */
+  duel_committed?: boolean
+  /** 这一场是怎么找上来的（仇家/被认出/命线交汇…），供叙事 */
+  duel_reason?: string
+  /** 上一次斗法发生在第几拍 —— 免得刚打完又被人堵住 */
+  last_duel_node?: number
+  /** 斗法：已打完，等玩家决定杀还是放 */
+  pending_duel_result?: DuelOutcome
   /** 连着闭关了几次 —— 闭关收益递减的依据（闭门造车） */
   daily_streak?: number
 }
@@ -567,6 +641,10 @@ export interface NodePresentation {
   actions?: ScenarioAction[]
   /** 日常节点：这一段年月怎么过，玩家自己定 */
   daily?: DailyAction[]
+  /** 斗法·明牌：双方摊开，玩家选择以什么路数、带什么架势进场 */
+  duel?: DuelSetup
+  /** 斗法·结果：打完了，谈怎么处置 */
+  duel_result?: DuelOutcome
   /**
    * 承上启下的过渡句 —— 上一件事与这一件事之间的接缝。
    *
@@ -614,7 +692,7 @@ export interface ScenarioAction {
  * 这两条其实是同一件事：一局里玩家得有**自己分配时间**的地方。
  * 没有它，修为只能靠被动上涨（时间一推就涨），玩家也在局中没有主张。
  */
-export type DailyActionId = 'cultivate' | 'roam' | 'market' | 'befriend' | 'gather'
+export type DailyActionId = 'cultivate' | 'roam' | 'market' | 'befriend' | 'gather' | 'duel'
 
 export interface DailyAction {
   id: DailyActionId
@@ -627,6 +705,22 @@ export interface DailyAction {
   available: boolean
   /** 不可用时说明原因 */
   blocked_reason?: string
+}
+
+/**
+ * 斗法的结果 —— 打赢之后才谈得上处置。
+ * 杀死是**单独一个选择**，不是败者的默认下场。
+ */
+export interface DuelOutcome {
+  opponent: DuelOpponent
+  outcome: 'win' | 'lose' | 'draw'
+  rounds: { index: number; affinity: string; winner: string; line: string }[]
+  summary: string
+  momentum: { mine: number; theirs: number }
+  win_spoils: DuelSpoils['win']
+  kill_spoils: DuelSpoils['kill']
+  kill_cost: DuelSpoils['kill_cost']
+  can_kill: boolean
 }
 
 /** 剧本触发时的入选项 —— 玩家有权不进去 */

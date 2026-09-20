@@ -10,6 +10,7 @@ import s from './EventScreen.module.css'
 import { StatusBar } from './StatusBar'
 import { Typewriter } from './Typewriter'
 import { BagSheet } from './BagPanel'
+import { DuelPanel } from './DuelPanel'
 import { FreeEcho } from './FreeEcho'
 import { FreeInput } from './FreeInput'
 import { RevealOverlay, Seal } from './Shared'
@@ -140,6 +141,11 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
 
         {/* 上一次自由输入被听成了什么 —— 就摆在正文之后、选项之前 */}
         <FreeEcho />
+
+        {/* 斗法：选路数架势、以及战后的杀与放。
+            "打不打"那一步不在这里 —— 它走普通选项卡片，因为斗法是奇遇，
+            不该另开一个界面。 */}
+        <DuelPanel />
 
         {/* 日常节点：这段时间花在哪，玩家自己定。
             与"事件选项"刻意分开摆 —— 事件是际遇，日常是安排，不是一回事。 */}

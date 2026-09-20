@@ -1,0 +1,210 @@
+/* 斗法面板 ── 明牌 + 架势 + 战后处置 */
+
+.panel {
+  margin: 1em 0 0.4em;
+  padding: 0.9em 0.9em 0.7em;
+  border: 1px solid rgba(var(--cinnabar-rgb, 193 57 43), 0.34);
+  border-radius: 3px;
+  background: rgba(var(--cinnabar-rgb, 193 57 43), 0.05);
+  animation: x-fade-up 0.35s ease both;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-bottom: 0.6em;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.08em;
+  color: var(--cinnabar-txt, #c1392b);
+}
+.mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: 0.85em;
+}
+
+/* ── 明牌 ── */
+.board {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.6em 0;
+  margin-bottom: 0.4em;
+  border-bottom: 1px solid rgba(var(--paper-rgb, 242 234 217), 0.12);
+}
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
+}
+.sideLabel {
+  font-size: var(--fs-xs);
+  color: var(--t3);
+  letter-spacing: 0.06em;
+}
+.sideNum {
+  font-size: var(--fs-lg);
+  font-family: var(--serif, serif);
+  color: var(--t1);
+}
+.vs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15em;
+}
+.odds {
+  font-size: var(--fs-sm);
+  color: var(--gold-txt, #c9a227);
+  letter-spacing: 0.1em;
+}
+.vsWord {
+  font-size: var(--fs-xs);
+  color: var(--t4);
+}
+
+/* ── 路数与架势 ── */
+.block { margin-top: 0.7em; }
+.blockHead {
+  font-size: var(--fs-xs);
+  color: var(--t3);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4em;
+}
+.ways,
+.stances {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  gap: 0.45em;
+}
+
+.way,
+.stance {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0.5em 0.6em;
+  text-align: left;
+  background: rgba(var(--paper-rgb, 242 234 217), 0.04);
+  border: 1px solid rgba(var(--paper-rgb, 242 234 217), 0.14);
+  border-radius: 3px;
+  color: var(--t1);
+  cursor: pointer;
+  transition: border-color 0.16s, background 0.16s;
+}
+.way:hover,
+.stance:hover { border-color: var(--accent, #4f9e8a); }
+.wayOn,
+.stanceOn {
+  border-color: var(--gold, #c9a227);
+  background: rgba(var(--gold-rgb, 201 162 39), 0.12);
+}
+
+.wayName { font-size: var(--fs-sm); letter-spacing: 0.06em; }
+.wayEss {
+  font-size: var(--fs-xs);
+  color: var(--t3);
+}
+.wayAff { font-size: var(--fs-xs); }
+.wayFrom {
+  font-size: 0.68em;
+  color: var(--gold-txt, #c9a227);
+  letter-spacing: 0.08em;
+}
+
+/* 相性三态 —— 与全作同一套语义：青碧占优，朱砂吃亏 */
+.counter .wayAff { color: var(--jade-txt, #7fb69f); }
+.countered .wayAff { color: var(--cinnabar-txt, #c1392b); }
+.neutral .wayAff { color: var(--t4); }
+
+.stanceName { font-size: var(--fs-sm); letter-spacing: 0.08em; }
+.stanceDesc {
+  font-size: var(--fs-xs);
+  color: var(--t3);
+  line-height: 1.5;
+}
+.stanceNote {
+  font-size: var(--fs-xs);
+  color: var(--gold-txt, #c9a227);
+  opacity: 0.85;
+}
+
+.readout {
+  margin-top: 0.6em;
+  font-size: var(--fs-xs);
+  color: var(--t3);
+}
+
+.go {
+  display: block;
+  width: 100%;
+  margin-top: 0.8em;
+  padding: 0.62em;
+  font-size: var(--fs-md);
+  letter-spacing: 0.24em;
+  color: var(--paper, #f2ead9);
+  background: rgba(var(--cinnabar-rgb, 193 57 43), 0.82);
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: filter 0.16s;
+}
+.go:hover { filter: brightness(1.15); }
+
+/* ── 战后 ── */
+.rounds {
+  list-style: none;
+  margin: 0 0 0.6em;
+  padding: 0;
+}
+.round {
+  padding: 0.24em 0 0.24em 0.9em;
+  font-size: var(--fs-sm);
+  color: var(--t2);
+  border-left: 2px solid rgba(var(--paper-rgb, 242 234 217), 0.16);
+}
+.round.me { border-left-color: var(--jade, #3e7c6e); color: var(--t1); }
+.round.them { border-left-color: var(--cinnabar, #c1392b); }
+
+.summary {
+  margin: 0 0 0.8em;
+  font-size: var(--fs-sm);
+  color: var(--t1);
+  line-height: 1.7;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5em;
+}
+.action {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28em;
+  padding: 0.62em 0.7em;
+  text-align: left;
+  border-radius: 3px;
+  border: 1px solid rgba(var(--paper-rgb, 242 234 217), 0.16);
+  background: rgba(var(--paper-rgb, 242 234 217), 0.04);
+  color: var(--t1);
+  cursor: pointer;
+  transition: border-color 0.16s, background 0.16s;
+}
+.kill { border-color: rgba(var(--cinnabar-rgb, 193 57 43), 0.5); }
+.kill:hover { background: rgba(var(--cinnabar-rgb, 193 57 43), 0.14); }
+.spare { border-color: rgba(var(--jade-rgb, 62 124 110), 0.5); }
+.spare:hover { background: rgba(var(--jade-rgb, 62 124 110), 0.14); }
+.actionName { font-size: var(--fs-md); letter-spacing: 0.1em; }
+.actionHint {
+  font-size: var(--fs-xs);
+  color: var(--t3);
+  line-height: 1.5;
+}

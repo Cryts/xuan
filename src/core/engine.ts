@@ -7,8 +7,16 @@
  * 铁律：数值永不由文本层决定。这里只算数值，文本由 narrative.ts 单独选。
  */
 
+import { PACK_ESSENCE } from './affinity'
 import { evaluate } from './conditions'
 import { resolveFreeAction, type IntentResult } from './intent'
+import {
+  canKill,
+  resolveDuel,
+  setupDuel,
+  type DuelOpponent,
+  type StanceId,
+} from './duel'
 import { divideInitAttrs } from './genesis'
 import {
   ARCHETYPE_NAMES,
@@ -29,6 +37,8 @@ import type {
   DailyAction,
   DailyActionId,
   DeltaEntry,
+  DuelOutcome,
+  Essence,
   DestinyChild,
   Effect,
   Ending,
@@ -1530,6 +1540,15 @@ export function dailyActions(state: GameState): DailyAction[] {
       blocked_reason: v.currency < 30 ? '囊中羞涩，去了也只是看' : undefined,
     },
     {
+      id: 'duel',
+      name: '寻斗',
+      desc: '找个人打一场。修行的人，总要跟人交手的。',
+      gain_hint: '胜则得修为、材料、人情；可杀可放',
+      cost_hint: '败则带伤、掉声望',
+      available: state.power_index >= 5,
+      blocked_reason: state.power_index < 5 ? '你还没有跟人动手的资格' : undefined,
+    },
+    {
       id: 'befriend',
       name: '交游',
       desc: '拜访旧识，或结识新交。',
@@ -1626,6 +1645,246 @@ export function submitDaily(
   return {
     ok: true,
     delta: applyEffects(effects, state, `daily:${actionId}`).delta,
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
+/**
+ * 这一拍会不会有人拦路。
+ *
+ * 斗法**不是日常**（玩家指出：日程表上不该有"打架"这一项）。
+ * 它是**奇遇** —— 你走着走着，事情找上来。所以触发条件全部来自
+ * 你此前做过的事，而不是你想不想打：
+ *
+ *   因果缠身   → 仇家寻上门（你欠的账，有人来收）
+ *   暴露过高   → 有人认出了你是谁
+ *   位面之子在 → 命线交汇（他挡在你的路上）
+ *   血债在册   → 当年那笔账该算了
+ *
+ * 概率随程度升高 —— 债欠得越多，被找上门就越勤。
+ */
+export function duelTrigger(state: GameState, rng: Rng): string | undefined {
+  if (state.pending_duel || state.pending_duel_result) return undefined
+  if (state.active_scenario) return undefined
+  if (state.power_index < 5) return undefined // 还没到能跟人动手的地步
+  if (state.last_duel_node !== undefined && state.node_index - state.last_duel_node < 4) {
+    return undefined // 刚打完没多久，缓一缓
+  }
+
+  const debt = state.vars.debt ?? 0
+  const exposure = state.vars.exposure ?? 0
+  const alive = (state.destiny_children ?? []).filter((d) => d.alive)
+  const blood = Object.keys(state.flags ?? {}).some((f) => f.startsWith('slew_'))
+
+  // 债越多越躲不掉
+  if (debt >= 10 && rng.chance(Math.min(0.5, 0.08 + debt * 0.012))) {
+    return '你欠下的那笔账，有人来收了。'
+  }
+  if (exposure >= 20 && rng.chance(Math.min(0.4, 0.06 + exposure * 0.006))) {
+    return '有人盯了你很久，这一回不打算再等。'
+  }
+  if (blood && rng.chance(0.1)) {
+    return '你杀过的人，有同门。'
+  }
+  if (alive.length > 0 && rng.chance(0.09)) {
+    return '命线交汇 —— 你们迟早要在一条路上撞见。'
+  }
+  return undefined
+}
+
+/**
+ * 随机生成一个对手。
+ *
+ * 优先从**在场且活着**的位面之子中挑（打主角是这游戏最刺激的事），
+ * 没有就按当前境界临时捏一个。对手的路数取自他的体系，
+ * 所以你会遇到气克体、体克灵这类相性问题 —— 这正是相性环的用武之地。
+ */
+export function rollOpponent(state: GameState, rng: Rng, content: ContentDB): DuelOpponent {
+  const alive = (state.destiny_children ?? []).filter((d) => d.alive)
+  if (alive.length > 0 && rng.chance(0.55)) {
+    const d = rng.pick(alive)
+    const pack = content.packs[d.pack]
+    return {
+      id: d.id,
+      name: d.name,
+      essence: PACK_ESSENCE[d.pack],
+      power_index: Math.round(d.power_index * 0.9 + state.power_index * 0.35),
+      realm_name: pack?.realms[Math.min(d.fate_progress, (pack?.realms.length ?? 1) - 1)]?.name ?? '不明',
+      is_destiny: true,
+      fate_progress: d.fate_progress,
+      note: d.oracle_note,
+    }
+  }
+
+  // 临时捏一个同代散修
+  const pool = PACK_IDS.filter((p) => p !== state.pack_id)
+  const packId = rng.pick(pool)
+  const pool2 = content.names
+  const name =
+    (pool2?.surname?.length ? rng.pick(pool2.surname) : '无') +
+    (pool2?.given_male?.length ? rng.pick(pool2.given_male) : '名')
+  return {
+    id: `foe_${state.node_index}_${packId}`,
+    name,
+    essence: PACK_ESSENCE[packId],
+    power_index: Math.max(3, Math.round(state.power_index * (0.75 + rng.next() * 0.7))),
+    realm_name: content.packs[packId]?.realms[state.realm_idx]?.name ?? '不明',
+  }
+}
+
+/**
+ * 遭遇斗法时的抉择：打，还是避。
+ *
+ * 避战**不是免费的跳过**：折声望、记一笔因果（你转身走了，对方记着你）。
+ * 但它是安全的 —— 不会死、不会伤。让它有代价，是为了让"怂"也是一次
+ * 真正的取舍；让它不致命，是因为包里的调研结论很一致：
+ * 这类游戏把惩罚落在声望与次数上，不落在角色存亡上。
+ */
+export function submitDuelEntry(
+  state: GameState,
+  fight: boolean,
+  content: ContentDB,
+): EngineResult {
+  if (!state.pending_duel) return fail(state, content, '当前没有拦路的人')
+
+  if (fight) {
+    // 决定出手 —— 接下来该选路数与架势了，**不推进节点**
+    const next: GameState = { ...state, duel_committed: true, duel_reason: state.duel_reason }
+    return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
+  }
+
+  // 避开：折声望 + 记一笔
+  const opp = state.pending_duel.opponent
+  const effects: Effect[] = [
+    { type: 'add_var', key: 'favor', delta: -6 },
+    { type: 'add_var', key: 'karma', delta: -2 },
+    { type: 'set_flag', key: `avoided_${opp.id}` },
+  ]
+  let next = applyEffectsState(
+    { ...state, pending_duel: undefined, duel_committed: false, duel_reason: undefined },
+    effects,
+    'duel:avoid',
+  )
+  next = advanceNode(next, content)
+
+  return {
+    ok: true,
+    delta: applyEffects(effects, state, 'duel:avoid').delta,
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
+/**
+ * 斗法第一步之后：选定路数与架势，把三轮打完。
+ * 结果存进 pending_duel_result，等玩家决定杀还是放。
+ */
+export function submitDuelStance(
+  state: GameState,
+  stanceId: StanceId,
+  wayEssence: Essence,
+  content: ContentDB,
+): EngineResult {
+  const setup = state.pending_duel
+  if (!setup) return fail(state, content, '当前没有待决的斗法')
+
+  const rng = new Rng(makeSeed(state.seed, state.node_index, `duel:${stanceId}:${wayEssence}`))
+  const res = resolveDuel(state, setup, stanceId, wayEssence, rng)
+  const killable = canKill(setup, res)
+
+  const outcome: DuelOutcome = {
+    opponent: setup.opponent,
+    outcome: res.outcome,
+    rounds: res.rounds.map((r) => ({
+      index: r.index,
+      affinity: r.affinity,
+      winner: r.winner,
+      line: r.line,
+    })),
+    summary: res.summary,
+    momentum: res.momentum,
+    win_spoils: setup.spoils.win,
+    kill_spoils: setup.spoils.kill,
+    kill_cost: setup.spoils.kill_cost,
+    can_kill: killable,
+  }
+
+  // 落败的代价：带伤、掉声望。**但不死** —— 调研里这类游戏的通行做法，
+  // 惩罚落在声望与次数上，不落在角色存亡上。
+  let next: GameState = {
+    ...state,
+    pending_duel: undefined,
+    duel_committed: false,
+    duel_reason: undefined,
+    pending_duel_result: outcome,
+  }
+  if (res.outcome === 'lose') {
+    next = applyEffectsState(
+      next,
+      [
+        { type: 'add_var', key: 'hp', delta: 14 },
+        { type: 'add_var', key: 'favor', delta: -8 },
+      ],
+      'duel:lose',
+    )
+  } else if (res.outcome === 'win') {
+    next = applyEffectsState(
+      next,
+      [{ type: 'add_var', key: 'favor', delta: setup.spoils.win.favor }],
+      'duel:win:favor',
+    )
+  }
+
+  return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
+}
+
+/**
+ * 斗法第三步：杀，还是放。
+ *
+ * 玩家要的"可以杀"落在这里 —— 它是**独立的一个选择**，有独立的奖惩，
+ * 不是败者的默认下场。放了得人情与材料；杀了拿得更多，
+ * 但背上因果与暴露，且此人若是有来头的，他的关系网会记住你。
+ */
+export function submitDuelAftermath(
+  state: GameState,
+  kill: boolean,
+  content: ContentDB,
+): EngineResult {
+  const d = state.pending_duel_result
+  if (!d) return fail(state, content, '当前没有待决的战后处置')
+
+  const effects: Effect[] = []
+  if (kill) {
+    if (!d.can_kill) return fail(state, content, '你没有取人性命的余地')
+    effects.push({ type: 'add_var', key: 'power', delta: d.kill_spoils.power })
+    effects.push({ type: 'add_var', key: 'currency', delta: d.kill_spoils.currency })
+    effects.push({ type: 'add_var', key: 'rare_mat', delta: d.kill_spoils.rare_mat })
+    effects.push({ type: 'add_var', key: 'debt', delta: d.kill_cost.debt })
+    effects.push({ type: 'add_var', key: 'exposure', delta: d.kill_cost.exposure })
+    effects.push({ type: 'add_var', key: 'karma', delta: d.kill_cost.karma })
+    effects.push({ type: 'set_flag', key: `slew_${d.opponent.id}` })
+    // 杀了位面之子，他的金手指归你 —— 与截杀那条路同一套兑付
+    if (d.opponent.is_destiny) {
+      const at = d.opponent.fate_progress ?? 0
+      effects.push({ type: 'add_var', key: 'power', delta: 60 + at * 40 })
+      effects.push({ type: 'add_var', key: 'rare_mat', delta: 2 + at })
+      effects.push({ type: 'unlock_title', ref: `弑主·${d.opponent.name}` })
+    }
+  } else {
+    effects.push({ type: 'add_var', key: 'power', delta: d.win_spoils.power })
+    effects.push({ type: 'add_var', key: 'currency', delta: d.win_spoils.currency })
+    effects.push({ type: 'add_var', key: 'rare_mat', delta: d.win_spoils.rare_mat })
+    effects.push({ type: 'add_var', key: 'karma', delta: 4 })
+  }
+
+  let next = applyEffectsState(state, effects, `duel:${kill ? 'kill' : 'spare'}`)
+  next = { ...next, pending_duel_result: undefined }
+  next = advanceNode(next, content)
+
+  return {
+    ok: true,
+    delta: applyEffects(effects, state, `duel:${kill ? 'kill' : 'spare'}`).delta,
     presentation: presentCurrent(next, content),
     state: next,
   }
@@ -1872,6 +2131,78 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
     }
   }
 
+  // 斗法·遭遇：先问"打不打"。
+  //
+  // 斗法是**奇遇**不是日常 —— 它自己找上来，你只有接或不接。
+  // 所以这里给的是两条路而不是"选架势"：架势是接战之后的事。
+  if (state.pending_duel && !state.duel_committed) {
+    const d = state.pending_duel
+    const ess = { qi: '气', body: '体', spirit: '灵', law: '则', will: '意', shi: '势' }
+    return {
+      node_index: state.node_index,
+      kind: 'loose',
+      event_id: '__duel_encounter__',
+      title: '拦路',
+      lines: [
+        state.duel_reason ?? '路上有人拦着。',
+        `${d.opponent.name} —— ${d.opponent.realm_name}，走的是「${ess[d.opponent.essence]}」一路。`,
+        d.opponent.note ?? '',
+      ].filter(Boolean),
+      mood: 'tense',
+      duel: d,
+      options: [
+        {
+          id: 'duel_fight',
+          text: '出手',
+          intent: 'greedy',
+          risk_tier: d.matchup.odds >= 0.7 ? '常' : d.matchup.odds >= 0.45 ? '险' : '狠',
+          odds_hint: d.matchup.odds_hint,
+          cost_hint: '败则带伤、折声望',
+          gain_hint: '胜则得修为材料；可杀可放',
+        },
+        {
+          id: 'duel_avoid',
+          text: '避开这一场',
+          intent: 'flee',
+          risk_tier: '稳',
+          odds_hint: '十拿九稳',
+          cost_hint: '折些颜面，心里记着',
+          gain_hint: '保住气力',
+        },
+      ],
+    }
+  }
+
+  // 斗法·已决定出手：选路数与架势
+  if (state.pending_duel && state.duel_committed) {
+    const d = state.pending_duel
+    return {
+      node_index: state.node_index,
+      kind: 'loose',
+      event_id: '__duel__',
+      title: '斗法',
+      lines: [`${d.opponent.name}已经动了。`],
+      mood: 'tense',
+      options: [],
+      duel: d,
+    }
+  }
+
+  // 斗法·战后：赢了才谈得上处置
+  if (state.pending_duel_result) {
+    const r = state.pending_duel_result
+    return {
+      node_index: state.node_index,
+      kind: 'loose',
+      event_id: '__duel_after__',
+      title: '胜负已分',
+      lines: r.rounds.map((x) => x.line).concat(r.summary),
+      mood: r.outcome === 'win' ? 'heroic' : 'somber',
+      options: [],
+      duel_result: r,
+    }
+  }
+
   // 日常节点：这段时间怎么过，玩家自己定
   if (isDailyNode(state)) {
     return {
@@ -1896,6 +2227,52 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
   }
 
   const rng = new Rng(makeSeed(state.seed, state.node_index, 'present'))
+
+  // 有人拦路？（奇遇触发，不是日程安排）
+  const reason = duelTrigger(state, rng)
+  if (reason) {
+    const opp = rollOpponent(state, rng, content)
+    state.pending_duel = setupDuel(state, opp, rng)
+    state.duel_reason = reason
+    state.last_duel_node = state.node_index
+    state.duel_committed = false
+    const d = state.pending_duel
+    const ess = { qi: '气', body: '体', spirit: '灵', law: '则', will: '意', shi: '势' }
+    return {
+      node_index: state.node_index,
+      kind: 'loose',
+      event_id: '__duel_encounter__',
+      title: '拦路',
+      lines: [
+        reason,
+        `${d.opponent.name} —— ${d.opponent.realm_name}，走的是「${ess[d.opponent.essence]}」一路。`,
+        d.opponent.note ?? '',
+      ].filter(Boolean),
+      mood: 'tense',
+      duel: d,
+      options: [
+        {
+          id: 'duel_fight',
+          text: '出手',
+          intent: 'greedy',
+          risk_tier: d.matchup.odds >= 0.7 ? '常' : d.matchup.odds >= 0.45 ? '险' : '狠',
+          odds_hint: d.matchup.odds_hint,
+          cost_hint: '败则带伤、折声望',
+          gain_hint: '胜则得修为材料；可杀可放',
+        },
+        {
+          id: 'duel_avoid',
+          text: '避开这一场',
+          intent: 'flee',
+          risk_tier: '稳',
+          odds_hint: '十拿九稳',
+          cost_hint: '折些颜面，心里记着',
+          gain_hint: '保住气力',
+        },
+      ],
+    }
+  }
+
   const ev = pickNextEvent({ state, content, rng })
   if (!ev) {
     return {

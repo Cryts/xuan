@@ -358,3 +358,28 @@ export function realmLifespan(content: ContentDB, pack: PackId, idx: number): nu
 export function realmCount(content: ContentDB, pack: PackId): number {
   return Math.max(1, content.packs[pack]?.realms?.length ?? 1)
 }
+
+/* ── 斗法用语 ──
+   六本体与相性的说法集中在这里，免得各组件各写一套
+   （先前 EventScreen 里就内联过一份本体的中文字表）。 */
+
+export const ESSENCE_LABEL: Record<string, string> = {
+  qi: '气',
+  body: '体',
+  spirit: '灵',
+  law: '则',
+  will: '意',
+  shi: '势',
+}
+
+/** 相性的人话 —— 与 affinity.ts 的 affinityHint 同一口径，这里只取短语 */
+export function affinityWord(a: string): string {
+  switch (a) {
+    case 'counter':
+      return '克他'
+    case 'countered':
+      return '被克'
+    default:
+      return '不相克'
+  }
+}

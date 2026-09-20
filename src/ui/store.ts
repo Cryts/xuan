@@ -19,6 +19,9 @@ import {
   submitOption,
   submitScenarioAction,
   submitDaily,
+  submitDuelAftermath,
+  submitDuelEntry,
+  submitDuelStance,
   submitScenarioEntry,
   submitTrial,
   type EndingResult,
@@ -33,13 +36,14 @@ import { Rng, deriveSeed } from '@/core/rng'
 import { PACK_IDS, type ContentDB, type Motif, type NameBank } from '@/core/content'
 import type {
   DailyActionId,
+  Essence,
+  StanceId,
   Affix,
   AttrKey,
   Condition,
   Destiny,
   Effect,
   Ending,
-  Essence,
   FateMilestone,
   Flaw,
   GameState,
@@ -691,6 +695,14 @@ export type Action =
   /** 剧本内的通用手段（细察 / 交涉 / 硬闯 / 感气 / 静待 / 抽身）—— 不依赖行囊 */
   | { type: 'play/action'; id: ScenarioActionId }
   | { type: 'play/daily'; id: DailyActionId }
+  | { type: 'play/duel'; stance: StanceId; way: Essence }
+  | { type: 'play/duel-after'; kill: boolean }
+  /** 斗法：打还是避 */
+  | { type: 'play/duel-entry'; fight: boolean }
+  /** 斗法：选路数与架势 */
+  | { type: 'play/duel-stance'; stance: StanceId; way: Essence }
+  /** 斗法：杀还是放 */
+  | { type: 'play/duel-after'; kill: boolean }
   | { type: 'play/wait' }
   /**
    * 自由输入的落地。**意图已在 reducer 之外算好**（那一步要等模型，
@@ -941,15 +953,70 @@ export function reducer(st: AppState, action: Action): AppState {
       return afterEngine(st, res.state, res.presentation, res.delta, res.band)
     }
 
+    case 'play/duel': {
+      // 明牌之后：选定路数与架势，三轮打完
+      const { state, content, pres } = st
+      if (!state || !pres?.duel) return st
+      const res = submitDuelStance(state, action.stance, action.way, content)
+      if (!res.ok) return { ...st, toast: res.reason ?? '动不了手' }
+      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+    }
+
+    case 'play/duel-after': {
+      // 杀，还是放
+      const { state, content, pres } = st
+      if (!state || !pres?.duel_result) return st
+      const res = submitDuelAftermath(state, action.kill, content)
+      if (!res.ok) return { ...st, toast: res.reason ?? '这一步落不下去' }
+      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+    }
+
     case 'play/option': {
       const { state, pres, content } = st
       if (!state || !pres || pres.kind === 'scenario' || pres.kind === 'ending') return st
+
+      // 斗法遭遇页的两个选项走自己的路 —— 它们没有对应的事件对象。
+      // "出手"不推进节点（只是打开架势选择），"避开"才推进。
+      if (pres.event_id === '__duel_encounter__') {
+        if (action.optionId === 'duel_fight' || action.optionId === 'duel_avoid') {
+          const res = submitDuelEntry(state, action.optionId === 'duel_fight', content)
+          if (!res.ok) return { ...st, toast: '此刻动不得' }
+          return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+        }
+        return st
+      }
+
       const ev = eventFromPresentation(pres, content)
       const res = submitOption(state, action.optionId, content, ev)
       if (!res.ok) {
         console.warn('[玄] 选项提交被拒：', res.reason)
         return { ...st, toast: res.reason ? `此路不通：${res.reason}` : '此路不通' }
       }
+      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+    }
+
+    case 'play/duel-entry': {
+      const { state, content } = st
+      if (!state) return st
+      const res = submitDuelEntry(state, action.fight, content)
+      if (!res.ok) return { ...st, toast: '此刻动不得' }
+      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+    }
+
+    case 'play/duel-stance': {
+      const { state, content } = st
+      if (!state?.pending_duel) return st
+      const res = submitDuelStance(state, action.stance, action.way, content)
+      if (!res.ok) return { ...st, toast: '出手不成' }
+      // 三轮的战报用 banner 的方式带出来
+      return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+    }
+
+    case 'play/duel-after': {
+      const { state, content } = st
+      if (!state?.pending_duel_result) return st
+      const res = submitDuelAftermath(state, action.kill, content)
+      if (!res.ok) return { ...st, toast: res.reason ? `下不去手：${res.reason}` : '下不去手' }
       return afterEngine(st, res.state, res.presentation, res.delta, res.band)
     }
 

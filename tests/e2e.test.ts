@@ -26,6 +26,32 @@ describe('端到端：一局完整对局', () => {
       ids.add(p.event_id)
       if (p.kind === 'scenario') scenarioTouches++
 
+      // 斗法：遭遇（打不打）/ 架势 / 战后 —— 三种拍子，测试也要认得
+      if (p.duel_result) {
+        st = reducer(st, { type: 'play/duel-after', kill: false })
+        continue
+      }
+      if (p.duel && st.state?.duel_committed) {
+        st = reducer(st, {
+          type: 'play/duel-stance',
+          stance: 'guard',
+          way: p.duel.ways[0]!.essence,
+        })
+        continue
+      }
+      if (p.event_id === '__duel_encounter__') {
+        st = reducer(st, { type: 'play/duel-entry', fight: true })
+        continue
+      }
+      if (p.duel) {
+        const way = p.duel.ways[0]!
+        st = act(st, { type: 'play/duel', stance: 'guard', way: way.essence })
+        continue
+      }
+      if (p.duel_result) {
+        st = act(st, { type: 'play/duel-after', kill: false })
+        continue
+      }
       if (p.daily) {
         st = act(st, { type: 'play/daily', id: p.daily[0]!.id })
         continue
@@ -70,7 +96,33 @@ describe('端到端：一局完整对局', () => {
         const p = st.pres
         if (!p || p.kind === 'ending') break
         ids.add(p.event_id)
-        if (p.daily) {
+        // 斗法：遭遇（打不打）/ 架势 / 战后 —— 三种拍子，测试也要认得
+      if (p.duel_result) {
+        st = reducer(st, { type: 'play/duel-after', kill: false })
+        continue
+      }
+      if (p.duel && st.state?.duel_committed) {
+        st = reducer(st, {
+          type: 'play/duel-stance',
+          stance: 'guard',
+          way: p.duel.ways[0]!.essence,
+        })
+        continue
+      }
+      if (p.event_id === '__duel_encounter__') {
+        st = reducer(st, { type: 'play/duel-entry', fight: true })
+        continue
+      }
+      if (p.duel) {
+        const way = p.duel.ways[0]!
+        st = act(st, { type: 'play/duel', stance: 'guard', way: way.essence })
+        continue
+      }
+      if (p.duel_result) {
+        st = act(st, { type: 'play/duel-after', kill: false })
+        continue
+      }
+      if (p.daily) {
         st = act(st, { type: 'play/daily', id: p.daily[0]!.id })
         continue
       }

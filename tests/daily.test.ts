@@ -36,7 +36,9 @@ describe('日常行动', () => {
   it('呈现里带上五个选项，且不可做的会说明原因', () => {
     const s = run('d3')
     const acts = dailyActions({ ...s, vars: { ...s.vars, currency: 0 } } as GameState)
-    expect(acts.map((a) => a.id)).toEqual(['cultivate', 'roam', 'gather', 'market', 'befriend'])
+    expect(acts.map((a) => a.id)).toEqual([
+      'cultivate', 'roam', 'gather', 'market', 'duel', 'befriend',
+    ])
     const market = acts.find((a) => a.id === 'market')!
     expect(market.available).toBe(false)
     expect(market.blocked_reason).toBeTruthy()

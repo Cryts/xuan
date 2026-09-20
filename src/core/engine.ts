@@ -807,15 +807,13 @@ export function pickNextEvent(input: SchedulerInput): LooseEvent | Scenario | nu
       out.push(e)
     }
 
-    // 剧本：无进行中剧本、且已过开局阶段时才考虑
-    if (!state.active_scenario && STAGE_RANK[state.stage] >= STAGE_RANK[SCENARIO_MIN_STAGE]) {
-      for (const s of content.scenarios) {
-        if (state.completed_scenarios.includes(s.id)) continue
-        if (!s.pack.includes(state.pack_id) && !s.pack.includes('*')) continue
-        if (s.requires && !evaluate(s.requires, { state })) continue
-        out.push(s)
-      }
-    }
+    // 剧本**不在这里出场** —— 它们由 `planScenarioChain` 提前排进队列，
+    // 连同 2~4 拍铺垫一起。
+    //
+    // 原先这里会把剧本塞进候选池按 `SCENARIO_SHARE` 直接抽中。
+    // 那样剧本会凭空出现在某一步上，前面的铺垫链就永远接不上 ——
+    // 而"剧本是前面一路选择的收束"正是它要立的东西。
+    // 概率没有丢，只是搬到了规划那一步（见 planScenarioChain）。
     return out
   }
 
@@ -833,18 +831,10 @@ export function pickNextEvent(input: SchedulerInput): LooseEvent | Scenario | nu
 
   if (candidates.length === 0) return null
 
-  // 3. 剧本以**目标概率**直接命中，不参与事件池的加权竞争。
-  //
-  // 事件池有几百条、权重尺度在百位，剧本权重只有几十 —— 靠"乘个系数"
-  // 去调，实际占比会被事件条数稀释到 1% 以下，而且加一条事件就变了。
-  // 直接给概率才是可控的。
-  const scenarios = candidates.filter((c) => c.kind === 'scenario') as Scenario[]
-  if (scenarios.length > 0 && rng.chance(SCENARIO_SHARE)) {
-    return rng.weighted(scenarios, scenarios.map((s) => s.weight || 1))
-  }
-
+  // 3. 剧本不再参与这里的竞争 —— 它们经 `planScenarioChain` 排进保底队列，
+  //    由上面的第 1 步直接取出。这里剩下的全是散事件。
   const evCandidates = candidates.filter((c) => c.kind !== 'scenario')
-  if (evCandidates.length === 0) return scenarios.length > 0 ? rng.pick(scenarios) : null
+  if (evCandidates.length === 0) return null
 
   // 4. 加权
   //
@@ -2248,7 +2238,122 @@ export function advanceNode(state: GameState, content: ContentDB): GameState {
   // 由累积修为反推境界 —— 每推进一步结算一次
   next = recomputeProgress(next, content)
 
+  // 保底队列**要出队**。
+  //
+  // 同一个坑栽过三次，第三次是这条注释逼出来的：
+  //   1. 窗口写成 [7,12] 时，那六拍里**每一拍都返回同一个事件**（绕过冷却与权重）；
+  //   2. 出了队却不记 `fired_events`，于是同一件事反复出现；
+  //   3. 只进不出 —— 条目烧完还留在 `state.queue` 里，
+  //      于是任何"队列里有没有 X"的判断从此**恒为真**。
+  //      前置链的 `queuedScenario` 正是这么判的，结果一局只排得出一个剧本：
+  //      实测剧本破局率从 0.90 腰斩到 0.46。
+  //
+  // 出队的判据只有两条：**已经出过**，或**窗口已经过期**。
+  // 没开窗的（node_index < window[0]）必须留着，否则排队就白排了。
+  next = {
+    ...next,
+    queue: next.queue.filter(
+      (q) => !next.fired_events.includes(q.event_id) && next.node_index <= q.window[1],
+    ),
+  }
+
+  next = planScenarioChain(next, content)
+
   return checkEnd(next, content)
+}
+
+/**
+ * 前置链调度 —— 「剧本是前面一路选择的收束」。
+ *
+ * 剧本不再凭空出现在某一步上，而是**先铺 2~4 拍**再露面。铺垫事件按剧本
+ * 声明的 `leadup_motifs` 从事件池里挑，而它们本来就带 `add_item` ——
+ * 于是玩家是带着一路攒下的东西走进剧本的，破局条件里那些
+ * `affordance` / `item` 才有来处，而不是靠运气。
+ *
+ * 规划为什么放在这里、而不是 `pickNextEvent`：
+ * `pickNextEvent` 会被**重复调用**（`presentCurrent` 每次呈现都抽一次，
+ * 用 node_index 做种子保证同节点同结果；UI 与引擎都会调）。
+ * 在那里改状态，同一个节点重渲染一次就会多排一条链。
+ * `advanceNode` 才是**唯一**推进一步的地方，也只有它该改状态。
+ *
+ * 幂等性靠 `state.queue` 里已有剧本 + `completed_scenarios` 挡住，
+ * 不另立"正在规划"的标记——那种标记一旦漏清就是永久卡死。
+ */
+export const SCENARIO_LEADUP_MIN = 2
+export const SCENARIO_LEADUP_MAX = 4
+
+export function planScenarioChain(state: GameState, content: ContentDB): GameState {
+  if (state.active_scenario) return state
+  if (state.pending_duel || state.pending_duel_result) return state
+  if (STAGE_RANK[state.stage] < STAGE_RANK[SCENARIO_MIN_STAGE]) return state
+
+  // 已经有剧本排在队里了就不再规划 —— 否则会在同一条路上叠出两个剧本
+  const queuedScenario = state.queue.some((q) => content.scenarios.some((s) => s.id === q.event_id))
+  if (queuedScenario) return state
+
+  const rng = new Rng(makeSeed(state.seed, state.node_index, 'plan-scenario'))
+  // 与原先 `pickNextEvent` 里那条直通分支共用同一个概率：
+  // 剧本总量不变，变的是它**怎么登场**。
+  if (!rng.chance(SCENARIO_SHARE)) return state
+
+  const pack = content.packs[state.pack_id]
+  const pool = content.scenarios.filter((s) => {
+    if (state.completed_scenarios.includes(s.id)) return false
+    if (!s.pack.includes(state.pack_id) && !s.pack.includes('*')) return false
+    if (s.requires && !evaluate(s.requires, { state, realmsTotal: pack?.realms.length ?? 0 })) return false
+    return true
+  })
+  if (pool.length === 0) return state
+
+  const sc = rng.weighted(pool, pool.map((s) => s.weight || 1))
+  // `state.node_index` 在这里**已经是推进后的值**（advanceNode 一进来就 +1），
+  // 也就是下一拍要抽的那个节点。用 `node_index + 1` 会白错过一拍：
+  // 铺垫链凭空往后挪，跑得短一点就整条链都没兑现 —— 实测剧本入场
+  // 从 1.19 掉到 0.99 就是这么来的。
+  const start = state.node_index
+
+  // 铺垫：按母题挑，且**避开已经出现过的**（铺垫事件在剧本前重演一遍很奇怪）
+  const lead: string[] = []
+  const motifs = sc.leadup_motifs ?? []
+  if (motifs.length > 0) {
+    const wanted = SCENARIO_LEADUP_MIN + rng.int(0, SCENARIO_LEADUP_MAX - SCENARIO_LEADUP_MIN)
+    const cand = content.events.filter(
+      (e) =>
+        motifs.includes(e.motif) &&
+        !state.fired_events.includes(e.id) &&
+        (e.pack.includes(state.pack_id) || e.pack.includes('*')) &&
+        // 阶段也要对上。保底队列取出事件时**不走 pickNextEvent 的过滤**，
+        // 所以这里不挡，童年的事件就会被拉到成长阶段演 ——
+        // 既突兀，也把高阶段的张力曲线带歪（实测道陨率被抬了 2 个点）。
+        e.stage.includes(state.stage),
+    )
+    const shuffled = cand.slice()
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = rng.int(0, i)
+      ;[shuffled[i], shuffled[j]] = [shuffled[j]!, shuffled[i]!]
+    }
+    for (const e of shuffled.slice(0, wanted)) lead.push(e.id)
+  }
+
+  // 每个铺垫占一拍，剧本紧随其后；窗口留 `GRACE` 拍容错。
+  //
+  // 容错不是可有可无的：`presentCurrent` 里**日常节点与斗法遭遇是先于
+  // 事件抽取的** —— 链排在某一拍上的事件若正好撞上日常/斗法，那一拍
+  // 根本轮不到它，而下一拍它就被当成"窗口过期"清掉了。整条铺垫链于是
+  // 悄无声息地消失。窗口放宽两拍，它就能顺延到下一个空出来的拍子。
+  //
+  // 宽窗口在这里是安全的：`fired_events` 已经保证同一件事出过就不再出，
+  // 而 `forced` 按队列顺序取第一个 —— 所以仍然是一件接一件，不会出现
+  // 早期那种"窗口内每一拍都返回同一个事件"。
+  const GRACE = 2
+  const queue = [...state.queue]
+  lead.forEach((id, i) => queue.push({ event_id: id, window: [start + i, start + i + GRACE] }))
+  queue.push({
+    event_id: sc.id,
+    window: [start + lead.length, start + lead.length + GRACE],
+  })
+
+  return { ...state, queue }
 }
 
 /** 终局判定：寿元耗尽 / 伤势归零 / 节点走完 */

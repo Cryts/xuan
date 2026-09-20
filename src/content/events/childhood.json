@@ -132,6 +132,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_mystic_treasure"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0005",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -150,6 +155,11 @@
                 {
                   "type": "set_flag",
                   "key": "mystic_treasure_cycle_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0005",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -412,6 +422,11 @@
                 {
                   "type": "set_flag",
                   "key": "mentor_soul_owes_you"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -425,6 +440,11 @@
                 {
                   "type": "set_flag",
                   "key": "mentor_soul_lie_found"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -722,6 +742,11 @@
                 {
                   "type": "set_flag",
                   "key": "possession_contested"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0018",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -735,6 +760,11 @@
                 {
                   "type": "set_flag",
                   "key": "possession_intent_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0018",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -1031,6 +1061,11 @@
                 {
                   "type": "set_flag",
                   "key": "beast_den_found"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0012",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -1044,6 +1079,11 @@
                 {
                   "type": "set_flag",
                   "key": "beast_den_found"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0012",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -1212,6 +1252,11 @@
                   "npc_id": "npc_dantai_jinghong",
                   "kind": "盟友",
                   "delta": 6
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0020",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -1230,6 +1275,11 @@
                 {
                   "type": "set_flag",
                   "key": "betrothal_price_paid"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0020",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -1804,6 +1854,11 @@
                 {
                   "type": "unlock_title",
                   "ref": "接石人"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0047",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -1822,6 +1877,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_joined"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0047",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2040,6 +2100,11 @@
                 {
                   "type": "queue_followup",
                   "ref": "evt_mortal_ancient_relic_01@6-14"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0004",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2059,6 +2124,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0004",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2261,6 +2331,11 @@
                   "npc_id": "npc_gu_changeng",
                   "kind": "护道人",
                   "delta": 15
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0016",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2285,6 +2360,11 @@
                   "npc_id": "npc_gu_changeng",
                   "kind": "护道人",
                   "delta": 10
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0016",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2528,6 +2608,11 @@
                 {
                   "type": "set_flag",
                   "key": "genius_flame_suppressed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0032",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2546,6 +2631,11 @@
                 {
                   "type": "set_flag",
                   "key": "genius_flame_suppressed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0032",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2784,6 +2874,11 @@
                 {
                   "type": "unlock_title",
                   "ref": "引火人"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0005",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -2802,6 +2897,11 @@
                 {
                   "type": "set_flag",
                   "key": "flame_seed_rooted"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0005",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3154,6 +3254,11 @@
                 {
                   "type": "set_flag",
                   "key": "mentor_flame_price_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3167,6 +3272,11 @@
                 {
                   "type": "set_flag",
                   "key": "mentor_flame_price_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3346,6 +3456,11 @@
                 {
                   "type": "set_flag",
                   "key": "possession_flame_win"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0018",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3359,6 +3474,11 @@
                 {
                   "type": "set_flag",
                   "key": "possession_flame_who"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0018",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3655,6 +3775,11 @@
                   "npc_id": "npc_xiao_ye",
                   "kind": "盟友",
                   "delta": 10
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0012",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3672,6 +3797,11 @@
                 {
                   "type": "set_flag",
                   "key": "beast_old_master_alive"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0012",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3836,6 +3966,11 @@
                 {
                   "type": "set_flag",
                   "key": "betrothal_price_won"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0020",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3854,6 +3989,11 @@
                 {
                   "type": "set_flag",
                   "key": "betrothal_price_won"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0020",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4061,6 +4201,11 @@
                 {
                   "type": "set_flag",
                   "key": "genius_bulk_good"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0033",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4075,6 +4220,11 @@
                   "type": "add_var",
                   "key": "rare_mat",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0033",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4370,6 +4520,11 @@
                 {
                   "type": "unlock_title",
                   "ref": "抄书人"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0007",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4388,6 +4543,11 @@
                 {
                   "type": "set_flag",
                   "key": "forbidden_copied"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0007",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4629,6 +4789,11 @@
                 {
                   "type": "queue_followup",
                   "ref": "evt_genius_forbidden_knowledge_01@6-14"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0004",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4647,6 +4812,11 @@
                 {
                   "type": "set_flag",
                   "key": "cave_flame_drawn"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0004",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5024,6 +5194,11 @@
                 {
                   "type": "set_flag",
                   "key": "waste_root_test_hid_crack"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0032",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5042,6 +5217,11 @@
                 {
                   "type": "set_flag",
                   "key": "waste_root_test_hid_crack"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0032",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5180,6 +5360,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_mystic_treasure"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0005",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5198,6 +5383,11 @@
                 {
                   "type": "set_flag",
                   "key": "mystic_treasure_lit"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0005",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5532,6 +5722,11 @@
                 {
                   "type": "set_flag",
                   "key": "mentor_prior_disciple_asked"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5550,6 +5745,11 @@
                 {
                   "type": "set_flag",
                   "key": "mentor_prior_disciple_asked"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5675,6 +5875,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_body_seize"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0018",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5693,6 +5898,11 @@
                 {
                   "type": "set_flag",
                   "key": "possession_guest_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0018",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5935,6 +6145,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_beast_backlash"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0012",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5953,6 +6168,11 @@
                 {
                   "type": "set_flag",
                   "key": "beast_blood_poisoned"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0012",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6111,6 +6331,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_broken_betrothal"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0020",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6129,6 +6354,11 @@
                 {
                   "type": "set_flag",
                   "key": "betrothal_contract_signed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0020",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6273,6 +6503,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_market_bargain"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0033",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6291,6 +6526,11 @@
                 {
                   "type": "set_flag",
                   "key": "market_bulk_bought"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0033",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6595,6 +6835,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_ancient_relic"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0047",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6613,6 +6858,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_like_you"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0047",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6915,6 +7165,11 @@
                 {
                   "type": "set_flag",
                   "key": "rebirth_old_habits_work"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0056",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6933,6 +7188,11 @@
                 {
                   "type": "set_flag",
                   "key": "rebirth_old_habits_work"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0056",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -7344,6 +7604,11 @@
                 {
                   "type": "set_flag",
                   "key": "guardian_killers_marked"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0016",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -7362,6 +7627,11 @@
                 {
                   "type": "set_flag",
                   "key": "guardian_killers_marked"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0016",
+                  "quality": "凡品"
                 }
               ]
             },

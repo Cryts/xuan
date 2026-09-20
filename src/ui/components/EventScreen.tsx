@@ -15,6 +15,7 @@ import { FreeEcho } from './FreeEcho'
 import { FreeInput } from './FreeInput'
 import { RevealOverlay, Seal } from './Shared'
 import type { NodePresentation, Option } from '@/core/types'
+import { previewFor } from '@/core/preview'
 import { IconRisk } from '@/ui/icons'
 import { sfxPage, sfxTap } from '@/ui/sfx'
 import { useGame } from '@/ui/store'
@@ -29,6 +30,11 @@ function OptionCard({
   index: number
   onPick: (o: Option) => void
 }) {
+  // 预告：作者写了就用作者的，没写就从选项**自己的效果**派生。
+  // 1629 个选项里 gain_hint / path_hint 一条都没填过 —— 字段与界面早就做好了，
+  // 于是界面上永远不显示，而且不报错。派生兜底之后内容改了预告自动跟着改，
+  // 不会撒谎（说得不准比不说更糟）。
+  const pv = previewFor(opt)
   const risk = RISK_STYLE[opt.risk_tier] ?? RISK_STYLE['常']
   return (
     <button
@@ -45,18 +51,18 @@ function OptionCard({
         {opt.cost_hint ? <span className={s.cost}>代价 · {opt.cost_hint}</span> : null}
         {/* 收益与代价并列。原先只有"代价 · …"，玩家看得见要付什么、
             看不见可能得什么 —— 那是盲选，不是抉择。 */}
-        {opt.gain_hint ? <span className={s.gain}>或可得 · {opt.gain_hint}</span> : null}
+        {pv.gain ? <span className={s.gain}>或可得 · {pv.gain}</span> : null}
         <span className={s.intent}>
           {INTENT_NAMES[opt.intent] ?? '行'} · {INTENT_DESC[opt.intent] ?? ''}
         </span>
       </span>
       {/* 这条路在喂养什么样的人 —— 把选择与"你想成为谁"接上 */}
-      {opt.path_hint ? (
+      {pv.path ? (
         <span className={s.path}>
           <span className={s.pathMark} aria-hidden>
             途
           </span>
-          {opt.path_hint}
+          {pv.path}
         </span>
       ) : null}
       <span className={s.optIndex}>{index + 1}</span>

@@ -11,7 +11,14 @@
     "test": "vitest run",
     "lint:content": "tsx tools/content-lint.ts",
     "sim": "tsx tools/sim.ts",
-    "check:core": "tsx tools/check-core-purity.ts"
+    "check:core": "tsx tools/check-core-purity.ts",
+    "playtest": "tsx tools/playtest.ts",
+    "originality": "tsx tools/originality-report.ts",
+    "electron:build": "cross-env VITE_BASE=./ npm run build",
+    "electron:dev": "cross-env VITE_BASE=./ concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env XUAN_DEV_URL=http://localhost:5173 electron .\"",
+    "dist": "npm run electron:build && electron-builder",
+    "dist:win": "npm run electron:build && electron-builder --win",
+    "dist:dir": "npm run electron:build && electron-builder --dir"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -26,6 +33,12 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite": "^6.0.7",
-    "vitest": "^3.0.2"
-  }
+    "vitest": "^3.0.2",
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "cross-env": "^7.0.3",
+    "concurrently": "^9.1.0",
+    "wait-on": "^8.0.1"
+  },
+  "main": "electron/main.cjs"
 }

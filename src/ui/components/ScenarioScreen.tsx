@@ -12,12 +12,18 @@ import { useMemo, useState } from 'react'
 import s from './ScenarioScreen.module.css'
 import { StatusBar } from './StatusBar'
 import { TrialPanel } from './TrialPanel'
-import { Seal, SectionTitle, Ticks } from './Shared'
-import type { Breakthrough, Condition, NodePresentation } from '@/core/types'
-import { IconBag, IconLock, IconRisk, IconRule, IconSpark } from '@/ui/icons'
+import { RevealOverlay, Seal, SectionTitle, Ticks } from './Shared'
+import type {
+  Breakthrough,
+  Condition,
+  NodePresentation,
+  ScenarioActionId,
+  ScenarioEntry,
+} from '@/core/types'
+import { IconBag, IconLock, IconRisk, IconRule, IconScroll, IconSpark } from '@/ui/icons'
 import { sfxTap } from '@/ui/sfx'
 import { useGame } from '@/ui/store'
-import { scenarioOf, unmetText } from '@/ui/text'
+import { ATTR_SHORT, scenarioOf, unmetText } from '@/ui/text'
 
 const CN = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十']
 
@@ -42,13 +48,49 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
     [state, run],
   )
 
+  /* ---------- 入场抉择：剧本先摆在你面前，进不进由你 ----------
+     引擎在「刚触发」那一拍给的仍是剧本呈现（pending 已落、active 还空，
+     尚未带上 scenario_entry）。这一拍按状态判定：还没进去，就还是入场态 ——
+     否则玩家会在没选择入场的情况下看见「手段」，一按便落空。 */
+  const entry = useMemo<ScenarioEntry | undefined>(() => {
+    if (pres.scenario_entry) return pres.scenario_entry
+    const pending = Boolean(state?.pending_scenario) && !state?.active_scenario
+    if (!pending || !pres.scenario) return undefined
+    return {
+      scenario_id: pres.event_id,
+      name: pres.scenario.name,
+      lines: pres.lines,
+      rules_stated: pres.scenario.rules_stated,
+      span: pres.scenario.span,
+    }
+  }, [pres, state?.pending_scenario, state?.active_scenario])
+
+  if (entry && state) {
+    return (
+      <EntryView
+        entry={entry}
+        pres={pres}
+        onHeaven={onHeaven}
+        onEnter={() => dispatch({ type: 'play/entry', enter: true })}
+        onSkip={() => dispatch({ type: 'play/entry', enter: false })}
+        sound={sound}
+      />
+    )
+  }
+
   if (!sc || !state) return null
 
   const revealedIds = new Set(sc.rules_hidden.filter((r) => r.revealed).map((r) => r.id))
   const justRevealed = new Set(st.justRevealed)
   const solvedCount = sc.breakthroughs.filter((b) => b.satisfied).length
   const trials = pres.trials ?? []
+  const actions = pres.actions ?? []
   const itemCount = trials.filter((t) => t.kind === 'item').length
+
+  const doAction = (id: ScenarioActionId) => {
+    sfxTap(sound)
+    dispatch({ type: 'play/action', id })
+  }
 
   return (
     <div className={s.wrap}>
@@ -74,7 +116,7 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
           </div>
           <Ticks used={sc.nodes_spent} total={sc.span} />
           <p className="x-tiny">
-            每试一次耗去一刻。刻尽仍未破局，此局自成一结 —— 那也是一个结局，不是失败。
+            每动一手耗去一刻。刻尽仍未破局，此局就此了结 —— 线索留下，人还在。
           </p>
         </header>
 
@@ -172,6 +214,30 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
           </ul>
         </section>
 
+        {/* ---------- 通用手段：不依赖行囊，人人可用 ---------- */}
+        {actions.length > 0 ? (
+          <section className={s.sec}>
+            <SectionTitle
+              icon={<IconScroll size={15} />}
+              text="手段"
+              hint="不翻行囊也能做的事 · 各耗一刻"
+              tone="jade"
+            />
+            <div className={s.acts}>
+              {actions.map((a) => (
+                <button key={a.id} className={s.act} onClick={() => doAction(a.id)}>
+                  <span className={s.actTop}>
+                    <span className={s.actName}>{a.name}</span>
+                    {a.attr ? <span className={s.actAttr}>{ATTR_SHORT[a.attr]}</span> : null}
+                  </span>
+                  <span className={s.actDesc}>{a.desc}</span>
+                  <span className={s.actCost}>{a.cost}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <div className={s.tail}>
           <span className="x-tiny">
             设计师写条件，不写解法。任何一件带对功能标签的物事，都可能成为你没想过的那把钥匙。
@@ -202,16 +268,7 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
 
       <TrialPanel open={bagOpen} onClose={() => setBagOpen(false)} pres={pres} />
 
-      {/* ---------- 参透：隐规则揭示的那一瞬 ----------
-          本作唯一需要「仪式感」的时刻：不是数值变化，是认知的一次跃迁。
-          故此幕独立于数值浮字，金印沉下 + 金环荡开，几秒后自行隐去。 */}
-      {st.banner?.kind === 'reveal' ? (
-        <div className={s.reveal} role="status" aria-live="polite">
-          <span className={s.revealRing} aria-hidden />
-          <span className={s.revealSeal}>参 透</span>
-          <span className={s.revealText}>{st.banner.detail ?? '隐规则之一，自此洞明。'}</span>
-        </div>
-      ) : null}
+      <RevealOverlay open={st.banner?.kind === 'reveal'} text={st.banner?.detail} />
     </div>
   )
 }
@@ -225,6 +282,7 @@ function BreakRow({
   full: Breakthrough | undefined
   gap: string
 }) {
+
   const [open, setOpen] = useState(false)
   const conds: Condition[] = full?.conditions ?? []
   return (
@@ -260,5 +318,105 @@ function BreakRow({
         </div>
       ) : null}
     </li>
+  )
+}
+
+/**
+ * 入场抉择 —— 剧本先摆在你面前。
+ *
+ * 触发即入、入则卡死，等于剥夺了选择权：玩家反馈「我的认知里剧本只是一个
+ * 随机触发的剧本类事件」。现在它先给你看全貌（名、氛围、明规则、占几刻），
+ * 再让你自己决定进去还是绕开。绕开不是白绕过 —— 引擎记一笔代价，
+ * 且此局本局不再出现。
+ */
+function EntryView({
+  entry,
+  pres,
+  onHeaven,
+  onEnter,
+  onSkip,
+  sound,
+}: {
+  entry: ScenarioEntry
+  pres: NodePresentation
+  onHeaven: () => void
+  onEnter: () => void
+  onSkip: () => void
+  sound: boolean
+}) {
+  const { st, dispatch } = useGame()
+  const state = st.state
+  if (!state) return null
+  const lines = entry.lines.length > 0 ? entry.lines : pres.lines
+
+  return (
+    <div className={s.wrap}>
+      <StatusBar
+        state={state}
+        content={st.content}
+        compact
+        onHeaven={onHeaven}
+        onSettings={() => dispatch({ type: 'openSettings' })}
+      />
+
+      <main className={s.main}>
+        <header className={`x-card x-card--key ${s.entryHead}`}>
+          <span className={s.entryKicker}>
+            <IconScroll size={13} />
+            一桩剧本 · 尚未入局
+          </span>
+          <h2 className="x-h1">{entry.name}</h2>
+          <span className={s.entrySpan}>
+            约 <b className="x-num">{entry.span}</b> 刻 · 不入亦可
+          </span>
+        </header>
+
+        <section className={s.sec}>
+          <p className={s.entryLine}>{lines.join('')}</p>
+        </section>
+
+        {entry.rules_stated.length > 0 ? (
+          <section className={s.sec}>
+            <SectionTitle icon={<IconRule size={15} />} text="此处明面上的规矩" hint="开局即知" tone="cinnabar" />
+            <ul className={s.stated}>
+              {entry.rules_stated.map((r, i) => (
+                <li key={i} className={s.statedItem}>
+                  <span className={s.statedNo}>{CN[i] ?? i + 1}</span>
+                  <span className={s.statedText}>{r}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
+        <div className={s.tail}>
+          <span className="x-tiny">
+            进去，才知道隐在明面之下的那几条；绕开，你只是错过 —— 不是死。
+            但错过的地方，这一世不会再遇上第二次。
+          </span>
+        </div>
+      </main>
+
+      <footer className={s.foot}>
+        <button
+          className={`x-btn x-btn--gold ${s.bagBtn}`}
+          onClick={() => {
+            sfxTap(sound)
+            onEnter()
+          }}
+        >
+          进 去
+        </button>
+        <button
+          className={`x-btn x-btn--quiet ${s.waitBtn}`}
+          onClick={() => {
+            sfxTap(sound)
+            onSkip()
+          }}
+        >
+          绕 开
+        </button>
+      </footer>
+    </div>
   )
 }

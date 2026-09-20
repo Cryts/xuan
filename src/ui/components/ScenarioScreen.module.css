@@ -169,53 +169,6 @@
   animation: sealStamp var(--d3) var(--ease-out) both;
 }
 
-/* 参透：整屏的短促仪式 */
-.reveal {
-  position: fixed;
-  left: 50%;
-  top: 22dvh;
-  z-index: 55;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s3);
-  pointer-events: none;
-  animation: revealDrop 3.6s var(--ease-out) both;
-}
-
-.revealRing {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 92px;
-  height: 92px;
-  margin: -46px 0 0 -46px;
-  border: 2px solid rgba(var(--gold-rgb), 0.75);
-  border-radius: 50%;
-  animation: revealFlare 1.5s var(--ease-out) both;
-}
-
-.revealSeal {
-  padding: 0.5em 0.7em;
-  border: 2px solid rgba(var(--gold-rgb), 0.9);
-  border-radius: var(--r-xs);
-  background: linear-gradient(160deg, rgba(var(--gold-rgb), 0.28), rgba(var(--gold-rgb), 0.06));
-  color: var(--gold-bright);
-  font-family: var(--font-title);
-  font-size: var(--fs-xl);
-  letter-spacing: 0.2em;
-  box-shadow: 0 0 40px rgba(var(--gold-rgb), 0.4);
-}
-
-.revealText {
-  padding: 3px var(--s3);
-  border-radius: 99px;
-  background: rgba(var(--ink-0-rgb), 0.7);
-  color: var(--paper-dim);
-  font-size: var(--fs-2xs);
-  letter-spacing: 0.16em;
-}
-
 .hiddenBody {
   display: flex;
   flex-direction: column;
@@ -354,6 +307,115 @@
   font-size: var(--fs-2xs);
   letter-spacing: 0.08em;
   color: var(--warn);
+}
+
+/* ---------- 通用手段 ---------- */
+.acts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--s3);
+}
+
+.act {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--s3) var(--s4);
+  border: 1px solid var(--line);
+  border-left: 3px solid rgba(var(--jade-rgb), 0.5);
+  border-radius: var(--r);
+  background:
+    linear-gradient(160deg, rgba(var(--paper-rgb), 0.055), rgba(var(--paper-rgb), 0.015)),
+    var(--ink-2);
+  text-align: left;
+  transition:
+    background var(--d2) var(--ease),
+    border-color var(--d2) var(--ease),
+    transform var(--d1) var(--ease);
+}
+.act:hover {
+  border-color: rgba(var(--jade-rgb), 0.6);
+  border-left-color: var(--jade);
+  background:
+    linear-gradient(160deg, rgba(var(--jade-rgb), 0.16), rgba(var(--paper-rgb), 0.02)),
+    var(--ink-2);
+  transform: translateY(-1px);
+}
+.act:active {
+  transform: translateY(0) scale(0.995);
+}
+
+.actTop {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+}
+
+.actName {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.14em;
+  color: var(--paper);
+}
+
+.actAttr {
+  margin-left: auto;
+  padding: 0 5px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--t3);
+}
+
+.actDesc {
+  font-size: var(--fs-2xs);
+  line-height: 1.7;
+  color: var(--t2);
+}
+
+.actCost {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  color: var(--warn);
+}
+
+/* ---------- 入场抉择 ---------- */
+.entryHead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding: var(--s5);
+  animation: fadeUp var(--d3) var(--ease-out) both;
+}
+
+.entryKicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.2em;
+  color: var(--accent-2);
+}
+
+.entrySpan {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  color: var(--t3);
+}
+.entrySpan b {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  color: var(--gold-bright);
+}
+
+.entryLine {
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  letter-spacing: 0.03em;
+  color: var(--t1);
+  text-indent: 2em;
+  animation: fadeUp var(--d4) var(--ease-out) 120ms both;
 }
 
 /* ---------- 尾注 ---------- */

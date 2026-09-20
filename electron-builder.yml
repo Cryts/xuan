@@ -1,0 +1,55 @@
+# Windows 打包配置
+#
+# 只针对 Windows（用户要的是 Win 下 exe）。要出 macOS/Linux 包时在这里加 target 即可，
+# 但**必须在对应系统上打** —— electron-builder 不做跨平台交叉打包（除了 Windows 可以
+# 借 wine 打 Linux 包，不值当）。
+
+appId: com.cryts.xuan
+productName: 玄
+copyright: © 2026 Cryts
+
+directories:
+  output: release
+  buildResources: build
+
+# files 决定哪些东西进 asar。只放运行必需的东西，源码与工具链不进包。
+files:
+  - electron/**/*
+  - dist/**/*
+  - package.json
+  - '!**/*.map'
+  - '!node_modules/**/{test,__tests__,tests,example,examples,docs,doc}/**'
+
+# dist 是 vite 产物，已经在 files 里；这里再排除一遍源码以防万一
+extraMetadata:
+  main: electron/main.cjs
+
+win:
+  target:
+    # portable = 单个 exe，双击就跑，不需要安装 —— 适合"下载下来直接试玩"
+    # nsis     = 正规安装包，带开始菜单与卸载项
+    - target: portable
+      arch: [x64]
+    - target: nsis
+      arch: [x64]
+  # 没有代码签名证书时留空即可；有证书了再把注释打开
+  # certificateFile: build/cert.pfx
+  # certificatePassword: ${env.CSC_KEY_PASSWORD}
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+portable:
+  # 端口版启动时不弹控制台窗口
+  splashImage: null
+  requestExecutionLevel: user
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: 玄
+  deleteAppDataOnUninstall: false
+
+# 不要自动发版
+publish: null

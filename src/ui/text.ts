@@ -46,6 +46,21 @@ export const ATTR_SHORT: Record<AttrKey, string> = {
   charm: '魅力',
 }
 
+/** 事件气氛 → 一个字。引擎给的是英文键，界面不显示英文。 */
+export const MOOD_NAMES: Record<string, string> = {
+  neutral: '常',
+  tense: '紧',
+  somber: '沉',
+  mystic: '玄',
+  warm: '暖',
+  grim: '厉',
+  eerie: '诡',
+}
+
+export function moodName(m: string): string {
+  return MOOD_NAMES[m] ?? '常'
+}
+
 export const PACK_FALLBACK: Record<PackId, { name: string; tag: string }> = {
   mortal: { name: '青冥仙途', tag: '慢热经营' },
   genius: { name: '炎武纪元', tag: '热血升级' },

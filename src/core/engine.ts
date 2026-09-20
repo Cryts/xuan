@@ -1072,6 +1072,54 @@ export function submitScenarioAction(
 }
 
 /**
+ * 剧本触发时的入场呈现 —— 单独抽出来，因为**两处**要用：
+ * 一是刚从调度器抽到这个剧本的那一拍，二是玩家还没决定时每次重新呈现。
+ * 抽成一个函数就不会两处写法漂移。
+ */
+function buildEntryPresentation(
+  state: GameState,
+  content: ContentDB,
+  sc: Scenario,
+  rng: Rng,
+): NodePresentation {
+  const intro = pickFromPool(`loose.${sc.id}.intro`, content.l2, state, rng)
+  const lines = splitLines(intro.text)
+  return {
+    node_index: state.node_index,
+    kind: 'scenario',
+    event_id: sc.id,
+    title: sc.name,
+    lines,
+    mood: 'tense',
+    scenario_entry: {
+      scenario_id: sc.id,
+      name: sc.name,
+      lines,
+      rules_stated: sc.rules_stated,
+      span: sc.span,
+    },
+    options: [
+      {
+        id: 'enter',
+        text: '进去',
+        intent: 'greedy',
+        risk_tier: '险',
+        odds_hint: '未卜',
+        cost_hint: `约 ${sc.span} 刻`,
+      },
+      {
+        id: 'bypass',
+        text: '绕开。你记下了这个地方。',
+        intent: 'flee',
+        risk_tier: '稳',
+        odds_hint: '十拿九稳',
+        cost_hint: '错过此处',
+      },
+    ],
+  }
+}
+
+/**
  * 入场抉择：进去，或者绕开。
  *
  * 绕开不是无代价的「跳过」——它记一笔因果（你看见了一个地方却没敢进），
@@ -1286,40 +1334,7 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
     const sc = content.scenarios.find((s) => s.id === state.pending_scenario)
     if (sc) {
       const rng = new Rng(makeSeed(state.seed, state.node_index, `entry:${sc.id}`))
-      const intro = pickFromPool(`loose.${sc.id}.intro`, content.l2, state, rng)
-      return {
-        node_index: state.node_index,
-        kind: 'scenario',
-        event_id: sc.id,
-        title: sc.name,
-        lines: splitLines(intro.text),
-        mood: 'tense',
-        scenario_entry: {
-          scenario_id: sc.id,
-          name: sc.name,
-          lines: splitLines(intro.text),
-          rules_stated: sc.rules_stated,
-          span: sc.span,
-        },
-        options: [
-          {
-            id: 'enter',
-            text: '进去',
-            intent: 'greedy',
-            risk_tier: '险',
-            odds_hint: '未卜',
-            cost_hint: `约 ${sc.span} 刻`,
-          },
-          {
-            id: 'bypass',
-            text: '绕开。你记下了这个地方。',
-            intent: 'flee',
-            risk_tier: '稳',
-            odds_hint: '十拿九稳',
-            cost_hint: '错过此处',
-          },
-        ],
-      }
+      return buildEntryPresentation(state, content, sc, rng)
     }
   }
 
@@ -1353,9 +1368,15 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
   // 玩家反馈「剧本没有可入选项……我的认知里剧本只是一个随机触发的剧本类事件」——
   // 触发即入、入则卡死，等于剥夺了选择权。现在它先摆在你面前，
   // 你可以进，也可以绕过去（代价是错过，不是死）。
+  //
+  // 注意：这里必须**直接返回入场呈现**，不能只记下 pending 然后往下走到
+  // buildPresentation —— 那样触发的那一拍会渲染成剧本正文（还带着
+  // trials/actions），而入场选项要等到下一拍才出现。玩家会在没做选择时
+  // 就先看见"手段"，点了还会被告知"当前不在剧本中"。
   if (ev.kind === 'scenario' && !state.active_scenario) {
     const sc = ev as Scenario
     state.pending_scenario = sc.id
+    return buildEntryPresentation(state, content, sc, rng)
   }
 
   return buildPresentation(state, content, ev, rng)

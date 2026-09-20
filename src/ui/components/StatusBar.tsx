@@ -15,6 +15,7 @@
 import { useEffect, useRef, useState, type ComponentType } from 'react'
 import s from './StatusBar.module.css'
 import type { ContentDB } from '@/core/content'
+import { progressNameOf } from '@/core/engine'
 import { ATTR_KEYS } from '@/core/genesis'
 import type { AttrKey, GameState, VarKey } from '@/core/types'
 import {
@@ -33,7 +34,7 @@ import {
   IconSettings,
   type IconProps,
 } from '@/ui/icons'
-import { ATTR_SHORT, hpUrgency, lifeUrgency, realmCount, realmLifespan, realmName, realmRange } from '@/ui/text'
+import { ATTR_SHORT, hpUrgency, lifeUrgency, realmCount, realmLifespan, realmRange } from '@/ui/text'
 
 /* 一个长期变量一枚图标 —— 缺哪个补哪个，别让玩家读纯文字表 */
 const VAR_ICON: Record<VarKey, ComponentType<IconProps>> = {
@@ -179,7 +180,9 @@ export function StatusBar({
   /** 打开行囊；不传则只显示件数，不可点 */
   onBag?: () => void
 }) {
-  const realm = realmName(content, state.pack_id, state.realm_idx)
+  /* 境界名走引擎的 progressNameOf：带上小境界（「炼气七层」），
+     自己拼 realm.name 会看不到「几层」。 */
+  const realm = progressNameOf(state, content)
   const [lo, hi] = realmRange(content, state.pack_id, state.realm_idx)
   const lifeMax = realmLifespan(content, state.pack_id, state.realm_idx)
   const realmTotal = realmCount(content, state.pack_id)

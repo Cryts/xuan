@@ -10,12 +10,12 @@ import s from './EventScreen.module.css'
 import { StatusBar } from './StatusBar'
 import { Typewriter } from './Typewriter'
 import { BagSheet } from './BagPanel'
-import { Seal } from './Shared'
+import { RevealOverlay, Seal } from './Shared'
 import type { NodePresentation, Option } from '@/core/types'
 import { IconRisk } from '@/ui/icons'
 import { sfxPage, sfxTap } from '@/ui/sfx'
 import { useGame } from '@/ui/store'
-import { BAND_STYLE, INTENT_DESC, INTENT_NAMES, RISK_STYLE } from '@/ui/text'
+import { BAND_STYLE, INTENT_DESC, INTENT_NAMES, RISK_STYLE, moodName } from '@/ui/text'
 
 function OptionCard({
   opt,
@@ -87,7 +87,7 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
             <span className={s.nodeTag}>
               第 <b className="x-num">{pres.node_index + 1}</b> 节
               <i>·</i>
-              {pres.mood || '常'}
+              {moodName(pres.mood)}
             </span>
             <Typewriter
               key={nodeKey}
@@ -143,6 +143,7 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
       ) : null}
 
       <BagSheet open={bagOpen} onClose={() => setBagOpen(false)} />
+      <RevealOverlay open={st.banner?.kind === 'reveal'} text={st.banner?.detail} />
     </div>
   )
 }

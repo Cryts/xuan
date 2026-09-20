@@ -195,3 +195,21 @@ export function Empty({ text, hint }: { text: string; hint?: string }) {
     </div>
   )
 }
+
+/**
+ * 参透 —— 隐规则揭示的那一瞬。
+ *
+ * 本作唯一需要「仪式感」的时刻：它不是数值变化，是玩家认知的一次跃迁。
+ * 故此幕独立于数值浮字：金印沉下、金环荡开，几秒后自行隐去。
+ * 事件页与剧本页共用，免得好不容易做出来的那一刻被一次切屏吞掉。
+ */
+export function RevealOverlay({ open, text }: { open: boolean; text?: string }) {
+  if (!open) return null
+  return (
+    <div className={s.reveal} role="status" aria-live="polite">
+      <span className={s.revealRing} aria-hidden />
+      <span className={s.revealSeal}>参 透</span>
+      <span className={s.revealText}>{text ?? '隐规则之一，自此洞明。'}</span>
+    </div>
+  )
+}

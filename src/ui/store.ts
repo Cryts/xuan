@@ -16,6 +16,8 @@ import {
   resolveEnding,
   startRun,
   submitOption,
+  submitScenarioAction,
+  submitScenarioEntry,
   submitTrial,
   type EndingResult,
   type HeavenBoardRow,
@@ -40,6 +42,7 @@ import type {
   Origin,
   PackId,
   Scenario,
+  ScenarioActionId,
   Trait,
   TrialOption,
   VarKey,
@@ -578,6 +581,8 @@ function eventFromPresentation(p: NodePresentation, content: ContentDB): LooseEv
 
 export interface FloatItem {
   id: number
+  /** 变量键 —— 浮字层据此取图标（与状态条同一张表） */
+  key: VarKey | AttrKey
   label: string
   from: number
   to: number
@@ -632,7 +637,11 @@ export type Action =
   | { type: 'genesis/setFlaw'; id?: string }
   | { type: 'genesis/begin'; runId: string }
   | { type: 'play/option'; optionId: string }
+  /** 剧本触发时的入场抉择 —— 进去，或绕开（绕开记一笔因果，本局不再遇此局） */
+  | { type: 'play/entry'; enter: boolean }
   | { type: 'play/trial'; kind: TrialOption['kind']; ref: string }
+  /** 剧本内的通用手段（细察 / 交涉 / 硬闯 / 感气 / 静待 / 抽身）—— 不依赖行囊 */
+  | { type: 'play/action'; id: ScenarioActionId }
   | { type: 'play/wait' }
   | { type: 'floats/clear' }
   | { type: 'banner/clear' }
@@ -714,6 +723,7 @@ function floatsFrom(delta: { key: VarKey | AttrKey; from: number; to: number }[]
     .filter((d) => d.to !== d.from)
     .map((d, i) => ({
       id: seq + i,
+      key: d.key,
       label: VAR_LABELS[d.key] ?? d.key,
       from: d.from,
       to: d.to,
@@ -856,36 +866,61 @@ export function reducer(st: AppState, action: Action): AppState {
       return afterEngine(st, res.state, res.presentation, res.delta, res.band)
     }
 
-    case 'play/trial': {
+    case 'play/entry': {
+      // 剧本在场，还未入局：玩家先看清它是什么，再决定进不进。
+      // 绕开不是白绕过 —— 引擎会记一笔代价，且此局本局不再出现。
+      //
+      // 判据仍取状态而非呈现字段：呈现可能停留在上一拍（玩家没点、界面没刷），
+      // 而 pending_scenario 是权威的。
       const { state, content, pres } = st
       if (!state || !pres || pres.kind !== 'scenario') return st
+      if (!state.pending_scenario) return st
+      const res = submitScenarioEntry(state, action.enter, content)
+      if (!res.ok) {
+        console.warn('[玄] 入场抉择被拒：', res.reason)
+        return { ...st, toast: res.reason ? `此刻进退不得：${res.reason}` : '此刻进退不得' }
+      }
+      const next = afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      if (action.enter) {
+        return { ...next, toast: '入局 —— 此地的规矩，得自己看。' }
+      }
+      return { ...next, toast: '你绕开了此地 —— 记下方位，因果上留了一笔。' }
+    }
+
+    case 'play/trial': {
+      const { state, content, pres } = st
+      if (!state || !pres || pres.kind !== 'scenario' || pres.scenario_entry) return st
       const before = state.active_scenario
       const res = submitTrial(state, action.kind, action.ref, content)
       if (!res.ok) {
         console.warn('[玄] 试之被拒：', res.reason)
         return { ...st, toast: res.reason ? `试之不成：${res.reason}` : '试之不成' }
       }
-      const after = res.state.active_scenario
-      let banner: Banner | null = null
-      if (before && !after) {
-        banner = res.state.pending_ending
-          ? { kind: 'unsolved', text: '未破局', detail: '时限已尽。此局自成一结。', tone: 'bad' }
-          : { kind: 'break', text: '破局', detail: '条件已成，路开了。', tone: 'gold' }
-      } else if (after && before && after.attempted.length > before.attempted.length) {
-        banner = { kind: 'band', text: '试之无果', detail: '物已耗，刻已过。', tone: 'flat' }
-      }
+      const banner = scenarioBanner(before, res.state.active_scenario, 'attempted')
       return afterEngine(st, res.state, res.presentation, res.delta, undefined, banner)
+    }
+
+    case 'play/action': {
+      // 剧本内的通用手段：不翻行囊也能做的事。与「以物试之」并列，同样耗一刻。
+      const { state, content, pres } = st
+      if (!state || !pres || pres.kind !== 'scenario' || pres.scenario_entry) return st
+      const before = state.active_scenario
+      const res = submitScenarioAction(state, action.id, content)
+      if (!res.ok) {
+        console.warn('[玄] 手段不成：', res.reason)
+        return { ...st, toast: res.reason ? `行不得：${res.reason}` : '行不得' }
+      }
+      const banner = scenarioBanner(before, res.state.active_scenario, action.id === 'leave' ? 'leave' : 'tried')
+      return afterEngine(st, res.state, res.presentation, res.delta, res.band, banner)
     }
 
     case 'play/wait': {
       // 无物可试时的「静观其变」：借 submitTrial 的推进逻辑耗去一刻
       const { state, content, pres } = st
-      if (!state || !pres || pres.kind !== 'scenario') return st
+      if (!state || !pres || pres.kind !== 'scenario' || pres.scenario_entry) return st
       const res = submitTrial(state, 'item', '__wait__', content)
       if (!res.ok) return { ...st, toast: '此刻动弹不得' }
-      const banner: Banner | null = !res.state.active_scenario
-        ? { kind: 'unsolved', text: '未破局', detail: '时限已尽。此局自成一结。', tone: 'bad' }
-        : null
+      const banner = scenarioBanner(state.active_scenario, res.state.active_scenario, 'none')
       return afterEngine(st, res.state, res.presentation, res.delta, undefined, banner)
     }
 
@@ -901,6 +936,43 @@ export function reducer(st: AppState, action: Action): AppState {
     default:
       return st
   }
+}
+
+/* ---------- 剧本收束的四种说法 ----------
+   「以物试之」「手段」「静待」三处共用，免得同一件事三种措辞。
+   注意：未破局**不再终结一世**（引擎已不再从 unsolved 触发终局），
+   它照常结算代价、把线索记进 ending_threads，人还在 —— 所以文案不说死。 */
+
+type ScenarioOutcome = 'attempted' | 'tried' | 'none' | 'leave'
+
+function scenarioBanner(
+  before: GameState['active_scenario'],
+  after: GameState['active_scenario'],
+  kind: ScenarioOutcome,
+): Banner | null {
+  if (before && !after) {
+    if (kind === 'leave') {
+      return { kind: 'band', text: '抽身', detail: '带着已经到手的，退出来了。', tone: 'flat' }
+    }
+    if ((before.solved?.length ?? 0) > 0) {
+      return { kind: 'break', text: '破局', detail: '条件已成，路开了。', tone: 'gold' }
+    }
+    return {
+      kind: 'unsolved',
+      text: '未破局',
+      detail: '时限已尽 —— 此局就此了结，人还在，线索留下了。',
+      tone: 'bad',
+    }
+  }
+  if (before && after) {
+    if (kind === 'attempted' && after.attempted.length > before.attempted.length) {
+      return { kind: 'band', text: '试之无果', detail: '物已耗，刻已过。', tone: 'flat' }
+    }
+    if (kind === 'tried' && after.nodes_spent > before.nodes_spent) {
+      return { kind: 'band', text: '走了一手', detail: '刻已过，此地略有变化。', tone: 'flat' }
+    }
+  }
+  return null
 }
 
 /** 引擎结算之后：落状态、记浮字、判终局、算揭示 */
@@ -968,8 +1040,6 @@ export function qualityRank(quality: string): number {
   return i < 0 ? 0 : i
 }
 
-export const QUALITY_ORDER_LIST = QUALITY_ORDER
-
 /** FNV-1a：只取 id，不掷骰子 —— 同一件物永远同一个状态 */
 function hashId(id: string): number {
   let h = 2166136261
@@ -999,7 +1069,7 @@ const KIND_HINTS: Array<[ItemKind, RegExp]> = [
   ['sword', /[剑刀刃枪矛弓弩锤斧戟匕杖鞭锏钩镖针]/],
   ['pill', /[丹丸散膏药露浆液]/],
   ['talisman', /[符箓诏令契券牌简牒]/],
-  ['artifact', /[镜铃钟鼎珠环镯印塔幡盏盘壶瓶炉佩冠履袋囊匣函]/],
+  ['artifact', /[镜铃钟鼎珠环镯印塔幡盏盘壶瓶炉佩冠履袋囊匣函灯烛炬锁钥舟车舆]/],
 ]
 
 /** 物类 —— **纯表现**，只用来挑行囊格子上的字形 */

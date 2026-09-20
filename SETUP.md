@@ -17,16 +17,16 @@ npm run dev          # → http://localhost:5173/
 
 **常用命令**
 
-| 命令 | 作用 |
-|---|---|
-| `npm run dev` | 本地开发（热重载） |
-| `npm test` | 单元测试（86 个） |
-| `npm run lint:content` | **内容门禁**：IP 禁用词、境界曲线、剧本科解性、正文可达性、阶段覆盖 |
-| `npm run check:core` | 核心纯度：`src/core` 不得引入浏览器 API |
-| `npx tsx tools/playtest.ts 500` | **试玩 agent**：500 局自动试玩，产出 `playtest-findings.md` |
-| `npx tsx tools/sim.ts 1000` | 蒙特卡洛平衡验证（三种玩家原型对比） |
-| `npx tsx tools/originality-report.ts` | 原创性报告：全部专名 vs 原著名单 |
-| `npm run build` | 生产构建 → `dist/` |
+| 命令                                    | 作用                                                                      |
+| --------------------------------------- | ------------------------------------------------------------------------- |
+| `npm run dev`                         | 本地开发（热重载）                                                        |
+| `npm test`                            | 单元测试（86 个）                                                         |
+| `npm run lint:content`                | **内容门禁**：IP 禁用词、境界曲线、剧本科解性、正文可达性、阶段覆盖 |
+| `npm run check:core`                  | 核心纯度：`src/core` 不得引入浏览器 API                                 |
+| `npx tsx tools/playtest.ts 500`       | **试玩 agent**：500 局自动试玩，产出 `playtest-findings.md`       |
+| `npx tsx tools/sim.ts 1000`           | 蒙特卡洛平衡验证（三种玩家原型对比）                                      |
+| `npx tsx tools/originality-report.ts` | 原创性报告：全部专名 vs 原著名单                                          |
+| `npm run build`                       | 生产构建 →`dist/`                                                      |
 
 推送到 `main` 后 GitHub Actions 会自动跑完整门禁并部署到 https://cryts.github.io/xuan/ 。
 
@@ -90,11 +90,11 @@ ollama pull qwen2.5:3b        # 约 2 GB
 
 **硬件参考**（意图识别是短分类任务，不需要大模型）：
 
-| 模型 | 显存/内存 | 说明 |
-|---|---|---|
-| `qwen2.5:3b` | ~3 GB | 够用，最快 |
-| `qwen2.5:7b` | ~6 GB | 中文明显更好，推荐 |
-| `glm4:9b` | ~8 GB | 中文强，稍慢 |
+| 模型           | 显存/内存 | 说明               |
+| -------------- | --------- | ------------------ |
+| `qwen2.5:3b` | ~3 GB     | 够用，最快         |
+| `qwen2.5:7b` | ~6 GB     | 中文明显更好，推荐 |
+| `glm4:9b`    | ~8 GB     | 中文强，稍慢       |
 
 **让游戏连上它**：Ollama 默认监听 `http://localhost:11434`，且**允许跨域**（需设 `OLLAMA_ORIGINS`）：
 

@@ -25,7 +25,11 @@ jobs:
           node-version: '22'
           cache: npm
 
+      # 网页构建用不到 Electron 的二进制（那是一百多 MB 的下载），
+      # 跳过它能让 CI 快一大截。打 exe 是在 Windows 上单独跑的。
       - run: npm ci
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
 
       # 尝试自动开启 Pages（source = GitHub Actions）。
       # 启用 Pages 需要仓库管理员权限，而默认的 GITHUB_TOKEN 没有，

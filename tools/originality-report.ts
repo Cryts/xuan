@@ -57,19 +57,52 @@ collect(c.items, 'items')
 collect(c.affixes, 'affixes')
 collect(c.names, 'names')
 
-/** 与禁用词的形近检测：共享 2 个以上汉字且长度接近 */
-function nearMiss(word: string): { hit: string; from: string } | null {
-  for (const f of FORBIDDEN) {
-    if (f.word.length < 3) continue
-    let shared = 0
-    for (const ch of new Set(word)) {
-      if (f.word.includes(ch)) shared++
+/**
+ * 最长公共**连续**子串长度。
+ *
+ * 早先这里用的是"共享汉字个数"，结果噪声大到没法用：
+ * 「他那套手法」只因为共用"他/法"就被判成「他化自在大法」的形近项，
+ * 「你自家洞府」被判成「古帝洞府」——洞府本就是通用修真词。
+ * 一份列了七十五条误报的报告，等于没有报告：人会直接跳过它。
+ *
+ * 改成看连续重合：真正危险的抄袭是"连着三个字一样"，
+ * 而不是"碰巧用到同一个常见字"。
+ */
+function longestCommonRun(a: string, b: string): number {
+  let best = 0
+  const prev = new Array<number>(b.length + 1).fill(0)
+  const cur = new Array<number>(b.length + 1).fill(0)
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      cur[j] = a[i - 1] === b[j - 1] ? prev[j - 1]! + 1 : 0
+      if (cur[j]! > best) best = cur[j]!
     }
-    if (shared >= 2 && Math.abs(word.length - f.word.length) <= 1 && word !== f.word) {
-      return { hit: f.word, from: f.from }
+    for (let j = 0; j <= b.length; j++) {
+      prev[j] = cur[j]!
+      cur[j] = 0
     }
   }
-  return null
+  return best
+}
+
+/**
+ * 与禁用词的形近检测。
+ * 判据：连续重合 ≥3 个字，且长度相差不超过 1 ——
+ * 满足这个的才值得人看一眼，例如「焚天炼气塔」对「天焚炼气塔」。
+ */
+function nearMiss(word: string): { hit: string; from: string; run: number } | null {
+  let best: { hit: string; from: string; run: number } | null = null
+  for (const f of FORBIDDEN) {
+    if (f.word.length < 3) continue
+    if (word === f.word) continue
+    if (Math.abs(word.length - f.word.length) > 1) continue
+    const run = longestCommonRun(word, f.word)
+    // 重合段必须占这个词的大部分，否则只是共用了一个常见搭配
+    if (run >= 3 && run >= Math.min(word.length, f.word.length) - 1) {
+      if (!best || run > best.run) best = { hit: f.word, from: f.from, run }
+    }
+  }
+  return best
 }
 
 console.log('\n══════ 《玄》原创性报告 ══════\n')

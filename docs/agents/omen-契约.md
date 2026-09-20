@@ -31,33 +31,40 @@
 3. 常规阶梯（collect / relax / 加权抽样）
 ```
 
-### ⚠️ 伪码必须改一处（主 AI 补，原契约有坑）
+### 伪码（已按"不得造出空节点"修正并冻结）
 
-`narrative-designer` 给的伪码里各条否定分支写的是 `return null`。**那在 `pickNextEvent` 里是错的**：
-这个函数返回 `LooseEvent | Scenario | null`，而**返回 `null` 的后果是这一拍没有任何事件**——
-玩家会撞上空节点（试玩 agent 报过 4522 次，其中"空节点"是它最优先的卡死判据）。
-
-**正确写法：所有否定分支都是"不做 omen，落到第 3 步"，不是 `return null`。**
-
-```
-function tryOmen(next, rng): LooseEvent | null {   // 独立函数，null = 这次不搞奇遇
+```ts
+/** 独立的判定函数：null 的含义**只在这里**是"这次不搞奇遇" */
+function tryOmen(next: GameState, rng: Rng, content: ContentDB): LooseEvent | null {
   if (next.active_scenario || next.pending_scenario) return null
   if (next.pending_duel || next.pending_duel_result) return null
   if (isDailyNode(next)) return null
-  if ((next.nodes_since_omen ?? 0) < OMEN_GAP_MIN) return null
+  if (next.nodes_since_omen < OMEN_GAP_MIN) return null
   if (!rng.chance(OMEN_CHANCE)) return null
-  const key = 加权抽一个 omen 内容          // 奇遇事件 + 商店，同一个池
-  if ((next.nodes_since_omen ?? 0) < gapOf(key)) return null
-  if (key === next.recent_omen?.at(-1)) return null
-  if (next.recent_omen?.slice(-3).includes(key)) return null
-  return key
+  const key = pickOmenKey(next, rng, content)   // 奇遇事件 + 商店同池加权
+  if (!key) return null
+  if (next.nodes_since_omen < gapOf(key)) return null
+  if (next.recent_omen.slice(-3).includes(key)) return null   // 同一内容三拍内不得重复（含"不得连任"）
+  return lookupOmenEvent(key)
 }
 
-// pickNextEvent 里：
-//   1. forced 有 → 返回它
-//   2. const omen = tryOmen(next, rng); if (omen) return omen
-//   3. 落到常规阶梯（**不是 return null**）
+// pickNextEvent(next) 里：
+const forced = /* 保底队列，原样 */
+if (forced.length > 0) return forced[0]!
+const omen = tryOmen(next, rng, content)
+if (omen) return omen
+// ↓ 落到常规阶梯（**绝不是 return null**）
 ```
+
+**这一段被单独拎出来写，是因为原伪码的否定分支写成 `return null`，照抄进 `pickNextEvent` 会造出空节点**
+（返回 null = 这一拍没有任何事件）。"空节点"是试玩 agent 最优先的卡死判据 —— 内容 agent 的原意没错，
+错的是那段伪码会被 engine 侧当成 `pickNextEvent` 的片段读。
+
+### 两条同样不许"顺手简化"的
+
+1. **`omen_take` 之后那一屏走 `pickNextEvent` 之外的路径** —— 它呈现的是**已经抽中的那个内容本体**，
+   不重新抽。否则玩家"接下了"，看到的却是另一件事。
+2. **`recent_omen` 在"闸门呈现时"写入，不是"take 时"** —— 否则玩家连按两次"不接"就能刷出同一个内容。
 
 ## 四、让路规则（与已有先例同构）
 

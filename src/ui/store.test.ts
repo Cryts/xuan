@@ -32,28 +32,21 @@ function play(steps: number, pack: PackId) {
   for (let i = 0; i < steps; i++) {
     if (st.screen !== 'play') break
     const p = st.pres!
-    // 日常节点没有 options，先在这里处理掉
-    if (p.duel) {
-      st = reducer(st, { type: 'play/duel', stance: 'guard', way: p.duel.ways[0]!.essence })
-      continue
-    }
-    if (p.duel_result) {
-      st = reducer(st, { type: 'play/duel-after', kill: false })
-      continue
-    }
-    // 斗法三种拍子：遭遇（打不打）/ 架势 / 战后
+    // 斗法三拍：遭遇（打不打）/ 选架势 / 战后处置
     if (p.duel_result) {
       st = reducer(st, { type: 'play/duel-after', kill: false })
       continue
     }
     if (p.duel && st.state?.duel_committed) {
-      st = reducer(st, { type: 'play/duel-stance', stance: 'guard', way: p.duel.ways[0]!.essence })
+      const ways = p.duel.ways
+      st = reducer(st, { type: 'play/duel-stance', stance: 'guard', way: ways[0]!.essence })
       continue
     }
     if (p.event_id === '__duel_encounter__') {
       st = reducer(st, { type: 'play/duel-entry', fight: true })
       continue
     }
+    // 日常节点没有 options，先在这里处理掉
     if (p.daily) {
       st = reducer(st, { type: 'play/daily', id: p.daily[0]!.id })
       continue

@@ -28,6 +28,9 @@ import {
   submitOption,
   submitScenarioAction,
   submitDaily,
+  submitDuelAftermath,
+  submitDuelEntry,
+  submitDuelStance,
   submitScenarioEntry,
   submitTrial,
 } from '../src/core/engine'
@@ -154,6 +157,24 @@ function playOne(idx: number): void {
     ) {
       emptyNodes.push(`${pres.event_id} (node ${s.node_index}, ${pack})`)
       s = { ...s, node_index: s.node_index + 1, status: s.node_index + 1 >= s.total_nodes ? 'ended' : 'alive' }
+      continue
+    }
+
+    // 斗法：遭遇（打不打）/ 选架势 / 战后处置
+    if (pres.duel_result) {
+      s = submitDuelAftermath(s, rng.chance(0.35), content).state
+      continue
+    }
+    if (pres.duel && s.duel_committed) {
+      const way = pres.duel.ways[rng.int(0, pres.duel.ways.length - 1)]!.essence
+      const stances = ['assault', 'guard', 'bait', 'conceal'] as const
+      s = submitDuelStance(s, stances[rng.int(0, 3)]!, way, content).state
+      continue
+    }
+    if (pres.event_id === '__duel_encounter__') {
+      // 胜算太差就避 —— 这正是明牌要让人能做的判断
+      const odds = pres.duel?.matchup.odds ?? 0.5
+      s = submitDuelEntry(s, odds >= 0.42, content).state
       continue
     }
 

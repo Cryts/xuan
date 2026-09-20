@@ -33,11 +33,14 @@ describe('日常行动', () => {
     expect(isDailyNode(inScn)).toBe(false)
   })
 
-  it('呈现里带上五个选项，且不可做的会说明原因', () => {
+  it('呈现里带上五项目常，且不可做的会说明原因', () => {
     const s = run('d3')
     const acts = dailyActions({ ...s, vars: { ...s.vars, currency: 0 } } as GameState)
+    // **斗法不在其中** —— 它是奇遇（有人拦路），不是日程表上的一项。
+    // 日程是"我安排自己"，奇遇是"事情找我"，两者混在一起玩家就分不清
+    // "我在做计划"还是"我在应付局面"。
     expect(acts.map((a) => a.id)).toEqual([
-      'cultivate', 'roam', 'gather', 'market', 'duel', 'befriend',
+      'cultivate', 'roam', 'gather', 'market', 'befriend',
     ])
     const market = acts.find((a) => a.id === 'market')!
     expect(market.available).toBe(false)

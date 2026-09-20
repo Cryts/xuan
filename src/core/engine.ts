@@ -1540,15 +1540,6 @@ export function dailyActions(state: GameState): DailyAction[] {
       blocked_reason: v.currency < 30 ? '囊中羞涩，去了也只是看' : undefined,
     },
     {
-      id: 'duel',
-      name: '寻斗',
-      desc: '找个人打一场。修行的人，总要跟人交手的。',
-      gain_hint: '胜则得修为、材料、人情；可杀可放',
-      cost_hint: '败则带伤、掉声望',
-      available: state.power_index >= 5,
-      blocked_reason: state.power_index < 5 ? '你还没有跟人动手的资格' : undefined,
-    },
-    {
       id: 'befriend',
       name: '交游',
       desc: '拜访旧识，或结识新交。',

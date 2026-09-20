@@ -45,7 +45,7 @@ describe('端到端：一局完整对局', () => {
       }
       if (p.duel) {
         const way = p.duel.ways[0]!
-        st = act(st, { type: 'play/duel', stance: 'guard', way: way.essence })
+        st = act(st, { type: 'play/duel-stance', stance: 'guard', way: way.essence })
         continue
       }
       if (p.duel_result) {
@@ -115,7 +115,7 @@ describe('端到端：一局完整对局', () => {
       }
       if (p.duel) {
         const way = p.duel.ways[0]!
-        st = act(st, { type: 'play/duel', stance: 'guard', way: way.essence })
+        st = act(st, { type: 'play/duel-stance', stance: 'guard', way: way.essence })
         continue
       }
       if (p.duel_result) {

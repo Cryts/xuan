@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { STANCES, resolveDuel, setupDuel, waysOf } from '../src/core/duel'
-import { rollOpponent } from '../src/core/engine'
+import {
+  dailyActions,
+  duelTrigger,
+  rollOpponent,
+  submitDuelEntry,
+} from '../src/core/engine'
 import { PACK_IDS, type ContentDB } from '../src/core/content'
 import { Rng } from '../src/core/rng'
 import { loadContent } from '../tools/load-content'
@@ -166,5 +171,108 @@ describe('斗法 · 对手生成', () => {
       expect(o.name.length).toBeGreaterThan(0)
       expect(o.power_index).toBeGreaterThan(0)
     }
+  })
+})
+
+describe('斗法 · 是奇遇不是日常', () => {
+  it('**日常里没有"寻斗"这一项**', () => {
+    const acts = dailyActions(mkState())
+    expect(acts.map((a: { id: string }) => a.id)).not.toContain('duel')
+    // 日常是"安排"，斗法是"际遇" —— 日程表上不该有打架
+    expect(acts.map((a: { id: string }) => a.id).sort()).toEqual(
+      ['befriend', 'cultivate', 'gather', 'market', 'roam'],
+    )
+  })
+
+  it('触发条件来自你做过的事，不是你想不想打', () => {
+    // 白纸一张：没人来找你
+    let fired = 0
+    for (let i = 0; i < 200; i++) {
+      if (duelTrigger(mkState({ vars: { ...mkState().vars, debt: 0, exposure: 0 } }), new Rng(`q${i}`))) fired++
+    }
+    expect(fired).toBe(0)
+
+    // 债台高筑：仇家上门
+    let withDebt = 0
+    for (let i = 0; i < 200; i++) {
+      if (duelTrigger(mkState({ vars: { ...mkState().vars, debt: 60 } }), new Rng(`d${i}`))) withDebt++
+    }
+    expect(withDebt, '欠了债应当有人来收').toBeGreaterThan(40)
+
+    // 暴露过高：被认出来
+    let withExposure = 0
+    for (let i = 0; i < 200; i++) {
+      if (duelTrigger(mkState({ vars: { ...mkState().vars, exposure: 70 } }), new Rng(`e${i}`))) withExposure++
+    }
+    expect(withExposure).toBeGreaterThan(30)
+  })
+
+  it('境界太低时不会被拦 —— 还没到能跟人动手的地步', () => {
+    let fired = 0
+    for (let i = 0; i < 200; i++) {
+      const st = mkState({ power_index: 2, vars: { ...mkState().vars, debt: 90 } })
+      if (duelTrigger(st, new Rng(`l${i}`))) fired++
+    }
+    expect(fired).toBe(0)
+  })
+
+  it('刚打完没多久不会又被堵住', () => {
+    const st = mkState({ vars: { ...mkState().vars, debt: 90 }, last_duel_node: 4, node_index: 5 })
+    let fired = 0
+    for (let i = 0; i < 200; i++) if (duelTrigger(st, new Rng(`r${i}`))) fired++
+    expect(fired).toBe(0)
+  })
+
+  it('剧本里不插斗法 —— 免得打断破局', () => {
+    const st = mkState({
+      vars: { ...mkState().vars, debt: 90 },
+      active_scenario: { scenario_id: 'x', started_at: 0, nodes_spent: 1, revealed_rules: [], solved: [], attempted: [] },
+    })
+    let fired = 0
+    for (let i = 0; i < 200; i++) if (duelTrigger(st, new Rng(`s${i}`))) fired++
+    expect(fired).toBe(0)
+  })
+
+  it('遭遇时给出「出手 / 避开」两条路', () => {
+    const st = mkState()
+    const setup = setupDuel(st, foe('qi'), new Rng('x'))
+    // 明牌里必须有可据以决断的东西：胜算档位
+    expect(setup.matchup.odds_hint).toBeTruthy()
+    expect(setup.ways.length).toBeGreaterThan(0)
+    expect(setup.stances.length).toBe(4)
+  })
+})
+
+describe('斗法 · 打不打的抉择', () => {
+  it('**避开不推进即时的节点，但有代价**', () => {
+    const base = mkState()
+    const st = mkState({ pending_duel: setupDuel(base, foe('qi'), new Rng('x')) })
+    const favor0 = st.vars.favor
+    const karma0 = st.vars.karma
+
+    const r = submitDuelEntry(st, false, content)
+    expect(r.ok).toBe(true)
+    expect(r.state.pending_duel, '避开后不该还挂着这一场').toBeUndefined()
+    expect(r.state.vars.favor, '避战要折颜面').toBeLessThan(favor0)
+    expect(r.state.vars.karma, '转身走了，心里记着').toBeLessThan(karma0)
+    // 避开**不是死** —— 调研结论：惩罚落在声望上，不落在存亡上
+    expect(r.state.status).toBe('alive')
+    expect(r.state.node_index).toBeGreaterThan(st.node_index)
+  })
+
+  it('**出手不推进节点，只打开架势选择**', () => {
+    const base = mkState()
+    const st = mkState({ pending_duel: setupDuel(base, foe('qi'), new Rng('x')) })
+    const r = submitDuelEntry(st, true, content)
+    expect(r.ok).toBe(true)
+    expect(r.state.duel_committed, '出手后该进入选架势的阶段').toBe(true)
+    expect(r.state.pending_duel, '这一场还挂着').toBeTruthy()
+    expect(r.state.node_index, '出手本身不花时间').toBe(st.node_index)
+  })
+
+  it('没有待决斗法时，两个动作都安全失败', () => {
+    const st = mkState()
+    expect(submitDuelEntry(st, true, content).ok).toBe(false)
+    expect(submitDuelEntry(st, false, content).ok).toBe(false)
   })
 })

@@ -695,7 +695,7 @@ export type Action =
   /** 剧本内的通用手段（细察 / 交涉 / 硬闯 / 感气 / 静待 / 抽身）—— 不依赖行囊 */
   | { type: 'play/action'; id: ScenarioActionId }
   | { type: 'play/daily'; id: DailyActionId }
-  | { type: 'play/duel'; stance: StanceId; way: Essence }
+  | { type: 'play/duel-stance'; stance: StanceId; way: Essence }
   | { type: 'play/duel-after'; kill: boolean }
   /** 斗法：打还是避 */
   | { type: 'play/duel-entry'; fight: boolean }
@@ -953,7 +953,7 @@ export function reducer(st: AppState, action: Action): AppState {
       return afterEngine(st, res.state, res.presentation, res.delta, res.band)
     }
 
-    case 'play/duel': {
+    case 'play/duel-stance': {
       // 明牌之后：选定路数与架势，三轮打完
       const { state, content, pres } = st
       if (!state || !pres?.duel) return st

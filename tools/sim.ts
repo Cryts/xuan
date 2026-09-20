@@ -21,6 +21,9 @@ import {
   submitOption,
   submitScenarioAction,
   submitDaily,
+  submitDuelAftermath,
+  submitDuelEntry,
+  submitDuelStance,
   submitScenarioEntry,
   submitTrial,
 } from '../src/core/engine'
@@ -154,6 +157,24 @@ function simulateOne(runIndex: number, arch: Archetype): RunStat | null {
   while (state.status === 'alive' && guard < 300) {
     guard++
     const pres = presentCurrent(state, content)
+
+    // 斗法：遭遇（打不打）/ 选架势 / 战后处置
+    if (pres.duel_result) {
+      state = submitDuelAftermath(state, rng.chance(0.35), content).state
+      continue
+    }
+    if (pres.duel && state.duel_committed) {
+      const way = pres.duel.ways[rng.int(0, pres.duel.ways.length - 1)]!.essence
+      const stances = ['assault', 'guard', 'bait', 'conceal'] as const
+      state = submitDuelStance(state, stances[rng.int(0, 3)]!, way, content).state
+      continue
+    }
+    if (pres.event_id === '__duel_encounter__') {
+      // 胜算太差就避 —— 这正是明牌要让人能做的判断
+      const odds = pres.duel?.matchup.odds ?? 0.5
+      state = submitDuelEntry(state, odds >= 0.42, content).state
+      continue
+    }
 
     // 日常节点：怎么过这段时间。游历等于"让天意安排"，其余是主动安排。
     if (pres.daily) {

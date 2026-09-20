@@ -22,7 +22,7 @@
   padding: var(--s5) var(--s4) var(--s5) var(--s5);
   min-height: 34dvh;
   background:
-    linear-gradient(180deg, rgba(242, 234, 217, 0.045), rgba(242, 234, 217, 0.012)),
+    linear-gradient(180deg, rgba(var(--paper-rgb), 0.1), rgba(var(--paper-rgb), 0.035)),
     var(--ink-2);
 }
 
@@ -32,6 +32,30 @@
   flex-direction: column;
   gap: var(--s4);
   min-width: 0;
+}
+
+/* 节点序号 —— 让玩家知道自己走到哪一节了 */
+.nodeTag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  align-self: flex-start;
+  padding: 2px var(--s2);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-xs);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  color: var(--t3);
+}
+.nodeTag b {
+  font-family: var(--font-title);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--accent-2);
+}
+.nodeTag i {
+  font-style: normal;
+  color: var(--t5);
 }
 
 .lines {
@@ -66,15 +90,18 @@
   border-top: 1px solid var(--line-2);
 }
 
-/* 竖排标题：卷轴签条 */
+/* 竖排标题：卷轴签条
+   width 必须自适应 —— 竖排的列是**由右向左**排的，容器一窄，
+   裁掉的就是最左边那一列（初版 1.6em 定宽 + 文本 overflow:hidden 即此病）。
+   故：不设宽、不设裁切，只留内边距与分隔线。 */
 .titleCol {
+  flex: none;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  width: 1.6em;
-  padding-top: var(--s1);
+  width: auto;
+  padding: var(--s1) var(--s2) var(--s1) var(--s3);
   border-left: 1px solid var(--line-2);
-  padding-left: var(--s3);
 }
 
 /* ---------- 选项 ---------- */
@@ -104,7 +131,7 @@
   border-left-width: 3px;
   border-left-color: var(--risk, var(--line-strong));
   border-radius: var(--r);
-  background: linear-gradient(100deg, rgba(242, 234, 217, 0.035), rgba(242, 234, 217, 0.012));
+  background: linear-gradient(100deg, rgba(var(--paper-rgb), 0.035), rgba(var(--paper-rgb), 0.012));
   text-align: left;
   transition:
     background var(--d2) var(--ease),
@@ -113,7 +140,7 @@
 }
 
 .opt:hover {
-  background: linear-gradient(100deg, rgba(242, 234, 217, 0.075), rgba(242, 234, 217, 0.02));
+  background: linear-gradient(100deg, rgba(var(--paper-rgb), 0.075), rgba(var(--paper-rgb), 0.02));
   transform: translateX(2px);
 }
 .opt:active {
@@ -167,7 +194,7 @@
 .cost {
   font-size: var(--fs-2xs);
   letter-spacing: 0.08em;
-  color: #c9743a;
+  color: var(--warn);
 }
 
 .intent {
@@ -205,6 +232,6 @@
   padding: var(--s3) var(--s4) calc(var(--s4) + env(safe-area-inset-bottom, 0px));
   font-size: var(--fs-2xs);
   letter-spacing: 0.1em;
-  color: rgba(193, 57, 43, 0.8);
+  color: rgba(var(--cinnabar-rgb), 0.8);
   animation: fadeIn var(--d4) var(--ease) both;
 }

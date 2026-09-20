@@ -228,7 +228,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 400
+          "value": 769
         },
         {
           "type": "var",
@@ -271,7 +271,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 320
+          "value": 615
         },
         {
           "type": "faction_tier",
@@ -314,7 +314,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 320
+          "value": 615
         },
         {
           "type": "var",
@@ -357,7 +357,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 400
+          "value": 769
         },
         {
           "type": "var",
@@ -400,7 +400,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 260
+          "value": 500
         },
         {
           "type": "relation",
@@ -1041,7 +1041,7 @@
           "type": "var",
           "key": "power",
           "op": "<=",
-          "value": 60
+          "value": 115
         }
       ]
     },
@@ -1151,7 +1151,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 300
+          "value": 577
         },
         {
           "type": "var",
@@ -1373,7 +1373,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 350
+          "value": 673
         },
         {
           "type": "var",
@@ -1422,7 +1422,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 300
+          "value": 577
         }
       ]
     },
@@ -1831,7 +1831,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 450
+          "value": 865
         },
         {
           "type": "var",
@@ -1880,7 +1880,7 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 400
+          "value": 769
         },
         {
           "type": "var",
@@ -1996,13 +1996,13 @@
           "type": "var",
           "key": "power",
           "op": ">=",
-          "value": 300
+          "value": 577
         },
         {
           "type": "var",
           "key": "power",
           "op": "<=",
-          "value": 420
+          "value": 808
         },
         {
           "type": "var",

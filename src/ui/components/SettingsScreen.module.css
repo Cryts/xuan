@@ -14,7 +14,7 @@
   align-items: center;
   gap: var(--s3);
   padding: calc(var(--s4) + env(safe-area-inset-top, 0px)) var(--s4) var(--s4);
-  background: linear-gradient(180deg, rgba(11, 10, 9, 0.96) 55%, rgba(11, 10, 9, 0));
+  background: linear-gradient(180deg, rgba(var(--ink-0-rgb), 0.96) 55%, rgba(var(--ink-0-rgb), 0));
   backdrop-filter: blur(6px);
 }
 
@@ -61,13 +61,13 @@
   padding: var(--s4);
   border: 1px solid var(--line);
   border-radius: var(--r);
-  background: rgba(242, 234, 217, 0.022);
+  background: rgba(var(--paper-rgb), 0.022);
   text-align: left;
   transition: border-color var(--d2) var(--ease), background var(--d2) var(--ease);
 }
 .row:hover {
   border-color: var(--line-strong);
-  background: rgba(242, 234, 217, 0.045);
+  background: rgba(var(--paper-rgb), 0.045);
 }
 
 .rowIcon {
@@ -103,13 +103,13 @@
   height: 22px;
   border: 1px solid var(--line-strong);
   border-radius: 99px;
-  background: rgba(242, 234, 217, 0.04);
+  background: rgba(var(--paper-rgb), 0.04);
   transition: background var(--d2) var(--ease), border-color var(--d2) var(--ease);
 }
 
 .switchOn {
-  border-color: rgba(201, 162, 39, 0.6);
-  background: rgba(201, 162, 39, 0.16);
+  border-color: rgba(var(--gold-rgb), 0.6);
+  background: rgba(var(--gold-rgb), 0.16);
 }
 
 .knob {
@@ -150,11 +150,11 @@
 }
 .segItem:hover {
   color: var(--t1);
-  background: rgba(242, 234, 217, 0.04);
+  background: rgba(var(--paper-rgb), 0.04);
 }
 
 .segOn {
-  background: linear-gradient(180deg, rgba(201, 162, 39, 0.16), rgba(201, 162, 39, 0.05));
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.16), rgba(var(--gold-rgb), 0.05));
   color: var(--gold-bright);
 }
 
@@ -186,7 +186,7 @@
 }
 .input:focus {
   outline: none;
-  border-color: rgba(201, 162, 39, 0.5);
+  border-color: rgba(var(--gold-rgb), 0.5);
 }
 .input::placeholder {
   color: var(--t4);
@@ -213,13 +213,13 @@
 }
 
 .risk {
-  border: 1px solid rgba(193, 57, 43, 0.3);
-  background: linear-gradient(100deg, rgba(193, 57, 43, 0.09), transparent);
+  border: 1px solid rgba(var(--cinnabar-rgb), 0.3);
+  background: linear-gradient(100deg, rgba(var(--cinnabar-rgb), 0.09), transparent);
 }
 
 .aiNote {
   border: 1px solid var(--line-2);
-  background: rgba(242, 234, 217, 0.02);
+  background: rgba(var(--paper-rgb), 0.02);
 }
 
 .riskTitle {
@@ -244,7 +244,7 @@
   content: '·';
   position: absolute;
   left: var(--s2);
-  color: #d9564a;
+  color: var(--cinnabar-bright);
 }
 
 .risk strong,
@@ -256,7 +256,7 @@
 .risk code {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.92em;
-  color: #6fb3a3;
+  color: var(--jade-txt);
 }
 
 .gold {

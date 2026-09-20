@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react'
 import s from './EventScreen.module.css'
 import { StatusBar } from './StatusBar'
 import { Typewriter } from './Typewriter'
+import { BagSheet } from './BagPanel'
 import { Seal } from './Shared'
 import type { NodePresentation, Option } from '@/core/types'
 import { IconRisk } from '@/ui/icons'
@@ -55,6 +56,7 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
 
   const lines = useMemo(() => (pres.lines.length > 0 ? pres.lines : ['……']), [pres])
   const nodeKey = `${pres.node_index}:${pres.event_id}`
+  const [bagOpen, setBagOpen] = useState(false)
 
   // 记录「哪一节已经打完字」，而不是布尔值 —— 换节点时不残留上一节的完成态
   const [typedKey, setTypedKey] = useState<string | null>(null)
@@ -76,11 +78,17 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
         content={st.content}
         onHeaven={onHeaven}
         onSettings={() => dispatch({ type: 'openSettings' })}
+        onBag={() => setBagOpen(true)}
       />
 
       <main className={s.main} key={nodeKey}>
         <article className={`x-card ${s.narr}`}>
           <div className={s.narrBody}>
+            <span className={s.nodeTag}>
+              第 <b className="x-num">{pres.node_index + 1}</b> 节
+              <i>·</i>
+              {pres.mood || '常'}
+            </span>
             <Typewriter
               key={nodeKey}
               lines={lines}
@@ -104,6 +112,7 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
             ) : null}
           </div>
 
+          {/* 竖排标题：容器自适应宽，绝不裁字（见 theme.css .x-vtitle 注释） */}
           <div className={s.titleCol}>
             <span className="x-vtitle">{pres.title}</span>
           </div>
@@ -132,6 +141,8 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
           <span>此处有「绝」档 —— 九死一生，或有大机缘。</span>
         </div>
       ) : null}
+
+      <BagSheet open={bagOpen} onClose={() => setBagOpen(false)} />
     </div>
   )
 }

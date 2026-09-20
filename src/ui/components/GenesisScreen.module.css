@@ -14,7 +14,7 @@
   align-items: center;
   gap: var(--s3);
   padding: calc(var(--s4) + env(safe-area-inset-top, 0px)) var(--s4) var(--s4);
-  background: linear-gradient(180deg, rgba(11, 10, 9, 0.96) 55%, rgba(11, 10, 9, 0));
+  background: linear-gradient(180deg, rgba(var(--ink-0-rgb), 0.96) 55%, rgba(var(--ink-0-rgb), 0));
   backdrop-filter: blur(6px);
 }
 
@@ -67,10 +67,10 @@
 }
 
 .flaw {
-  border-color: rgba(193, 57, 43, 0.24);
+  border-color: rgba(var(--cinnabar-rgb), 0.24);
 }
 .flaw:hover {
-  border-color: rgba(193, 57, 43, 0.5);
+  border-color: rgba(var(--cinnabar-rgb), 0.5);
 }
 
 .slotTop {
@@ -102,12 +102,12 @@
   font-variant-numeric: tabular-nums;
 }
 .modUp {
-  color: #6fb3a3;
-  border-color: rgba(62, 124, 110, 0.36);
+  color: var(--jade-txt);
+  border-color: rgba(var(--jade-rgb), 0.36);
 }
 .modDown {
-  color: #e0705f;
-  border-color: rgba(193, 57, 43, 0.34);
+  color: var(--cinnabar-txt);
+  border-color: rgba(var(--cinnabar-rgb), 0.34);
 }
 
 /* ---------- 天赋 ---------- */
@@ -137,6 +137,7 @@
   gap: var(--s3);
 }
 
+/* 每张卡挂着自己的 data-pack：卡面上的颜色就是那个体系的颜色 */
 .pack {
   position: relative;
   display: flex;
@@ -146,46 +147,64 @@
   padding: var(--s4) var(--s4) var(--s4) calc(var(--s4) + 34px);
   border: 1px solid var(--line);
   border-radius: var(--r);
-  background: rgba(242, 234, 217, 0.022);
+  background:
+    linear-gradient(150deg, rgba(var(--accent-rgb), 0.07), rgba(var(--paper-rgb), 0.02)),
+    var(--ink-2);
   text-align: left;
+  overflow: hidden;
   transition:
     border-color var(--d2) var(--ease),
     background var(--d2) var(--ease),
     transform var(--d2) var(--ease);
 }
+.pack::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent), transparent);
+  opacity: 0.55;
+}
 .pack:hover {
   border-color: var(--line-strong);
-  background: rgba(242, 234, 217, 0.045);
+  background:
+    linear-gradient(150deg, rgba(var(--accent-rgb), 0.13), rgba(var(--paper-rgb), 0.035)),
+    var(--ink-2);
 }
 .pack:active {
   transform: scale(0.985);
 }
 
 .packOn {
-  border-color: rgba(201, 162, 39, 0.5);
-  background: linear-gradient(140deg, rgba(201, 162, 39, 0.12), rgba(201, 162, 39, 0.03));
+  border-color: rgba(var(--accent-rgb), 0.62);
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--accent-rgb), 0.2),
+    0 0 22px rgba(var(--accent-rgb), 0.14);
+}
+.packOn::before {
+  opacity: 1;
 }
 
 /* 本体大字 —— 唯一以「字」作图标的地方 */
 .benti {
   position: absolute;
   left: var(--s4);
-  top: 50%;
-  transform: translateY(-50%);
+  top: var(--s4);
   display: grid;
   place-items: center;
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--accent);
   font-family: var(--font-title);
   font-size: var(--fs-sm);
   color: var(--paper);
+  background: rgba(var(--accent-rgb), 0.14);
 }
 
 .benti[data-shi='1'] {
   border-style: dashed;
-  border-color: rgba(201, 162, 39, 0.55);
+  border-color: rgba(var(--gold-rgb), 0.6);
   color: var(--gold-bright);
 }
 
@@ -193,14 +212,39 @@
   font-family: var(--font-title);
   font-size: var(--fs-sm);
   letter-spacing: 0.1em;
-  color: var(--t1);
+  color: var(--paper);
+}
+
+.packTag {
+  color: var(--t3);
+}
+
+/* 三格小色板 —— 一眼认出这套色 */
+.packSwatch {
+  display: flex;
+  gap: 3px;
+  margin-top: 5px;
+}
+.packSwatch i {
+  width: 14px;
+  height: 3px;
+  border-radius: 99px;
+}
+.packSwatch i:nth-child(1) {
+  background: var(--accent);
+}
+.packSwatch i:nth-child(2) {
+  background: var(--gold);
+}
+.packSwatch i:nth-child(3) {
+  background: var(--paper-dim);
 }
 
 .packMark {
   position: absolute;
   right: var(--s3);
   top: var(--s3);
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .note {
@@ -219,7 +263,7 @@
   display: flex;
   gap: var(--s3);
   padding: var(--s4) var(--s5) calc(var(--s4) + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(0deg, rgba(11, 10, 9, 0.97) 60%, rgba(11, 10, 9, 0));
+  background: linear-gradient(0deg, rgba(var(--ink-0-rgb), 0.97) 60%, rgba(var(--ink-0-rgb), 0));
   backdrop-filter: blur(6px);
 }
 
@@ -238,18 +282,18 @@
   padding: var(--s4);
   border: 1px solid var(--line);
   border-radius: var(--r);
-  background: rgba(242, 234, 217, 0.022);
+  background: rgba(var(--paper-rgb), 0.022);
   text-align: left;
   transition: border-color var(--d2) var(--ease), background var(--d2) var(--ease);
 }
 .pick:hover {
   border-color: var(--line-strong);
-  background: rgba(242, 234, 217, 0.05);
+  background: rgba(var(--paper-rgb), 0.05);
 }
 
 .pickOn {
-  border-color: rgba(201, 162, 39, 0.5);
-  background: rgba(201, 162, 39, 0.07);
+  border-color: rgba(var(--gold-rgb), 0.5);
+  background: rgba(var(--gold-rgb), 0.07);
 }
 
 .pickMods {

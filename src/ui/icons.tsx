@@ -5,7 +5,8 @@
  * 造型取向：简、瘦、留白；不用实心块，不用圆润卡通比例。
  */
 
-import type { CSSProperties, ReactNode } from 'react'
+import type { ComponentType, CSSProperties, ReactNode } from 'react'
+import type { VarKey } from '@/core/types'
 
 export interface IconProps {
   size?: number
@@ -262,3 +263,128 @@ export const IconScroll = (p: IconProps) => (
     <path d="M9.4 15.6h3" />
   </Svg>
 )
+
+/* ---------- 长期变量：一物一形 ---------- */
+
+/* 灵石 —— 通用货币，切面晶体 */
+export const IconCurrency = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M7.4 3.4h9.2l3.4 4.8L12 20.6 4 8.2Z" />
+    <path d="M4 8.2h16" />
+    <path d="m7.4 3.4 2.4 4.8L12 20.6l2.2-12.4 2.4-4.8" />
+  </Svg>
+)
+
+/* 材料 —— 三层锭堆 */
+export const IconMaterial = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M5.6 19.4h12.8l1.6-3.6H4Z" />
+    <path d="M8.2 13.6h7.6l1.4-3.4H6.8Z" />
+    <path d="M9.8 8h4.4l1.2-3H8.6Z" />
+  </Svg>
+)
+
+/* 声望 —— 令旗 */
+export const IconFavor = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M6.6 3.6v16.8" />
+    <path d="M6.6 5.2h11.6l-2.6 3.4 2.6 3.4H6.6Z" />
+    <path d="M3.4 20.4h6.4" />
+  </Svg>
+)
+
+/* 暴露 —— 涟漪：一动手，动静就传出去 */
+export const IconExposure = (p: IconProps) => (
+  <Svg {...p}>
+    <circle cx="5.6" cy="12" r="1.5" />
+    <path d="M10.2 7.4a7 7 0 0 1 0 9.2" />
+    <path d="M13.8 4.4a11.4 11.4 0 0 1 0 15.2" />
+    <path d="M17.6 2.2a15.6 15.6 0 0 1 0 19.6" />
+  </Svg>
+)
+
+/* 功德 —— 莲台 */
+export const IconMerit = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 4.2c1.9 2.1 2.8 4.2 2.8 6.4 0 2.1-1 3.8-2.8 5.1-1.8-1.3-2.8-3-2.8-5.1 0-2.2.9-4.3 2.8-6.4Z" />
+    <path d="M4.6 9.6c2.5.5 4.4 1.7 5.6 3.4" />
+    <path d="M19.4 9.6c-2.5.5-4.4 1.7-5.6 3.4" />
+    <path d="M3.4 15.4c2.7 2.7 5.6 4 8.6 4s5.9-1.3 8.6-4" />
+  </Svg>
+)
+
+/* 伤势 —— 裂纹（0 = 完好，100 = 油尽灯枯） */
+export const IconInjury = (p: IconProps) => (
+  <Svg {...p}>
+    <circle cx="12" cy="12" r="8.2" opacity="0.42" />
+    <path d="M14.4 4.6 9.6 11.4h3.2l-2.8 8" />
+    <path d="M12 11.4H9.6" />
+  </Svg>
+)
+
+/* ---------- 行囊：按物类分的字形 ----------
+   物类由 store 的 itemKind() 从名字/词条推断（表现层，不参与结算）。 */
+
+/* 剑 —— 兵器 */
+export const IconKindSword = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 2.6 13.4 5.2v9.4h-2.8V5.2Z" />
+    <path d="M8 14.6h8" />
+    <path d="M12 14.6v4.2" />
+    <path d="M10.4 20.4h3.2" />
+  </Svg>
+)
+
+/* 丹 —— 葫芦 */
+export const IconKindPill = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 3.4c-1.2 1.7-.6 2.7-1.7 3.8-1.5 1.5-3.3 3-3.3 5.4a5 5 0 0 0 10 0c0-2.4-1.8-3.9-3.3-5.4-1.1-1.1-.5-2.1-1.7-3.8Z" />
+    <path d="M10.6 3.4h2.8" />
+    <path d="M9.4 13.6h5.2" />
+  </Svg>
+)
+
+/* 符 —— 纸符 */
+export const IconKindTalisman = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 2.6 8.4 5.4v16.2h7.2V5.4Z" />
+    <path d="M12 7.2v3" />
+    <path d="M10.2 12.4h3.6" />
+    <path d="M12 15.4v2.8" />
+  </Svg>
+)
+
+/* 器 —— 宝瓶 */
+export const IconKindArtifact = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M7.4 7.4h9.2v2.2H7.4Z" />
+    <path d="M8.8 11.2c-1.5 1.3-2.4 3.1-2.4 5.1a5.6 5.6 0 0 0 11.2 0c0-2-.9-3.8-2.4-5.1Z" />
+    <path d="M4.6 12.6h1.8M17.6 12.6h1.8" />
+    <path d="M12 4.4v3" />
+  </Svg>
+)
+
+/* 材 —— 矿石 */
+export const IconKindMaterial = (p: IconProps) => (
+  <Svg {...p}>
+    <path d="M12 3.4 19 7.6v8.8L12 20.6 5 16.4V7.6Z" />
+    <path d="m5 7.6 7 4.2 7-4.2" />
+    <path d="M12 11.8v8.8" />
+  </Svg>
+)
+
+/* ---------- 长期变量 → 图标 ----------
+   状态条、结算浮字共用一张表：同一个量在哪里都是同一个形状。
+   每个长期变量都必须有图标（缺一个，玩家就得读纯文字）。 */
+export const VAR_ICON: Record<VarKey, ComponentType<IconProps>> = {
+  currency: IconCurrency,
+  power: IconPower,
+  rare_mat: IconMaterial,
+  favor: IconFavor,
+  debt: IconKarma,
+  exposure: IconExposure,
+  corruption: IconDemon,
+  karma: IconMerit,
+  hp: IconInjury,
+  lifespan: IconLifespan,
+}

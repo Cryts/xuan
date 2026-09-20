@@ -1,0 +1,254 @@
+/* ---------- 格子阵列：手机一列，宽屏自动分列 ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(238px, 1fr));
+  gap: var(--s3);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s2);
+  padding: var(--s6) var(--s4);
+  border: 1px dashed var(--line);
+  border-radius: var(--r);
+  color: var(--t3);
+  text-align: center;
+}
+
+/* ---------- 一格 ---------- */
+.cell {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    'glyph body side'
+    'action action action';
+  align-items: start;
+  gap: var(--s2) var(--s3);
+  width: 100%;
+  padding: var(--s3) var(--s3) var(--s3) var(--s3);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background:
+    linear-gradient(160deg, rgba(var(--paper-rgb), 0.06), rgba(var(--paper-rgb), 0.02)),
+    var(--ink-2);
+  text-align: left;
+  transition:
+    border-color var(--d2) var(--ease),
+    background var(--d2) var(--ease),
+    transform var(--d1) var(--ease);
+}
+
+button.cell:hover {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  background:
+    linear-gradient(160deg, rgba(var(--accent-rgb), 0.14), rgba(var(--paper-rgb), 0.03)),
+    var(--ink-2);
+  transform: translateY(-1px);
+}
+button.cell:active {
+  transform: translateY(0) scale(0.995);
+}
+
+/* 宝品以上：本体色描边 + 一点辉光 */
+.cellRare {
+  border-color: rgba(var(--gold-rgb), 0.42);
+  box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), 0.1);
+}
+
+/* 非完好的物事：压一层斜纹，像从旧箱底翻出来的 */
+.cellWorn {
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(var(--paper-rgb), 0.022) 0 5px,
+      transparent 5px 11px
+    ),
+    linear-gradient(160deg, rgba(var(--paper-rgb), 0.05), rgba(var(--paper-rgb), 0.016)),
+    var(--ink-2);
+}
+
+/* ---------- 字形：物类 ---------- */
+.glyph {
+  grid-area: glyph;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 44px;
+  padding: 5px 0 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: rgba(var(--paper-rgb), 0.05);
+  color: var(--accent-2);
+}
+
+.kindTag {
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--t4);
+  transform: scale(0.94);
+  white-space: nowrap;
+}
+
+.cellWorn .glyph {
+  color: var(--t3);
+  opacity: 0.86;
+}
+
+/* ---------- 主体 ---------- */
+.body {
+  grid-area: body;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+  min-width: 0;
+}
+
+.name {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  color: var(--paper);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quality {
+  flex: none;
+  margin-left: auto;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+}
+
+/* 功能标签 —— 金色小签，破局之钥 */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tag {
+  padding: 1px 6px;
+  border: 1px solid rgba(var(--gold-rgb), 0.46);
+  border-radius: var(--r-xs);
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.16), rgba(var(--gold-rgb), 0.05));
+  color: var(--gold-bright);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.noTag {
+  font-size: var(--fs-2xs);
+  color: var(--t4);
+  letter-spacing: 0.06em;
+}
+
+.affixes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px;
+  font-size: var(--fs-2xs);
+}
+
+.affixLabel {
+  color: var(--t4);
+  letter-spacing: 0.1em;
+}
+
+.affix {
+  letter-spacing: 0.06em;
+}
+
+.desc {
+  font-size: var(--fs-2xs);
+  line-height: 1.6;
+  color: var(--t3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- 右侧：成色 ---------- */
+.side {
+  grid-area: side;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex: none;
+}
+
+.wear {
+  padding: 1px 5px;
+  border: 1px solid currentColor;
+  border-radius: var(--r-xs);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+.wear[data-wear='intact'] {
+  color: var(--t3);
+}
+.wear[data-wear='worn'] {
+  color: var(--warn);
+}
+.wear[data-wear='broken'] {
+  color: var(--cinnabar-txt);
+}
+
+.rareMark {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--gold-bright);
+}
+
+.triedMark {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--t4);
+}
+
+/* ---------- 试之提示 ---------- */
+.action {
+  grid-area: action;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+  padding-top: var(--s2);
+  border-top: 1px solid var(--line-2);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.12em;
+  color: var(--gold-bright);
+}
+
+.cellWorn .action {
+  color: var(--t3);
+}
+
+.footNote {
+  margin-top: var(--s5);
+  padding-top: var(--s4);
+  border-top: 1px solid var(--line-2);
+  font-size: var(--fs-2xs);
+  line-height: 2;
+  letter-spacing: 0.04em;
+  color: var(--t3);
+}

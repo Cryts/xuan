@@ -7,7 +7,7 @@
   border: 1px solid var(--line-2);
   border-radius: var(--r);
   color: var(--t2);
-  background: rgba(242, 234, 217, 0.02);
+  background: rgba(var(--paper-rgb), 0.02);
 }
 .intro svg {
   margin-top: 3px;
@@ -28,7 +28,7 @@
   border: 1px solid var(--line);
   border-radius: var(--r);
   background:
-    linear-gradient(180deg, rgba(242, 234, 217, 0.035), rgba(242, 234, 217, 0.008)),
+    linear-gradient(180deg, rgba(var(--paper-rgb), 0.035), rgba(var(--paper-rgb), 0.008)),
     var(--ink-2);
   animation: fadeUp var(--d3) var(--ease-out) both;
 }
@@ -81,9 +81,9 @@
   flex-direction: column;
   gap: var(--s2);
   padding: var(--s3) var(--s4);
-  border: 1px solid rgba(201, 162, 39, 0.2);
+  border: 1px solid rgba(var(--gold-rgb), 0.2);
   border-radius: var(--r);
-  background: linear-gradient(100deg, rgba(201, 162, 39, 0.07), transparent);
+  background: linear-gradient(100deg, rgba(var(--gold-rgb), 0.07), transparent);
 }
 
 .qiyunTop {
@@ -114,7 +114,7 @@
 .worn {
   font-size: var(--fs-2xs);
   letter-spacing: 0.1em;
-  color: #c9743a;
+  color: var(--warn);
   margin-left: auto;
 }
 
@@ -159,10 +159,10 @@
 }
 
 .rel_good {
-  color: #6fb3a3;
+  color: var(--jade-txt);
 }
 .rel_bad {
-  color: #e0705f;
+  color: var(--cinnabar-txt);
 }
 .rel_flat {
   color: var(--t3);
@@ -185,8 +185,9 @@
   gap: var(--s3);
   padding: var(--s3) var(--s4);
   border: 1px solid var(--line-2);
+  border-left: 2px solid rgba(var(--cinnabar-rgb), 0.42);
   border-radius: var(--r);
-  background: rgba(242, 234, 217, 0.016);
+  background: linear-gradient(100deg, rgba(var(--paper-rgb), 0.05), rgba(var(--paper-rgb), 0.014));
   min-height: 5.4em;
 }
 
@@ -197,16 +198,22 @@
   place-items: center;
   width: 1.5em;
   height: 1.5em;
-  border: 1px solid rgba(193, 57, 43, 0.55);
+  border: 1px solid rgba(var(--cinnabar-rgb), 0.55);
   border-radius: var(--r-xs);
   font-family: var(--font-title);
   font-size: var(--fs-2xs);
-  color: #d9564a;
+  color: var(--cinnabar-bright);
 }
 
+/* 谶语是竖排：列由右向左排，容器一窄就会裁掉最左一列。
+   max-height 用来限制**每列长度**（竖排里 height 即字序方向），
+   换列所需的宽度由 flex 容器给足 —— 故此处只留左侧一点字距余量。 */
 .oracle p {
-  max-height: 11em;
+  flex: 1;
+  min-width: 0;
+  max-height: 13em;
   overflow: hidden;
+  padding-left: 0.3em;
 }
 
 .desc {

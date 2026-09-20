@@ -75,12 +75,57 @@ export interface RiskStyle {
   label: string
 }
 
+/* 色值一律走 CSS 变量：换体系包时风险档位也跟着换色相，读法不变 */
 export const RISK_STYLE: Record<RiskTier, RiskStyle> = {
-  稳: { color: 'var(--jade)', edge: 'rgba(62,124,110,.34)', label: '稳' },
-  常: { color: 'rgba(242,234,217,.62)', edge: 'rgba(242,234,217,.14)', label: '常' },
-  险: { color: 'var(--gold)', edge: 'rgba(201,162,39,.36)', label: '险' },
-  狠: { color: '#c9743a', edge: 'rgba(201,116,58,.4)', label: '狠' },
-  绝: { color: 'var(--cinnabar)', edge: 'rgba(193,57,43,.46)', label: '绝' },
+  稳: { color: 'var(--jade-txt)', edge: 'rgba(var(--jade-rgb), 0.4)', label: '稳' },
+  常: { color: 'rgba(var(--paper-rgb), 0.74)', edge: 'rgba(var(--paper-rgb), 0.17)', label: '常' },
+  险: { color: 'var(--gold-bright)', edge: 'rgba(var(--gold-rgb), 0.42)', label: '险' },
+  狠: { color: 'var(--warn)', edge: 'rgba(var(--warn-rgb), 0.46)', label: '狠' },
+  绝: { color: 'var(--cinnabar-txt)', edge: 'rgba(var(--cinnabar-rgb), 0.52)', label: '绝' },
+}
+
+/* ============================================================
+   品阶与成色 —— 行囊格子用
+   ============================================================ */
+
+export const QUALITY_TONE: Record<string, string> = {
+  凡品: 'var(--paper-mute)',
+  灵品: 'var(--jade-txt)',
+  宝品: 'var(--gold-bright)',
+  仙品: 'var(--cinnabar-txt)',
+  道品: 'var(--spirit)',
+  混沌: 'var(--spirit)',
+}
+
+export function qualityTone(quality: string): string {
+  return QUALITY_TONE[quality] ?? 'var(--paper-mute)'
+}
+
+/** 宝品以上给一点辉光 —— 让高阶物事在一格格行囊里跳出来 */
+export function isRare(quality: string): boolean {
+  return quality === '宝品' || quality === '仙品' || quality === '道品' || quality === '混沌'
+}
+
+/* ============================================================
+   告急分档 —— 只决定颜色深浅，不参与任何判定
+   ============================================================ */
+
+export type Urgency = 'calm' | 'warn' | 'dire'
+
+/** 伤势：0 = 完好，100 = 油尽灯枯（方向与血量相反） */
+export function hpUrgency(hp: number): Urgency {
+  if (hp >= 60) return 'dire'
+  if (hp >= 30) return 'warn'
+  return 'calm'
+}
+
+/** 寿元：剩余比例越低越急 */
+export function lifeUrgency(lifespan: number, max: number): Urgency {
+  if (max <= 0) return 'calm'
+  const ratio = lifespan / max
+  if (ratio <= 0.25) return 'dire'
+  if (ratio <= 0.5) return 'warn'
+  return 'calm'
 }
 
 /* ============================================================
@@ -278,4 +323,16 @@ export function realmRange(content: ContentDB, pack: PackId, idx: number): [numb
   const realms = content.packs[pack]?.realms ?? []
   const r = realms[idx] ?? realms[realms.length - 1]
   return r ? [r.power_index[0], r.power_index[1]] : [0, 100]
+}
+
+/** 本境寿元上限 —— 寿元条的分母（缺内容时给 100，宁可画满也不画错） */
+export function realmLifespan(content: ContentDB, pack: PackId, idx: number): number {
+  const realms = content.packs[pack]?.realms ?? []
+  const r = realms[idx] ?? realms[realms.length - 1]
+  return r?.lifespan ?? 100
+}
+
+/** 本境序数 / 总数 —— 状态条上「第几境」的注脚 */
+export function realmCount(content: ContentDB, pack: PackId): number {
+  return Math.max(1, content.packs[pack]?.realms?.length ?? 1)
 }

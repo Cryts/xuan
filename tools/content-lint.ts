@@ -405,6 +405,51 @@ if (c.endings.length < 60) {
   }
 }
 
+// ---- 4a. 正文可达性（text_resolvable）----
+//
+// 只验 `body_key` 字段存在是不够的 —— 键写对了但池子里没有，
+// 运行时 pickFromPool 返回空串，界面就落到兜底文案上。
+//
+// 这条是补的：曾经 64 个结局的 body_key **一个都取不到**，
+// 玩家打完一世看到的永远是兜底的那句"一世终了"，
+// 而当时的检查全绿 —— 因为没有任何一条规则问过"这个键取得到文本吗"。
+{
+  const l2Keys = new Map<string, number>()
+  for (const [k, v] of Object.entries(c.l2)) {
+    l2Keys.set(k, Array.isArray(v) ? v.filter((s) => s && s.trim().length > 0).length : 0)
+  }
+  const checkKey = (key: string | undefined, where: string, what: string) => {
+    if (!key) {
+      err('text_resolvable', where, `${what} 未指定 body_key`)
+      return
+    }
+    const n = l2Keys.get(key)
+    if (n === undefined) {
+      err('text_resolvable', where, `${what} 的键 "${key}" 不在叙事池中 —— 运行时取不到正文`)
+    } else if (n === 0) {
+      err('text_resolvable', where, `${what} 的键 "${key}" 在池中但为空`)
+    } else if (n < 2) {
+      warn('text_resolvable', where, `${what} 的键 "${key}" 只有 1 条候选，建议 ≥2`)
+    }
+  }
+
+  for (const e of asArr<AnyEv>(c.events)) {
+    checkKey(e.narrative?.body_key, `event:${e.id}`, '正文')
+  }
+  for (const sc of asArr<AnyEv>(c.scenarios)) {
+    if (sc.kind !== 'scenario') continue
+    for (const b of sc.breakthroughs ?? []) {
+      const k = (b as { outcome?: { narrative?: string } }).outcome?.narrative
+      if (k) checkKey(k, `scenario:${sc.id}`, `破局组「${b.name ?? b.id}」`)
+    }
+    const u = (sc as { unsolved?: { narrative?: string } }).unsolved?.narrative
+    if (u) checkKey(u, `scenario:${sc.id}`, '未破局')
+  }
+  for (const e of asArr<{ id?: string; body_key?: string }>(c.endings)) {
+    checkKey(e.body_key, `ending:${e.id}`, '结局正文')
+  }
+}
+
 // ---- 4b. hp 语义方向（hp_semantics）----
 //
 // `hp` 是**伤势**：0 = 完好，100 = 油尽灯枯；正 delta = 受伤加重。

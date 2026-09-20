@@ -16,6 +16,7 @@ import { TitleScreen } from './components/TitleScreen'
 import { sfxReveal } from './sfx'
 import {
   GameCtx,
+  applyPackTheme,
   buildHeavenBoard,
   clearSave,
   initState,
@@ -42,6 +43,13 @@ export function App() {
     el.dataset.motion = st.settings.motion ? 'on' : 'off'
     el.dataset.fs = st.settings.fontScale
   }, [st.settings.motion, st.settings.fontScale])
+
+  /* ---- 六体系主题：主角的修炼体系一换，整套界面随之换色 ----
+     开局前用转世页正在选的那个包，开局后用本局实际的包。 */
+  const packId = st.state?.pack_id ?? st.gen.packId
+  useEffect(() => {
+    applyPackTheme(packId)
+  }, [packId])
 
   useEffect(() => {
     saveSettings(st.settings)

@@ -1,43 +1,74 @@
 /* ============================================================
    《玄》设计系统 —— 水墨宣纸 · 夜色修行
-   主色：墨黑 #12100E / 宣纸 #F2EAD9 / 朱砂 #C1392B / 青碧 #3E7C6E / 鎏金 #C9A227
-   暗色为主。留白大、圆角小、段落疏。
+   主色：墨黑 / 宣纸 / 朱砂 / 青碧 / 鎏金
+   暗色为主，但**看得清**：正文对比度 ≥ 手动可读线，卡片与底分明两层。
+
+   【六体系主题】本文件只声明变量，不含任何组件样式。
+   切换体系 = 在根元素（或任意容器）上挂 data-pack="mortal|genius|…"，
+   变量随作用域改写，整屏随之变色。见文末「六体系主题」一节。
    ============================================================ */
 
 :root {
   /* ---- 五正色 ---- */
-  --ink: #12100e;
-  --paper: #f2ead9;
+  --ink: #1c1814;
+  --paper: #f4eddd;
   --cinnabar: #c1392b;
   --jade: #3e7c6e;
   --gold: #c9a227;
 
-  /* ---- 由正色派生的层 ---- */
-  --ink-0: #0b0a09;
-  --ink-1: #12100e;
-  --ink-2: #171513;
-  --ink-3: #1e1b17;
-  --ink-4: #262119;
+  /* ---- 由正色派生的层（比初版整体提亮一档） ---- */
+  --ink-0: #15120e;
+  --ink-1: #1c1814;
+  --ink-2: #241f19;
+  --ink-3: #2d2721;
+  --ink-4: #3a332a;
 
-  --paper-dim: #d8cdb4;
-  --paper-mute: #b9ad93;
+  /* ---- 供 rgba() 拼装的通道值：随主题改写，透明度留在使用处 ---- */
+  --ink-0-rgb: 21, 18, 14;
+  --ink-1-rgb: 28, 24, 20;
+  --paper-rgb: 244, 237, 221;
+  --gold-rgb: 201, 162, 39;
+  --gold-bright-rgb: 224, 189, 74;
+  --jade-rgb: 62, 124, 110;
+  --cinnabar-rgb: 193, 57, 43;
+  --jade-txt-rgb: 121, 191, 174;
+  --cinnabar-txt-rgb: 229, 130, 114;
+  --warn-rgb: 217, 138, 74;
+  --spirit-rgb: 191, 149, 224;
+
+  --paper-dim: #dcd2bb;
+  --paper-mute: #c0b49c;
 
   --cinnabar-deep: #8d2a1f;
   --jade-deep: #2a564c;
   --gold-deep: #8c7318;
-  --gold-bright: #e0bd4a;
+  --gold-bright: #e6c65c;
 
-  /* ---- 文本 ---- */
-  --t1: rgba(242, 234, 217, 0.93);
-  --t2: rgba(242, 234, 217, 0.64);
-  --t3: rgba(242, 234, 217, 0.4);
-  --t4: rgba(242, 234, 217, 0.22);
-  --t5: rgba(242, 234, 217, 0.1);
+  /* ---- 语义色（各体系包改写为自家色相，语义不变） ---- */
+  --jade-txt: #79bfae; /* 成功 / 增益 */
+  --cinnabar-txt: #e58272; /* 危险 / 减损 */
+  --cinnabar-bright: #dc5a4b;
+  --cinnabar-soft: #e8b0a5;
+  --warn: #d98a4a; /* 代价 / 损耗 */
+  --spirit: #bf95e0; /* 心魔 / 污染 */
+
+  /* ---- 本体色：体系的「签名色」，用于环、标签、醒目件 ---- */
+  --accent: #c9a227;
+  --accent-rgb: 201, 162, 39;
+  --accent-2: #3e7c6e;
+  --accent-2-rgb: 62, 124, 110;
+
+  /* ---- 文本（对比度整体上调：正文 .96，次级 .79，弱 .6） ---- */
+  --t1: rgba(var(--paper-rgb), 0.96);
+  --t2: rgba(var(--paper-rgb), 0.79);
+  --t3: rgba(var(--paper-rgb), 0.6);
+  --t4: rgba(var(--paper-rgb), 0.38);
+  --t5: rgba(var(--paper-rgb), 0.17);
 
   /* ---- 线 ---- */
-  --line: rgba(242, 234, 217, 0.11);
-  --line-2: rgba(242, 234, 217, 0.055);
-  --line-strong: rgba(242, 234, 217, 0.2);
+  --line: rgba(var(--paper-rgb), 0.16);
+  --line-2: rgba(var(--paper-rgb), 0.085);
+  --line-strong: rgba(var(--paper-rgb), 0.3);
 
   /* ---- 危险 / 收益 ---- */
   --good: var(--jade);
@@ -110,6 +141,227 @@ html[data-fs='lg'] {
 }
 
 /* ============================================================
+   六体系主题 —— 只改写变量，不重写任何组件样式
+   ------------------------------------------------------------
+   作用域 = 任意带 data-pack 的元素（根元素由 store.applyPackTheme 落属性，
+   转世页的六个体系按钮也各自挂一个，点选前就能看出那套色）。
+   语义约定：--jade=增益，--cinnabar=危险，--gold=提亮/机缘，--accent=本体签名色。
+   各包改写的是**色相与质感**，不是语义 —— 所以整套界面跟着变，读法不变。
+   ============================================================ */
+
+/* mortal · 青冥仙途 —— 气 · 青碧 + 宣纸（清冷） */
+[data-pack='mortal'] {
+  --ink: #151d21;
+  --ink-0: #0f1518;
+  --ink-0-rgb: 15, 21, 24;
+  --ink-1: #161e22;
+  --ink-1-rgb: 22, 30, 34;
+  --ink-2: #1e282d;
+  --ink-3: #26333a;
+  --ink-4: #314149;
+  --paper: #edf5f2;
+  --paper-rgb: 237, 245, 242;
+  --paper-dim: #c9d8d3;
+  --paper-mute: #a4b7b2;
+  --jade: #4f9e8a;
+  --jade-rgb: 79, 158, 138;
+  --jade-txt: #7ecbb8;
+  --jade-txt-rgb: 126, 203, 184;
+  --cinnabar: #c2473a;
+  --cinnabar-rgb: 194, 71, 58;
+  --cinnabar-txt: #e88a7b;
+  --cinnabar-txt-rgb: 232, 138, 123;
+  --cinnabar-bright: #d9604f;
+  --cinnabar-soft: #e9b6ac;
+  --gold: #8fd0bd;
+  --gold-rgb: 143, 208, 189;
+  --gold-bright: #bceadb;
+  --gold-bright-rgb: 188, 234, 219;
+  --gold-deep: #4f9e8a;
+  --accent: #4f9e8a;
+  --accent-rgb: 79, 158, 138;
+  --accent-2: #9ed8c8;
+  --accent-2-rgb: 158, 216, 200;
+}
+
+/* genius · 炎武纪元 —— 气 · 赭橙 + 鎏金（炽烈） */
+[data-pack='genius'] {
+  --ink: #201710;
+  --ink-0: #17110c;
+  --ink-0-rgb: 23, 17, 12;
+  --ink-1: #221810;
+  --ink-1-rgb: 34, 24, 16;
+  --ink-2: #2b1f13;
+  --ink-3: #372818;
+  --ink-4: #46331d;
+  --paper: #f8ecd6;
+  --paper-rgb: 248, 236, 214;
+  --paper-dim: #ddc6a0;
+  --paper-mute: #bfa47b;
+  --jade: #6f9e5c;
+  --jade-rgb: 111, 158, 92;
+  --jade-txt: #9dcb7f;
+  --jade-txt-rgb: 157, 203, 127;
+  --cinnabar: #c94a2b;
+  --cinnabar-rgb: 201, 74, 43;
+  --cinnabar-txt: #f0916a;
+  --cinnabar-txt-rgb: 240, 145, 106;
+  --cinnabar-bright: #e26a3e;
+  --cinnabar-soft: #f2b795;
+  --gold: #e0a63a;
+  --gold-rgb: 224, 166, 58;
+  --gold-bright: #f8d177;
+  --gold-bright-rgb: 248, 209, 119;
+  --gold-deep: #9a6f1c;
+  --accent: #d2762e;
+  --accent-rgb: 210, 118, 46;
+  --accent-2: #e0a63a;
+  --accent-2-rgb: 224, 166, 58;
+}
+
+/* physique · 太古遗蜕 —— 体 · 玄铁灰 + 骨白（厚重） */
+[data-pack='physique'] {
+  --ink: #1a1a17;
+  --ink-0: #131311;
+  --ink-0-rgb: 19, 19, 17;
+  --ink-1: #1b1b18;
+  --ink-1-rgb: 27, 27, 24;
+  --ink-2: #24241f;
+  --ink-3: #2f2f29;
+  --ink-4: #3d3d35;
+  --paper: #f0ebdf;
+  --paper-rgb: 240, 235, 223;
+  --paper-dim: #cdc5b3;
+  --paper-mute: #aca598;
+  --jade: #7d9a86;
+  --jade-rgb: 125, 154, 134;
+  --jade-txt: #aac4b2;
+  --jade-txt-rgb: 170, 196, 178;
+  --cinnabar: #b0483a;
+  --cinnabar-rgb: 176, 72, 58;
+  --cinnabar-txt: #de8d7e;
+  --cinnabar-txt-rgb: 222, 141, 126;
+  --cinnabar-bright: #c9604d;
+  --cinnabar-soft: #ddb0a6;
+  --gold: #cabd9f;
+  --gold-rgb: 202, 189, 159;
+  --gold-bright: #ece1c4;
+  --gold-bright-rgb: 236, 225, 196;
+  --gold-deep: #8b8069;
+  --accent: #b9ae93;
+  --accent-rgb: 185, 174, 147;
+  --accent-2: #7d9a86;
+  --accent-2-rgb: 125, 154, 134;
+}
+
+/* mystery · 灰雾之秘 —— 灵 · 灰紫 + 冷青（诡谲） */
+[data-pack='mystery'] {
+  --ink: #191725;
+  --ink-0: #12111a;
+  --ink-0-rgb: 18, 17, 26;
+  --ink-1: #1a1826;
+  --ink-1-rgb: 26, 24, 38;
+  --ink-2: #232032;
+  --ink-3: #2d2941;
+  --ink-4: #3a3452;
+  --paper: #ebe8f5;
+  --paper-rgb: 235, 232, 245;
+  --paper-dim: #c3bdd8;
+  --paper-mute: #9e97b4;
+  --jade: #4fa3a0;
+  --jade-rgb: 79, 163, 160;
+  --jade-txt: #80ccc7;
+  --jade-txt-rgb: 128, 204, 199;
+  --cinnabar: #b0436c;
+  --cinnabar-rgb: 176, 67, 108;
+  --cinnabar-txt: #de81a6;
+  --cinnabar-txt-rgb: 222, 129, 166;
+  --cinnabar-bright: #cc5c85;
+  --cinnabar-soft: #e2aac1;
+  --gold: #86c6d4;
+  --gold-rgb: 134, 198, 212;
+  --gold-bright: #b8e6f0;
+  --gold-bright-rgb: 184, 230, 240;
+  --gold-deep: #4a8291;
+  --accent: #9a7fd1;
+  --accent-rgb: 154, 127, 209;
+  --accent-2: #86c6d4;
+  --accent-2-rgb: 134, 198, 212;
+  --spirit: #cbaaf0;
+  --spirit-rgb: 203, 170, 240;
+}
+
+/* rebel · 逆天问道 —— 意 · 朱砂 + 墨黑（锋锐） */
+[data-pack='rebel'] {
+  --ink: #1a1311;
+  --ink-0: #120d0c;
+  --ink-0-rgb: 18, 13, 12;
+  --ink-1: #1b1412;
+  --ink-1-rgb: 27, 20, 18;
+  --ink-2: #241a17;
+  --ink-3: #30221e;
+  --ink-4: #3f2d27;
+  --paper: #f7eae3;
+  --paper-rgb: 247, 234, 227;
+  --paper-dim: #d8bbb1;
+  --paper-mute: #b4928b;
+  --jade: #5e9e8c;
+  --jade-rgb: 94, 158, 140;
+  --jade-txt: #8ccbb8;
+  --jade-txt-rgb: 140, 203, 184;
+  --cinnabar: #d6402e;
+  --cinnabar-rgb: 214, 64, 46;
+  --cinnabar-txt: #f1897a;
+  --cinnabar-txt-rgb: 241, 137, 122;
+  --cinnabar-bright: #ec5f45;
+  --cinnabar-soft: #f4b3a5;
+  --gold: #d9a03c;
+  --gold-rgb: 217, 160, 60;
+  --gold-bright: #f4c973;
+  --gold-bright-rgb: 244, 201, 115;
+  --gold-deep: #96682a;
+  --accent: #d6402e;
+  --accent-rgb: 214, 64, 46;
+  --accent-2: #d9a03c;
+  --accent-2-rgb: 217, 160, 60;
+}
+
+/* cautious · 苟道长生 —— 势 · 竹青 + 暗金（沉静） */
+[data-pack='cautious'] {
+  --ink: #161c15;
+  --ink-0: #101410;
+  --ink-0-rgb: 16, 20, 16;
+  --ink-1: #171d16;
+  --ink-1-rgb: 23, 29, 22;
+  --ink-2: #1f261d;
+  --ink-3: #293125;
+  --ink-4: #35402f;
+  --paper: #eef1e3;
+  --paper-rgb: 238, 241, 227;
+  --paper-dim: #cad1b7;
+  --paper-mute: #a7af92;
+  --jade: #6e9c63;
+  --jade-rgb: 110, 156, 99;
+  --jade-txt: #a0ca90;
+  --jade-txt-rgb: 160, 202, 144;
+  --cinnabar: #b2493a;
+  --cinnabar-rgb: 178, 73, 58;
+  --cinnabar-txt: #de8c7a;
+  --cinnabar-txt-rgb: 222, 140, 122;
+  --cinnabar-bright: #c95f4a;
+  --cinnabar-soft: #deb1a5;
+  --gold: #cba43e;
+  --gold-rgb: 203, 164, 62;
+  --gold-bright: #e6c46c;
+  --gold-bright-rgb: 230, 196, 108;
+  --gold-deep: #7d6520;
+  --accent: #6e9c63;
+  --accent-rgb: 110, 156, 99;
+  --accent-2: #cba43e;
+  --accent-2-rgb: 203, 164, 62;
+}
+
+/* ============================================================
    重置
    ============================================================ */
 
@@ -137,10 +389,11 @@ body {
   line-height: var(--lh-body);
   color: var(--t1);
   background-color: var(--ink-0);
+  /* 环境光取自本体系的本体色 —— 换包时连「空气的颜色」都变 */
   background-image:
-    radial-gradient(115% 72% at 50% -12%, rgba(201, 162, 39, 0.075), transparent 62%),
-    radial-gradient(95% 60% at 50% 112%, rgba(62, 124, 110, 0.07), transparent 60%),
-    radial-gradient(140% 100% at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.45) 100%);
+    radial-gradient(115% 72% at 50% -12%, rgba(var(--accent-2-rgb), 0.14), transparent 62%),
+    radial-gradient(95% 60% at 50% 112%, rgba(var(--accent-rgb), 0.13), transparent 60%),
+    radial-gradient(140% 100% at 50% 50%, transparent 46%, rgba(0, 0, 0, 0.34) 100%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -188,20 +441,20 @@ svg {
 }
 
 ::selection {
-  background: rgba(193, 57, 43, 0.32);
+  background: rgba(var(--cinnabar-rgb), 0.32);
 }
 
 /* 滚动条 —— 细、暗、不打扰 */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(242, 234, 217, 0.16) transparent;
+  scrollbar-color: rgba(var(--paper-rgb), 0.16) transparent;
 }
 *::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 *::-webkit-scrollbar-thumb {
-  background: rgba(242, 234, 217, 0.16);
+  background: rgba(var(--paper-rgb), 0.16);
   border-radius: 99px;
 }
 *::-webkit-scrollbar-track {
@@ -280,28 +533,42 @@ svg {
   color: var(--paper);
 }
 
-/* 竖排标题 —— 卷轴签条 */
+/* 竖排标题 —— 卷轴签条
+   ------------------------------------------------------------------
+   三个坑，一次说清（初版在此裁字）：
+   1. 竖排里 letter-spacing 加在**字序末尾**（下方），不是右侧；
+   2. 换列方向是「由右向左」—— 容器定宽 + overflow:hidden 时，
+      被裁掉的正是**最左边那一列**；
+   3. 列宽由 line-height 决定，line-height:1 会压到字身。
+   故：容器自适应宽（见 EventScreen 的 .titleCol），文本不设裁切，
+   line-height 给到 1.35，末端补一点 padding 吃掉多出的字距。 */
 .x-vtitle {
   writing-mode: vertical-rl;
   text-orientation: upright;
   font-family: var(--font-title);
   font-size: var(--fs-md);
-  letter-spacing: 0.32em;
-  line-height: 1;
+  letter-spacing: 0.3em;
+  line-height: 1.35;
   color: var(--paper);
-  max-height: 100%;
-  overflow: hidden;
+  overflow: visible;
+  max-height: none;
+  padding-bottom: 0.14em;
+  padding-left: 0.06em;
+  text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.16);
 }
 
-/* 书法感 —— 谶语批注 */
+/* 书法感 —— 谶语批注（同为竖排，同样不许裁） */
 .x-calli {
   writing-mode: vertical-rl;
   font-family: var(--font-title);
   font-size: var(--fs-sm);
-  line-height: 2;
-  letter-spacing: 0.26em;
+  line-height: 1.9;
+  letter-spacing: 0.24em;
   color: var(--paper-dim);
-  text-shadow: 0 0 18px rgba(201, 162, 39, 0.14);
+  overflow: visible;
+  padding-bottom: 0.12em;
+  padding-left: 0.08em;
+  text-shadow: 0 0 18px rgba(var(--gold-rgb), 0.16);
 }
 
 /* 打字机光标 */
@@ -351,15 +618,27 @@ svg {
 .x-card {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(242, 234, 217, 0.038), rgba(242, 234, 217, 0.012)),
+    linear-gradient(180deg, rgba(var(--paper-rgb), 0.075), rgba(var(--paper-rgb), 0.028)),
     var(--ink-2);
   border: 1px solid var(--line);
   border-radius: var(--r);
   padding: var(--s5);
+  /* 卡片与底之间给一道内高光 + 落影 —— 两层分明，不再糊成一片 */
+  box-shadow:
+    inset 0 1px 0 rgba(var(--paper-rgb), 0.07),
+    0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .x-card--flat {
-  background: rgba(242, 234, 217, 0.026);
+  background: rgba(var(--paper-rgb), 0.045);
+}
+
+/* 醒目卡：本体色描边，用于境界 / 灵石一类关键信息 */
+.x-card--key {
+  border-color: rgba(var(--accent-rgb), 0.34);
+  background:
+    linear-gradient(150deg, rgba(var(--accent-rgb), 0.14), rgba(var(--paper-rgb), 0.03)),
+    var(--ink-2);
 }
 
 .x-card--quiet {
@@ -412,7 +691,7 @@ svg {
   padding: var(--s3) var(--s5);
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
-  background: rgba(242, 234, 217, 0.03);
+  background: rgba(var(--paper-rgb), 0.03);
   color: var(--t1);
   font-family: var(--font-title);
   font-size: var(--fs-sm);
@@ -425,7 +704,7 @@ svg {
     transform var(--d1) var(--ease);
 }
 .x-btn:hover {
-  background: rgba(242, 234, 217, 0.07);
+  background: rgba(var(--paper-rgb), 0.07);
   border-color: var(--line-strong);
 }
 .x-btn:active {
@@ -437,23 +716,23 @@ svg {
 }
 
 .x-btn--primary {
-  border-color: rgba(193, 57, 43, 0.5);
-  background: linear-gradient(180deg, rgba(193, 57, 43, 0.22), rgba(193, 57, 43, 0.1));
+  border-color: rgba(var(--cinnabar-rgb), 0.5);
+  background: linear-gradient(180deg, rgba(var(--cinnabar-rgb), 0.22), rgba(var(--cinnabar-rgb), 0.1));
   color: var(--paper);
 }
 .x-btn--primary:hover {
-  background: linear-gradient(180deg, rgba(193, 57, 43, 0.32), rgba(193, 57, 43, 0.16));
-  border-color: rgba(193, 57, 43, 0.72);
+  background: linear-gradient(180deg, rgba(var(--cinnabar-rgb), 0.32), rgba(var(--cinnabar-rgb), 0.16));
+  border-color: rgba(var(--cinnabar-rgb), 0.72);
 }
 
 .x-btn--gold {
-  border-color: rgba(201, 162, 39, 0.42);
-  background: linear-gradient(180deg, rgba(201, 162, 39, 0.16), rgba(201, 162, 39, 0.05));
+  border-color: rgba(var(--gold-rgb), 0.42);
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.16), rgba(var(--gold-rgb), 0.05));
   color: var(--gold-bright);
 }
 .x-btn--gold:hover {
-  background: linear-gradient(180deg, rgba(201, 162, 39, 0.24), rgba(201, 162, 39, 0.09));
-  border-color: rgba(201, 162, 39, 0.62);
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.24), rgba(var(--gold-rgb), 0.09));
+  border-color: rgba(var(--gold-rgb), 0.62);
 }
 
 .x-btn--quiet {
@@ -463,7 +742,7 @@ svg {
 }
 .x-btn--quiet:hover {
   color: var(--t1);
-  background: rgba(242, 234, 217, 0.05);
+  background: rgba(var(--paper-rgb), 0.05);
 }
 
 .x-btn--block {
@@ -508,16 +787,16 @@ svg {
   white-space: nowrap;
 }
 .x-chip--gold {
-  border-color: rgba(201, 162, 39, 0.4);
+  border-color: rgba(var(--gold-rgb), 0.4);
   color: var(--gold);
 }
 .x-chip--jade {
-  border-color: rgba(62, 124, 110, 0.45);
-  color: #6fb3a3;
+  border-color: rgba(var(--jade-rgb), 0.45);
+  color: var(--jade-txt);
 }
 .x-chip--cinnabar {
-  border-color: rgba(193, 57, 43, 0.45);
-  color: #e0705f;
+  border-color: rgba(var(--cinnabar-rgb), 0.45);
+  color: var(--cinnabar-txt);
 }
 
 /* ============================================================
@@ -528,7 +807,7 @@ svg {
   position: relative;
   height: 3px;
   border-radius: 99px;
-  background: rgba(242, 234, 217, 0.09);
+  background: rgba(var(--paper-rgb), 0.09);
   overflow: hidden;
 }
 .x-bar__fill {
@@ -549,16 +828,16 @@ svg {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  border: 1px solid rgba(201, 162, 39, 0.5);
-  background: rgba(201, 162, 39, 0.08);
+  border: 1px solid rgba(var(--gold-rgb), 0.5);
+  background: rgba(var(--gold-rgb), 0.08);
   transition:
     background var(--d2) var(--ease),
     box-shadow var(--d2) var(--ease);
 }
 .x-pip--on {
   background: radial-gradient(circle at 35% 30%, var(--gold-bright), var(--gold-deep));
-  border-color: rgba(224, 189, 74, 0.9);
-  box-shadow: 0 0 8px rgba(201, 162, 39, 0.45);
+  border-color: rgba(var(--gold-bright-rgb), 0.9);
+  box-shadow: 0 0 8px rgba(var(--gold-rgb), 0.45);
 }
 .x-pip--spent {
   animation: pipPop var(--d3) var(--ease-out);
@@ -573,7 +852,7 @@ svg {
   flex: 1;
   height: 4px;
   border-radius: 1px;
-  background: rgba(242, 234, 217, 0.09);
+  background: rgba(var(--paper-rgb), 0.09);
 }
 .x-tick--used {
   background: linear-gradient(90deg, var(--gold-deep), var(--gold));
@@ -591,8 +870,8 @@ svg {
   position: fixed;
   inset: 0;
   z-index: 40;
-  background: rgba(8, 7, 6, 0.72);
-  backdrop-filter: blur(3px);
+  background: rgba(0, 0, 0, 0.66);
+  backdrop-filter: blur(4px);
   animation: fadeIn var(--d2) var(--ease) both;
 }
 
@@ -603,11 +882,11 @@ svg {
   z-index: 41;
   width: min(100%, var(--page));
   transform: translateX(-50%);
-  max-height: 82dvh;
+  max-height: 84dvh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, var(--ink-3), var(--ink-1) 42%);
-  border-top: 1px solid var(--line-strong);
+  border-top: 1px solid rgba(var(--accent-rgb), 0.36);
   border-radius: var(--r-lg) var(--r-lg) 0 0;
   box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.6);
   animation: sheetUp var(--d3) var(--ease-out) both;
@@ -635,9 +914,9 @@ svg {
   z-index: 60;
   max-width: min(92vw, 520px);
   padding: var(--s3) var(--s5);
-  border: 1px solid rgba(201, 162, 39, 0.34);
+  border: 1px solid rgba(var(--gold-rgb), 0.34);
   border-radius: var(--r-sm);
-  background: rgba(18, 16, 14, 0.94);
+  background: rgba(var(--ink-1-rgb), 0.94);
   color: var(--gold-bright);
   font-family: var(--font-title);
   font-size: var(--fs-sm);
@@ -800,14 +1079,31 @@ svg {
 @keyframes goldenSeep {
   0% {
     background-size: 0% 100%;
-    box-shadow: 0 0 0 rgba(201, 162, 39, 0);
+    box-shadow: 0 0 0 rgba(var(--gold-rgb), 0);
   }
   60% {
-    box-shadow: 0 0 26px rgba(201, 162, 39, 0.22);
+    box-shadow: 0 0 26px rgba(var(--gold-rgb), 0.22);
   }
   100% {
     background-size: 100% 100%;
-    box-shadow: 0 0 0 rgba(201, 162, 39, 0);
+    box-shadow: 0 0 0 rgba(var(--gold-rgb), 0);
+  }
+}
+
+/* 揭示之后：金光起，久久不散 —— 让那条隐规则在列表里一直「亮着」 */
+@keyframes ritualGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(var(--gold-rgb), 0);
+  }
+  10% {
+    box-shadow:
+      0 0 34px rgba(var(--gold-rgb), 0.45),
+      inset 0 0 22px rgba(var(--gold-rgb), 0.14);
+  }
+  100% {
+    box-shadow:
+      0 0 16px rgba(var(--gold-rgb), 0.18),
+      inset 0 0 10px rgba(var(--gold-rgb), 0.07);
   }
 }
 
@@ -830,11 +1126,11 @@ svg {
 @keyframes pipPop {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 0 rgba(201, 162, 39, 0.7);
+    box-shadow: 0 0 0 rgba(var(--gold-rgb), 0.7);
   }
   40% {
     transform: scale(1.5);
-    box-shadow: 0 0 16px rgba(201, 162, 39, 0.7);
+    box-shadow: 0 0 16px rgba(var(--gold-rgb), 0.7);
   }
   100% {
     transform: scale(1);
@@ -854,10 +1150,10 @@ svg {
 
 @keyframes pulseRing {
   0% {
-    box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.32);
+    box-shadow: 0 0 0 0 rgba(var(--gold-rgb), 0.32);
   }
   100% {
-    box-shadow: 0 0 0 12px rgba(201, 162, 39, 0);
+    box-shadow: 0 0 0 12px rgba(var(--gold-rgb), 0);
   }
 }
 
@@ -867,6 +1163,74 @@ svg {
   }
   100% {
     background-position: 260% 0;
+  }
+}
+
+/* 灵石跳动 —— 数字变化时重放（元素以数值为 key 重挂载） */
+@keyframes coinPop {
+  0% {
+    transform: translateY(0) scale(1);
+    text-shadow: 0 0 0 rgba(var(--gold-rgb), 0);
+  }
+  28% {
+    transform: translateY(-3px) scale(1.14);
+    text-shadow: 0 0 16px rgba(var(--gold-rgb), 0.6);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    text-shadow: 0 0 0 rgba(var(--gold-rgb), 0);
+  }
+}
+
+/* 隐规则揭示：金环自中心荡开 */
+@keyframes revealFlare {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  22% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+
+/* 隐规则揭示：一线金墨扫过整条 */
+@keyframes revealSweep {
+  0% {
+    background-position: -140% 0;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    background-position: 240% 0;
+    opacity: 0;
+  }
+}
+
+/* 参透横幅：自上方沉下，印章般稳住 */
+@keyframes revealDrop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -18px) scale(1.16);
+    filter: blur(6px);
+  }
+  38% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+    filter: blur(0);
+  }
+  82% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -6px) scale(0.99);
   }
 }
 

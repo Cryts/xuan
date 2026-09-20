@@ -20,98 +20,16 @@
 }
 
 .filterOn {
-  border-color: rgba(201, 162, 39, 0.55);
+  border-color: rgba(var(--gold-rgb), 0.55);
   color: var(--gold-bright);
-  background: rgba(201, 162, 39, 0.09);
+  background: rgba(var(--gold-rgb), 0.1);
 }
 
 .sec {
   margin-bottom: var(--s5);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--s3);
-}
-
-.item {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s2);
-  padding: var(--s4);
-  border: 1px solid var(--line);
-  border-left: 2px solid rgba(201, 162, 39, 0.32);
-  border-radius: var(--r);
-  background: linear-gradient(100deg, rgba(201, 162, 39, 0.05), rgba(242, 234, 217, 0.014));
-  text-align: left;
-  transition:
-    background var(--d2) var(--ease),
-    border-color var(--d2) var(--ease),
-    transform var(--d1) var(--ease);
-}
-.item:hover {
-  background: linear-gradient(100deg, rgba(201, 162, 39, 0.11), rgba(242, 234, 217, 0.03));
-  border-color: rgba(201, 162, 39, 0.45);
-  transform: translateX(2px);
-}
-.item:active {
-  transform: translateX(2px) scale(0.99);
-}
-
-.itemTried {
-  border-left-color: var(--line);
-  opacity: 0.62;
-}
-
-.itemTop {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s3);
-}
-
-.itemName {
-  font-family: var(--font-title);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.06em;
-  color: var(--paper);
-  line-height: 1.5;
-}
-
-.quality {
-  flex: none;
-  font-size: var(--fs-2xs);
-  letter-spacing: 0.1em;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s2);
-}
-
-/* 功能标签 —— 破局条件唯一认的东西，所以给它金属质感 */
-.tag {
-  padding: 1px var(--s2);
-  border: 1px solid rgba(201, 162, 39, 0.34);
-  border-radius: var(--r-xs);
-  font-size: var(--fs-2xs);
-  letter-spacing: 0.08em;
-  color: var(--gold);
-  background: rgba(201, 162, 39, 0.05);
-}
-
-.tryLine {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-top: var(--s1);
-  font-size: var(--fs-2xs);
-  letter-spacing: 0.14em;
-  color: var(--t3);
-}
-
+/* ---------- 法门 ---------- */
 .ruleList {
   display: flex;
   flex-direction: column;
@@ -124,15 +42,22 @@
   gap: var(--s3);
   padding: var(--s3) var(--s4);
   border: 1px solid var(--line);
+  border-left: 2px solid rgba(var(--gold-rgb), 0.42);
   border-radius: var(--r);
-  background: rgba(242, 234, 217, 0.022);
+  background: rgba(var(--paper-rgb), 0.045);
   text-align: left;
   color: var(--t2);
   transition: all var(--d2) var(--ease);
 }
 .rule:hover {
-  border-color: rgba(201, 162, 39, 0.4);
+  border-color: rgba(var(--gold-rgb), 0.45);
   color: var(--t1);
+  background: rgba(var(--gold-rgb), 0.09);
+}
+
+.ruleTried {
+  border-left-color: var(--line);
+  opacity: 0.66;
 }
 
 .ruleName {
@@ -157,10 +82,4 @@
   align-items: center;
   gap: var(--s3);
   margin-top: var(--s4);
-}
-
-@media (min-width: 560px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }

@@ -19,6 +19,8 @@ import {
   resolveEnding,
   startRun,
   submitOption,
+  submitScenarioAction,
+  submitScenarioEntry,
   submitTrial,
 } from '../src/core/engine'
 import { rollGenesis } from '../src/core/genesis'
@@ -121,6 +123,7 @@ interface RunStat {
   destinySlain: number
   destinyWorn: number
   scenarioSolved: number
+  scenarioEntries: number
   learnedRules: number
   intentCounts: Map<string, number>
 }
@@ -144,20 +147,40 @@ function simulateOne(runIndex: number, arch: Archetype): RunStat | null {
   const intentCounts = new Map<string, number>()
   let guard = 0
   let scenarioSolved = 0
+  let scenarioEntries = 0
 
   while (state.status === 'alive' && guard < 300) {
     guard++
     const pres = presentCurrent(state, content)
 
-    // 剧本中：模拟"翻找行囊"——优先试没试过的
-    if (pres.kind === 'scenario' && pres.trials && pres.trials.length > 0) {
-      const tried = new Set(state.active_scenario?.attempted ?? [])
-      const fresh = pres.trials.filter((t) => !tried.has(t.ref))
-      const pool = fresh.length > 0 ? fresh : pres.trials
-      const t = pool[rng.int(0, pool.length - 1)]!
+    // 剧本触发：多数人进，偶尔绕开 —— 入场本身就是一个选择
+    if (pres.scenario_entry) {
+      const enter = rng.chance(0.75)
+      state = submitScenarioEntry(state, enter, content).state
+      if (enter) scenarioEntries++
+      continue
+    }
+
+    // 剧本中：在「翻行囊」与「通用手段」之间轮换 ——
+    // 只试物品的话测不出通用手段的价值，也测不出真实的破局率
+    if (pres.kind === 'scenario' && state.active_scenario) {
       const before = state.ending_threads.length
-      const res = submitTrial(state, t.kind, t.ref, content)
-      state = res.state
+      const useAction = rng.chance(0.45) || !pres.trials?.length
+      if (useAction) {
+        const acts = (pres.actions ?? []).filter((a) => a.id !== 'leave')
+        if (acts.length > 0) {
+          const a = acts[rng.int(0, acts.length - 1)]!
+          state = submitScenarioAction(state, a.id, content).state
+        } else {
+          state = submitScenarioAction(state, 'wait', content).state
+        }
+      } else {
+        const tried = new Set(state.active_scenario?.attempted ?? [])
+        const fresh = pres.trials!.filter((t) => !tried.has(t.ref))
+        const pool = fresh.length > 0 ? fresh : pres.trials!
+        const t = pool[rng.int(0, pool.length - 1)]!
+        state = submitTrial(state, t.kind, t.ref, content).state
+      }
       if (state.ending_threads.length > before) scenarioSolved++
       continue
     }
@@ -206,6 +229,7 @@ function simulateOne(runIndex: number, arch: Archetype): RunStat | null {
       0,
     ),
     scenarioSolved,
+    scenarioEntries,
     learnedRules: state.learned_rules.length,
     intentCounts,
   }
@@ -338,6 +362,7 @@ console.log(`  被截杀          ${slain} 位  （${totalDC > 0 ? ((slain / tot
 
 // ── 剧本 ──
 console.log('\n── 剧本 ──')
+console.log(`  平均每局进入    ${avg(all.map((s) => s.scenarioEntries)).toFixed(2)} 次`)
 console.log(`  平均每局破局    ${avg(all.map((s) => s.scenarioSolved)).toFixed(2)} 次`)
 console.log(`  平均习得外来规则 ${avg(all.map((s) => s.learnedRules)).toFixed(2)} 条`)
 
@@ -348,7 +373,18 @@ const checks: [string, boolean, string][] = [
   ['估算时长 4–10 分钟', (avgNodes * 15) / 60 >= 4 && (avgNodes * 15) / 60 <= 10, `${((avgNodes * 15) / 60).toFixed(1)} 分`],
   ['道陨率 ≤40%', deathRate <= 0.4, `${(deathRate * 100).toFixed(1)}%`],
   ['结局多样性 ≥0.5', diversity(all.map((s) => s.ending)) >= 0.5, diversity(all.map((s) => s.ending)).toFixed(3)],
-  ['成长能到后期（均战力 ≥200）', avg(all.map((s) => s.power_index)) >= 200, avg(all.map((s) => s.power_index)).toFixed(0)],
+  // 这一项原先写的是"均战力 ≥200"，那是早期假设——当时成长太快，
+  // 人人冲到高境界，飞升率三成。后来把换算率调慢，多数人终局停在化神上下，
+  // **这正是凡人流想要的**：登顶该是少数人的事。
+  // 所以改成直接量设计意图本身：飞升率落在 5–15%。
+  [
+    '飞升率 5–15%（登顶是少数）',
+    (() => {
+      const fly = all.filter((s) => s.ending.includes('飞升')).length / all.length
+      return fly >= 0.05 && fly <= 0.15
+    })(),
+    pct(all.filter((s) => s.ending.includes('飞升')).length, all.length),
+  ],
   ['无支配性原型（差 ≤20%）', spread <= 0.2, `${(spread * 100).toFixed(1)}%`],
   ['剧本可达（每局 ≥0.3 次破局）', avg(all.map((s) => s.scenarioSolved)) >= 0.3, avg(all.map((s) => s.scenarioSolved)).toFixed(2)],
   ['位面之子可被截杀', slain > 0, `${slain} 位`],

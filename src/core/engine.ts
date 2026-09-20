@@ -36,7 +36,10 @@ import type {
   Option,
   OutcomeBand,
   PackId,
+  Realm,
   Scenario,
+  ScenarioAction,
+  ScenarioActionId,
   Stage,
   TrialOption,
   VarKey,
@@ -73,13 +76,48 @@ const STAGE_TENSION_TARGET: Record<Stage, number> = {
  * 没有这一步，玩家会一辈子停在最底层——所有高境界结局都成死内容。
  * 调这个值等于调整整局的成长速度，改前先跑 Monte Carlo。
  */
-export const POWER_TO_INDEX = 0.5
+export const POWER_TO_INDEX = 0.26
 
 /**
  * 由累积修为反推 power_index 与 realm_idx。
  * 这是「统一数值骨架」的落地：引擎只认 power_index，
  * 表层境界名是它经体系包查表得到的投影。
  */
+/**
+ * 大境界内部的小境界称呼。
+ *
+ * 玩家反馈「缺乏小境界提升的明显，直接就大境界跨越了，每个境界停留时间较短」——
+ * 十三个大境界摊在二十五步里，每跨一级都是大跳，成长感是断的。
+ * 有了小境界，同样一段路会被切成「炼气七层→八层→九层→筑基初期」，
+ * 每一步都有东西可看，大跨越也就不显得突兀了。
+ *
+ * 默认口径按修行题材的惯例：首个大境界九层，其余初期/中期/后期/圆满。
+ * 内容包可用 `realm.sub_names` 覆盖。
+ */
+const SUB_NINE = ['一层', '二层', '三层', '四层', '五层', '六层', '七层', '八层', '九层']
+const SUB_FOUR = ['初期', '中期', '后期', '圆满']
+
+export function subLevelsOf(realm: Realm | undefined, realmIdx: number): string[] {
+  if (!realm) return []
+  // 显式给了空数组 = 这个体系不要小境界。
+  // 阶位/序列类的体系（如灰雾之秘的"阶位九品→一品"）名字本身已经有序，
+  // 再缀上"一层"会变成"阶位八品一层"这种别扭的东西。
+  if (Array.isArray(realm.sub_names)) return realm.sub_names
+  if (realmIdx <= 0) return [] // 凡人无小境界
+  if (realmIdx === 1) return SUB_NINE
+  return SUB_FOUR
+}
+
+/** 「炼气七层」「筑基后期」「凡人」 */
+export function progressNameOf(state: GameState, content: ContentDB): string {
+  const pack = content.packs[state.pack_id]
+  const realm = pack?.realms[state.realm_idx]
+  if (!realm) return '未知'
+  const subs = subLevelsOf(realm, state.realm_idx)
+  if (subs.length === 0) return realm.name
+  return `${realm.name}${subs[Math.min(state.minor_idx, subs.length - 1)] ?? ''}`
+}
+
 export function recomputeProgress(state: GameState, content: ContentDB): GameState {
   const pack = content.packs[state.pack_id]
   if (!pack || pack.realms.length === 0) return state
@@ -94,8 +132,25 @@ export function recomputeProgress(state: GameState, content: ContentDB): GameSta
     }
   }
 
-  if (power_index === state.power_index && realm_idx === state.realm_idx) return state
-  return { ...state, power_index, realm_idx }
+  // 大境界内的小境界：按 power_index 在本段区间里的位置切分
+  const realm = pack.realms[realm_idx]!
+  const subs = subLevelsOf(realm, realm_idx)
+  let minor_idx = 0
+  if (subs.length > 0) {
+    const [lo, hi] = realm.power_index
+    const span = Math.max(1, hi - lo)
+    const into = Math.max(0, power_index - lo)
+    minor_idx = Math.max(0, Math.min(subs.length - 1, Math.floor((into / span) * subs.length)))
+  }
+
+  if (
+    power_index === state.power_index &&
+    realm_idx === state.realm_idx &&
+    minor_idx === state.minor_idx
+  ) {
+    return state
+  }
+  return { ...state, power_index, realm_idx, minor_idx }
 }
 
 /** 当前境界的表层名（各体系包不同） */
@@ -113,7 +168,7 @@ export function realmNameOf(state: GameState, content: ContentDB): string {
  *
  * 悟性越高越快；境界越高，单节点收益也越高（高阶修士的日常吐纳本就更多）。
  */
-export const CULTIVATE_BASE = 14
+export const CULTIVATE_BASE = 8
 
 /**
  * 剧本在节点中的目标占比（SPEC 第 3 章的三层结构：散事件 ~70% / 剧本 ~25%）。
@@ -240,6 +295,7 @@ export function startRun(cfg: RunConfig): GameState {
     stage: 'childhood',
     pack_id: packId,
     realm_idx: 0,
+    minor_idx: 0,
     power_index: 0,
     attrs,
     vars,
@@ -623,6 +679,7 @@ function buildScenarioPresentation(
     },
     options: [],
     trials: buildTrials(state, content),
+    actions: SCENARIO_ACTIONS,
   }
 }
 
@@ -880,7 +937,15 @@ export function finishScenario(state: GameState, sc: Scenario): GameState {
     if (chosen) ref = chosen.outcome.ref
   }
 
-  const effects = solved.length === 0 ? (sc.unsolved.effects ?? []) : []
+  // 未破局不再直接终结一世。
+  //
+  // 剧本原本的语义是"破不了局，此世就到头了"，但玩家反馈剧本不过是
+  // "随机触发的剧本类事件"——不该有这种一票否决的权力。
+  // 现在未破局照常结算代价（受伤、欠债、掉声望），并把这条线索记进
+  // ending_threads 影响最终结局，但**不再强制结束这一世**。
+  // 真的想写死局的剧本，可以在 effects 里自己放 trigger_end。
+  const rawEffects = solved.length === 0 ? (sc.unsolved.effects ?? []) : []
+  const effects = rawEffects.filter((e) => e.type !== 'trigger_end')
   const next = applyEffectsState(state, effects, `scenario:${sc.id}:finish`)
 
   return {
@@ -889,6 +954,164 @@ export function finishScenario(state: GameState, sc: Scenario): GameState {
     completed_scenarios: [...next.completed_scenarios, sc.id],
     active_scenario: undefined,
   }
+}
+
+/**
+ * 剧本内可用的通用手段。
+ *
+ * 这是「剧本只能用物品和静待」的解法：**不依赖背包**的主动操作。
+ * 探查找规则、交涉走人情、硬闯拼肉身、静待等它自己露破绽、抽身保住已有。
+ * 每一样都耗一刻 —— 时间是剧本里唯一真正稀缺的东西。
+ */
+export const SCENARIO_ACTIONS: ScenarioAction[] = [
+  { id: 'probe', name: '细察', desc: '不碰任何东西，先看清这里的规矩', cost: '一刻', attr: 'insight' },
+  { id: 'parley', name: '交涉', desc: '与这里的「人」说话——如果那算人的话', cost: '一刻', attr: 'charm' },
+  { id: 'force', name: '硬闯', desc: '不猜了，直接动手', cost: '一刻，多半带伤', attr: 'root' },
+  { id: 'attune', name: '感气', desc: '闭眼，让这一处的气息告诉自己些什么', cost: '一刻', attr: 'wits' },
+  { id: 'wait', name: '静待', desc: '什么也不做。看它会先动还是你先老', cost: '一刻' },
+  { id: 'leave', name: '抽身', desc: '带着已经到手的东西退出去', cost: '放弃剩下的路' },
+]
+
+/**
+ * 执行一次剧本内的通用操作。
+ * 与「以物试之」并列，但不需要背包里有东西。
+ */
+export function submitScenarioAction(
+  state: GameState,
+  actionId: ScenarioActionId,
+  content: ContentDB,
+): EngineResult {
+  const run = state.active_scenario
+  if (!run) return fail(state, content, '当前不在剧本中')
+  const sc = content.scenarios.find((s) => s.id === run.scenario_id)
+  if (!sc) return fail(state, content, '剧本不存在')
+
+  if (actionId === 'leave') return leaveScenario(state, content)
+
+  const rng = new Rng(makeSeed(state.seed, state.node_index, `act:${actionId}`))
+  const act = SCENARIO_ACTIONS.find((a) => a.id === actionId)!
+  const ctx = { state, solvedInScenario: run.solved, scenarioNodesSpent: run.nodes_spent }
+
+  // 尚未揭示的隐规则 —— 玩家的操作就是冲着它们去的
+  const unrevealed = sc.rules_hidden.filter((r) => !run.revealed_rules.includes(r.id))
+
+  let next: GameState = state
+  const noticed: string[] = []
+
+  const p = act.attr ? 0.35 + (state.attrs[act.attr] ?? 0) * 0.005 : 0.3
+  const success = rng.chance(Math.min(0.9, p))
+
+  if (success && unrevealed.length > 0) {
+    // 看破一条 —— 这是「细察 / 感气」的主要回报：信息
+    const got = unrevealed[rng.int(0, unrevealed.length - 1)]!
+    noticed.push(got.id)
+  }
+
+  // 硬闯会有代价，无论成败
+  const effects: Effect[] = []
+  if (actionId === 'force') {
+    effects.push({ type: 'add_var', key: 'hp', delta: success ? 6 : 14 })
+    if (!success) effects.push({ type: 'add_var', key: 'exposure', delta: 3 })
+  }
+  if (actionId === 'parley' && success) {
+    effects.push({ type: 'add_var', key: 'favor', delta: 8 })
+  }
+  if (actionId === 'attune' && success) {
+    effects.push({ type: 'add_var', key: 'power', delta: 12 })
+  }
+  if (actionId === 'wait') {
+    effects.push({ type: 'add_var', key: 'hp', delta: -4 }) // 静待是唯一能喘口气的
+  }
+  if (actionId === 'probe' || actionId === 'attune') {
+    effects.push({ type: 'add_var', key: 'exposure', delta: success ? 1 : 3 })
+  }
+
+  next = applyEffectsState(next, effects, `scenario-act:${actionId}`)
+  next = {
+    ...next,
+    active_scenario: {
+      ...run,
+      revealed_rules: [...run.revealed_rules, ...noticed],
+      attempted: [...run.attempted, `act:${actionId}`],
+    },
+  }
+
+  // 看破了新规则 → 该规则可能立刻让某条条件组成立
+  const solvedNow = sc.breakthroughs.filter(
+    (b) =>
+      !next.active_scenario!.solved.includes(b.id) &&
+      b.conditions.every((c) =>
+        evaluate(c, {
+          state: next,
+          solvedInScenario: next.active_scenario!.solved,
+          scenarioNodesSpent: next.active_scenario!.nodes_spent,
+        }),
+      ),
+  )
+  if (solvedNow.length > 0) {
+    for (const hit of solvedNow) {
+      next = applyEffectsState(next, hit.outcome.effects ?? [], `scenario:${sc.id}:${hit.id}`)
+    }
+    next = {
+      ...next,
+      active_scenario: {
+        ...next.active_scenario!,
+        solved: [...next.active_scenario!.solved, ...solvedNow.map((s) => s.id)],
+      },
+    }
+  }
+
+  next = advanceNode(next, content)
+  if (next.active_scenario && next.active_scenario.solved.length >= sc.breakthroughs.length) {
+    next = finishScenario(next, sc)
+  }
+  next = checkScenarioTimeout(next, sc)
+
+  void ctx
+  return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
+}
+
+/**
+ * 入场抉择：进去，或者绕开。
+ *
+ * 绕开不是无代价的「跳过」——它记一笔因果（你看见了一个地方却没敢进），
+ * 并且那个剧本本局不再出现。**错过也是选择的一部分。**
+ */
+export function submitScenarioEntry(
+  state: GameState,
+  enter: boolean,
+  content: ContentDB,
+): EngineResult {
+  const sc = content.scenarios.find((s) => s.id === state.pending_scenario)
+  if (!sc) return fail(state, content, '当前没有待定的剧本')
+
+  if (enter) {
+    let next: GameState = {
+      ...state,
+      pending_scenario: undefined,
+      active_scenario: {
+        scenario_id: sc.id,
+        started_at: state.node_index,
+        nodes_spent: 0,
+        revealed_rules: [],
+        solved: [],
+        attempted: [],
+      },
+    }
+    next = advanceNode(next, content)
+    next = checkScenarioTimeout(next, sc)
+    return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
+  }
+
+  // 绕开：本局不再出现，留一笔"没敢进"的因果
+  let next: GameState = {
+    ...state,
+    pending_scenario: undefined,
+    completed_scenarios: [...state.completed_scenarios, sc.id],
+    vars: { ...state.vars, karma: clampVar('karma', state.vars.karma - 2) },
+  }
+  next = advanceNode(next, content)
+  return { ok: true, delta: [], presentation: presentCurrent(next, content), state: next }
 }
 
 /** 玩家主动离开剧本 —— 带着已通的通路收束 */
@@ -1014,7 +1237,7 @@ export function advanceNode(state: GameState, content: ContentDB): GameState {
       ...next.vars,
       // 上界与 clampVar('power') 保持一致：累积修为要留出换算余量，
       // 这里若再封 1000，power_index 就永远到不了 1000。
-      power: Math.min(2000, next.vars.power + gain),
+      power: Math.min(4200, next.vars.power + gain),
       hp: Math.max(0, next.vars.hp - heal),
     },
   }
@@ -1058,6 +1281,48 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
     }
   }
 
+  // 剧本已触发但玩家尚未决定进不进 —— 先给出它的全貌与两条路
+  if (state.pending_scenario) {
+    const sc = content.scenarios.find((s) => s.id === state.pending_scenario)
+    if (sc) {
+      const rng = new Rng(makeSeed(state.seed, state.node_index, `entry:${sc.id}`))
+      const intro = pickFromPool(`loose.${sc.id}.intro`, content.l2, state, rng)
+      return {
+        node_index: state.node_index,
+        kind: 'scenario',
+        event_id: sc.id,
+        title: sc.name,
+        lines: splitLines(intro.text),
+        mood: 'tense',
+        scenario_entry: {
+          scenario_id: sc.id,
+          name: sc.name,
+          lines: splitLines(intro.text),
+          rules_stated: sc.rules_stated,
+          span: sc.span,
+        },
+        options: [
+          {
+            id: 'enter',
+            text: '进去',
+            intent: 'greedy',
+            risk_tier: '险',
+            odds_hint: '未卜',
+            cost_hint: `约 ${sc.span} 刻`,
+          },
+          {
+            id: 'bypass',
+            text: '绕开。你记下了这个地方。',
+            intent: 'flee',
+            risk_tier: '稳',
+            odds_hint: '十拿九稳',
+            cost_hint: '错过此处',
+          },
+        ],
+      }
+    }
+  }
+
   // 剧本进行中：继续呈现剧本
   if (state.active_scenario) {
     const sc = content.scenarios.find((s) => s.id === state.active_scenario!.scenario_id)
@@ -1083,21 +1348,14 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
     }
   }
 
-  // 进入剧本：初始化剧本运行时
+  // 剧本触发：先给**入场抉择**，不把玩家直接拽进去。
+  //
+  // 玩家反馈「剧本没有可入选项……我的认知里剧本只是一个随机触发的剧本类事件」——
+  // 触发即入、入则卡死，等于剥夺了选择权。现在它先摆在你面前，
+  // 你可以进，也可以绕过去（代价是错过，不是死）。
   if (ev.kind === 'scenario' && !state.active_scenario) {
     const sc = ev as Scenario
-    const withRun: GameState = {
-      ...state,
-      active_scenario: {
-        scenario_id: sc.id,
-        started_at: state.node_index,
-        nodes_spent: 0,
-        revealed_rules: [],
-        solved: [],
-        attempted: [],
-      },
-    }
-    Object.assign(state, { active_scenario: withRun.active_scenario })
+    state.pending_scenario = sc.id
   }
 
   return buildPresentation(state, content, ev, rng)
@@ -1268,9 +1526,9 @@ export function resolveEnding(state: GameState, content: ContentDB): EndingResul
 function computeStars(state: GameState, ending: Ending): number {
   // 评星要能让"半途而废"和"登临绝顶"拉开距离。
   // 以 power_index（跨体系可比的唯一标尺）为主，功德与因果做修正。
-  const power = state.power_index / 200 // 0–5
-  const karma = state.vars.karma / 80 // −1.25–1.25
-  const debt = state.vars.debt / 25 // 0–4
+  const power = state.power_index / 90 // 0–11
+  const karma = state.vars.karma / 70 // −1.4–1.4
+  const debt = state.vars.debt / 30 // 0–3.3
   const raw = 1 + power + karma - debt
   void ending
   return Math.max(1, Math.min(5, Math.round(raw)))

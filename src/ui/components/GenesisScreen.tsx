@@ -181,8 +181,10 @@ export function GenesisScreen() {
               const on = gen.packId === p
               const essence = pack?.essence ?? 'qi'
               return (
+                // data-pack 挂在按钮上：点选之前，先看见那套色
                 <button
                   key={p}
+                  data-pack={p}
                   className={`${s.pack} ${on ? s.packOn : ''}`}
                   onClick={() => pickPack(p)}
                   aria-pressed={on}
@@ -191,7 +193,12 @@ export function GenesisScreen() {
                     {ESSENCE_NAMES[essence]}
                   </span>
                   <span className={s.packName}>{pack?.display_name ?? p}</span>
-                  <span className="x-tiny">{pack?.inspiration_tag ?? packTag(content, p)}</span>
+                  <span className={`${s.packTag} x-tiny`}>{pack?.inspiration_tag ?? packTag(content, p)}</span>
+                  <span className={s.packSwatch} aria-hidden>
+                    <i />
+                    <i />
+                    <i />
+                  </span>
                   {on ? (
                     <span className={s.packMark}>
                       <IconCheck size={13} />

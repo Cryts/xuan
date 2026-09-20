@@ -58,6 +58,7 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
         compact
         onHeaven={onHeaven}
         onSettings={() => dispatch({ type: 'openSettings' })}
+        onBag={() => setBagOpen(true)}
       />
 
       <main className={s.main}>
@@ -200,6 +201,17 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
       </footer>
 
       <TrialPanel open={bagOpen} onClose={() => setBagOpen(false)} pres={pres} />
+
+      {/* ---------- 参透：隐规则揭示的那一瞬 ----------
+          本作唯一需要「仪式感」的时刻：不是数值变化，是认知的一次跃迁。
+          故此幕独立于数值浮字，金印沉下 + 金环荡开，几秒后自行隐去。 */}
+      {st.banner?.kind === 'reveal' ? (
+        <div className={s.reveal} role="status" aria-live="polite">
+          <span className={s.revealRing} aria-hidden />
+          <span className={s.revealSeal}>参 透</span>
+          <span className={s.revealText}>{st.banner.detail ?? '隐规则之一，自此洞明。'}</span>
+        </div>
+      ) : null}
     </div>
   )
 }

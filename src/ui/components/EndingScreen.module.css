@@ -26,7 +26,7 @@
   background:
     linear-gradient(180deg, #3a3128, #1b1713 46%, #2b241c);
   box-shadow:
-    inset 0 1px 0 rgba(242, 234, 217, 0.14),
+    inset 0 1px 0 rgba(var(--paper-rgb), 0.14),
     0 6px 18px rgba(0, 0, 0, 0.55);
   transform-origin: center;
   animation: rodIn var(--d4) var(--ease-out) both;
@@ -56,7 +56,7 @@
   gap: var(--s5);
   padding: var(--s7) var(--s5) var(--s6);
   background:
-    linear-gradient(180deg, rgba(242, 234, 217, 0.06), rgba(242, 234, 217, 0.015)),
+    linear-gradient(180deg, rgba(var(--paper-rgb), 0.06), rgba(var(--paper-rgb), 0.015)),
     var(--ink-2);
   border-inline: 1px solid var(--line);
   animation: unfurl 1.15s var(--ease-out) both;
@@ -83,7 +83,7 @@
   line-height: 1.5;
   color: var(--paper);
   text-align: center;
-  text-shadow: 0 0 40px rgba(201, 162, 39, 0.14);
+  text-shadow: 0 0 40px rgba(var(--gold-rgb), 0.14);
   animation: fadeUp var(--d5) var(--ease-out) 260ms both;
 }
 
@@ -131,7 +131,7 @@
   min-width: 2.4em;
   padding: 0.42em 0.5em !important;
   border-width: 2px !important;
-  color: #d9564a;
+  color: var(--cinnabar-bright);
   letter-spacing: 0.1em !important;
 }
 

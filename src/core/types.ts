@@ -285,6 +285,12 @@ export interface Realm {
   power_index: [number, number]
   lifespan: number | null
   breakthrough: number
+  /**
+   * 小境界的称呼。缺省时由引擎按境界序号推断
+   * （炼气九层、筑基初期/中期/后期/圆满…）。
+   * 见 engine.ts 的 subLevelsOf。
+   */
+  sub_names?: string[]
 }
 
 export interface WorldPack {
@@ -441,6 +447,8 @@ export interface GameState {
   stage: Stage
   pack_id: PackId
   realm_idx: number
+  /** 小境界序号（大境界内第几层）；无小境界的大境界恒为 0 */
+  minor_idx: number
   power_index: number
   attrs: Attrs
   vars: Vars
@@ -458,6 +466,8 @@ export interface GameState {
   recent_narrative: string[] // 玩家级去重：30 节点内不重复
   destiny_children: DestinyChild[]
   active_scenario?: ScenarioRun
+  /** 已触发但玩家尚未决定是否进入的剧本 */
+  pending_scenario?: string
   /** 本局已涌现过的结局线索，供结局结算 */
   ending_threads: string[]
   status: 'alive' | 'ended'
@@ -506,6 +516,10 @@ export interface NodePresentation {
   options: Option[]
   /** 剧本内的「以物/以法试之」入口 —— 离散选择，永不是自由文本 */
   trials?: TrialOption[]
+  /** 剧本内的通用手段（探查/交涉/硬闯/静待/抽身） */
+  actions?: ScenarioAction[]
+  /** 剧本触发时的入场抉择 —— 有这一项时，玩家还没进去 */
+  scenario_entry?: ScenarioEntry
 }
 
 export interface TrialOption {
@@ -513,6 +527,34 @@ export interface TrialOption {
   ref: string
   name: string
   affordance: string[]
+}
+
+/**
+ * 剧本内的通用手段。
+ *
+ * 玩家反馈「剧本只能用物品和静待，没有什么可以自己进行操作的自由度」——
+ * 之前的剧本里，除了翻行囊就只剩干等，那不叫解谜，叫卡住。
+ * 这几种是**不依赖背包**的主动操作，让玩家在任何处境下都有牌可打。
+ */
+export type ScenarioActionId = 'probe' | 'parley' | 'force' | 'attune' | 'wait' | 'leave'
+
+export interface ScenarioAction {
+  id: ScenarioActionId
+  name: string
+  desc: string
+  cost: string
+  /** 主要依赖的属性，供 UI 提示成功率倾向 */
+  attr?: AttrKey
+}
+
+/** 剧本触发时的入选项 —— 玩家有权不进去 */
+export interface ScenarioEntry {
+  scenario_id: string
+  name: string
+  /** 开场的氛围描写 */
+  lines: string[]
+  rules_stated: string[]
+  span: number
 }
 
 export interface ResolveResult {

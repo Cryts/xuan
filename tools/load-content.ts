@@ -103,7 +103,17 @@ export function loadContent(): RawContent {
   const narrDir = path.join(CONTENT_DIR, 'narrative')
 
   const namesRaw = readJsonIfExists(path.join(CONTENT_DIR, 'names.json'), report)
-  const l2Raw = readJsonIfExists(path.join(narrDir, 'l2.json'), report) as Record<string, string[]> | null
+
+  // 叙事池支持多文件：l2.json 是基座，l2_*.json 是分批产出的增量。
+  // 分开是为了让多个内容 agent 能并行写 —— 挤在同一个文件里必然互相覆盖。
+  const l2Raw: Record<string, string[]> = {}
+  if (fs.existsSync(narrDir)) {
+    for (const f of fs.readdirSync(narrDir).sort()) {
+      if (!f.startsWith('l2') || !f.endsWith('.json')) continue
+      const part = readJsonIfExists(path.join(narrDir, f), report) as Record<string, string[]> | null
+      if (part) Object.assign(l2Raw, part)
+    }
+  }
   const oracleRaw = readJsonIfExists(path.join(narrDir, 'oracle.json'), report) as
     | { oracle?: string[] }
     | string[]

@@ -169,7 +169,7 @@ export function clampVar(key: VarKey, v: number): number {
     case 'power':
       // 上界要留出 POWER_TO_INDEX 的换算余量：累积修为封到 1000 的话，
       // power_index 永远到不了 1000，境界阶梯有一半是够不着的。
-      return clamp(v, 0, 2000)
+      return clamp(v, 0, 4200)
     default:
       return Math.max(0, v)
   }

@@ -939,7 +939,93 @@ function afterEngine(
 }
 
 /* ============================================================
-   六、Context
+   六、表现层 —— 只决定「怎么显示」，绝不参与任何结算
+   ------------------------------------------------------------
+   这一节的两件事都是**修辞**，不是规则：
+     · itemWear —— 物事的保存状态（完好 / 微损 / 残破）
+     · itemKind —— 物类（剑 / 丹 / 符 / 器 / 材），用来挑字形
+
+   `core/types.ts` 的 Item 上没有这两个字段，引擎也永远不会读它们；
+   之所以放在 store 而不是组件里，是为了「同一件物、同一局、永远同一态」：
+   由 id 稳定散列决定，刷新、读档、重渲染都不会变。
+   若哪天要把它做成真规则（如残破降低效果），那是引擎的事 —— 在此处改会破纯度门禁。
+   ============================================================ */
+
+export type ItemWear = 'intact' | 'worn' | 'broken'
+
+export const WEAR_NAMES: Record<ItemWear, string> = {
+  intact: '完好',
+  worn: '微损',
+  broken: '残破',
+}
+
+/** 品阶次序 —— 与 content/items 的 quality 取值一致 */
+const QUALITY_ORDER = ['凡品', '灵品', '宝品', '仙品', '道品', '混沌']
+
+/** 品阶 → 序数；认不出的品阶一律按最低算 */
+export function qualityRank(quality: string): number {
+  const i = QUALITY_ORDER.indexOf(quality)
+  return i < 0 ? 0 : i
+}
+
+export const QUALITY_ORDER_LIST = QUALITY_ORDER
+
+/** FNV-1a：只取 id，不掷骰子 —— 同一件物永远同一个状态 */
+function hashId(id: string): number {
+  let h = 2166136261
+  for (let i = 0; i < id.length; i++) {
+    h ^= id.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  return (h >>> 0) % 100
+}
+
+/**
+ * 物事的保存状态 —— **纯表现**。
+ * 品阶越高越可能完好：凡品多是别人用剩的，道品多半还带着宝光。
+ */
+export function itemWear(item: Item): ItemWear {
+  const roll = hashId(item.id)
+  const intactBelow = 42 + qualityRank(item.quality) * 9
+  if (roll < intactBelow) return 'intact'
+  if (roll < intactBelow + 32) return 'worn'
+  return 'broken'
+}
+
+export type ItemKind = 'sword' | 'pill' | 'talisman' | 'artifact' | 'material'
+
+/** 物类线索：先看名字，再看描述与功能标签；都没有则是「材」 */
+const KIND_HINTS: Array<[ItemKind, RegExp]> = [
+  ['sword', /[剑刀刃枪矛弓弩锤斧戟匕杖鞭锏钩镖针]/],
+  ['pill', /[丹丸散膏药露浆液]/],
+  ['talisman', /[符箓诏令契券牌简牒]/],
+  ['artifact', /[镜铃钟鼎珠环镯印塔幡盏盘壶瓶炉佩冠履袋囊匣函]/],
+]
+
+/** 物类 —— **纯表现**，只用来挑行囊格子上的字形 */
+export function itemKind(item: Item): ItemKind {
+  for (const [kind, re] of KIND_HINTS) if (re.test(item.name)) return kind
+  const hay = `${item.desc ?? ''}${(item.affordance ?? []).join('')}`
+  for (const [kind, re] of KIND_HINTS) if (re.test(hay)) return kind
+  return 'material'
+}
+
+/** 词条 id → 词条对象；内容缺失时返回 undefined，由调用方兜底 */
+export function affixOf(content: ContentDB, id: string): Affix | undefined {
+  return content.affixes.find((a) => a.id === id)
+}
+
+/**
+ * 把体系包落到根元素上：整套 CSS 变量随之切换。
+ * 只写属性，不做任何判定 —— 见 theme.css 的「六体系主题」一节。
+ */
+export function applyPackTheme(pack: PackId): void {
+  if (typeof document === 'undefined') return
+  document.documentElement.dataset.pack = pack
+}
+
+/* ============================================================
+   七、Context
    ============================================================ */
 
 export interface GameBag {

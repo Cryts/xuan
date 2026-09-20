@@ -14,7 +14,8 @@
         20
       ],
       "lifespan": 70,
-      "breakthrough": 0.9
+      "breakthrough": 0.9,
+      "sub_names": []
     },
     {
       "idx": 1,
@@ -24,7 +25,8 @@
         55
       ],
       "lifespan": 110,
-      "breakthrough": 0.81
+      "breakthrough": 0.81,
+      "sub_names": []
     },
     {
       "idx": 2,
@@ -34,7 +36,8 @@
         100
       ],
       "lifespan": 170,
-      "breakthrough": 0.72
+      "breakthrough": 0.72,
+      "sub_names": []
     },
     {
       "idx": 3,
@@ -44,7 +47,8 @@
         160
       ],
       "lifespan": 260,
-      "breakthrough": 0.63
+      "breakthrough": 0.63,
+      "sub_names": []
     },
     {
       "idx": 4,
@@ -54,7 +58,8 @@
         235
       ],
       "lifespan": 400,
-      "breakthrough": 0.54
+      "breakthrough": 0.54,
+      "sub_names": []
     },
     {
       "idx": 5,
@@ -64,7 +69,8 @@
         325
       ],
       "lifespan": 600,
-      "breakthrough": 0.46
+      "breakthrough": 0.46,
+      "sub_names": []
     },
     {
       "idx": 6,
@@ -74,7 +80,8 @@
         435
       ],
       "lifespan": 900,
-      "breakthrough": 0.37
+      "breakthrough": 0.37,
+      "sub_names": []
     },
     {
       "idx": 7,
@@ -84,7 +91,8 @@
         570
       ],
       "lifespan": 1400,
-      "breakthrough": 0.28
+      "breakthrough": 0.28,
+      "sub_names": []
     },
     {
       "idx": 8,
@@ -94,7 +102,8 @@
         740
       ],
       "lifespan": 2200,
-      "breakthrough": 0.19
+      "breakthrough": 0.19,
+      "sub_names": []
     },
     {
       "idx": 9,
@@ -104,7 +113,8 @@
         1000
       ],
       "lifespan": null,
-      "breakthrough": 0.1
+      "breakthrough": 0.1,
+      "sub_names": []
     }
   ],
   "resource_map": {

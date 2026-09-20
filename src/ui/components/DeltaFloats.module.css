@@ -21,7 +21,7 @@
   gap: var(--s3);
   padding: var(--s2) var(--s4);
   border-radius: 99px;
-  background: rgba(11, 10, 9, 0.82);
+  background: rgba(var(--ink-0-rgb), 0.82);
   border: 1px solid var(--line);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(6px);
@@ -48,17 +48,17 @@
 }
 
 .good {
-  border-color: rgba(62, 124, 110, 0.5);
+  border-color: rgba(var(--jade-rgb), 0.5);
 }
 .good .delta {
-  color: #6fb3a3;
+  color: var(--jade-txt);
 }
 
 .bad {
-  border-color: rgba(193, 57, 43, 0.5);
+  border-color: rgba(var(--cinnabar-rgb), 0.5);
 }
 .bad .delta {
-  color: #e0705f;
+  color: var(--cinnabar-txt);
 }
 
 @media (max-width: 420px) {

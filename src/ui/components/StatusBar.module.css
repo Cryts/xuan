@@ -6,10 +6,17 @@
   flex-direction: column;
   gap: var(--s3);
   padding: calc(var(--s3) + env(safe-area-inset-top, 0px)) var(--s4) var(--s3);
-  background: linear-gradient(180deg, rgba(11, 10, 9, 0.97) 62%, rgba(11, 10, 9, 0.72) 88%, rgba(11, 10, 9, 0));
-  backdrop-filter: blur(8px);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--ink-0-rgb), 0.98) 58%,
+    rgba(var(--ink-0-rgb), 0.86) 84%,
+    rgba(var(--ink-0-rgb), 0)
+  );
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-2);
 }
 
+/* ---------- 第一行：我是谁 · 我有多少灵石 ---------- */
 .top {
   display: flex;
   align-items: center;
@@ -19,67 +26,133 @@
 
 .who {
   display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* 境界 —— 全屏视觉权重最高的两个字 */
+.realm {
+  font-family: var(--font-title);
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.15;
+  color: var(--paper);
+  text-shadow: 0 0 26px rgba(var(--accent-rgb), 0.34);
+  white-space: nowrap;
+}
+
+.realmMeta {
+  display: flex;
   align-items: baseline;
   gap: var(--s2);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  color: var(--t3);
   min-width: 0;
 }
 
 .pack {
-  font-size: var(--fs-xs);
-  letter-spacing: 0.14em;
-  color: var(--t3);
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+  color: var(--accent-2);
 }
 
 .dot {
-  color: var(--t4);
+  color: var(--t5);
 }
 
-.realm {
-  font-family: var(--font-title);
-  font-size: var(--fs-md);
-  letter-spacing: 0.16em;
-  color: var(--paper);
+.realmIdx {
   white-space: nowrap;
+  color: var(--t3);
 }
 
 .acts {
   display: flex;
+  align-items: center;
   gap: var(--s2);
+  flex: none;
+}
+
+/* 灵石 —— 钱袋：图标 + 数字 + 变化浮字 */
+.coins {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px var(--s3);
+  border: 1px solid rgba(var(--gold-rgb), 0.45);
+  border-radius: 99px;
+  background: linear-gradient(180deg, rgba(var(--gold-rgb), 0.16), rgba(var(--gold-rgb), 0.05));
+  color: var(--gold-bright);
+  box-shadow: 0 0 18px rgba(var(--gold-rgb), 0.12);
+}
+
+.coins svg {
+  opacity: 0.95;
+}
+
+.coinsNum {
+  font-family: var(--font-title);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--gold-bright);
+  animation: coinPop var(--d3) var(--ease-out) both;
+}
+
+.coinsDelta {
+  position: absolute;
+  right: 6px;
+  top: -14px;
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.06em;
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px rgba(var(--gold-rgb), 0.5);
+  animation: floatUp 1.8s var(--ease-out) both;
+  pointer-events: none;
 }
 
 .act {
   position: relative;
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 1px solid var(--line-2);
+  border: 1px solid var(--line);
+  background: rgba(var(--paper-rgb), 0.04);
   color: var(--t2);
-  transition: color var(--d2) var(--ease), border-color var(--d2) var(--ease);
+  transition:
+    color var(--d2) var(--ease),
+    border-color var(--d2) var(--ease),
+    background var(--d2) var(--ease);
 }
 .act:hover {
   color: var(--gold-bright);
-  border-color: rgba(201, 162, 39, 0.4);
+  border-color: rgba(var(--gold-rgb), 0.45);
+  background: rgba(var(--gold-rgb), 0.1);
 }
 
 .badge {
   position: absolute;
   top: -3px;
   right: -3px;
-  min-width: 15px;
-  height: 15px;
+  min-width: 16px;
+  height: 16px;
   padding: 0 3px;
   border-radius: 99px;
   background: var(--cinnabar);
   color: #fff;
   font-size: 10px;
-  line-height: 15px;
+  line-height: 16px;
   text-align: center;
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------- 第二行：性命三条 ---------- */
 .mid {
   display: flex;
   align-items: center;
@@ -90,12 +163,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
+  flex: none;
 }
 
 .ringLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   font-size: var(--fs-2xs);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--t3);
 }
 
@@ -103,57 +180,107 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 50px;
 }
 
 .ringTrack {
   fill: none;
-  stroke: rgba(242, 234, 217, 0.09);
+  stroke: rgba(var(--paper-rgb), 0.14);
   stroke-width: 2.5;
 }
 
+/* 环用本体色 —— 换体系包时最先变的就是它 */
 .ringFill {
   fill: none;
-  stroke: var(--gold);
-  stroke-width: 2.5;
+  stroke: var(--accent);
+  stroke-width: 3;
   stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.55));
   transition: stroke-dashoffset var(--d4) var(--ease-out);
 }
 
 .ringNum {
   position: absolute;
   font-family: var(--font-title);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
   color: var(--paper);
+  animation: fadeIn var(--d3) var(--ease) both;
 }
 
 .vitals {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--s2);
+  gap: var(--s3);
   min-width: 0;
 }
 
-.shallow {
+.vital {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--t3);
+}
+
+.vitalHead {
   display: flex;
   align-items: center;
-  gap: var(--s2);
+  gap: 5px;
+  min-width: 0;
 }
 
-.shallowLabel {
+.vitalIcon {
+  display: flex;
+  align-items: center;
+  color: currentColor;
+  opacity: 0.9;
+}
+
+.vitalLabel {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
+  color: currentColor;
+}
+
+.vitalNum {
+  font-family: var(--font-title);
+  font-size: var(--fs-sm);
+  line-height: 1;
+  color: var(--paper);
+}
+.vitalNum i {
+  font-style: normal;
+  font-size: var(--fs-2xs);
+  color: var(--t4);
+}
+
+.vitalWord {
+  margin-left: auto;
   font-size: var(--fs-2xs);
   letter-spacing: 0.1em;
-  color: var(--t3);
-  width: 2.2em;
+  color: currentColor;
+  opacity: 0.92;
+  white-space: nowrap;
 }
 
-.shallowNum {
-  font-size: var(--fs-2xs);
-  color: var(--t2);
-  min-width: 2.4em;
-  text-align: right;
+/* 告急分档：只在颜色与呼吸上做文章，不动布局 */
+.calm {
+  color: var(--t3);
+}
+
+.warn {
+  color: var(--warn);
+}
+
+.dire {
+  color: var(--cinnabar-txt);
+}
+.dire .vitalNum {
+  color: var(--cinnabar-txt);
+}
+.dire .vitalWord {
+  animation: breathe 1.6s var(--ease-in-out) infinite;
 }
 
 /* ---------- 六维 ---------- */
@@ -182,30 +309,99 @@
   color: var(--t2);
 }
 
-/* ---------- 资源 ---------- */
-.chips {
+/* ---------- 第三行：杂项资源 + 行囊 ---------- */
+.strips {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  flex-wrap: wrap;
+}
+
+.res {
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s3);
-  padding-top: 2px;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+  min-width: 0;
 }
 
-.chip {
+.resItem {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   gap: 4px;
   font-size: var(--fs-2xs);
-  letter-spacing: 0.08em;
-  opacity: 0.86;
+  letter-spacing: 0.06em;
+  color: var(--t2);
 }
-
-.chip b {
+.resItem b {
   font-weight: 500;
   font-size: var(--fs-xs);
+  color: var(--t1);
 }
 
-.chipDim {
+.res_rare_mat {
+  color: var(--jade-txt);
+}
+.res_favor {
+  color: var(--gold-bright);
+}
+.res_debt {
+  color: var(--cinnabar-txt);
+}
+.res_exposure {
+  color: var(--warn);
+}
+.res_corruption {
+  color: var(--spirit);
+}
+.res_karma {
+  color: var(--gold-bright);
+}
+
+.resQuiet {
   font-size: var(--fs-2xs);
-  color: var(--t3);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  color: var(--t4);
+}
+
+/* 行囊入口 —— 图标 + 名 + 件数角标 */
+.bag,
+.bagStatic {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px var(--s3);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: rgba(var(--paper-rgb), 0.045);
+  color: var(--t2);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.1em;
+  transition:
+    color var(--d2) var(--ease),
+    border-color var(--d2) var(--ease),
+    background var(--d2) var(--ease);
+}
+.bag:hover {
+  color: var(--paper);
+  border-color: rgba(var(--accent-rgb), 0.5);
+  background: rgba(var(--accent-rgb), 0.12);
+}
+
+.bagName {
+  color: inherit;
+}
+
+.bagCount {
+  min-width: 17px;
+  padding: 0 4px;
+  border-radius: 99px;
+  background: rgba(var(--accent-rgb), 0.2);
+  border: 1px solid rgba(var(--accent-rgb), 0.45);
+  color: var(--paper);
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
 }

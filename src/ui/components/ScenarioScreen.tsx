@@ -372,6 +372,8 @@ function EntryView({
         </header>
 
         <section className={s.sec}>
+          {/* 怎么走到这里的 —— 剧本是随机撞上的，得有个来路 */}
+          {pres.transition ? <p className={s.enterTransition}>{pres.transition}</p> : null}
           <p className={s.entryLine}>{lines.join('')}</p>
         </section>
 

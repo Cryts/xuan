@@ -159,6 +159,131 @@ export function realmNameOf(state: GameState, content: ContentDB): string {
   return pack?.realms[state.realm_idx]?.name ?? '未知'
 }
 
+// ============================================================
+// 年龄与寿元
+// ============================================================
+
+/** 开局岁数 —— 童年期起点 */
+export const START_AGE = 16
+
+/** 境界未标注寿命时（真仙以上）视作不受寿数所限 */
+export const UNBOUNDED_LIFESPAN = 999_999
+
+/**
+ * 每个节点跨过的年数。
+ *
+ * 修行不是逐日过的：低境界几年一节点，高境界一次闭关就是几十年上百年。
+ * 这也让「境界表里 1600 / 6400 这种大数字」有了着落——不是给你一千六百年花，
+ * 而是**能活到一千六百岁**，而高境界的每一年本来就走得快。
+ *
+ * 由此得到一条天然的压力：**停在低境界，年月照样在走，你会老死**。
+ * 这正是凡人流的核心恐怖。
+ */
+export const YEARS_BASE = 2
+export const YEARS_PER_REALM = 4
+
+export function yearsPerNode(state: GameState): number {
+  return YEARS_BASE + state.realm_idx * YEARS_PER_REALM
+}
+
+/**
+ * 寿元上限 = 当前境界的寿命 + 折损。
+ * 折损为负（被折了寿）就压低上限；为正（得了延寿之物）就抬高。
+ */
+export function lifespanCapOf(state: GameState, content: ContentDB): number {
+  const realm = content.packs[state.pack_id]?.realms[state.realm_idx]
+  const base = realm?.lifespan ?? UNBOUNDED_LIFESPAN
+  return Math.max(1, base + (state.vars.lifespan ?? 0))
+}
+
+export interface AgeInfo {
+  age: number
+  cap: number
+  /** 剩余年岁 */
+  left: number
+  /** 已过的比例 0–1 */
+  ratio: number
+  /** 是否已到寿尽边缘（剩不到两成） */
+  dire: boolean
+  /** 该境界是否本就不受寿数所限 */
+  unbounded: boolean
+}
+
+/** UI 与门禁共用：把年龄与寿元一起算出来 */
+export function ageInfoOf(state: GameState, content: ContentDB): AgeInfo {
+  const cap = lifespanCapOf(state, content)
+  const age = state.age ?? START_AGE
+  const left = cap - age
+  const unbounded = cap >= UNBOUNDED_LIFESPAN
+  return {
+    age,
+    cap,
+    left,
+    ratio: unbounded ? 0 : Math.max(0, Math.min(1, age / Math.max(1, cap))),
+    dire: !unbounded && left <= cap * 0.2,
+    unbounded,
+  }
+}
+
+/** 「年龄 37 / 寿元 120」—— 界面与旁白用同一套说法 */
+export function ageLabelOf(state: GameState, content: ContentDB): string {
+  const a = ageInfoOf(state, content)
+  if (a.unbounded) return `年龄 ${Math.round(a.age)} · 寿数不限`
+  return `年龄 ${Math.round(a.age)} / 寿元 ${Math.round(a.cap)}`
+}
+
+/** 年数分档 —— 过渡句要按跨度选说法，"三年后"和"三百年后"不是一回事 */
+export function yearsBucket(years: number): 'few' | 'some' | 'many' | 'ages' {
+  if (years <= 3) return 'few'
+  if (years <= 15) return 'some'
+  if (years <= 80) return 'many'
+  return 'ages'
+}
+
+/**
+ * 承上启下的过渡句 —— 接上上一件事与这一件事之间的缝。
+ *
+ * 为什么必须单独生成：正文是按 `loose.<母题>.<阶段>` 独立取词的，
+ * **它不知道前一个节点讲过什么**。于是两个节点摆在一起就是两张不相干的画：
+ * 上一句祖父递来一卷书，下一句你已经跟着商队进了山，中间发生了什么
+ * 全靠玩家自己脑补。这类断裂不是文笔问题，是缺了一层接缝。
+ *
+ * 素材全部现成：过了多少年、境界有没有跳、上一个母题是什么、是不是换了人生阶段。
+ * 不需要模型，也不需要新的状态。
+ */
+export function composeTransition(
+  state: GameState,
+  content: ContentDB,
+  rng: Rng,
+): string | undefined {
+  if (state.node_index === 0) return undefined // 开局第一拍前面没有东西可接
+
+  const years = state.last_years ?? 0
+  const prevStage = stageForNode(Math.max(0, state.node_index - 1), state.total_nodes)
+  const stageChanged = prevStage !== state.stage
+  const realmUp = (state.last_realm_idx ?? 0) < state.realm_idx
+  const age = ageInfoOf(state, content)
+
+  // 按优先级挑一条：人生阶段 > 境界跃迁 > 寿元告急 > 年数跨度
+  let key: string
+  if (stageChanged) key = `transition.stage.${state.stage}`
+  else if (realmUp) key = 'transition.realm_up'
+  else if (age.dire) key = 'transition.dire_age'
+  else key = `transition.years.${yearsBucket(years)}`
+
+  const picked = pickFromPool(key, content.l2, state, rng)
+  let text = picked.text
+  // 兜底：没写这个 key 的内容也不该出现空白接缝
+  if (!text) {
+    const fallback = pickFromPool('transition.years.some', content.l2, state, rng)
+    text = fallback.text
+  }
+  if (!text) return undefined
+
+  // 年数由引擎填，不由文本层决定 —— 数值永远出自状态层
+  return text.replace(/\{years\}/g, String(Math.max(1, Math.round(years)))).trim()
+}
+
 /**
  * 每节点基础修炼收益 —— 对应上游设计文档 7.3 的 `cultivate_gain_base`。
  *
@@ -260,7 +385,7 @@ export function startRun(cfg: RunConfig): GameState {
     corruption: 0,
     karma: 0,
     hp: 0, // 伤势：开局完好（0 = 无伤，100 = 油尽灯枯）
-    lifespan: pack.realms[0]?.lifespan ?? 80,
+    lifespan: 0, // 寿元折损：0 = 未折损。上限由境界决定，见 lifespanCapOf
   }
   for (const [k, v] of Object.entries(origin?.start_resources ?? {})) {
     vars[k as VarKey] = v as number
@@ -294,6 +419,7 @@ export function startRun(cfg: RunConfig): GameState {
     node_index: 0,
     stage: 'childhood',
     pack_id: packId,
+    age: START_AGE,
     realm_idx: 0,
     minor_idx: 0,
     power_index: 0,
@@ -495,9 +621,17 @@ export function pickNextEvent(input: SchedulerInput): LooseEvent | Scenario | nu
   const { state, content, rng } = input
   const pack = content.packs[state.pack_id]
 
-  // 1. 队列保底：窗口内必出
+  // 1. 队列保底：窗口内必出 —— **出过就不再出**。
+  //
+  // 少了 `fired_events` 这一条，一个窗口是 [7,12] 的连锁事件会在第 7 到第 12
+  // 个节点**每一拍都返回同一个事件**：它走的是保底路径，绕过全部冷却与权重，
+  // 于是玩家连着五六个节点在读同一段文字。试玩 agent 报的"同一母题连着走
+  // 五个节点"就是这么来的 —— 不是内容重复，是队列没有出队。
   const forced = state.queue.filter(
-    (q) => state.node_index >= q.window[0] && state.node_index <= q.window[1],
+    (q) =>
+      !state.fired_events.includes(q.event_id) &&
+      state.node_index >= q.window[0] &&
+      state.node_index <= q.window[1],
   )
   if (forced.length > 0) {
     const id = forced[0]!.event_id
@@ -577,14 +711,22 @@ export function pickNextEvent(input: SchedulerInput): LooseEvent | Scenario | nu
   // 4. 加权
   const target = STAGE_TENSION_TARGET[state.stage]
   // evCandidates 已剔除剧本，这里全是散事件
+  // 同一母题不紧挨着重来 —— 内建抑制，不依赖内容自己声明 cooldown。
+  //
+  // 用**权重压制**而不是过滤：硬过滤在放宽阶梯里会被绕过，放宽之后又
+  // 只剩它，于是连着好几个节点都是同一个母题（试玩 agent 报出"本源融合"
+  // 连走五个节点）。压到 0.05 既几乎不会发生，又不会把候选集清空。
+  const prevMotif = state.last_motif ?? state.recent_motifs[state.recent_motifs.length - 1]
+
   const weights = (evCandidates as LooseEvent[]).map((c) => {
     const base = c.weight
+    const sameAsLast = prevMotif && c.motif === prevMotif ? 0.05 : 1
     const packPref = pack?.motif_weights?.[c.motif] ?? 1
     const tension = c.tension ?? 5
     // 张力拟合：离目标越远权重越低，但不为 0
     const tensionFit = 1 / (1 + Math.abs(tension - target) * 0.25)
     const luckFactor = 1 + (state.attrs.luck - 50) * 0.004
-    return base * packPref * tensionFit * luckFactor
+    return base * packPref * tensionFit * luckFactor * sameAsLast
   })
 
   // 5. 抽样
@@ -628,6 +770,7 @@ function buildLoosePresentation(
     title,
     lines,
     mood: 'mystic',
+    transition: composeTransition(state, content, rng),
     options: ev.options.filter((o) => !o.requires || evaluate(o.requires, { state })),
   }
 }
@@ -677,6 +820,7 @@ function buildScenarioPresentation(
       nodes_spent: spent,
       span: sc.span,
     },
+    transition: composeTransition(state, content, rng),
     options: [],
     trials: buildTrials(state, content),
     actions: SCENARIO_ACTIONS,
@@ -1091,6 +1235,7 @@ function buildEntryPresentation(
     title: sc.name,
     lines,
     mood: 'tense',
+    transition: composeTransition(state, content, rng),
     scenario_entry: {
       scenario_id: sc.id,
       name: sc.name,
@@ -1279,8 +1424,14 @@ export function advanceNode(state: GameState, content: ContentDB): GameState {
   // 日常修炼：事件之间，时间也在走
   const gain = cultivateGain(next)
   const heal = healPerNode(next)
+  // 年岁随之增长 —— 高境界一年走得更快，所以大数字的寿元上限才有意义
+  const years = yearsPerNode(next)
   next = {
     ...next,
+    age: (next.age ?? START_AGE) + years,
+    last_years: years,
+    last_realm_idx: next.realm_idx,
+    last_motif: next.recent_motifs[next.recent_motifs.length - 1],
     vars: {
       ...next.vars,
       // 上界与 clampVar('power') 保持一致：累积修为要留出换算余量，
@@ -1293,11 +1444,11 @@ export function advanceNode(state: GameState, content: ContentDB): GameState {
   // 由累积修为反推境界 —— 每推进一步结算一次
   next = recomputeProgress(next, content)
 
-  return checkEnd(next)
+  return checkEnd(next, content)
 }
 
 /** 终局判定：寿元耗尽 / 伤势归零 / 节点走完 */
-export function checkEnd(state: GameState): GameState {
+export function checkEnd(state: GameState, content: ContentDB): GameState {
   if (state.status === 'ended') return state
   if (state.pending_ending) {
     return { ...state, status: 'ended', end_reason: 'ending', pending_ending: state.pending_ending }
@@ -1306,7 +1457,9 @@ export function checkEnd(state: GameState): GameState {
   if (state.vars.hp >= 100) {
     return { ...state, status: 'ended', end_reason: 'hp' }
   }
-  if (state.vars.lifespan <= 0) {
+  // 寿尽：年龄追上了这一境界能活到的岁数。
+  // 停在低境界而年月照走，就是这条判定的意义 —— 不进取会老死。
+  if ((state.age ?? START_AGE) >= lifespanCapOf(state, content)) {
     return { ...state, status: 'ended', end_reason: 'lifespan' }
   }
   if (state.node_index >= state.total_nodes) {
@@ -1357,6 +1510,7 @@ export function presentCurrent(state: GameState, content: ContentDB): NodePresen
       title: '静',
       lines: ['四下无声。你调息片刻，继续前行。'],
       mood: 'somber',
+      transition: composeTransition(state, content, rng),
       options: [
         { id: 'a', text: '继续赶路', intent: 'steady', risk_tier: '稳', odds_hint: '十拿九稳' },
       ],

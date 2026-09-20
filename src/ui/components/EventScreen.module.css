@@ -58,6 +58,19 @@
   color: var(--t5);
 }
 
+/* 过渡句：上一件事与这一件事之间的接缝。
+   比正文小一号、淡一档、缩进一格 —— 读的时候会自然跳过，
+   但少了它，两个节点就是两张不相干的画。 */
+.transition {
+  margin: 0 0 1em;
+  padding-left: 0.9em;
+  border-left: 2px solid rgba(var(--paper-rgb), 0.18);
+  font-size: 0.86em;
+  line-height: 1.85;
+  color: rgba(var(--paper-rgb), 0.62);
+  white-space: pre-line;
+}
+
 .lines {
   display: flex;
   flex-direction: column;

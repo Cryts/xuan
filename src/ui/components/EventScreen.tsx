@@ -89,6 +89,12 @@ export function EventScreen({ pres, onHeaven }: { pres: NodePresentation; onHeav
               <i>·</i>
               {moodName(pres.mood)}
             </span>
+            {/* 承上启下的接缝。刻意做得比正文轻——它是过场，不是内容 */}
+            {pres.transition ? (
+              <p className={s.transition} key={`t-${nodeKey}`}>
+                {pres.transition}
+              </p>
+            ) : null}
             <Typewriter
               key={nodeKey}
               lines={lines}

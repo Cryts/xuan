@@ -84,6 +84,25 @@ const emptyNodes: string[] = []
 const runLengths: number[] = []
 const affordanceMisses = new Map<string, number>()
 
+/* ---------- 通畅性：事件之间的接缝 ----------
+   玩家反馈「前一个在说祖父给书，下一个突然就跟领队进山」——
+   每个节点都是独立取词的，彼此不知道对方讲过什么。
+   这类断裂有可计算的部分：相邻两拍有没有共用的意象、
+   有没有承接句、是不是同一件事紧挨着重复。 */
+const continuity = {
+  nodes: 0,
+  withTransition: 0,
+  bareCuts: [] as string[],      // 相邻节点标签零重叠、且没有过渡句
+  motifRepeats: [] as string[],  // 同一母题紧挨着出现，且不是有意的连锁
+  motifChains: 0,                // 有意连锁（上一件事的 followup 指向这一件）—— 不算问题
+  stageJumps: 0,
+  stageJumpsBare: 0,
+}
+let prevTags: string[] = []
+let prevMotif: string | undefined
+let prevEvent: LooseEvent | undefined
+let prevStage: string | undefined
+
 function unmetConditions(sc: Scenario, solved: string[], state: Parameters<typeof evaluate>[1]['state']): Condition[] {
   // 找出所有还没通的条件组里、当前不满足的原子条件
   const out: Condition[] = []
@@ -97,6 +116,14 @@ function unmetConditions(sc: Scenario, solved: string[], state: Parameters<typeo
 }
 
 function playOne(idx: number): void {
+  // 每局都要把"上一拍"清空 —— 这四个是模块级的，
+  // 不清的话新一局的第一个节点会拿去跟**上一局的最后一件**比对，
+  // 报出一堆 @node 0 的假硬切。
+  prevTags = []
+  prevMotif = undefined
+  prevEvent = undefined
+  prevStage = undefined
+
   const rng = new Rng(`play-${idx}`)
   const pack = PACK_IDS[rng.int(0, PACK_IDS.length - 1)]!
   const g = rollGenesis(rng, content.origins, content.traits, content.flaws, pack)
@@ -204,6 +231,41 @@ function playOne(idx: number): void {
     }
 
     seenEvents.set(pres.event_id, (seenEvents.get(pres.event_id) ?? 0) + 1)
+
+    const evForContinuity = content.events.find((e) => e.id === pres.event_id)
+    if (evForContinuity) {
+      continuity.nodes++
+      if (pres.transition) continuity.withTransition++
+
+      // 阶段跃迁有没有交代
+      if (prevStage && prevStage !== s.stage) {
+        continuity.stageJumps++
+        if (!pres.transition) continuity.stageJumpsBare++
+      }
+
+      // 同一母题紧挨着重复 —— 读起来像卡带。
+      // 但要区分"有意连锁"：上一件事声明的 followup 正指向这一件，
+      // 那是同一段情节的下一拍，本就该接着讲，不算重复。
+      if (prevMotif && evForContinuity.motif === prevMotif) {
+        const chained = (prevEvent?.followups ?? []).some(
+          (f) => f.split('@')[0] === evForContinuity.id,
+        )
+        if (chained) continuity.motifChains++
+        else continuity.motifRepeats.push(`${evForContinuity.motif} @node ${s.node_index}`)
+      }
+
+      // 硬切：跟上一拍毫无共用意象，而且没有任何承接
+      if (prevTags.length > 0) {
+        const shared = evForContinuity.tags.filter((t) => prevTags.includes(t))
+        if (shared.length === 0 && !pres.transition) {
+          continuity.bareCuts.push(`${prevMotif ?? '?'} → ${evForContinuity.motif} @node ${s.node_index}`)
+        }
+      }
+      prevTags = evForContinuity.tags
+      prevMotif = evForContinuity.motif
+      prevEvent = evForContinuity
+      prevStage = s.stage
+    }
 
     // 散事件：优先挑风险适中、且当前资源扛得住的
     const opt =
@@ -324,7 +386,37 @@ for (const e of neverSeen) for (const st of e.stage) byStage.set(st, (byStage.ge
 L.push(`按阶段：${[...byStage].map(([k, v]) => `${k} ${v}`).join(' · ')}`)
 L.push(``)
 
-L.push(`## 七、行囊对不上的功能标签`)
+L.push(`## 七、事件衔接（通畅性）`)
+L.push(``)
+{
+  const cov = continuity.nodes > 0 ? (continuity.withTransition / continuity.nodes) * 100 : 0
+  L.push(`- 有承接句的节点：**${continuity.withTransition} / ${continuity.nodes}**（${cov.toFixed(1)}%）`)
+  L.push(`- 阶段跃迁：${continuity.stageJumps} 次，其中没有交代的 ${continuity.stageJumpsBare} 次`)
+
+  if (continuity.bareCuts.length === 0) {
+    L.push(`- ✓ 没有出现「上一拍与这一拍毫无共用意象、且中间没有承接」的硬切`)
+  } else {
+    L.push(`- ✗ **${continuity.bareCuts.length} 处硬切**（上一件事与这一件事完全无关，中间没有说话）：`)
+    for (const c of continuity.bareCuts.slice(0, 10)) L.push(`    - ${c}`)
+    if (continuity.bareCuts.length > 10) L.push(`    - … 另有 ${continuity.bareCuts.length - 10} 处`)
+  }
+
+  if (continuity.motifChains > 0) {
+    L.push(`- 有意连锁：${continuity.motifChains} 次（上一件事的 followup 正指向下一件，同一段情节的下一拍，不算问题）`)
+  }
+  if (continuity.motifRepeats.length === 0) {
+    L.push(`- ✓ 没有无来由的母题紧邻重复`)
+  } else {
+    L.push(`- ✗ **${continuity.motifRepeats.length} 处母题紧邻重复**：`)
+    for (const c of continuity.motifRepeats.slice(0, 8)) L.push(`    - ${c}`)
+  }
+  L.push(``)
+  L.push(`> 这些是**结构判据**，能筛出"两件事之间没有接缝"。`)
+  L.push(`> 筛不出"读起来别扭" —— 那需要模型通读连续几段，属于语义检查。`)
+}
+L.push(``)
+
+L.push(`## 八、行囊对不上的功能标签`)
 L.push(``)
 if (affordanceMisses.size === 0) L.push(`✓ 没有出现"要这个标签但身上没有"的情况`)
 else {

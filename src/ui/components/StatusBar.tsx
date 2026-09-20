@@ -15,7 +15,7 @@
 import { useEffect, useRef, useState, type ComponentType } from 'react'
 import s from './StatusBar.module.css'
 import type { ContentDB } from '@/core/content'
-import { progressNameOf } from '@/core/engine'
+import { ageInfoOf, progressNameOf } from '@/core/engine'
 import { ATTR_KEYS } from '@/core/genesis'
 import type { AttrKey, GameState, VarKey } from '@/core/types'
 import {
@@ -34,7 +34,7 @@ import {
   IconSettings,
   type IconProps,
 } from '@/ui/icons'
-import { ATTR_SHORT, hpUrgency, lifeUrgency, realmCount, realmLifespan, realmRange } from '@/ui/text'
+import { ATTR_SHORT, hpUrgency, lifeUrgency, realmCount, realmRange } from '@/ui/text'
 
 /* 一个长期变量一枚图标 —— 缺哪个补哪个，别让玩家读纯文字表 */
 const VAR_ICON: Record<VarKey, ComponentType<IconProps>> = {
@@ -184,7 +184,8 @@ export function StatusBar({
      自己拼 realm.name 会看不到「几层」。 */
   const realm = progressNameOf(state, content)
   const [lo, hi] = realmRange(content, state.pack_id, state.realm_idx)
-  const lifeMax = realmLifespan(content, state.pack_id, state.realm_idx)
+  /* 年龄与寿元上限分开算 —— 见 core/engine.ts 的 ageInfoOf */
+  const life = ageInfoOf(state, content)
   const realmTotal = realmCount(content, state.pack_id)
   const packName = content.packs[state.pack_id]?.display_name ?? state.pack_id
   const alive = state.destiny_children.filter((d) => d.alive).length
@@ -231,13 +232,20 @@ export function StatusBar({
       <div className={s.mid}>
         <PowerRing value={state.power_index} min={lo} max={hi} />
         <div className={s.vitals}>
+          {/* 「年龄 37 / 寿元 120」——年龄是填进去的那一段，上限是尺子 */}
           <Vital
             icon={IconLifespan}
-            label="寿元"
-            word={lifeUrgency(state.vars.lifespan, lifeMax) === 'dire' ? '大限将近' : '尚余'}
-            value={state.vars.lifespan}
-            max={lifeMax}
-            urgency={lifeUrgency(state.vars.lifespan, lifeMax)}
+            label="年龄"
+            word={
+              life.unbounded
+                ? '寿数不限'
+                : life.dire
+                  ? `大限将近 · 寿元 ${Math.round(life.cap)}`
+                  : `寿元 ${Math.round(life.cap)}`
+            }
+            value={life.unbounded ? 0 : Math.round(life.age)}
+            max={life.unbounded ? 1 : Math.round(life.cap)}
+            urgency={life.unbounded ? 'calm' : lifeUrgency(life.age, life.cap)}
           />
           <Vital
             icon={IconInjury}

@@ -37,7 +37,18 @@ export type VarKey =
    * 把它当血量写会让伤害变成治疗 —— content-lint 有 hp_semantics 规则专门盯这个。
    */
   | 'hp'
-  | 'lifespan' // 寿元
+  /**
+   * 寿元**折损**（不是年龄，也不是剩余寿命）。
+   *
+   * 真正决定死活的是「年龄 ≥ 寿元上限」——上限 = 当前境界的寿命 + 这个折损值。
+   * 事件里写 `lifespan -N` 就是"折了 N 年寿"，写正数就是"延了 N 年寿"。
+   *
+   * 之所以不做成"剩余寿命"：境界表里的 80/120/200/…/25600 是**能活到多少岁**，
+   * 不是"一开始就有这么多年可活"。炼气修士不是开局揣着一百二十年，
+   * 而是能活到一百二十岁。突破大境界会把这个上限整个抬上去——
+   * 那是突破最实在的回报之一，用"剩余寿命"模型就完全体现不出来。
+   */
+  | 'lifespan'
 
 /** 判定段位 */
 export type Band = 'crit' | 'success' | 'fail' | 'crit_fail'
@@ -446,6 +457,8 @@ export interface GameState {
   node_index: number
   stage: Stage
   pack_id: PackId
+  /** 当前年龄（岁）。随时间推进增长；与寿元上限比较决定是否寿尽 */
+  age: number
   realm_idx: number
   /** 小境界序号（大境界内第几层）；无小境界的大境界恒为 0 */
   minor_idx: number
@@ -477,6 +490,14 @@ export interface GameState {
   content_version: string
   /** 引擎用：当前正在呈现的事件 / 剧本 id，供存档续玩 */
   current_event_id?: string
+  /** 上一个节点跨过的年数 —— 过渡句与试玩 agent 都要用它说"多少年后" */
+  last_years?: number
+  /** 上一个节点的境界 —— 用来判断这一步是不是突破，好写"境界跃迁"的过渡 */
+  last_realm_idx?: number
+  /** 上一个节点的母题 —— 用来判断这件事是不是上一件事的延续 */
+  last_motif?: string
+  /** 本局已经用过多少次过渡句 —— 避免同一句连着出现 */
+  transition_used?: number
   /** 引擎用：本局目标节点总数（决定阶段推进节奏） */
   total_nodes: number
   /** 引擎用：本局已完成过的剧本 id，防重复 */
@@ -518,6 +539,15 @@ export interface NodePresentation {
   trials?: TrialOption[]
   /** 剧本内的通用手段（探查/交涉/硬闯/静待/抽身） */
   actions?: ScenarioAction[]
+  /**
+   * 承上启下的过渡句 —— 上一件事与这一件事之间的接缝。
+   *
+   * 没有它，相邻两个节点就是两张不相干的画：上一句祖父递来一卷书，
+   * 下一句你已经跟着商队进了山，中间发生了什么全靠玩家自己脑补。
+   * 文本池是按「母题×阶段」独立取词的，它不知道前一个节点讲过什么，
+   * 所以接缝必须单独生成。
+   */
+  transition?: string
   /** 剧本触发时的入场抉择 —— 有这一项时，玩家还没进去 */
   scenario_entry?: ScenarioEntry
 }

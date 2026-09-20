@@ -135,11 +135,18 @@ export function hpUrgency(hp: number): Urgency {
 }
 
 /** 寿元：剩余比例越低越急 */
-export function lifeUrgency(lifespan: number, max: number): Urgency {
-  if (max <= 0) return 'calm'
-  const ratio = lifespan / max
-  if (ratio <= 0.25) return 'dire'
-  if (ratio <= 0.5) return 'warn'
+/**
+ * 寿元告急度 —— 注意判据是「年龄占上限的比例」，不是「剩余多少」。
+ *
+ * 模型改过：从「剩余寿命」改成「年龄 / 寿元上限」。炼气修士不是开局揣着
+ * 一百二十年，而是能活到一百二十岁；突破大境界会把上限整个抬上去。
+ * 所以这里传的是 age 与 cap，越接近上限越告急。
+ */
+export function lifeUrgency(age: number, cap: number): Urgency {
+  if (cap <= 0) return 'calm'
+  const ratio = age / cap
+  if (ratio >= 0.85) return 'dire'
+  if (ratio >= 0.65) return 'warn'
   return 'calm'
 }
 

@@ -320,10 +320,60 @@ const STAGE_RANK: Record<Stage, number> = {
   endgame: 4,
 }
 
+/**
+ * 每节点修为进项 —— **与处境挂钩，不是匀速上涨**。
+ *
+ * 玩家的原话："修为和事件好像没什么关联，自然而然就在增长"。
+ * 之前这里是个只跟悟性和境界有关的常数，于是时间一推就涨，
+ * 跟这一路上发生了什么毫无关系。现在它被三件事改写：
+ *
+ *   1. **伤势**——带伤运功事倍功半；重伤之下强行催动，反而会跌。
+ *      这是"受伤倒退"的来源，也是凡人流里最常见的那种倒退。
+ *   2. **刚做过什么**——闭关参悟算修行，游历争斗不算。
+ *      按最近几次选择的意图给一个 0.6~1.6 的系数。
+ *   3. **心魔 / 因果**——污染重了心不静，欠债多了心不安。
+ */
 export function cultivateGain(state: GameState): number {
   const witsFactor = 1 + state.attrs.wits / 100
   const realmFactor = 1 + state.realm_idx * 0.2
-  return CULTIVATE_BASE * witsFactor * realmFactor
+  const base = CULTIVATE_BASE * witsFactor * realmFactor
+
+  return base * cultivationCondition(state)
+}
+
+/** 当前处境对修行效率的乘数（含为负的情形） */
+export function cultivationCondition(state: GameState): number {
+  const hp = state.vars.hp ?? 0
+  const corruption = state.vars.corruption ?? 0
+  const debt = state.vars.debt ?? 0
+
+  // 伤势：以 85 为**零点** —— 无伤时 1.0，85（垂危）时 0，再往上是负的。
+  // 零点之所以不放在 100，是因为"还剩一口气才倒退"太晚了：
+  // 85 之后就已经是硬撑着运功，该开始伤根基了。
+  const injury = (85 - hp) / 85
+
+  // 最近这段在不在修行：按走过的母题看。
+  // 闭关、渡劫、参悟禁书这类是"静下来"的；夺宝、追杀、大比是"在动"的。
+  const QUIET = ['m_tribulation', 'm_forbidden_knowledge', 'm_waste_root_test']
+  const recentMotifs = (state.recent_motifs ?? []).slice(-4)
+  const practice = recentMotifs.filter((m) => QUIET.includes(m)).length * 0.15
+
+  // 心境：污染与因果都拖慢修行
+  const mind = Math.max(0.5, 1 - corruption / 200 - debt / 300)
+
+  // 静修加成：最近在参悟就有额外进项，否则 0.85（边走边练，事倍功半）
+  const focus = 0.85 + Math.min(0.6, practice)
+
+  const mult = injury * mind * focus
+
+  // 重伤之下**主动倒退**：这不是惩罚，是"带伤强行运功，修为反而散了"。
+  // 玩家明确要过这一条（"甚至可以有受伤倒退"），所以不设正的下界。
+  //
+  // 但它只在**真的快不行了**的时候发生：hp ≥ 75（垂危）才可能转负，
+  // 且最深只到 −0.25 —— 一个节点掉掉百分之几的修为，是挫折不是毁灭。
+  // 想让玩家跌境，该由事件显式写 modify_power_index 负值，而不是靠被动流失。
+  // 下界 −0.25：掉是掉，但一个节点掉掉百分之几，是挫折不是毁灭。
+  return Math.max(-0.25, Math.min(1.6, mult))
 }
 
 /**

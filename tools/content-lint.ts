@@ -450,6 +450,24 @@ if (c.endings.length < 60) {
   }
 }
 
+// ---- 4a2. 开局伤势（origin_hp）----
+//
+// 出身里的 `start_resources.hp` 是**直接赋值**（不是增量），
+// 而且 hp 是伤势（0 完好）。曾经有 13 条出身写着 hp:80~100 ——
+// 那是"血量"时代的遗留，语义一改就成了"建号即垂危"，
+// 其中一条 hp:100 更是开局直接判死。玩家报的"伤势一直是满的"就是它。
+{
+  for (const o of asArr<{ name?: string; start_resources?: Record<string, number> }>(c.origins)) {
+    const hp = o.start_resources?.hp
+    if (hp === undefined) continue
+    if (hp >= 100) {
+      err('origin_hp', `origin:${o.name}`, `开局伤势 ${hp} —— 一建号就油尽灯枯，直接判死`)
+    } else if (hp > 30) {
+      err('origin_hp', `origin:${o.name}`, `开局伤势 ${hp} 过高（建议 ≤30）—— 疑似把 hp 当成了"开局气血"`)
+    }
+  }
+}
+
 // ---- 4b. hp 语义方向（hp_semantics）----
 //
 // `hp` 是**伤势**：0 = 完好，100 = 油尽灯枯；正 delta = 受伤加重。

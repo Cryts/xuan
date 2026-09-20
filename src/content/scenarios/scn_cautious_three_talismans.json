@@ -26,7 +26,7 @@
         "type": "attr",
         "key": "wits",
         "op": ">=",
-        "value": 65
+        "value": 46
       }
     },
     {
@@ -36,7 +36,7 @@
         "type": "attr",
         "key": "insight",
         "op": ">=",
-        "value": 60
+        "value": 45
       }
     },
     {
@@ -135,7 +135,7 @@
           "type": "attr",
           "key": "temper",
           "op": ">=",
-          "value": 65
+          "value": 46
         }
       ],
       "cost": "你从不回应，三处渐次冷了——他们都当你不在了",
@@ -174,7 +174,7 @@
           "type": "attr",
           "key": "insight",
           "op": ">=",
-          "value": 65
+          "value": 46
         },
         {
           "type": "node_count",
@@ -268,7 +268,7 @@
           "type": "attr",
           "key": "wits",
           "op": ">=",
-          "value": 85
+          "value": 51
         },
         {
           "type": "var",

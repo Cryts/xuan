@@ -16,6 +16,7 @@
 
 import { scanText } from './forbidden-words'
 import { loadContent, ROOT } from './load-content'
+import { ATTR_REACHABLE, ATTR_TYPICAL } from '../src/core/genesis'
 import path from 'node:path'
 
 type Level = 'error' | 'warn'
@@ -464,6 +465,44 @@ if (c.endings.length < 60) {
       err('origin_hp', `origin:${o.name}`, `开局伤势 ${hp} —— 一建号就油尽灯枯，直接判死`)
     } else if (hp > 30) {
       err('origin_hp', `origin:${o.name}`, `开局伤势 ${hp} 过高（建议 ≤30）—— 疑似把 hp 当成了"开局气血"`)
+    }
+  }
+}
+
+// ---- 4a3. 剧本属性门槛可达性（scenario_attr_reachable）----
+//
+// 只验条件引用"存在"是不够的 —— 还要验它**够得着**。
+// 曾经 12 个剧本里 48 个属性门槛写着 70~85，而实测属性中位 43、上限 54：
+// 全部不可达，而所有门禁全绿，因为没有任何一条规则问过这个问题。
+{
+  const ATTR_LABEL: Record<string, string> = {
+    root: '根骨', wits: '悟性', temper: '心性',
+    luck: '气运', insight: '机敏', charm: '魅力',
+  }
+  const scanAttr = (node: unknown, where: string): void => {
+    if (Array.isArray(node)) return node.forEach((x) => scanAttr(x, where))
+    if (!node || typeof node !== 'object') return
+    const o = node as { type?: string; key?: string; op?: string; value?: number }
+    if (o.type === 'attr' && typeof o.value === 'number' && (o.op === '>=' || o.op === '>')) {
+      const need = o.op === '>' ? o.value + 1 : o.value
+      if (need > ATTR_REACHABLE) {
+        err(
+          'scenario_attr_reachable',
+          where,
+          `${ATTR_LABEL[o.key ?? ''] ?? o.key} 要求 ${o.op} ${o.value}，` +
+            `但一局之内该属性最高约 ${ATTR_REACHABLE}（典型 ${ATTR_TYPICAL}）—— 这条路走不通`,
+        )
+      }
+    }
+    for (const v of Object.values(node)) scanAttr(v, where)
+  }
+  for (const sc of asArr<AnyEv>(c.scenarios)) {
+    if (sc.kind !== 'scenario') continue
+    for (const b of sc.breakthroughs ?? []) {
+      scanAttr(b.conditions, `scenario:${sc.id} 破局组「${b.name ?? b.id}」`)
+    }
+    for (const h of sc.rules_hidden ?? []) {
+      scanAttr((h as { reveal?: unknown }).reveal, `scenario:${sc.id} 隐规则「${h.id}」`)
     }
   }
 }

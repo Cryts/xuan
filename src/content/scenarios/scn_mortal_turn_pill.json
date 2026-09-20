@@ -2,11 +2,17 @@
   "id": "scn_mortal_turn_pill",
   "kind": "scenario",
   "name": "九转无声鼎",
-  "pack": ["mortal"],
+  "pack": [
+    "mortal"
+  ],
   "span": 5,
   "tension": 7,
   "weight": 40,
-  "requires": { "type": "realm_idx", "op": ">=", "value": 1 },
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 1
+  },
   "rules_stated": [
     "炉中丹成于九转，每投一味药便记一转，九转既满，丹成鼎封。",
     "一转之内只可投一味，投重则整炉尽废。",
@@ -16,12 +22,21 @@
     {
       "id": "rule_turn_is_voice",
       "hint": "『记转』记的是报药之声，不是投药之手。不报名的药，鼎不认它。",
-      "reveal": { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+      "reveal": {
+        "type": "attr",
+        "key": "insight",
+        "op": ">=",
+        "value": 45
+      }
     },
     {
       "id": "rule_fire_second_hand",
       "hint": "『不可离人』之『人』，不专指你一个。鼎侧另有一个人守着，火就不算离人。",
-      "reveal": { "type": "relation", "kind": "护道人", "exists": true }
+      "reveal": {
+        "type": "relation",
+        "kind": "护道人",
+        "exists": true
+      }
     },
     {
       "id": "rule_ninth_is_shape",
@@ -29,8 +44,17 @@
       "reveal": {
         "type": "any",
         "of": [
-          { "type": "affix_count", "ref": "药", "count": 2 },
-          { "type": "var", "key": "rare_mat", "op": ">=", "value": 3 }
+          {
+            "type": "affix_count",
+            "ref": "药",
+            "count": 2
+          },
+          {
+            "type": "var",
+            "key": "rare_mat",
+            "op": ">=",
+            "value": 3
+          }
         ]
       }
     }
@@ -45,24 +69,50 @@
       "id": "solve_silent",
       "name": "默投",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_turn_is_voice" },
+        {
+          "type": "known_rule",
+          "ref": "rule_turn_is_voice"
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "添药" },
-            { "type": "item", "ref": "itm_herb_bundle", "count": 2 }
+            {
+              "type": "affordance",
+              "ref": "添药"
+            },
+            {
+              "type": "item",
+              "ref": "itm_herb_bundle",
+              "count": 2
+            }
           ]
         },
-        { "type": "attr", "key": "insight", "op": ">=", "value": 55 }
+        {
+          "type": "attr",
+          "key": "insight",
+          "op": ">=",
+          "value": 44
+        }
       ],
       "cost": "丹成了，你却不知自己报到了第几转——那炉火记下了你没报的每一味药（耗寿元）",
       "outcome": {
         "ref": "end_turn_pill_silent",
         "narrative": "scn_turn_pill.silent",
         "effects": [
-          { "type": "add_var", "key": "lifespan", "delta": -15 },
-          { "type": "add_var", "key": "rare_mat", "delta": 3 },
-          { "type": "unlock_title", "ref": "title_silent_alchemist" }
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -15
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 3
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_silent_alchemist"
+          }
         ]
       }
     },
@@ -70,13 +120,27 @@
       "id": "solve_keeper",
       "name": "守火",
       "conditions": [
-        { "type": "relation", "kind": "护道人", "exists": true },
-        { "type": "known_rule", "ref": "rule_fire_second_hand" },
+        {
+          "type": "relation",
+          "kind": "护道人",
+          "exists": true
+        },
+        {
+          "type": "known_rule",
+          "ref": "rule_fire_second_hand"
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "镇火" },
-            { "type": "affix_count", "ref": "御火", "count": 1 }
+            {
+              "type": "affordance",
+              "ref": "镇火"
+            },
+            {
+              "type": "affix_count",
+              "ref": "御火",
+              "count": 1
+            }
           ]
         }
       ],
@@ -85,9 +149,22 @@
         "ref": "end_turn_pill_keeper",
         "narrative": "scn_turn_pill.keeper",
         "effects": [
-          { "type": "add_var", "key": "debt", "delta": 3 },
-          { "type": "set_relation", "npc_id": "npc_fire_keeper", "kind": "护道人", "delta": -20 },
-          { "type": "add_var", "key": "currency", "delta": 25 }
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 3
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_fire_keeper",
+            "kind": "护道人",
+            "delta": -20
+          },
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": 25
+          }
         ]
       }
     },
@@ -95,12 +172,25 @@
       "id": "solve_crack",
       "name": "强凝",
       "conditions": [
-        { "type": "attr", "key": "root", "op": ">=", "value": 75 },
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 49
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affix_count", "ref": "力", "count": 2 },
-            { "type": "realm_idx", "op": ">=", "value": 3 }
+            {
+              "type": "affix_count",
+              "ref": "力",
+              "count": 2
+            },
+            {
+              "type": "realm_idx",
+              "op": ">=",
+              "value": 3
+            }
           ]
         }
       ],
@@ -109,9 +199,21 @@
         "ref": "end_turn_pill_crack",
         "narrative": "scn_turn_pill.crack",
         "effects": [
-          { "type": "add_var", "key": "hp", "delta": 35 },
-          { "type": "add_var", "key": "power", "delta": 25 },
-          { "type": "add_affix", "target": "self", "affix_id": "affix_ember_vein" }
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 35
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 25
+          },
+          {
+            "type": "add_affix",
+            "target": "self",
+            "affix_id": "affix_ember_vein"
+          }
         ]
       }
     },
@@ -119,24 +221,58 @@
       "id": "solve_barter",
       "name": "借炉",
       "conditions": [
-        { "type": "faction_tier", "ref": "丹阁", "op": ">=", "value": 2 },
+        {
+          "type": "faction_tier",
+          "ref": "丹阁",
+          "op": ">=",
+          "value": 2
+        },
         {
           "type": "any",
           "of": [
-            { "type": "var", "key": "currency", "op": ">=", "value": 30 },
-            { "type": "var", "key": "favor", "op": ">=", "value": 20 }
+            {
+              "type": "var",
+              "key": "currency",
+              "op": ">=",
+              "value": 30
+            },
+            {
+              "type": "var",
+              "key": "favor",
+              "op": ">=",
+              "value": 20
+            }
           ]
         },
-        { "type": "not", "of": { "type": "flag", "ref": "dan_ge_burned_bridge" } }
+        {
+          "type": "not",
+          "of": {
+            "type": "flag",
+            "ref": "dan_ge_burned_bridge"
+          }
+        }
       ],
       "cost": "丹阁替你成丹，丹归丹阁，名也归丹阁",
       "outcome": {
         "ref": "end_turn_pill_barter",
         "narrative": "scn_turn_pill.barter",
         "effects": [
-          { "type": "add_var", "key": "debt", "delta": 2 },
-          { "type": "add_var", "key": "currency", "delta": -30 },
-          { "type": "set_relation", "npc_id": "npc_alchemy_pavilion", "kind": "仇家", "delta": 15 }
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 2
+          },
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": -30
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_alchemy_pavilion",
+            "kind": "仇家",
+            "delta": 15
+          }
         ]
       }
     },
@@ -145,20 +281,52 @@
       "name": "无声九转",
       "hidden": true,
       "conditions": [
-        { "type": "solved_any_of", "refs": ["solve_silent", "solve_barter"] },
-        { "type": "known_rule", "ref": "rule_ninth_is_shape" },
-        { "type": "attr", "key": "wits", "op": ">=", "value": 85 }
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_silent",
+            "solve_barter"
+          ]
+        },
+        {
+          "type": "known_rule",
+          "ref": "rule_ninth_is_shape"
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 51
+        }
       ],
       "cost": "极低——但你从此记得自己投过的每一味药，一味不落",
       "outcome": {
         "ref": "end_turn_pill_noiseless",
         "narrative": "scn_turn_pill.noiseless",
         "effects": [
-          { "type": "add_var", "key": "power", "delta": 35 },
-          { "type": "add_var", "key": "rare_mat", "delta": 4 },
-          { "type": "learn_rule", "pack": "mortal", "ref": "rule_turn_is_voice" },
-          { "type": "unlock_title", "ref": "title_unnamed_alchemist" },
-          { "type": "unlock_codex", "ref": "codex_silent_nine_turns" }
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 35
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 4
+          },
+          {
+            "type": "learn_rule",
+            "pack": "mortal",
+            "ref": "rule_turn_is_voice"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_unnamed_alchemist"
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_silent_nine_turns"
+          }
         ]
       }
     }
@@ -167,10 +335,24 @@
     "narrative": "scn_turn_pill.sealed",
     "ref": "end_turn_pill_sealed",
     "effects": [
-      { "type": "trigger_end", "ref": "end_turn_pill_sealed" },
-      { "type": "add_var", "key": "lifespan", "delta": -20 },
-      { "type": "add_var", "key": "rare_mat", "delta": -2 },
-      { "type": "unlock_codex", "ref": "codex_cold_cauldron" }
+      {
+        "type": "trigger_end",
+        "ref": "end_turn_pill_sealed"
+      },
+      {
+        "type": "add_var",
+        "key": "lifespan",
+        "delta": -20
+      },
+      {
+        "type": "add_var",
+        "key": "rare_mat",
+        "delta": -2
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_cold_cauldron"
+      }
     ]
   },
   "version": "1.0.0"

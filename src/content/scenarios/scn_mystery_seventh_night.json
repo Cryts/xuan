@@ -2,11 +2,17 @@
   "id": "scn_mystery_seventh_night",
   "kind": "scenario",
   "name": "谶·第七夜",
-  "pack": ["mystery"],
+  "pack": [
+    "mystery"
+  ],
   "span": 6,
   "tension": 8,
   "weight": 38,
-  "requires": { "type": "realm_idx", "op": ">=", "value": 2 },
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 2
+  },
   "rules_stated": [
     "谶言曰：此宅之事，须在第七夜之前了结。",
     "宅中每夜你只可说一句话，言出不可收回。",
@@ -16,12 +22,22 @@
     {
       "id": "rule_speech_needs_ear",
       "hint": "『一句话』数的是有人听见的话。对着空屋子自言自语，不算。",
-      "reveal": { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+      "reveal": {
+        "type": "attr",
+        "key": "insight",
+        "op": ">=",
+        "value": 45
+      }
     },
     {
       "id": "rule_night_is_count",
       "hint": "『第七夜』记的不是天色，是话数——话到第七句，第七夜就到了。",
-      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 65 }
+      "reveal": {
+        "type": "attr",
+        "key": "wits",
+        "op": ">=",
+        "value": 46
+      }
     },
     {
       "id": "rule_blank_tail",
@@ -29,8 +45,16 @@
       "reveal": {
         "type": "any",
         "of": [
-          { "type": "affordance", "ref": "卜具" },
-          { "type": "faction_tier", "ref": "观星台", "op": ">=", "value": 2 }
+          {
+            "type": "affordance",
+            "ref": "卜具"
+          },
+          {
+            "type": "faction_tier",
+            "ref": "观星台",
+            "op": ">=",
+            "value": 2
+          }
         ]
       }
     }
@@ -45,18 +69,44 @@
       "id": "solve_shut_mouth",
       "name": "闭口",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_speech_needs_ear" },
-        { "type": "attr", "key": "temper", "op": ">=", "value": 65 },
-        { "type": "var", "key": "corruption", "op": "<=", "value": 40 }
+        {
+          "type": "known_rule",
+          "ref": "rule_speech_needs_ear"
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 46
+        },
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": "<=",
+          "value": 40
+        }
       ],
       "cost": "你从此不再对人说话——听不见你声音的人，也就当你不在了",
       "outcome": {
         "ref": "end_seventh_mum",
         "narrative": "scn_seventh_night.mum",
         "effects": [
-          { "type": "set_relation", "npc_id": "npc_house_companion", "kind": "道侣", "delta": -100 },
-          { "type": "add_var", "key": "favor", "delta": -15 },
-          { "type": "add_var", "key": "power", "delta": 20 }
+          {
+            "type": "set_relation",
+            "npc_id": "npc_house_companion",
+            "kind": "道侣",
+            "delta": -100
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": -15
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          }
         ]
       }
     },
@@ -64,18 +114,41 @@
       "id": "solve_count_words",
       "name": "数话",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_night_is_count" },
-        { "type": "node_count", "op": "<=", "value": 3 },
-        { "type": "attr", "key": "wits", "op": ">=", "value": 70 }
+        {
+          "type": "known_rule",
+          "ref": "rule_night_is_count"
+        },
+        {
+          "type": "node_count",
+          "op": "<=",
+          "value": 3
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 48
+        }
       ],
       "cost": "你把七句省成三句，宅子提前应了谶——提前的代价是寿元",
       "outcome": {
         "ref": "end_seventh_counted",
         "narrative": "scn_seventh_night.counted",
         "effects": [
-          { "type": "add_var", "key": "lifespan", "delta": -20 },
-          { "type": "add_var", "key": "power", "delta": 25 },
-          { "type": "unlock_title", "ref": "title_seven_words" }
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -20
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 25
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_seven_words"
+          }
         ]
       }
     },
@@ -83,12 +156,22 @@
       "id": "solve_fill_blank",
       "name": "补谶",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_blank_tail" },
+        {
+          "type": "known_rule",
+          "ref": "rule_blank_tail"
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "卜具" },
-            { "type": "affix_count", "ref": "星", "count": 1 }
+            {
+              "type": "affordance",
+              "ref": "卜具"
+            },
+            {
+              "type": "affix_count",
+              "ref": "星",
+              "count": 1
+            }
           ]
         }
       ],
@@ -97,9 +180,20 @@
         "ref": "end_seventh_filled",
         "narrative": "scn_seventh_night.filled",
         "effects": [
-          { "type": "add_var", "key": "corruption", "delta": 30 },
-          { "type": "add_var", "key": "karma", "delta": 10 },
-          { "type": "unlock_codex", "ref": "codex_half_prophecy" }
+          {
+            "type": "add_var",
+            "key": "corruption",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 10
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_half_prophecy"
+          }
         ]
       }
     },
@@ -107,17 +201,39 @@
       "id": "solve_break_prophecy",
       "name": "以力抗谶",
       "conditions": [
-        { "type": "attr", "key": "root", "op": ">=", "value": 75 },
-        { "type": "realm_idx", "op": ">=", "value": 3 }
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 49
+        },
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 3
+        }
       ],
       "cost": "谶言应在了旁人身上——那人是替你的",
       "outcome": {
         "ref": "end_seventh_broken",
         "narrative": "scn_seventh_night.broken",
         "effects": [
-          { "type": "add_var", "key": "karma", "delta": -25 },
-          { "type": "set_relation", "npc_id": "npc_substitute", "kind": "仇家", "delta": 35 },
-          { "type": "add_var", "key": "hp", "delta": 25 }
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": -25
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_substitute",
+            "kind": "仇家",
+            "delta": 35
+          },
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 25
+          }
         ]
       }
     },
@@ -126,18 +242,43 @@
       "name": "第七句",
       "hidden": true,
       "conditions": [
-        { "type": "solved_any_of", "refs": ["solve_shut_mouth", "solve_fill_blank"] },
-        { "type": "known_rule", "ref": "rule_blank_tail" },
-        { "type": "attr", "key": "insight", "op": ">=", "value": 85 }
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_shut_mouth",
+            "solve_fill_blank"
+          ]
+        },
+        {
+          "type": "known_rule",
+          "ref": "rule_blank_tail"
+        },
+        {
+          "type": "attr",
+          "key": "insight",
+          "op": ">=",
+          "value": 51
+        }
       ],
       "cost": "极低——只是那句没写出来的话，从此由你来说",
       "outcome": {
         "ref": "end_seventh_written",
         "narrative": "scn_seventh_night.written",
         "effects": [
-          { "type": "add_var", "key": "power", "delta": 35 },
-          { "type": "add_var", "key": "corruption", "delta": -15 },
-          { "type": "unlock_title", "ref": "title_last_line" }
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 35
+          },
+          {
+            "type": "add_var",
+            "key": "corruption",
+            "delta": -15
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_last_line"
+          }
         ]
       }
     }
@@ -146,10 +287,24 @@
     "narrative": "scn_seventh_night.eighth",
     "ref": "end_seventh_eighth",
     "effects": [
-      { "type": "trigger_end", "ref": "end_seventh_eighth" },
-      { "type": "add_var", "key": "corruption", "delta": 20 },
-      { "type": "add_var", "key": "lifespan", "delta": -15 },
-      { "type": "unlock_codex", "ref": "codex_counting_voice" }
+      {
+        "type": "trigger_end",
+        "ref": "end_seventh_eighth"
+      },
+      {
+        "type": "add_var",
+        "key": "corruption",
+        "delta": 20
+      },
+      {
+        "type": "add_var",
+        "key": "lifespan",
+        "delta": -15
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_counting_voice"
+      }
     ]
   },
   "version": "1.0.0"

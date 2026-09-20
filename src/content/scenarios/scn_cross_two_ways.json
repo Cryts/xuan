@@ -34,7 +34,7 @@
             "type": "attr",
             "key": "wits",
             "op": ">=",
-            "value": 70
+            "value": 48
           },
           {
             "type": "learned_rule",
@@ -51,7 +51,7 @@
         "type": "attr",
         "key": "charm",
         "op": ">=",
-        "value": 65
+        "value": 46
       }
     },
     {
@@ -69,7 +69,7 @@
             "type": "attr",
             "key": "insight",
             "op": ">=",
-            "value": 65
+            "value": 46
           }
         ]
       }
@@ -161,7 +161,7 @@
           "type": "attr",
           "key": "wits",
           "op": ">=",
-          "value": 70
+          "value": 48
         },
         {
           "type": "any",
@@ -215,7 +215,7 @@
           "type": "attr",
           "key": "charm",
           "op": ">=",
-          "value": 70
+          "value": 48
         },
         {
           "type": "not",
@@ -270,7 +270,7 @@
                   "type": "attr",
                   "key": "root",
                   "op": ">=",
-                  "value": 70
+                  "value": 48
                 }
               ]
             },
@@ -285,7 +285,7 @@
                   "type": "attr",
                   "key": "insight",
                   "op": ">=",
-                  "value": 70
+                  "value": 48
                 }
               ]
             },
@@ -300,7 +300,7 @@
                   "type": "attr",
                   "key": "wits",
                   "op": ">=",
-                  "value": 70
+                  "value": 48
                 }
               ]
             },
@@ -315,7 +315,7 @@
                   "type": "attr",
                   "key": "temper",
                   "op": ">=",
-                  "value": 70
+                  "value": 48
                 }
               ]
             },
@@ -395,7 +395,7 @@
           "type": "attr",
           "key": "insight",
           "op": ">=",
-          "value": 65
+          "value": 46
         }
       ],
       "cost": "你拿旁人之物充作己物留在台上——那物主找上门来",
@@ -442,7 +442,7 @@
           "type": "attr",
           "key": "wits",
           "op": ">=",
-          "value": 88
+          "value": 52
         },
         {
           "type": "var",

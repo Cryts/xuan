@@ -2,11 +2,17 @@
   "id": "scn_rebel_question_hall",
   "kind": "scenario",
   "name": "道场问罪",
-  "pack": ["rebel"],
+  "pack": [
+    "rebel"
+  ],
   "span": 6,
   "tension": 7,
   "weight": 35,
-  "requires": { "type": "realm_idx", "op": ">=", "value": 1 },
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 1
+  },
   "rules_stated": [
     "道场中死了一人，凶必在七人之中。",
     "断案只凭三样：物证、口供、镜中所见。",
@@ -16,7 +22,12 @@
     {
       "id": "rule_mirror_is_eyes",
       "hint": "镜中所见，是有人眼所见。镜中有空缺之处，那便是无人看着的时候。",
-      "reveal": { "type": "attr", "key": "insight", "op": ">=", "value": 65 }
+      "reveal": {
+        "type": "attr",
+        "key": "insight",
+        "op": ">=",
+        "value": 46
+      }
     },
     {
       "id": "rule_word_can_be_lent",
@@ -24,15 +35,27 @@
       "reveal": {
         "type": "any",
         "of": [
-          { "type": "attr", "key": "charm", "op": ">=", "value": 60 },
-          { "type": "relation", "kind": "盟友", "exists": true }
+          {
+            "type": "attr",
+            "key": "charm",
+            "op": ">=",
+            "value": 45
+          },
+          {
+            "type": "relation",
+            "kind": "盟友",
+            "exists": true
+          }
         ]
       }
     },
     {
       "id": "rule_hand_not_owner",
       "hint": "『物证』只论在谁手中取出。不是你放的，也可以是你的。",
-      "reveal": { "type": "known_rule", "ref": "rule_mirror_is_eyes" }
+      "reveal": {
+        "type": "known_rule",
+        "ref": "rule_mirror_is_eyes"
+      }
     }
   ],
   "forbidden": [
@@ -45,12 +68,22 @@
       "id": "solve_mirror_gap",
       "name": "照空处",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_mirror_is_eyes" },
+        {
+          "type": "known_rule",
+          "ref": "rule_mirror_is_eyes"
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affix_count", "ref": "照", "count": 1 },
-            { "type": "affordance", "ref": "观气" }
+            {
+              "type": "affix_count",
+              "ref": "照",
+              "count": 1
+            },
+            {
+              "type": "affordance",
+              "ref": "观气"
+            }
           ]
         }
       ],
@@ -59,9 +92,21 @@
         "ref": "end_hall_mirror",
         "narrative": "scn_question_hall.mirror",
         "effects": [
-          { "type": "set_relation", "npc_id": "npc_mirror_keeper", "kind": "仇家", "delta": 30 },
-          { "type": "add_var", "key": "exposure", "delta": 15 },
-          { "type": "unlock_codex", "ref": "codex_mirror_gap" }
+          {
+            "type": "set_relation",
+            "npc_id": "npc_mirror_keeper",
+            "kind": "仇家",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 15
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_mirror_gap"
+          }
         ]
       }
     },
@@ -69,13 +114,29 @@
       "id": "solve_lend_word",
       "name": "代人供",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_word_can_be_lent" },
-        { "type": "attr", "key": "charm", "op": ">=", "value": 65 },
+        {
+          "type": "known_rule",
+          "ref": "rule_word_can_be_lent"
+        },
+        {
+          "type": "attr",
+          "key": "charm",
+          "op": ">=",
+          "value": 46
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "易声" },
-            { "type": "var", "key": "favor", "op": ">=", "value": 20 }
+            {
+              "type": "affordance",
+              "ref": "易声"
+            },
+            {
+              "type": "var",
+              "key": "favor",
+              "op": ">=",
+              "value": 20
+            }
           ]
         }
       ],
@@ -84,9 +145,22 @@
         "ref": "end_hall_lent",
         "narrative": "scn_question_hall.lent",
         "effects": [
-          { "type": "add_var", "key": "debt", "delta": 3 },
-          { "type": "set_relation", "npc_id": "npc_silent_disciple", "kind": "盟友", "delta": 20 },
-          { "type": "add_var", "key": "karma", "delta": 10 }
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 3
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_silent_disciple",
+            "kind": "盟友",
+            "delta": 20
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 10
+          }
         ]
       }
     },
@@ -94,12 +168,22 @@
       "id": "solve_plant_proof",
       "name": "置证",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_hand_not_owner" },
+        {
+          "type": "known_rule",
+          "ref": "rule_hand_not_owner"
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "伪证" },
-            { "type": "affix_count", "ref": "幻", "count": 1 }
+            {
+              "type": "affordance",
+              "ref": "伪证"
+            },
+            {
+              "type": "affix_count",
+              "ref": "幻",
+              "count": 1
+            }
           ]
         }
       ],
@@ -108,9 +192,21 @@
         "ref": "end_hall_planted",
         "narrative": "scn_question_hall.planted",
         "effects": [
-          { "type": "add_var", "key": "karma", "delta": -30 },
-          { "type": "add_var", "key": "corruption", "delta": 20 },
-          { "type": "add_var", "key": "power", "delta": 15 }
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": -30
+          },
+          {
+            "type": "add_var",
+            "key": "corruption",
+            "delta": 20
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 15
+          }
         ]
       }
     },
@@ -118,19 +214,47 @@
       "id": "solve_confess_self",
       "name": "以身顶罪",
       "conditions": [
-        { "type": "flag", "ref": "knows_true_killer" },
-        { "type": "attr", "key": "temper", "op": ">=", "value": 70 },
-        { "type": "var", "key": "corruption", "op": "<=", "value": 40 }
+        {
+          "type": "flag",
+          "ref": "knows_true_killer"
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 48
+        },
+        {
+          "type": "var",
+          "key": "corruption",
+          "op": "<=",
+          "value": 40
+        }
       ],
       "cost": "你顶下这一桩，换回一句实话——那实话不值一条命",
       "outcome": {
         "ref": "end_hall_confessed",
         "narrative": "scn_question_hall.confessed",
         "effects": [
-          { "type": "add_var", "key": "favor", "delta": -30 },
-          { "type": "add_var", "key": "karma", "delta": 25 },
-          { "type": "add_var", "key": "hp", "delta": 20 },
-          { "type": "unlock_codex", "ref": "codex_true_killer" }
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": -30
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 25
+          },
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 20
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_true_killer"
+          }
         ]
       }
     },
@@ -139,19 +263,46 @@
       "name": "第七人不言",
       "hidden": true,
       "conditions": [
-        { "type": "solved_any_of", "refs": ["solve_mirror_gap", "solve_lend_word"] },
-        { "type": "known_rule", "ref": "rule_hand_not_owner" },
-        { "type": "attr", "key": "wits", "op": ">=", "value": 85 }
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_mirror_gap",
+            "solve_lend_word"
+          ]
+        },
+        {
+          "type": "known_rule",
+          "ref": "rule_hand_not_owner"
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 51
+        }
       ],
       "cost": "极低——只是那第七个人自始至终没有名字，是你替他把名字抹了的",
       "outcome": {
         "ref": "end_hall_unnamed",
         "narrative": "scn_question_hall.unnamed",
         "effects": [
-          { "type": "modify_power_index", "delta": 6 },
-          { "type": "add_var", "key": "karma", "delta": 15 },
-          { "type": "unlock_title", "ref": "title_unnamed_witness" },
-          { "type": "unlock_codex", "ref": "codex_seventh_disciple" }
+          {
+            "type": "modify_power_index",
+            "delta": 6
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 15
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_unnamed_witness"
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_seventh_disciple"
+          }
         ]
       }
     }
@@ -160,10 +311,24 @@
     "narrative": "scn_question_hall.unjudged",
     "ref": "end_hall_unjudged",
     "effects": [
-      { "type": "trigger_end", "ref": "end_hall_unjudged" },
-      { "type": "add_var", "key": "favor", "delta": -15 },
-      { "type": "add_var", "key": "exposure", "delta": 10 },
-      { "type": "unlock_codex", "ref": "codex_empty_cushion" }
+      {
+        "type": "trigger_end",
+        "ref": "end_hall_unjudged"
+      },
+      {
+        "type": "add_var",
+        "key": "favor",
+        "delta": -15
+      },
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": 10
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_empty_cushion"
+      }
     ]
   },
   "version": "1.0.0"

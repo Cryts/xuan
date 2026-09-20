@@ -25,6 +25,25 @@ const BASE = 40
 /** 属性加成总和上限（content-lint 的 attr_balance 阈值） */
 export const ATTR_BUDGET = 45
 
+/**
+ * 属性在一局之内的**实际可达区间** —— 由蒙特卡洛实测得出，不是拍的。
+ *
+ * 这一组数字是被一次真实事故逼出来的：剧本的破局条件写着
+ * `wits >= 85`，而实测 200 局里悟性的中位数是 43、九十分位 47、
+ * **全场最高 54**。也就是说那 48 个属性门槛**一个都够不着** ——
+ * 玩家解锁了全部规则仍然破不了局，因为卡住的从来不是信息。
+ *
+ * 写剧本的人把属性当成了"满值 100、中期角色六七十"的量表，
+ * 而本作是 40 起、事件里加一两点。两边对不上，而且**不报错**。
+ * 所以这里把实测值固化成常量，content-lint 拿它当闸门：
+ * 剧本里任何属性门槛超过 ATTR_REACHABLE 就是 error。
+ *
+ * 改动成长曲线（divideInitAttrs 的 BASE、事件的 add_attr 幅度）时，
+ * 这三个数要重新跑 tools 里的属性分布测量，否则闸门会失真。
+ */
+export const ATTR_TYPICAL = 43
+export const ATTR_REACHABLE = 58
+
 export function divideInitAttrs(
   rng: Rng,
   origin: Origin | undefined,

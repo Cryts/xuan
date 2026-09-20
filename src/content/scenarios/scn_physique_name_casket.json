@@ -2,11 +2,17 @@
   "id": "scn_physique_name_casket",
   "kind": "scenario",
   "name": "投名匣",
-  "pack": ["physique"],
+  "pack": [
+    "physique"
+  ],
   "span": 5,
   "tension": 7,
   "weight": 38,
-  "requires": { "type": "realm_idx", "op": ">=", "value": 1 },
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 1
+  },
   "rules_stated": [
     "匣中投名，名即现形——所投何名，所得何物。",
     "所投之名须为一物之全名，名不全者，所现亦不全。",
@@ -16,17 +22,30 @@
     {
       "id": "rule_vague_is_whole",
       "hint": "『全名』——『万物』『诸般』也是一物的全名。名字越虚，出来的东西越实。",
-      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 65 }
+      "reveal": {
+        "type": "attr",
+        "key": "wits",
+        "op": ">=",
+        "value": 46
+      }
     },
     {
       "id": "rule_part_is_gift",
       "hint": "『不全』不是残缺。投『锋』得锋，投『鞘』得藏——你要哪一段，它给哪一段。",
-      "reveal": { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+      "reveal": {
+        "type": "attr",
+        "key": "insight",
+        "op": ">=",
+        "value": 45
+      }
     },
     {
       "id": "rule_six_faces",
       "hint": "匣有六面，你只用了朝着你的那一面。",
-      "reveal": { "type": "known_rule", "ref": "rule_vague_is_whole" }
+      "reveal": {
+        "type": "known_rule",
+        "ref": "rule_vague_is_whole"
+      }
     }
   ],
   "forbidden": [
@@ -39,13 +58,28 @@
       "id": "solve_vague_name",
       "name": "投虚名",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_vague_is_whole" },
-        { "type": "attr", "key": "wits", "op": ">=", "value": 70 },
+        {
+          "type": "known_rule",
+          "ref": "rule_vague_is_whole"
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 48
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "铭刻" },
-            { "type": "affix_count", "ref": "骨篆", "count": 1 }
+            {
+              "type": "affordance",
+              "ref": "铭刻"
+            },
+            {
+              "type": "affix_count",
+              "ref": "骨篆",
+              "count": 1
+            }
           ]
         }
       ],
@@ -54,9 +88,20 @@
         "ref": "end_casket_vague",
         "narrative": "scn_name_casket.vague",
         "effects": [
-          { "type": "add_var", "key": "lifespan", "delta": -20 },
-          { "type": "add_var", "key": "rare_mat", "delta": 6 },
-          { "type": "unlock_title", "ref": "title_namer_of_all" }
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -20
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 6
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_namer_of_all"
+          }
         ]
       }
     },
@@ -64,17 +109,36 @@
       "id": "solve_part_name",
       "name": "投偏名",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_part_is_gift" },
-        { "type": "affix_count", "ref": "刻", "count": 1 }
+        {
+          "type": "known_rule",
+          "ref": "rule_part_is_gift"
+        },
+        {
+          "type": "affix_count",
+          "ref": "刻",
+          "count": 1
+        }
       ],
       "cost": "你只取了要的那一段，剩下的留在匣里，一直在叫",
       "outcome": {
         "ref": "end_casket_part",
         "narrative": "scn_name_casket.part",
         "effects": [
-          { "type": "add_var", "key": "corruption", "delta": 25 },
-          { "type": "add_var", "key": "power", "delta": 20 },
-          { "type": "add_item", "ref": "itm_bone_shard", "quality": "宝品" }
+          {
+            "type": "add_var",
+            "key": "corruption",
+            "delta": 25
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          },
+          {
+            "type": "add_item",
+            "ref": "itm_bone_shard",
+            "quality": "宝品"
+          }
         ]
       }
     },
@@ -82,12 +146,22 @@
       "id": "solve_turn_casket",
       "name": "转匣",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_six_faces" },
+        {
+          "type": "known_rule",
+          "ref": "rule_six_faces"
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "翻转" },
-            { "type": "relation", "kind": "护道人", "exists": true }
+            {
+              "type": "affordance",
+              "ref": "翻转"
+            },
+            {
+              "type": "relation",
+              "kind": "护道人",
+              "exists": true
+            }
           ]
         }
       ],
@@ -96,9 +170,20 @@
         "ref": "end_casket_turned",
         "narrative": "scn_name_casket.turned",
         "effects": [
-          { "type": "add_var", "key": "debt", "delta": 3 },
-          { "type": "add_var", "key": "rare_mat", "delta": 5 },
-          { "type": "unlock_codex", "ref": "codex_six_faces" }
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 3
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 5
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_six_faces"
+          }
         ]
       }
     },
@@ -106,12 +191,25 @@
       "id": "solve_smash_casket",
       "name": "砸匣",
       "conditions": [
-        { "type": "attr", "key": "root", "op": ">=", "value": 85 },
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 51
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affix_count", "ref": "破甲", "count": 2 },
-            { "type": "realm_idx", "op": ">=", "value": 3 }
+            {
+              "type": "affix_count",
+              "ref": "破甲",
+              "count": 2
+            },
+            {
+              "type": "realm_idx",
+              "op": ">=",
+              "value": 3
+            }
           ]
         }
       ],
@@ -120,9 +218,21 @@
         "ref": "end_casket_smashed",
         "narrative": "scn_name_casket.smashed",
         "effects": [
-          { "type": "add_var", "key": "hp", "delta": 40 },
-          { "type": "add_var", "key": "rare_mat", "delta": 4 },
-          { "type": "add_var", "key": "exposure", "delta": 20 }
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 40
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 4
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 20
+          }
         ]
       }
     },
@@ -131,18 +241,45 @@
       "name": "匣外之名",
       "hidden": true,
       "conditions": [
-        { "type": "solved_any_of", "refs": ["solve_vague_name", "solve_turn_casket"] },
-        { "type": "var", "key": "karma", "op": ">=", "value": 50 },
-        { "type": "attr", "key": "insight", "op": ">=", "value": 85 }
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_vague_name",
+            "solve_turn_casket"
+          ]
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "attr",
+          "key": "insight",
+          "op": ">=",
+          "value": 51
+        }
       ],
       "cost": "极低——只是你此后每刻一枚骨篆，都像是在替谁署名",
       "outcome": {
         "ref": "end_casket_named",
         "narrative": "scn_name_casket.named",
         "effects": [
-          { "type": "add_var", "key": "power", "delta": 30 },
-          { "type": "add_affix", "target": "self", "affix_id": "affix_self_name" },
-          { "type": "unlock_title", "ref": "title_name_beyond_box" }
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 30
+          },
+          {
+            "type": "add_affix",
+            "target": "self",
+            "affix_id": "affix_self_name"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_name_beyond_box"
+          }
         ]
       }
     }
@@ -151,10 +288,24 @@
     "narrative": "scn_name_casket.unfed",
     "ref": "end_casket_unfed",
     "effects": [
-      { "type": "trigger_end", "ref": "end_casket_unfed" },
-      { "type": "add_var", "key": "rare_mat", "delta": -2 },
-      { "type": "add_var", "key": "power", "delta": 10 },
-      { "type": "unlock_codex", "ref": "codex_unspoken_name" }
+      {
+        "type": "trigger_end",
+        "ref": "end_casket_unfed"
+      },
+      {
+        "type": "add_var",
+        "key": "rare_mat",
+        "delta": -2
+      },
+      {
+        "type": "add_var",
+        "key": "power",
+        "delta": 10
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_unspoken_name"
+      }
     ]
   },
   "version": "1.0.0"

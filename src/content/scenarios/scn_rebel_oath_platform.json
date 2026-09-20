@@ -2,11 +2,17 @@
   "id": "scn_rebel_oath_platform",
   "kind": "scenario",
   "name": "立契台",
-  "pack": ["rebel"],
+  "pack": [
+    "rebel"
+  ],
   "span": 5,
   "tension": 8,
   "weight": 38,
-  "requires": { "type": "realm_idx", "op": ">=", "value": 2 },
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 2
+  },
   "rules_stated": [
     "台上斗法只论三事：先立契，后出招，不得越界。",
     "契以天地为证，违约者道心崩碎。",
@@ -16,7 +22,12 @@
     {
       "id": "rule_name_has_edge",
       "hint": "他呼『炎』，则炎外之物不受其制。所呼之名有边界，出了边界，他就没有招了。",
-      "reveal": { "type": "attr", "key": "wits", "op": ">=", "value": 65 }
+      "reveal": {
+        "type": "attr",
+        "key": "wits",
+        "op": ">=",
+        "value": 46
+      }
     },
     {
       "id": "rule_oath_names_two",
@@ -24,15 +35,27 @@
       "reveal": {
         "type": "any",
         "of": [
-          { "type": "relation", "kind": "盟友", "exists": true },
-          { "type": "attr", "key": "insight", "op": ">=", "value": 60 }
+          {
+            "type": "relation",
+            "kind": "盟友",
+            "exists": true
+          },
+          {
+            "type": "attr",
+            "key": "insight",
+            "op": ">=",
+            "value": 45
+          }
         ]
       }
     },
     {
       "id": "rule_oath_is_speech",
       "hint": "『先立契』——立契也是话，话也是招。契文怎么写，是你的先手。",
-      "reveal": { "type": "known_rule", "ref": "rule_name_has_edge" }
+      "reveal": {
+        "type": "known_rule",
+        "ref": "rule_name_has_edge"
+      }
     }
   ],
   "forbidden": [
@@ -45,13 +68,28 @@
       "id": "solve_find_edge",
       "name": "寻界",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_name_has_edge" },
-        { "type": "attr", "key": "wits", "op": ">=", "value": 70 },
+        {
+          "type": "known_rule",
+          "ref": "rule_name_has_edge"
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 48
+        },
         {
           "type": "any",
           "of": [
-            { "type": "affordance", "ref": "御法" },
-            { "type": "affix_count", "ref": "御", "count": 2 }
+            {
+              "type": "affordance",
+              "ref": "御法"
+            },
+            {
+              "type": "affix_count",
+              "ref": "御",
+              "count": 2
+            }
           ]
         }
       ],
@@ -60,9 +98,20 @@
         "ref": "end_oath_edge",
         "narrative": "scn_oath_platform.edge",
         "effects": [
-          { "type": "add_var", "key": "hp", "delta": 30 },
-          { "type": "add_var", "key": "power", "delta": 25 },
-          { "type": "unlock_codex", "ref": "codex_name_edge" }
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 25
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_name_edge"
+          }
         ]
       }
     },
@@ -70,12 +119,24 @@
       "id": "solve_third_hand",
       "name": "借手",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_oath_names_two" },
+        {
+          "type": "known_rule",
+          "ref": "rule_oath_names_two"
+        },
         {
           "type": "any",
           "of": [
-            { "type": "relation", "kind": "盟友", "op": ">=", "value": 30 },
-            { "type": "relation", "kind": "护道人", "exists": true }
+            {
+              "type": "relation",
+              "kind": "盟友",
+              "op": ">=",
+              "value": 30
+            },
+            {
+              "type": "relation",
+              "kind": "护道人",
+              "exists": true
+            }
           ]
         }
       ],
@@ -84,9 +145,22 @@
         "ref": "end_oath_third",
         "narrative": "scn_oath_platform.third",
         "effects": [
-          { "type": "add_var", "key": "debt", "delta": 4 },
-          { "type": "set_relation", "npc_id": "npc_ally_swordsman", "kind": "盟友", "delta": -25 },
-          { "type": "add_var", "key": "power", "delta": 20 }
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 4
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_ally_swordsman",
+            "kind": "盟友",
+            "delta": -25
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          }
         ]
       }
     },
@@ -94,18 +168,43 @@
       "id": "solve_write_oath",
       "name": "先手写契",
       "conditions": [
-        { "type": "known_rule", "ref": "rule_oath_is_speech" },
-        { "type": "attr", "key": "wits", "op": ">=", "value": 70 },
-        { "type": "attr", "key": "charm", "op": ">=", "value": 60 }
+        {
+          "type": "known_rule",
+          "ref": "rule_oath_is_speech"
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 48
+        },
+        {
+          "type": "attr",
+          "key": "charm",
+          "op": ">=",
+          "value": 45
+        }
       ],
       "cost": "你把契文写得对他不利，他签了——他的宗门记下了这一笔",
       "outcome": {
         "ref": "end_oath_written",
         "narrative": "scn_oath_platform.written",
         "effects": [
-          { "type": "set_relation", "npc_id": "npc_rival_sect", "kind": "仇家", "delta": 30 },
-          { "type": "add_var", "key": "favor", "delta": 15 },
-          { "type": "unlock_title", "ref": "title_first_draft" }
+          {
+            "type": "set_relation",
+            "npc_id": "npc_rival_sect",
+            "kind": "仇家",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 15
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_first_draft"
+          }
         ]
       }
     },
@@ -113,17 +212,38 @@
       "id": "solve_endure_all",
       "name": "硬受",
       "conditions": [
-        { "type": "attr", "key": "root", "op": ">=", "value": 80 },
-        { "type": "realm_idx", "op": ">=", "value": 3 }
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 3
+        }
       ],
       "cost": "你不躲不闪，把他的招一一受下——受招是要拿命填的",
       "outcome": {
         "ref": "end_oath_endured",
         "narrative": "scn_oath_platform.endured",
         "effects": [
-          { "type": "add_var", "key": "lifespan", "delta": -25 },
-          { "type": "add_var", "key": "power", "delta": 30 },
-          { "type": "add_var", "key": "karma", "delta": 10 }
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -25
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 10
+          }
         ]
       }
     },
@@ -132,19 +252,49 @@
       "name": "不契之胜",
       "hidden": true,
       "conditions": [
-        { "type": "solved_any_of", "refs": ["solve_write_oath", "solve_third_hand"] },
-        { "type": "attr", "key": "wits", "op": ">=", "value": 85 },
-        { "type": "var", "key": "debt", "op": "<=", "value": 2 }
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_write_oath",
+            "solve_third_hand"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 51
+        },
+        {
+          "type": "var",
+          "key": "debt",
+          "op": "<=",
+          "value": 2
+        }
       ],
       "cost": "极低——只是你从此不再与人立契，因为你知道契是可以写的",
       "outcome": {
         "ref": "end_oath_none",
         "narrative": "scn_oath_platform.none",
         "effects": [
-          { "type": "modify_power_index", "delta": 8 },
-          { "type": "add_var", "key": "karma", "delta": 15 },
-          { "type": "learn_rule", "pack": "rebel", "ref": "rule_oath_names_two" },
-          { "type": "unlock_title", "ref": "title_unsigned" }
+          {
+            "type": "modify_power_index",
+            "delta": 8
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 15
+          },
+          {
+            "type": "learn_rule",
+            "pack": "rebel",
+            "ref": "rule_oath_names_two"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_unsigned"
+          }
         ]
       }
     }
@@ -153,10 +303,24 @@
     "narrative": "scn_oath_platform.unsigned",
     "ref": "end_oath_unsigned",
     "effects": [
-      { "type": "trigger_end", "ref": "end_oath_unsigned" },
-      { "type": "add_var", "key": "exposure", "delta": -20 },
-      { "type": "add_var", "key": "power", "delta": 10 },
-      { "type": "unlock_codex", "ref": "codex_his_name" }
+      {
+        "type": "trigger_end",
+        "ref": "end_oath_unsigned"
+      },
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": -20
+      },
+      {
+        "type": "add_var",
+        "key": "power",
+        "delta": 10
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_his_name"
+      }
     ]
   },
   "version": "1.0.0"

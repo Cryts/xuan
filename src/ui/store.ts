@@ -20,6 +20,7 @@ import {
   submitScenarioAction,
   submitDaily,
   submitDuelAftermath,
+  useItem,
   submitDuelEntry,
   submitDuelStance,
   submitScenarioEntry,
@@ -695,6 +696,7 @@ export type Action =
   /** 剧本内的通用手段（细察 / 交涉 / 硬闯 / 感气 / 静待 / 抽身）—— 不依赖行囊 */
   | { type: 'play/action'; id: ScenarioActionId }
   | { type: 'play/daily'; id: DailyActionId }
+  | { type: 'play/use-item'; itemId: string }
   | { type: 'play/duel-stance'; stance: StanceId; way: Essence }
   | { type: 'play/duel-after'; kill: boolean }
   /** 斗法：打还是避 */
@@ -969,6 +971,16 @@ export function reducer(st: AppState, action: Action): AppState {
       const res = submitDuelAftermath(state, action.kill, content)
       if (!res.ok) return { ...st, toast: res.reason ?? '这一步落不下去' }
       return afterEngine(st, res.state, res.presentation, res.delta, res.band)
+    }
+
+    case 'play/use-item': {
+      // 随手用掉一件日常物品 —— **不推进节点**，吃药不该花掉一段年月
+      const { state, content } = st
+      if (!state) return st
+      const res = useItem(state, action.itemId, content)
+      if (!res.ok) return { ...st, toast: res.reason ?? '用不了' }
+      const next = afterEngine(st, res.state, res.presentation, res.delta, res.band)
+      return { ...next, toast: '用掉了。' }
     }
 
     case 'play/option': {

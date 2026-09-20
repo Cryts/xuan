@@ -357,12 +357,27 @@ export interface Affix {
   effects?: Effect[]
 }
 
+/**
+ * 物品的分野 —— 玩家定的：
+ *   日常物品  随手可用（丹药、符箓、遁符……），任何时候都能掏出来
+ *   剧本关键  只在特定局面里说得通（镇魂、启户、断法……），
+ *             是破局用的，不该在赶路时随便消耗掉
+ *
+ * 不分家的后果很荒唐：一瓶疗伤丹你只能在剧本里喝，
+ * 而出了剧本它就一直躺在行囊里占地方。
+ *
+ * `both` 是给那些两头都说得通的（如一张既能护身又能镇邪的符）。
+ */
+export type ItemClass = 'daily' | 'key' | 'both'
+
 export interface Item {
   id: string
   name: string
   quality: string
   affixes: string[] // affix id
   affordance: string[] // 汇总的功能标签（由 affixes 派生 + 本体自带）
+  /** 缺省由 affordance 派生，见 core/items.ts 的 classifyItem */
+  class?: ItemClass
   desc?: string
 }
 

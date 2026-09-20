@@ -30,6 +30,7 @@ import {
   type IconProps,
 } from '@/ui/icons'
 import { WEAR_NAMES, affixOf, itemKind, itemWear, qualityRank, useGame, type ItemKind } from '@/ui/store'
+import { canUseAnytime, classifyItem, itemPurpose } from '@/core/items'
 import { affordanceLabel, isRare, qualityTone } from '@/ui/text'
 
 const KIND_ICON: Record<ItemKind, ComponentType<IconProps>> = {
@@ -192,24 +193,67 @@ export function BagGrid({
 
 /**
  * 随身行囊抽屉 —— 剧本之外（事件页）也能翻看自己有什么。
- * 只读：真正的「以物试之」发生在剧本里，那里才知道这一局认哪些条件。
+ *
+ * 物品分两类（玩家定的）：**日常物品随手可用**，**剧本关键物品只在局里使得上**。
+ * 先前不分家，一瓶疗伤丹你只能在剧本里喝 —— 出了剧本它就躺在行囊里占地方。
+ * 「以物试之」仍然只在剧本里有，因为只有那里才知道这一局认哪些条件；
+ * 但日常物品的「使用」在这儿就能点。
  */
 export function BagSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { st } = useGame()
+  const { st, dispatch } = useGame()
   const items = st.state?.items ?? []
+  const daily = items.filter((i) => canUseAnytime(i))
+  const key = items.filter((i) => classifyItem(i) === 'key')
+
   return (
     <Sheet
       open={open}
       title="行 囊"
-      hint={`${items.length} 件物事 · 破局之钥常在其中`}
+      hint={`${items.length} 件 · 可随手用 ${daily.length} 件 · 破局用 ${key.length} 件`}
       onClose={onClose}
     >
-      <BagGrid
-        items={items}
-        content={st.content}
-        emptyText="囊中无物。"
-        emptyHint="物事多从散事件里来；剧本之内，它们是打开破局条件的钥匙。"
-      />
+      {daily.length > 0 ? (
+        <>
+          <p className={s.groupHead}>可随手用</p>
+          <div className={s.dailyRow}>
+            {daily.map((it) => (
+              <button
+                key={it.id}
+                type="button"
+                className={s.useBtn}
+                title={itemPurpose(it)}
+                onClick={() => dispatch({ type: 'play/use-item', itemId: it.id })}
+              >
+                <span className={s.useName}>{it.name}</span>
+                <span className={s.useHint}>{itemPurpose(it)}</span>
+                <span className={s.useGo}>用</span>
+              </button>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {key.length > 0 ? (
+        <>
+          <p className={s.groupHead}>破局之用 · 只在局里使得上</p>
+          <BagGrid
+            items={key}
+            content={st.content}
+            emptyText=""
+            emptyHint=""
+          />
+        </>
+      ) : null}
+
+      {items.length === 0 ? (
+        <BagGrid
+          items={items}
+          content={st.content}
+          emptyText="囊中无物。"
+          emptyHint="物事多从散事件里来；剧本之内，它们是打开破局条件的钥匙。"
+        />
+      ) : null}
+
       <p className={s.footNote}>
         金色小签是物事的「功能标签」—— 破局条件认的正是这枚标签，而不是某一件特定的物。
         所以一件没用的旧物，换个局可能就是唯一的钥匙。

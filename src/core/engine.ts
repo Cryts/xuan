@@ -8,6 +8,7 @@
  */
 
 import { PACK_ESSENCE } from './affinity'
+import { canUseAnytime, classifyItem } from './items'
 import { evaluate } from './conditions'
 import { resolveFreeAction, type IntentResult } from './intent'
 import {
@@ -1879,6 +1880,75 @@ export function submitDuelAftermath(
     presentation: presentCurrent(next, content),
     state: next,
   }
+}
+
+/**
+ * 随手用掉一件物事 —— **任何时候都能做，且不占节点。**
+ *
+ * 玩家原话：「物品不能随时使用」，以及「物品应该分为日常物品和剧本关键物品，
+ * 日常物品可以随时使用」。不分家的后果很荒唐：一瓶疗伤丹你只能在剧本里喝，
+ * 出了剧本它就一直躺在行囊里占地方。
+ *
+ * 不推进节点是有意的 —— 吃药不该花掉一段年月。代价就是消耗掉那件东西，
+ * 不需要再加一层。
+ */
+export function useItem(state: GameState, itemId: string, content: ContentDB): EngineResult {
+  const item = state.items.find((i) => i.id === itemId)
+  if (!item) return fail(state, content, '行囊里没有这件东西')
+  if (!canUseAnytime(item)) {
+    return fail(
+      state,
+      content,
+      `「${item.name}」不是随手能用的东西 —— 它得在说得通的局面里才使得上`,
+    )
+  }
+
+  // 物品自身的加成 + 按功能标签给的通用效用。
+  // 内容侧没给 effects 的物品（占绝大多数）也能用出意义来，
+  // 否则 205 件里绝大多数都是"能用但什么也不发生"。
+  const effects: Effect[] = []
+  const tags = item.affordance ?? []
+  const has = (t: string) => tags.includes(t)
+
+  if (has('疗伤')) effects.push({ type: 'add_var', key: 'hp', delta: -Math.round(12 + state.attrs.root * 0.1) })
+  if (has('续命')) effects.push({ type: 'add_var', key: 'lifespan', delta: 6 })
+  if (has('解毒')) effects.push({ type: 'add_var', key: 'hp', delta: -8 }, { type: 'add_var', key: 'corruption', delta: -6 })
+  if (has('聚运')) effects.push({ type: 'add_attr', key: 'luck', delta: 2 })
+  if (has('匿形')) effects.push({ type: 'add_var', key: 'exposure', delta: -8 })
+  if (has('护主')) effects.push({ type: 'add_var', key: 'hp', delta: -6 })
+  if (has('储灵')) effects.push({ type: 'add_var', key: 'power', delta: 20 })
+  if (has('议价')) effects.push({ type: 'add_var', key: 'currency', delta: 25 })
+  if (has('称量')) effects.push({ type: 'add_var', key: 'rare_mat', delta: 1 })
+  if (has('遁地') || has('挪移') || has('御风')) {
+    effects.push({ type: 'add_var', key: 'exposure', delta: -5 })
+  }
+  if (effects.length === 0) {
+    // 说不出用途的东西也不能白用 —— 给一点最普通的收益
+    effects.push({ type: 'add_var', key: 'power', delta: 6 })
+  }
+
+  effects.push({ type: 'consume_item', ref: itemId })
+  const next = applyEffectsState(state, effects, `use:${itemId}`)
+
+  return {
+    ok: true,
+    delta: applyEffects(effects, state, `use:${itemId}`).delta,
+    // **不推进节点** —— 吃药不该花掉一段年月
+    presentation: presentCurrent(next, content),
+    state: next,
+  }
+}
+
+/** 行囊里现在能随手用的有哪些 */
+export function usableNow(state: GameState): Item[] {
+  return (state.items ?? []).filter((i) => canUseAnytime(i))
+}
+
+/** 按类别给行囊分组，供界面用 */
+export function bagGroups(state: GameState): { daily: Item[]; key: Item[]; both: Item[] } {
+  const out: { daily: Item[]; key: Item[]; both: Item[] } = { daily: [], key: [], both: [] }
+  for (const it of state.items ?? []) out[classifyItem(it)].push(it)
+  return out
 }
 
 /**

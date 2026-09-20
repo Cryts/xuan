@@ -7353,6 +7353,11 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": 5
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0186",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_ancient_battlefield.growth.crit"
@@ -7373,6 +7378,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0171",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_ancient_battlefield.growth.success"
@@ -7393,6 +7403,11 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": 4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0003",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_ancient_battlefield.growth.fail"
@@ -7418,6 +7433,16 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 6
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0044",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_ancient_battlefield.growth.crit_fail"
@@ -7463,6 +7488,11 @@
                 {
                   "type": "set_flag",
                   "key": "flag_old_battle_line"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0160",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_ancient_battlefield.growth.crit"
@@ -7549,6 +7579,11 @@
                   "type": "add_var",
                   "key": "lifespan",
                   "delta": 1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0157",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_ancient_battlefield.growth.crit"
@@ -15135,6 +15170,11 @@
                   "type": "add_var",
                   "key": "power",
                   "delta": 10
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0199",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_auction.growth.crit"
@@ -15160,6 +15200,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0149",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_auction.growth.success"
@@ -15185,6 +15230,11 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": 5
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0003",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_auction.growth.fail"
@@ -15215,6 +15265,16 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": 7
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0044",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_auction.growth.crit_fail"
@@ -15272,6 +15332,11 @@
                   "npc_id": "npc_xie_ci",
                   "kind": "仇家",
                   "delta": 15
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0171",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_auction.growth.crit"
@@ -15387,6 +15452,16 @@
                   "npc_id": "npc_xie_ci",
                   "kind": "仇家",
                   "delta": 15
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0041",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_auction.growth.crit_fail"
@@ -17936,6 +18011,11 @@
                   "npc_id": "npc_lu_yan",
                   "kind": "仇家",
                   "delta": 20
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0196",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_sect_tournament.growth.crit"
@@ -17972,6 +18052,11 @@
                   "npc_id": "npc_lu_yan",
                   "kind": "仇家",
                   "delta": 15
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0172",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_sect_tournament.growth.success"
@@ -17997,6 +18082,11 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": 4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0003",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_sect_tournament.growth.fail"
@@ -18027,6 +18117,16 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": 5
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0041",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_sect_tournament.growth.crit_fail"
@@ -18075,6 +18175,11 @@
                   "npc_id": "npc_lu_yan",
                   "kind": "仇家",
                   "delta": 15
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0170",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_sect_tournament.growth.crit"

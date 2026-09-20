@@ -1737,6 +1737,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_pill_furnace"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0183",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -1751,6 +1756,11 @@
                   "type": "add_var",
                   "key": "rare_mat",
                   "delta": 1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0159",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -1769,6 +1779,11 @@
                 {
                   "type": "set_flag",
                   "key": "pill_furnace_owes_employer"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0015",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -1798,6 +1813,16 @@
                 {
                   "type": "set_flag",
                   "key": "pill_furnace_employer_hunts"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0020",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -1833,6 +1858,11 @@
                 {
                   "type": "set_flag",
                   "key": "pill_furnace_half_trial"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0179",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -1870,6 +1900,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0067",
+                  "quality": "凡品"
                 }
               ]
             }
@@ -4302,6 +4337,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_auction"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0166",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -4325,6 +4365,11 @@
                 {
                   "type": "set_flag",
                   "key": "auction_won_page"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0147",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -4343,6 +4388,11 @@
                 {
                   "type": "set_flag",
                   "key": "auction_baited"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0057",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4367,6 +4417,16 @@
                   "npc_id": "npc_jiang_zhaoxue",
                   "kind": "仇家",
                   "delta": 6
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0009",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -4408,6 +4468,11 @@
                   "npc_id": "npc_jiang_zhaoxue",
                   "kind": "盟友",
                   "delta": 6
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0168",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -4432,6 +4497,11 @@
                   "npc_id": "npc_jiang_zhaoxue",
                   "kind": "仇家",
                   "delta": 8
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0006",
+                  "quality": "凡品"
                 }
               ]
             }
@@ -10041,6 +10111,11 @@
                 {
                   "type": "clear_flag",
                   "key": "beast_blood_poisoned"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0148",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -10068,6 +10143,11 @@
                 {
                   "type": "clear_flag",
                   "key": "beast_blood_poisoned"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0163",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -10086,6 +10166,11 @@
                 {
                   "type": "set_flag",
                   "key": "beast_poison_deepened"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0042",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -10113,6 +10198,16 @@
                 {
                   "type": "set_flag",
                   "key": "beast_mark_moved"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0047",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -10152,6 +10247,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_beast_backlash"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0150",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -10246,6 +10346,11 @@
                 {
                   "type": "set_flag",
                   "key": "beast_poison_boned"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0184",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -10291,6 +10396,11 @@
                 {
                   "type": "set_flag",
                   "key": "beast_poison_flare"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0070",
+                  "quality": "凡品"
                 }
               ]
             }

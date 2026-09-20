@@ -1,0 +1,425 @@
+{
+  "id": "scn_mortal_owed_bolt",
+  "kind": "scenario",
+  "name": "该落的雷",
+  "pack": [
+    "mortal"
+  ],
+  "span": 5,
+  "tension": 10,
+  "weight": 34,
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 3
+  },
+  "rules_stated": [
+    "劫云认人认错了，也不会改：它要落几道，你就得受几道。",
+    "不能躲，不能还手，不能求人替——你少受一分，它多落一分。",
+    "雷落完之前你不能动；落完之后你还在不在，看你自己。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_karma_is_weight",
+      "hint": "它数的不是你做过什么，是你还欠着什么——欠得多的那道，落得最准。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "var",
+            "key": "debt",
+            "op": ">=",
+            "value": 3
+          },
+          {
+            "type": "attr",
+            "key": "insight",
+            "op": ">=",
+            "value": 46
+          },
+          {
+            "type": "affordance",
+            "ref": "称量"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_one_bolt_is_anothers",
+      "hint": "这几道里有一道不是给你的——那道是替的。替谁受，就算在谁头上。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "relation",
+            "kind": "道侣",
+            "exists": true
+          },
+          {
+            "type": "relation",
+            "kind": "护道人",
+            "exists": true
+          },
+          {
+            "type": "relation",
+            "kind": "师徒",
+            "exists": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_scatter_not_die",
+      "hint": "受不住不等于死：散出去的可以是一身本事，也可以是一条命，由你挑。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "attr",
+            "key": "temper",
+            "op": ">=",
+            "value": 46
+          },
+          {
+            "type": "affordance",
+            "ref": "续命"
+          }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "在雷下移动",
+    "以法术还击",
+    "唤他人入劫",
+    "中途开口"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_pay_debt",
+      "name": "还债",
+      "conditions": [
+        {
+          "type": "var",
+          "key": "debt",
+          "op": "<=",
+          "value": 2
+        },
+        {
+          "type": "var",
+          "key": "currency",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 44
+        }
+      ],
+      "cost": "你把攒了半生的家当散在劫云底下——欠的清了，雷也落得轻了",
+      "outcome": {
+        "ref": "end_bolt_paid",
+        "narrative": "scn_owed_bolt.paid",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": -45
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 22
+          },
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 20
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_take_on_body",
+      "name": "以身承雷",
+      "conditions": [
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 48
+        },
+        {
+          "type": "var",
+          "key": "hp",
+          "op": "<=",
+          "value": 35
+        },
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 3
+        }
+      ],
+      "cost": "你一寸不动地受完了，皮肉焦了一层，骨头里却多了点东西",
+      "outcome": {
+        "ref": "end_bolt_bodied",
+        "narrative": "scn_owed_bolt.bodied",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 42
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 35
+          },
+          {
+            "type": "modify_power_index",
+            "delta": 6
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_body_as_ward"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_tool_ground",
+      "name": "以器引雷",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "断法"
+            },
+            {
+              "type": "affordance",
+              "ref": "储灵"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_leifa",
+              "count": 1
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_leiting",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 44
+        }
+      ],
+      "cost": "你把雷引进了随身那件东西里：它替你碎，你替它记着",
+      "outcome": {
+        "ref": "end_bolt_tool",
+        "narrative": "scn_owed_bolt.tool",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 15
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 25
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 2
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_merit_offers",
+      "name": "以功抵劫",
+      "conditions": [
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 15
+        },
+        {
+          "type": "attr",
+          "key": "charm",
+          "op": ">=",
+          "value": 44
+        }
+      ],
+      "cost": "你把这些年积的功德摊在雷下：雷绕开了你，却记住了你的味道",
+      "outcome": {
+        "ref": "end_bolt_merited",
+        "narrative": "scn_owed_bolt.merited",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": -15
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": 15
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_merit_shield"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_scatter_self",
+      "name": "散功",
+      "conditions": [
+        {
+          "type": "var",
+          "key": "power",
+          "op": ">=",
+          "value": 70
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 46
+        }
+      ],
+      "cost": "你把一身本事散出去当筏子，雷落了空——散出去的那些，回不来了",
+      "outcome": {
+        "ref": "end_bolt_scattered",
+        "narrative": "scn_owed_bolt.scattered",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": -60
+          },
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 18
+          },
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -10
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_scattered_raft"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_inherit_bolt",
+      "name": "把雷接过来",
+      "hidden": true,
+      "conditions": [
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_take_on_body",
+            "solve_merit_offers"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "insight",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "cost": "极低——你认出那道替人受的雷，把它记在了自己名下",
+      "outcome": {
+        "ref": "end_bolt_inherited",
+        "narrative": "scn_owed_bolt.inherited",
+        "effects": [
+          {
+            "type": "modify_power_index",
+            "delta": 10
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 25
+          },
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 3
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_bolt_bearer"
+          }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_owed_bolt.hollow",
+    "ref": "end_bolt_hollow",
+    "effects": [
+      {
+        "type": "add_var",
+        "key": "hp",
+        "delta": 32
+      },
+      {
+        "type": "add_var",
+        "key": "power",
+        "delta": -25
+      },
+      {
+        "type": "add_var",
+        "key": "corruption",
+        "delta": 15
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_after_the_bolt"
+      }
+    ]
+  },
+  "version": "1.0.0"
+}

@@ -14,6 +14,7 @@ import { loadContent } from './load-content'
 import type { ContentDB, Motif, NameBank } from '../src/core/content'
 import { PACK_IDS } from '../src/core/content'
 import {
+  bindContent,
   advanceNode,
   presentCurrent,
   resolveEnding,
@@ -84,6 +85,7 @@ function buildContentDB(): ContentDB {
 }
 
 const content = buildContentDB()
+bindContent(content)
 
 // ============================================================
 // 玩家原型 —— 不同倾向的玩家，用来检测支配路线

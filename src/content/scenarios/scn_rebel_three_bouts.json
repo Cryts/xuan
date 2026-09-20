@@ -1,0 +1,387 @@
+{
+  "id": "scn_rebel_three_bouts",
+  "kind": "scenario",
+  "name": "三战台",
+  "pack": [
+    "rebel"
+  ],
+  "span": 6,
+  "tension": 9,
+  "weight": 36,
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 2
+  },
+  "rules_stated": [
+    "有人递了帖子来：三场连打，中间不下台——伤不治，气不回。",
+    "他走的是「则」一路，你的「意」被他压着：硬拼是拼不过的。",
+    "台下的人只记输赢，不记缘由：你欠下的，宗门替你还。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_duel_ways_rotate",
+      "hint": "他一路「则」打到底，不是因为他强，是因为他不会第二条——他压的是你的路数，不是你的人。换一条路数，他就得重新认你。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "attr",
+            "key": "wits",
+            "op": ">=",
+            "value": 45
+          },
+          {
+            "type": "learned_rule",
+            "pack": "mystery",
+            "ref": "rule_mystery_name_veil"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_duel_board_is_lie",
+      "hint": "台上那块写明牌的木牌，是立给台下看的：牌上少写了一路，他把那一手藏在左手。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "attr",
+            "key": "insight",
+            "op": ">=",
+            "value": 46
+          },
+          {
+            "type": "affordance",
+            "ref": "洞察"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_duel_wound_is_stake",
+      "hint": "「伤不治」说的是台上不给你治，没说你不能带着伤上来——伤到极处的人，反倒没人防他最后那一下。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "var",
+            "key": "hp",
+            "op": ">=",
+            "value": 30
+          },
+          {
+            "type": "attr",
+            "key": "temper",
+            "op": ">=",
+            "value": 46
+          }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "三场未毕而下台",
+    "在台上呼本门之名",
+    "请场外之人替你出手"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_switch_way",
+      "name": "换路",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "learned_rule",
+              "pack": "mystery",
+              "ref": "rule_mystery_name_veil"
+            },
+            {
+              "type": "learned_rule",
+              "pack": "physique",
+              "ref": "rule_physique_weight_shift"
+            },
+            {
+              "type": "learned_rule",
+              "pack": "cautious",
+              "ref": "rule_cautious_second_self"
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 45
+        }
+      ],
+      "cost": "你以别家的路数赢了他——本门那条路，你从此走得不再干净",
+      "outcome": {
+        "ref": "end_bouts_switched",
+        "narrative": "scn_three_bouts.switched",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "corruption",
+            "delta": 25
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 28
+          },
+          {
+            "type": "learn_rule",
+            "pack": "rebel",
+            "ref": "rule_rebel_will_price"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_two_ways_boxer"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_trade_wounds",
+      "name": "以伤换伤",
+      "conditions": [
+        {
+          "type": "var",
+          "key": "hp",
+          "op": ">=",
+          "value": 35
+        },
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 46
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 45
+        }
+      ],
+      "cost": "你把剩下那口气全押在第三场：他退了，你也废了半边身子",
+      "outcome": {
+        "ref": "end_bouts_bled",
+        "narrative": "scn_three_bouts.bled",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 28
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 32
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 10
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_last_breath_stake"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_borrow_blade",
+      "name": "借器",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "破甲"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_ruifeng",
+              "count": 2
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_pojia",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 44
+        }
+      ],
+      "cost": "替你挡下那一击的兵器不是你的，可它认了你的手——器物认主，是要还的",
+      "outcome": {
+        "ref": "end_bouts_blade",
+        "narrative": "scn_three_bouts.blade",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 4
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          },
+          {
+            "type": "modify_power_index",
+            "delta": 6
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_third_hand",
+      "name": "第三场让别人打",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "relation",
+              "kind": "盟友",
+              "exists": true
+            },
+            {
+              "type": "relation",
+              "kind": "护道人",
+              "exists": true
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "charm",
+          "op": ">=",
+          "value": 45
+        }
+      ],
+      "cost": "第三场不是你上的——替你上台的人从此知道你怕什么",
+      "outcome": {
+        "ref": "end_bouts_third_came",
+        "narrative": "scn_three_bouts.third_came",
+        "effects": [
+          {
+            "type": "set_relation",
+            "npc_id": "npc_ye_standin",
+            "kind": "盟友",
+            "delta": -25
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 15
+          },
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 3
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_walk_off",
+      "name": "不下场",
+      "hidden": true,
+      "conditions": [
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_switch_way",
+            "solve_trade_wounds"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 50
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 40
+        }
+      ],
+      "cost": "极低——你赢下第二场就收了手，台下等着看你死的人落了空",
+      "outcome": {
+        "ref": "end_bouts_not_played",
+        "narrative": "scn_three_bouts.not_played",
+        "effects": [
+          {
+            "type": "modify_power_index",
+            "delta": 8
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 15
+          },
+          {
+            "type": "learn_rule",
+            "pack": "rebel",
+            "ref": "rule_rebel_stand_firm"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_bouts_unplayed"
+          }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_three_bouts.carried",
+    "ref": "end_bouts_carried",
+    "effects": [
+      {
+        "type": "add_var",
+        "key": "hp",
+        "delta": 30
+      },
+      {
+        "type": "add_var",
+        "key": "favor",
+        "delta": -14
+      },
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": 10
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_carried_off_the_stage"
+      }
+    ]
+  },
+  "version": "1.0.0"
+}

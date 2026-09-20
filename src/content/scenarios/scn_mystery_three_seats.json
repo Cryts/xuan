@@ -1,0 +1,400 @@
+{
+  "id": "scn_mystery_three_seats",
+  "kind": "scenario",
+  "name": "三席",
+  "pack": [
+    "mystery"
+  ],
+  "span": 6,
+  "tension": 8,
+  "weight": 36,
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 2
+  },
+  "rules_stated": [
+    "三席上坐着三个人，三个人都要你先开口。",
+    "你在这屋里说过的话，出了门就作数——反口，拿你的名字赔。",
+    "没有第四席：谁都不站的人，等于站在所有人对面。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_empty_seat_is_dead",
+      "hint": "空着的那一席其实有人坐——坐着的是个死人。死人不开口，可名字还能写上去。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "affordance",
+            "ref": "通灵"
+          },
+          {
+            "type": "affordance",
+            "ref": "洞察"
+          },
+          {
+            "type": "attr",
+            "key": "insight",
+            "op": ">=",
+            "value": 46
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_word_is_ledger",
+      "hint": "许诺不记在你心里，记在别人的册子上：你翻脸，册子不翻。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "affordance",
+            "ref": "dl_ink"
+          },
+          {
+            "type": "affix_count",
+            "ref": "af_qimo",
+            "count": 1
+          },
+          {
+            "type": "affix_count",
+            "ref": "af_luomo",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_enemies_deeper",
+      "hint": "他们三个之间的仇，比跟你的仇深。你要做的不是挑一个站，是让他们先动手。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "relation",
+            "kind": "仇家",
+            "exists": true
+          },
+          {
+            "type": "attr",
+            "key": "wits",
+            "op": ">=",
+            "value": 46
+          }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "对同一人许两次诺",
+    "在席上提及第四个人",
+    "未散席而先走"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_take_a_side",
+      "name": "站定一席",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "relation",
+              "kind": "盟友",
+              "op": ">=",
+              "value": 30
+            },
+            {
+              "type": "relation",
+              "kind": "护道人",
+              "exists": true
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "charm",
+          "op": ">=",
+          "value": 46
+        }
+      ],
+      "cost": "你在席上把话说死，站定了一家——另外两家从此记得你的脸",
+      "outcome": {
+        "ref": "end_seats_stood",
+        "narrative": "scn_three_seats.stood",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 25
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_rong_mingzhu",
+            "kind": "仇家",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 15
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_one_seat"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_write_three_pledges",
+      "name": "许三家",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "dl_ink"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_qimo",
+              "count": 1
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_luomo",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 47
+        }
+      ],
+      "cost": "同一件事你许了三遍，三张字据都按了手印——三份都作数",
+      "outcome": {
+        "ref": "end_seats_pledged",
+        "narrative": "scn_three_seats.pledged",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": 40
+          },
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 6
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 20
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_three_words"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_spill_ledger",
+      "name": "掀桌",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "溯源"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_zhuihun",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "insight",
+          "op": ">=",
+          "value": 45
+        },
+        {
+          "type": "var",
+          "key": "debt",
+          "op": "<=",
+          "value": 4
+        }
+      ],
+      "cost": "你把三家的旧账摊在席面上：账是真的，从此没人敢再跟你同席",
+      "outcome": {
+        "ref": "end_seats_spilled",
+        "narrative": "scn_three_seats.spilled",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 15
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 25
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_gu_changeng",
+            "kind": "仇家",
+            "delta": 40
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 15
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_give_the_name",
+      "name": "交名",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "faction_tier",
+              "ref": "本宗",
+              "op": ">=",
+              "value": 1
+            },
+            {
+              "type": "relation",
+              "kind": "仇家",
+              "op": ">=",
+              "value": 20
+            }
+          ]
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": ">=",
+          "value": 30
+        }
+      ],
+      "cost": "你交出一个人名，换自己坐上那一席——那人也许到今天还不知道",
+      "outcome": {
+        "ref": "end_seats_named",
+        "narrative": "scn_three_seats.named",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": -25
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": -15
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_name_sold"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_fourth_seat",
+      "name": "第四席",
+      "hidden": true,
+      "conditions": [
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_take_a_side",
+            "solve_write_three_pledges"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 51
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 10
+        }
+      ],
+      "cost": "极低——你给那把空椅子写了个名字，三个人都没敢先开口",
+      "outcome": {
+        "ref": "end_seats_fourth",
+        "narrative": "scn_three_seats.fourth",
+        "effects": [
+          {
+            "type": "modify_power_index",
+            "delta": 10
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 15
+          },
+          {
+            "type": "learn_rule",
+            "pack": "mystery",
+            "ref": "rule_empty_seat"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_fourth_seat"
+          }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_three_seats.none",
+    "ref": "end_seats_none",
+    "effects": [
+      {
+        "type": "add_var",
+        "key": "favor",
+        "delta": -22
+      },
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": 15
+      },
+      {
+        "type": "add_var",
+        "key": "power",
+        "delta": 10
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_no_seat"
+      }
+    ]
+  },
+  "version": "1.0.0"
+}

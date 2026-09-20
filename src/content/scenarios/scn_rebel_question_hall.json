@@ -77,12 +77,12 @@
           "of": [
             {
               "type": "affix_count",
-              "ref": "照",
+              "ref": "af_liuhuo",
               "count": 1
             },
             {
               "type": "affordance",
-              "ref": "观气"
+              "ref": "洞察"
             }
           ]
         }
@@ -129,7 +129,7 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "易声"
+              "ref": "惑心"
             },
             {
               "type": "var",
@@ -177,11 +177,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "伪证"
+              "ref": "dl_ink"
             },
             {
               "type": "affix_count",
-              "ref": "幻",
+              "ref": "af_liuhuo",
               "count": 1
             }
           ]

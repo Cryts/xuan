@@ -47,7 +47,7 @@
         "of": [
           {
             "type": "affordance",
-            "ref": "卜具"
+            "ref": "称量"
           },
           {
             "type": "faction_tier",
@@ -165,11 +165,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "卜具"
+              "ref": "称量"
             },
             {
               "type": "affix_count",
-              "ref": "星",
+              "ref": "af_leiting",
               "count": 1
             }
           ]

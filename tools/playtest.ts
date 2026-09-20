@@ -21,6 +21,7 @@ import { loadContent, ROOT } from './load-content'
 import { PACK_IDS, type ContentDB } from '../src/core/content'
 import {
   SCENARIO_ACTIONS,
+  bindContent,
   presentCurrent,
 
   resolveEnding,
@@ -71,6 +72,7 @@ const content = {
   fateTemplates: raw.fateTemplates as Partial<Record<PackId, FateMilestone[]>>,
   version: 'playtest',
 } as unknown as ContentDB
+bindContent(content)
 
 // ============================================================
 // 会琢磨的玩家

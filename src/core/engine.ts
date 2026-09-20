@@ -31,6 +31,7 @@ import { pickFromPool, splitLines } from './narrative'
 import { Rng, deriveSeed, makeSeed } from './rng'
 import { applyEffects, clampVar, mergeDelta, rollBand } from './resolve'
 import type {
+  Affix,
   AnyEvent,
   AttrKey,
   Band,
@@ -58,6 +59,28 @@ import type {
   TrialOption,
   VarKey,
 } from './types'
+
+// ============================================================
+// 内容目录索引
+// ============================================================
+
+/**
+ * 物品与词条的只读索引 —— 加载内容时由 bindContent 建一次。
+ *
+ * 为什么需要它：`add_item` 的原型必须从**内容目录**里取。
+ * 这里写错过一次 —— 用的是 `state.items.find(...)`，找的是"玩家已经有的东西"，
+ * 而他本来就没有这件，于是 find 返回 undefined、效果**静默丢弃**。
+ * 后果是整个道具经济从未运转：所有事件里的 add_item 全是空转，
+ * 玩家进剧本时手里永远只有开局那两件。而它不报错、不崩溃，只是东西永远拿不到。
+ */
+let ITEM_CATALOG: Map<string, Item> = new Map()
+let AFFIX_CATALOG: Map<string, Affix> = new Map()
+
+/** 加载内容后调一次。UI 与 tools 都要调，否则 add_item 会全部落空。 */
+export function bindContent(content: ContentDB): void {
+  ITEM_CATALOG = new Map(content.items.map((i) => [i.id, i]))
+  AFFIX_CATALOG = new Map(content.affixes.map((a) => [a.id, a]))
+}
 
 // ============================================================
 // 阶段与节奏
@@ -570,8 +593,22 @@ function applyEffectsState(state: GameState, effects: Effect[], reason: string):
   for (const eff of effects) {
     switch (eff.type) {
       case 'add_item': {
-        const proto = state.items.find((i) => i.id === eff.ref)
-        if (proto) items.push({ ...proto })
+        // 原型要从**内容目录**里取，不是从玩家自己的背包里取 ——
+        // 写错过一次：`state.items.find(...)` 找的是"他已经有的东西"，
+        // 而他本来就没有这件，于是 find 返回 undefined、效果静默丢弃。
+        // 后果是**整个道具经济从未运转**：553 个事件里所有的 add_item
+        // 全是空转，玩家进剧本时手里永远只有开局那两件。
+        // 这类错误不报错、不崩溃，只是东西永远拿不到 —— 所以必须从源头认。
+        const proto = ITEM_CATALOG.get(eff.ref)
+        if (!proto) {
+          console.warn(`[玄] add_item 指向不存在的物品：${eff.ref}（已跳过）`)
+          break
+        }
+        items.push({
+          ...proto,
+          affordance: resolveAffordances(proto, AFFIX_CATALOG),
+          quality: eff.quality ?? proto.quality,
+        })
         break
       }
       case 'consume_item': {

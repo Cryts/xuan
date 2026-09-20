@@ -52,6 +52,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_mystery_boiler_roster"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0191",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_sealed_object.growth.crit"
@@ -72,6 +77,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0155",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_sealed_object.growth.success"
@@ -87,6 +97,11 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": 5
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_sealed_object.growth.fail"
@@ -106,6 +121,16 @@
                 {
                   "type": "set_flag",
                   "key": "flag_boiler_open"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0017",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_sealed_object.growth.crit_fail"
@@ -147,6 +172,11 @@
                 {
                   "type": "set_flag",
                   "key": "flag_roster_rubbed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0168",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_sealed_object.growth.crit"
@@ -293,6 +323,11 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": 6
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_sealed_object.growth.crit_fail"

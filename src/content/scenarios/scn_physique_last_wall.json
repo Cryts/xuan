@@ -1,0 +1,440 @@
+{
+  "id": "scn_physique_last_wall",
+  "kind": "scenario",
+  "name": "最后一堵墙",
+  "pack": [
+    "physique"
+  ],
+  "span": 6,
+  "tension": 9,
+  "weight": 36,
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 2
+  },
+  "rules_stated": [
+    "来的人分四拨，一拨重过一拨，中间不给你歇的时候。",
+    "墙只有一面，人只有这些：拨去东边，西边就薄。",
+    "撑到最后一拨退走，寨子就是你的；撑不到，寨子就没了。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_wall_is_people",
+      "hint": "墙不是墙，是人：人先散，墙才塌。守的是人心，不是那道口子。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "attr",
+            "key": "charm",
+            "op": ">=",
+            "value": 45
+          },
+          {
+            "type": "relation",
+            "kind": "盟友",
+            "exists": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_last_wave_empty",
+      "hint": "最后一拨里没有活人——那是他拿来数你墙上还剩几个人的。你站得越满，他越不敢上。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "affordance",
+            "ref": "洞察"
+          },
+          {
+            "type": "attr",
+            "key": "insight",
+            "op": ">=",
+            "value": 46
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_wound_can_share",
+      "hint": "伤也是能分的：把伤分给撑得住的人，撑不住的那个就还能站着。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "affordance",
+            "ref": "疗伤"
+          },
+          {
+            "type": "affix_count",
+            "ref": "af_liaoshang",
+            "count": 1
+          },
+          {
+            "type": "affix_count",
+            "ref": "af_shengji",
+            "count": 1
+          }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "弃墙而走",
+    "杀降",
+    "在拨与拨之间出寨"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_share_wound",
+      "name": "分伤",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "疗伤"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_shengji",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 46
+        },
+        {
+          "type": "node_count",
+          "op": ">=",
+          "value": 2
+        }
+      ],
+      "cost": "你把别人身上的伤挪了些到自己身上——墙还在，你的骨头先松了",
+      "outcome": {
+        "ref": "end_wall_shared",
+        "narrative": "scn_last_wall.shared",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 18
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 18
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 15
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_shared_wound"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_rearguard",
+      "name": "断后",
+      "conditions": [
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 48
+        },
+        {
+          "type": "var",
+          "key": "hp",
+          "op": "<=",
+          "value": 40
+        },
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 3
+        }
+      ],
+      "cost": "你亲自守最后一段墙：寨子保住了，你把半条命砌进了墙里",
+      "outcome": {
+        "ref": "end_wall_rearguard",
+        "narrative": "scn_last_wall.rearguard",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 38
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 18
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 22
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_tools_hold",
+      "name": "以器镇口",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "承载"
+            },
+            {
+              "type": "affordance",
+              "ref": "护主"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_chengzai",
+              "count": 1
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_fushen",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 44
+        }
+      ],
+      "cost": "你把身边那些物事一件件填进了口子：墙是堵上了，它们也回不来了",
+      "outcome": {
+        "ref": "end_wall_tools",
+        "narrative": "scn_last_wall.tools",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": -2
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 16
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 8
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_wall_of_things"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_people_hold",
+      "name": "以人守",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "relation",
+              "kind": "盟友",
+              "exists": true
+            },
+            {
+              "type": "relation",
+              "kind": "护道人",
+              "exists": true
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "charm",
+          "op": ">=",
+          "value": 46
+        }
+      ],
+      "cost": "你把寨子里的人一个个劝上了墙——他们信你，所以往后你得替他们活",
+      "outcome": {
+        "ref": "end_wall_people",
+        "narrative": "scn_last_wall.people",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 28
+          },
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 3
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_baili_hanshan",
+            "kind": "盟友",
+            "delta": -18
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 14
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_let_wall_go",
+      "name": "弃墙",
+      "conditions": [
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 48
+        },
+        {
+          "type": "node_count",
+          "op": ">=",
+          "value": 3
+        },
+        {
+          "type": "var",
+          "key": "hp",
+          "op": "<=",
+          "value": 35
+        }
+      ],
+      "cost": "你把寨子腾空了，留一堵空墙给他——人是保住了，家当全没了",
+      "outcome": {
+        "ref": "end_wall_empty",
+        "narrative": "scn_last_wall.empty",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": -30
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 14
+          },
+          {
+            "type": "modify_power_index",
+            "delta": 6
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_empty_wall"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_fourth_wave",
+      "name": "第四拨",
+      "hidden": true,
+      "conditions": [
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_share_wound",
+            "solve_people_hold"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 51
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 15
+        }
+      ],
+      "cost": "极低——最后一拨来时，墙上站满了人，其实大半是空的",
+      "outcome": {
+        "ref": "end_wall_kept",
+        "narrative": "scn_last_wall.kept",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 35
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": 20
+          },
+          {
+            "type": "modify_power_index",
+            "delta": 8
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_last_wall_kept"
+          }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_last_wall.fell",
+    "ref": "end_wall_fell",
+    "effects": [
+      {
+        "type": "add_var",
+        "key": "hp",
+        "delta": 35
+      },
+      {
+        "type": "add_var",
+        "key": "favor",
+        "delta": -20
+      },
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": 15
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_wall_rubble"
+      }
+    ]
+  },
+  "version": "1.0.0"
+}

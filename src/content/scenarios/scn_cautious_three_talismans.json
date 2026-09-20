@@ -52,7 +52,7 @@
           },
           {
             "type": "affordance",
-            "ref": "借耳"
+            "ref": "传讯"
           }
         ]
       }
@@ -289,7 +289,7 @@
           },
           {
             "type": "add_item",
-            "ref": "itm_fourth_talisman",
+            "ref": "it_0027",
             "quality": "宝品"
           },
           {

@@ -1310,6 +1310,11 @@
                 {
                   "type": "set_flag",
                   "key": "flag_ledger_page"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0170",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_market_bargain.growth.crit"
@@ -1329,6 +1334,11 @@
                 {
                   "type": "set_flag",
                   "key": "flag_ledger_page"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0165",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_market_bargain.growth.success"
@@ -1344,6 +1354,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 3
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0034",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_market_bargain.growth.fail"
@@ -1359,6 +1374,16 @@
                   "type": "add_var",
                   "key": "favor",
                   "delta": -4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0030",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_market_bargain.growth.crit_fail"
@@ -1391,6 +1416,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": -1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0182",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_market_bargain.growth.crit"
@@ -1488,6 +1518,11 @@
                 {
                   "type": "set_flag",
                   "key": "flag_ledger_page"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0169",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_market_bargain.growth.crit"
@@ -6589,6 +6624,11 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": 5
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_pill_furnace.growth.crit_fail"
@@ -6626,6 +6666,11 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": -3
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0200",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_pill_furnace.growth.crit"
@@ -6651,6 +6696,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0153",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_pill_furnace.growth.success"
@@ -6676,6 +6726,11 @@
                   "type": "add_var",
                   "key": "currency",
                   "delta": -20
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0030",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_pill_furnace.growth.fail"
@@ -6701,6 +6756,16 @@
                   "type": "add_var",
                   "key": "power",
                   "delta": -6
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0077",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_pill_furnace.growth.crit_fail"
@@ -9523,6 +9588,11 @@
                 {
                   "type": "set_flag",
                   "key": "flag_auction_ring"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0190",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_auction.growth.crit"
@@ -9543,6 +9613,11 @@
                   "type": "add_var",
                   "key": "favor",
                   "delta": 5
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0166",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_auction.growth.success"
@@ -9563,6 +9638,11 @@
                   "type": "add_var",
                   "key": "favor",
                   "delta": -8
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0032",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_auction.growth.fail"
@@ -9588,6 +9668,16 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": 6
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0075",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_auction.growth.crit_fail"
@@ -9620,6 +9710,11 @@
                   "type": "add_var",
                   "key": "rare_mat",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0162",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_auction.growth.crit"
@@ -9679,6 +9774,16 @@
                   "type": "add_var",
                   "key": "favor",
                   "delta": -8
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0034",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_auction.growth.crit_fail"
@@ -9716,6 +9821,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": -2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0192",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_auction.growth.crit"

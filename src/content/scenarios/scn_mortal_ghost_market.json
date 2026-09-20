@@ -51,7 +51,7 @@
           },
           {
             "type": "affordance",
-            "ref": "破封"
+            "ref": "启户"
           }
         ]
       }
@@ -82,7 +82,7 @@
             },
             {
               "type": "item",
-              "ref": "itm_wax_lump"
+              "ref": "it_0027"
             }
           ]
         }
@@ -128,11 +128,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "观气"
+              "ref": "洞察"
             },
             {
               "type": "affix_count",
-              "ref": "瞳",
+              "ref": "af_zhuihun",
               "count": 1
             }
           ]
@@ -174,11 +174,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "破封"
+              "ref": "启户"
             },
             {
               "type": "affix_count",
-              "ref": "锐",
+              "ref": "af_ruifeng",
               "count": 2
             }
           ]

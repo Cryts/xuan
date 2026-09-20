@@ -83,11 +83,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "御法"
+              "ref": "断法"
             },
             {
               "type": "affix_count",
-              "ref": "御",
+              "ref": "af_huzhu",
               "count": 2
             }
           ]

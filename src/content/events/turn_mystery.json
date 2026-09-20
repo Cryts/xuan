@@ -59,6 +59,11 @@
                 {
                   "type": "modify_power_index",
                   "delta": 10
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0201",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.crit"
@@ -79,6 +84,11 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": 4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0155",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.success"
@@ -99,6 +109,11 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": 5
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0059",
+                  "quality": "凡品"
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.fail"
@@ -124,6 +139,16 @@
                   "npc_id": "npc_xie_gui_chen",
                   "kind": "仇家",
                   "delta": 25
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0004",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.crit_fail"
@@ -165,6 +190,11 @@
                 {
                   "type": "set_flag",
                   "key": "flag_debt_misdirected"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0192",
+                  "quality": "仙品"
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.crit"
@@ -185,6 +215,11 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": -2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0182",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.success"
@@ -224,6 +259,16 @@
                 {
                   "type": "set_flag",
                   "key": "flag_forgot_own_name"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0071",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.crit_fail"
@@ -261,6 +306,11 @@
                   "type": "add_var",
                   "key": "currency",
                   "delta": -20
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0164",
+                  "quality": "宝品"
                 }
               ],
               "narrative": "loose.m_aggregation_hunt.turn.crit"

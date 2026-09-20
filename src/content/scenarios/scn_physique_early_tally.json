@@ -171,11 +171,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "空刻"
+              "ref": "dl_ink"
             },
             {
               "type": "affix_count",
-              "ref": "钝",
+              "ref": "af_chentie",
               "count": 1
             }
           ]

@@ -3040,6 +3040,11 @@
                   "type": "learn_rule",
                   "pack": "rebel",
                   "ref": "rule_rebel_borrowed_law"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0188",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -3054,6 +3059,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 4
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0173",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -3077,6 +3087,11 @@
                 {
                   "type": "set_flag",
                   "key": "cross_rule_base_exposed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0065",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -3105,6 +3120,16 @@
                 {
                   "type": "set_flag",
                   "key": "cross_rule_base_exposed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0070",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -3141,6 +3166,11 @@
                   "type": "add_var",
                   "key": "rare_mat",
                   "delta": 1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0194",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -4516,6 +4546,11 @@
                 {
                   "type": "unlock_title",
                   "ref": "吞炎者"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0187",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -4530,6 +4565,11 @@
                   "type": "add_var",
                   "key": "corruption",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0147",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -4548,6 +4588,11 @@
                 {
                   "type": "set_flag",
                   "key": "fusion_flame_scorched"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0007",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -4571,6 +4616,16 @@
                 {
                   "type": "set_flag",
                   "key": "fusion_other_burns_in_you"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0073",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -4606,6 +4661,11 @@
                 {
                   "type": "set_flag",
                   "key": "fusion_origin_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0152",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -4709,6 +4769,11 @@
                   "type": "add_var",
                   "key": "corruption",
                   "delta": 3
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0196",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -4774,6 +4839,16 @@
                 {
                   "type": "set_flag",
                   "key": "fusion_flame_took_the_wrong_part"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0058",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -8412,6 +8487,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_ancient_relic"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0196",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -8431,6 +8511,11 @@
                   "type": "add_var",
                   "key": "corruption",
                   "delta": 3
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0148",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -8449,6 +8534,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_taken"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0043",
+                  "quality": "凡品"
                 }
               ],
               "flags_set": [
@@ -8476,6 +8566,16 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_face_shifted"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0061",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "flags_set": [
@@ -8514,6 +8614,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_script_copied"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0163",
+                  "quality": "宝品"
                 }
               ],
               "flags_set": [
@@ -8601,6 +8706,11 @@
                   "npc_id": "npc_zhu_heng",
                   "kind": "盟友",
                   "delta": 10
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0150",
+                  "quality": "宝品"
                 }
               ]
             },

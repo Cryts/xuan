@@ -78,7 +78,7 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "提线"
+              "ref": "缚身"
             },
             {
               "type": "attr",
@@ -172,7 +172,7 @@
         },
         {
           "type": "affix_count",
-          "ref": "破甲",
+          "ref": "af_pojia",
           "count": 2
         }
       ],
@@ -215,7 +215,7 @@
             },
             {
               "type": "affordance",
-              "ref": "隐身"
+              "ref": "匿形"
             }
           ]
         }

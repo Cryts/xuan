@@ -5423,6 +5423,11 @@
                 {
                   "type": "set_flag",
                   "key": "cave_relic_picked_over"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0162",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -5441,6 +5446,11 @@
                 {
                   "type": "set_flag",
                   "key": "cave_relic_picked_over"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0165",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -5464,6 +5474,11 @@
                 {
                   "type": "set_flag",
                   "key": "cave_relic_vented"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0016",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -5487,6 +5502,16 @@
                 {
                   "type": "set_flag",
                   "key": "cave_relic_vented"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0019",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "queue_followup": "evt_mortal_pill_furnace_03@4-9"
@@ -5527,6 +5552,11 @@
                 {
                   "type": "unlock_codex",
                   "ref": "codex_cave_relic"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0185",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -12894,6 +12924,11 @@
                 {
                   "type": "unlock_title",
                   "ref": "认血者"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0145",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -12912,6 +12947,11 @@
                 {
                   "type": "set_flag",
                   "key": "ancient_battlefield_blood_bound"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0157",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -12930,6 +12970,11 @@
                 {
                   "type": "set_flag",
                   "key": "ancient_battlefield_blood_refused"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0003",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -12955,6 +13000,16 @@
                   "npc_id": "npc_dantai_jinghong",
                   "kind": "仇家",
                   "delta": 10
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0041",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -12990,6 +13045,11 @@
                 {
                   "type": "set_flag",
                   "key": "ancient_battlefield_names_recorded"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0161",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -13062,6 +13122,11 @@
                 {
                   "type": "set_flag",
                   "key": "ancient_battlefield_ground_scorched"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0171",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -13119,6 +13184,16 @@
                   "type": "add_var",
                   "key": "debt",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0044",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -14287,6 +14362,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0176",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -14306,6 +14386,11 @@
                   "type": "add_var",
                   "key": "hp",
                   "delta": 8
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0160",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -14324,6 +14409,11 @@
                 {
                   "type": "set_flag",
                   "key": "pill_furnace_forced"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0058",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -14353,6 +14443,16 @@
                   "npc_id": "npc_zhu_heng",
                   "kind": "仇家",
                   "delta": 10
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0008",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -14423,6 +14523,11 @@
                 {
                   "type": "unlock_title",
                   "ref": "收火人"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0151",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -15664,6 +15769,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0199",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -15683,6 +15793,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0158",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -15702,6 +15817,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": 2
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0042",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -15725,6 +15845,16 @@
                 {
                   "type": "set_flag",
                   "key": "realm_plunder_seed_carried"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0061",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "queue_followup": "evt_physique_outer_god_03@4-9"
@@ -15762,6 +15892,11 @@
                   "type": "add_var",
                   "key": "exposure",
                   "delta": -1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0150",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -15837,6 +15972,11 @@
                   "type": "add_var",
                   "key": "lifespan",
                   "delta": 1
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0148",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -17677,6 +17817,11 @@
                 {
                   "type": "unlock_title",
                   "ref": "像者"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0186",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -17700,6 +17845,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_matched"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0145",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -17723,6 +17873,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_mismatched"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0061",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -17751,6 +17906,16 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_taken"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0043",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ],
               "queue_followup": "evt_physique_outer_god_03@6-14"
@@ -17787,6 +17952,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_rubbed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0163",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -17860,6 +18030,11 @@
                 {
                   "type": "set_flag",
                   "key": "relic_body_sold"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0167",
+                  "quality": "宝品"
                 }
               ]
             },

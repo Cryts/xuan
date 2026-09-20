@@ -449,6 +449,27 @@ if (c.endings.length < 60) {
   for (const e of asArr<{ id?: string; body_key?: string }>(c.endings)) {
     checkKey(e.body_key, `ending:${e.id}`, '结局正文')
   }
+  // **剧本入场键也要查。**
+  // 漏过一次：18 个剧本的 `loose.<id>.intro` 一个都不存在，
+  // 于是剧本触发时入场页是空的（只有个名字、一个字都没有），
+  // 而 lint 全绿 —— 因为这条规则当时没覆盖入场键。
+  for (const sc of asArr<AnyEv>(c.scenarios)) {
+    if (sc.kind !== 'scenario') continue
+    checkKey(`loose.${sc.id}.intro`, `scenario:${sc.id}`, '剧本入场')
+  }
+  // 效果里的 add_item 引用也要查：原型从内容目录取，写错了会静默跳过
+  const itemIds = new Set(asArr<{ id?: string }>(c.items).map((i) => i.id).filter(Boolean) as string[])
+  const scanAddItem = (node: unknown, where: string): void => {
+    if (Array.isArray(node)) return node.forEach((x) => scanAddItem(x, where))
+    if (!node || typeof node !== 'object') return
+    const o = node as { type?: string; ref?: string }
+    if (o.type === 'add_item' && o.ref && !itemIds.has(o.ref)) {
+      err('ref_resolvable', where, `add_item 指向不存在的物品 "${o.ref}" —— 运行时会静默跳过`)
+    }
+    for (const v of Object.values(node)) scanAddItem(v, where)
+  }
+  scanAddItem(c.events, 'events')
+  scanAddItem(c.scenarios, 'scenarios')
 }
 
 // ---- 4a2. 开局伤势（origin_hp）----
@@ -598,7 +619,14 @@ interface AtomIssue {
 
 function triOf(cond: unknown, issues: AtomIssue[]): Tri {
   if (Array.isArray(cond)) {
-    return cond.some((x) => triOf(x, issues) !== 'never') ? 'possible' : 'never'
+    // **先全部求值再合并**，不能用 some 短路。
+    // 用 some 的后果：只要第一个条件是 possible，后面的 affordance/item/
+    // learned_rule 引用就**根本不会被校验** —— 引用一个不存在的词条 id
+    // 也能蒙混过关（实际漏过一个 `affix_count: "本命"`）。
+    // 门禁里最危险的不是判错，是**没判**。
+    const tris = cond.map((x) => triOf(x, issues))
+    if (tris.includes('possible') || tris.includes('always')) return 'possible'
+    return 'never'
   }
   if (!cond || typeof cond !== 'object') return 'possible'
   const o = cond as Record<string, unknown>

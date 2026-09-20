@@ -1,0 +1,522 @@
+{
+  "id": "scn_cross_new_law",
+  "kind": "scenario",
+  "name": "此地之法",
+  "pack": [
+    "*"
+  ],
+  "span": 6,
+  "tension": 8,
+  "weight": 30,
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 2
+  },
+  "rules_stated": [
+    "此地只有一条法：你要什么，都得拿身上的一样东西去换。",
+    "外来的法在这里不通行——除非你说得出它在这里叫什么。",
+    "此地不认你的境界，只认你身上带的相性。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_local_words",
+      "hint": "它不认你的法，认的是你把它说成什么——同一件事，换个叫法就能通行。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "attr",
+            "key": "wits",
+            "op": ">=",
+            "value": 46
+          },
+          {
+            "type": "learned_rule",
+            "pack": "mystery",
+            "ref": "rule_mystery_borrowed_visage"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_breath_costs",
+      "hint": "这里的气不是白给的：你吐纳一口，寿就短一分，越用越薄。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "var",
+            "key": "lifespan",
+            "op": "<=",
+            "value": -5
+          },
+          {
+            "type": "attr",
+            "key": "insight",
+            "op": ">=",
+            "value": 46
+          }
+        ]
+      }
+    },
+    {
+      "id": "rule_it_wants_a_name",
+      "hint": "此地收的不是物，是名：你报了名，它才认你是谁，也才找得到你。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "affordance",
+            "ref": "议价"
+          },
+          {
+            "type": "affordance",
+            "ref": "dl_ink"
+          },
+          {
+            "type": "affordance",
+            "ref": "传讯"
+          }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "在此地报出真名",
+    "连续两次吐纳",
+    "把本地的话译回本来的叫法"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_foreign_word",
+      "name": "以异法译之",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "learned_rule",
+              "pack": "mystery",
+              "ref": "rule_mystery_borrowed_visage"
+            },
+            {
+              "type": "learned_rule",
+              "pack": "physique",
+              "ref": "rule_physique_weight_shift"
+            },
+            {
+              "type": "learned_rule",
+              "pack": "rebel",
+              "ref": "rule_rebel_defiance_seed"
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 46
+        }
+      ],
+      "cost": "你拿别处学来的法换了此地的叫法：路通了，你身上也多了一道不是自己的痕",
+      "outcome": {
+        "ref": "end_new_law_translated",
+        "narrative": "scn_new_law.translated",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "corruption",
+            "delta": 20
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 30
+          },
+          {
+            "type": "modify_power_index",
+            "delta": 6
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_word_borrower"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_own_essence",
+      "name": "以本体正之",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "all",
+              "of": [
+                {
+                  "type": "pack",
+                  "ref": "physique"
+                },
+                {
+                  "type": "attr",
+                  "key": "root",
+                  "op": ">=",
+                  "value": 46
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                {
+                  "type": "pack",
+                  "ref": "mystery"
+                },
+                {
+                  "type": "attr",
+                  "key": "insight",
+                  "op": ">=",
+                  "value": 46
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                {
+                  "type": "pack",
+                  "ref": "rebel"
+                },
+                {
+                  "type": "attr",
+                  "key": "temper",
+                  "op": ">=",
+                  "value": 46
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                {
+                  "type": "pack",
+                  "ref": "cautious"
+                },
+                {
+                  "type": "var",
+                  "key": "exposure",
+                  "op": "<=",
+                  "value": 30
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                {
+                  "type": "pack",
+                  "ref": "mortal"
+                },
+                {
+                  "type": "var",
+                  "key": "currency",
+                  "op": ">=",
+                  "value": 50
+                }
+              ]
+            },
+            {
+              "type": "all",
+              "of": [
+                {
+                  "type": "pack",
+                  "ref": "genius"
+                },
+                {
+                  "type": "var",
+                  "key": "power",
+                  "op": ">=",
+                  "value": 70
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "cost": "你没换话，也没换路，只照本体的性子走了一遍——此地认了，别处也记下了",
+      "outcome": {
+        "ref": "end_new_law_own",
+        "narrative": "scn_new_law.own",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 35
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 12
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 12
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_own_law"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_bargain_tool",
+      "name": "以器换则",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "议价"
+            },
+            {
+              "type": "affordance",
+              "ref": "封印"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_naxu",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "var",
+          "key": "currency",
+          "op": ">=",
+          "value": 40
+        }
+      ],
+      "cost": "你把随身之物一件件作价押给了此地：它收了，你的行囊也空了",
+      "outcome": {
+        "ref": "end_new_law_bought",
+        "narrative": "scn_new_law.bought",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": -35
+          },
+          {
+            "type": "add_var",
+            "key": "rare_mat",
+            "delta": 2
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 20
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": 10
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_endure_local",
+      "name": "硬受一遍",
+      "conditions": [
+        {
+          "type": "attr",
+          "key": "root",
+          "op": ">=",
+          "value": 47
+        },
+        {
+          "type": "var",
+          "key": "hp",
+          "op": "<=",
+          "value": 40
+        },
+        {
+          "type": "realm_idx",
+          "op": ">=",
+          "value": 3
+        }
+      ],
+      "cost": "你不译、不换、不押，只是硬受了一遍：它拿走了你一段寿，你记住了它的手",
+      "outcome": {
+        "ref": "end_new_law_endured",
+        "narrative": "scn_new_law.endured",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 35
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 25
+          },
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -15
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_local_law_hand"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_pay_years",
+      "name": "以寿买路",
+      "conditions": [
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 45
+        },
+        {
+          "type": "var",
+          "key": "hp",
+          "op": "<=",
+          "value": 30
+        },
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "续命"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_xuming",
+              "count": 1
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_yannian",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "cost": "你把它要的那样东西给了它——那是你自己的年月，给出去就收不回",
+      "outcome": {
+        "ref": "end_new_law_years",
+        "narrative": "scn_new_law.years",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "lifespan",
+            "delta": -30
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 30
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 10
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_years_as_toll"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_write_local_law",
+      "name": "立一条本地的话",
+      "hidden": true,
+      "conditions": [
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_foreign_word",
+            "solve_own_essence"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "wits",
+          "op": ">=",
+          "value": 51
+        },
+        {
+          "type": "var",
+          "key": "karma",
+          "op": ">=",
+          "value": 10
+        }
+      ],
+      "cost": "极低——你没走它给的路，你给它添了一条话，此后进来的人照着你的话走",
+      "outcome": {
+        "ref": "end_new_law_written",
+        "narrative": "scn_new_law.written",
+        "effects": [
+          {
+            "type": "modify_power_index",
+            "delta": 12
+          },
+          {
+            "type": "add_var",
+            "key": "corruption",
+            "delta": -15
+          },
+          {
+            "type": "learn_rule",
+            "pack": "mortal",
+            "ref": "rule_mortal_seed_bank"
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_law_named"
+          }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_new_law.stuck",
+    "ref": "end_new_law_stuck",
+    "effects": [
+      {
+        "type": "add_var",
+        "key": "corruption",
+        "delta": 20
+      },
+      {
+        "type": "add_var",
+        "key": "power",
+        "delta": -15
+      },
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": -20
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_wrong_law"
+      }
+    ]
+  },
+  "version": "1.0.0"
+}

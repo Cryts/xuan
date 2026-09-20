@@ -85,6 +85,11 @@
                 {
                   "type": "set_flag",
                   "key": "seal_seen"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0174",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -103,6 +108,11 @@
                 {
                   "type": "set_flag",
                   "key": "seal_seen"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0155",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -126,6 +136,11 @@
                 {
                   "type": "set_flag",
                   "key": "seal_opened_wrong"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0004",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -149,6 +164,16 @@
                 {
                   "type": "set_flag",
                   "key": "seal_saw_you"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0017",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -189,6 +214,11 @@
                 {
                   "type": "set_flag",
                   "key": "seal_name_erased"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0182",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -230,6 +260,11 @@
                 {
                   "type": "set_flag",
                   "key": "seal_name_smeared"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0082",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6699,6 +6734,11 @@
                 {
                   "type": "set_flag",
                   "key": "buyer_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0161",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -6717,6 +6757,11 @@
                 {
                   "type": "set_flag",
                   "key": "buyer_known"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0164",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -6740,6 +6785,11 @@
                 {
                   "type": "set_flag",
                   "key": "buyer_knows_you_ask"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0059",
+                  "quality": "凡品"
                 }
               ]
             }
@@ -6811,6 +6861,11 @@
                 {
                   "type": "set_flag",
                   "key": "buyer_forced_out"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0197",
+                  "quality": "仙品"
                 }
               ]
             },
@@ -6829,6 +6884,11 @@
                 {
                   "type": "set_flag",
                   "key": "buyer_forced_out"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0178",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -6852,6 +6912,11 @@
                 {
                   "type": "set_flag",
                   "key": "buyer_took_stock"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0071",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -6880,6 +6945,16 @@
                 {
                   "type": "set_flag",
                   "key": "buyer_took_stock"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0081",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -9665,6 +9740,11 @@
                   "npc_id": "npc_gu_changeng",
                   "kind": "护道人",
                   "delta": 14
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0151",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -9688,6 +9768,11 @@
                 {
                   "type": "set_flag",
                   "key": "life_given_back"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0149",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -9716,6 +9801,11 @@
                 {
                   "type": "set_flag",
                   "key": "guardian_lost"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0044",
+                  "quality": "凡品"
                 }
               ]
             },
@@ -9744,6 +9834,16 @@
                 {
                   "type": "set_flag",
                   "key": "guardian_lost"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0041",
+                  "quality": "凡品"
+                },
+                {
+                  "type": "add_var",
+                  "key": "exposure",
+                  "delta": 3
                 }
               ]
             }
@@ -9819,6 +9919,11 @@
                 {
                   "type": "set_flag",
                   "key": "debt_named"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0157",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -9855,6 +9960,11 @@
                 {
                   "type": "set_flag",
                   "key": "debt_unnamed"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0045",
+                  "quality": "凡品"
                 }
               ]
             }
@@ -16277,6 +16387,11 @@
                 {
                   "type": "set_flag",
                   "key": "counted_heads"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0153",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -16295,6 +16410,11 @@
                 {
                   "type": "set_flag",
                   "key": "counted_heads"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0182",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -16318,6 +16438,11 @@
                 {
                   "type": "set_flag",
                   "key": "blamed_for_not_going"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0075",
+                  "quality": "凡品"
                 }
               ]
             }
@@ -16358,6 +16483,11 @@
                 {
                   "type": "set_flag",
                   "key": "cave_scouted"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0156",
+                  "quality": "宝品"
                 }
               ]
             },
@@ -16394,6 +16524,11 @@
                 {
                   "type": "set_flag",
                   "key": "cave_trapped"
+                },
+                {
+                  "type": "add_item",
+                  "ref": "it_0024",
+                  "quality": "凡品"
                 }
               ]
             }

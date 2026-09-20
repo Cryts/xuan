@@ -1,0 +1,350 @@
+{
+  "id": "scn_cautious_three_gates",
+  "kind": "scenario",
+  "name": "三道关",
+  "pack": [
+    "cautious"
+  ],
+  "span": 5,
+  "tension": 9,
+  "weight": 36,
+  "requires": {
+    "type": "realm_idx",
+    "op": ">=",
+    "value": 2
+  },
+  "rules_stated": [
+    "追你的人不歇脚：你慢一刻，他就近一程。",
+    "前面三道关口，过一道留一样东西——留什么，你定。",
+    "出了第三道口就是别家的地界，他的人追不进去。"
+  ],
+  "rules_hidden": [
+    {
+      "id": "rule_gate_is_count",
+      "hint": "三道口子不是三道门，是三笔数：他数的不是你走了哪条路，是你还剩几道没走。走得越早，他在后头数得越乱。",
+      "reveal": {
+        "type": "node_count",
+        "op": ">=",
+        "value": 2
+      }
+    },
+    {
+      "id": "rule_toll_is_name",
+      "hint": "关口收的不是钱，是「你是谁」：报了真名就等于把人留下了，报个假名，他得先去查。",
+      "reveal": {
+        "type": "any",
+        "of": [
+          {
+            "type": "affordance",
+            "ref": "匿形"
+          },
+          {
+            "type": "attr",
+            "key": "insight",
+            "op": ">=",
+            "value": 45
+          }
+        ]
+      }
+    }
+  ],
+  "forbidden": [
+    "在同一处关口停留两刻",
+    "对追来的人报名",
+    "回头张望"
+  ],
+  "breakthroughs": [
+    {
+      "id": "solve_water_road",
+      "name": "走水",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "隔水"
+            },
+            {
+              "type": "affordance",
+              "ref": "御风"
+            }
+          ]
+        },
+        {
+          "type": "node_count",
+          "op": "<=",
+          "value": 3
+        }
+      ],
+      "cost": "你舍了近路走水路，涉水冻了一身，可他那三天的脚程被你换掉了一半",
+      "outcome": {
+        "ref": "end_gates_water",
+        "narrative": "scn_three_gates.water",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": -18
+          },
+          {
+            "type": "add_var",
+            "key": "hp",
+            "delta": 12
+          },
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": -20
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_wet_road"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_bury_name",
+      "name": "埋名",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "匿形"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_qianji",
+              "count": 1
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_nixing",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "insight",
+          "op": ">=",
+          "value": 44
+        }
+      ],
+      "cost": "你把自己从那本册子上抹了——从此连旧识也认不出你",
+      "outcome": {
+        "ref": "end_gates_nameless",
+        "narrative": "scn_three_gates.nameless",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": -25
+          },
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": -12
+          },
+          {
+            "type": "add_var",
+            "key": "power",
+            "delta": 12
+          },
+          {
+            "type": "unlock_codex",
+            "ref": "codex_off_the_ledger"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_buy_road",
+      "name": "买路",
+      "conditions": [
+        {
+          "type": "var",
+          "key": "currency",
+          "op": ">=",
+          "value": 40
+        },
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "affordance",
+              "ref": "议价"
+            },
+            {
+              "type": "affix_count",
+              "ref": "af_yijia",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "cost": "你把身上大半的东西留在了关口：守关的人收了，就不再记你的脸",
+      "outcome": {
+        "ref": "end_gates_bought",
+        "narrative": "scn_three_gates.bought",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "currency",
+            "delta": -35
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": -12
+          },
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 2
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_toll_paid"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_borrowed_road",
+      "name": "借道",
+      "conditions": [
+        {
+          "type": "any",
+          "of": [
+            {
+              "type": "relation",
+              "kind": "盟友",
+              "exists": true
+            },
+            {
+              "type": "relation",
+              "kind": "护道人",
+              "exists": true
+            }
+          ]
+        },
+        {
+          "type": "var",
+          "key": "favor",
+          "op": ">=",
+          "value": 20
+        }
+      ],
+      "cost": "有人替你开了第三道口——这个人情，日后他要连本带利地收",
+      "outcome": {
+        "ref": "end_gates_borrowed",
+        "narrative": "scn_three_gates.borrowed",
+        "effects": [
+          {
+            "type": "add_var",
+            "key": "favor",
+            "delta": -18
+          },
+          {
+            "type": "add_var",
+            "key": "debt",
+            "delta": 4
+          },
+          {
+            "type": "add_var",
+            "key": "exposure",
+            "delta": -20
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_pei_wujiu",
+            "kind": "盟友",
+            "delta": -20
+          }
+        ]
+      }
+    },
+    {
+      "id": "solve_stop_running",
+      "name": "不逃了",
+      "hidden": true,
+      "conditions": [
+        {
+          "type": "solved_any_of",
+          "refs": [
+            "solve_bury_name",
+            "solve_water_road"
+          ]
+        },
+        {
+          "type": "attr",
+          "key": "temper",
+          "op": ">=",
+          "value": 48
+        },
+        {
+          "type": "var",
+          "key": "exposure",
+          "op": "<=",
+          "value": 25
+        }
+      ],
+      "cost": "极低——你在第三道口上回过头，把追你的人等成了一桩旧账",
+      "outcome": {
+        "ref": "end_gates_turned",
+        "narrative": "scn_three_gates.turned",
+        "effects": [
+          {
+            "type": "modify_power_index",
+            "delta": 8
+          },
+          {
+            "type": "add_var",
+            "key": "karma",
+            "delta": 12
+          },
+          {
+            "type": "set_relation",
+            "npc_id": "npc_hunter_shadow",
+            "kind": "仇家",
+            "delta": 30
+          },
+          {
+            "type": "unlock_title",
+            "ref": "title_gate_waited"
+          }
+        ]
+      }
+    }
+  ],
+  "unsolved": {
+    "narrative": "scn_three_gates.taken",
+    "ref": "end_gates_taken",
+    "effects": [
+      {
+        "type": "add_var",
+        "key": "exposure",
+        "delta": 22
+      },
+      {
+        "type": "add_var",
+        "key": "hp",
+        "delta": 22
+      },
+      {
+        "type": "add_var",
+        "key": "currency",
+        "delta": -30
+      },
+      {
+        "type": "unlock_codex",
+        "ref": "codex_third_gate_taken"
+      }
+    ]
+  },
+  "version": "1.0.0"
+}

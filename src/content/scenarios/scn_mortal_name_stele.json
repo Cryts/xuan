@@ -119,11 +119,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "留白"
+              "ref": "dl_ink"
             },
             {
               "type": "affix_count",
-              "ref": "空",
+              "ref": "af_zhuihun",
               "count": 1
             }
           ]

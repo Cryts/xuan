@@ -73,11 +73,11 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "铭刻"
+              "ref": "dl_ink"
             },
             {
               "type": "affix_count",
-              "ref": "骨篆",
+              "ref": "af_shigu",
               "count": 1
             }
           ]
@@ -115,7 +115,7 @@
         },
         {
           "type": "affix_count",
-          "ref": "刻",
+          "ref": "af_ruifeng",
           "count": 1
         }
       ],
@@ -136,7 +136,7 @@
           },
           {
             "type": "add_item",
-            "ref": "itm_bone_shard",
+            "ref": "it_0027",
             "quality": "宝品"
           }
         ]
@@ -155,7 +155,7 @@
           "of": [
             {
               "type": "affordance",
-              "ref": "翻转"
+              "ref": "称量"
             },
             {
               "type": "relation",
@@ -202,7 +202,7 @@
           "of": [
             {
               "type": "affix_count",
-              "ref": "破甲",
+              "ref": "af_pojia",
               "count": 2
             },
             {

@@ -118,7 +118,10 @@ export function generateDestinyChildren(input: DestinyGenInput): DestinyChild[] 
       destiny_pool: pool,
       destiny_max: pool,
       power_index: r.int(3, 14),
-      realm_name: realmNames[1] ?? realmNames[0] ?? '未知',
+      // 写死 `realmNames[1]` 是错的：那是"第二境"，与刚生成的修为无关。
+      // 位面之子从最底一层起步（power_index 只有 3~14），
+      // 此后由 `advanceNode` 按他自己的修为重算 —— 见 engine 的 realmNameAt。
+      realm_name: realmNames[0] ?? '未知',
       fate_line: steps,
       fate_progress: 0,
       region_tag: input.regionTags.length > 0 ? r.pick(input.regionTags) : 'wild',

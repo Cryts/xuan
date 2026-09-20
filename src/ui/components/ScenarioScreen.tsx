@@ -73,6 +73,7 @@ export function ScenarioScreen({ pres, onHeaven }: { pres: NodePresentation; onH
         entry={entry}
         pres={pres}
         onHeaven={onHeaven}
+        onBag={() => setBagOpen(true)}
         onEnter={() => dispatch({ type: 'play/entry', enter: true })}
         onSkip={() => dispatch({ type: 'play/entry', enter: false })}
         sound={sound}
@@ -341,6 +342,7 @@ function EntryView({
   entry,
   pres,
   onHeaven,
+  onBag,
   onEnter,
   onSkip,
   sound,
@@ -348,11 +350,17 @@ function EntryView({
   entry: ScenarioEntry
   pres: NodePresentation
   onHeaven: () => void
+  /** 行囊：**入场这一拍是最需要看见行囊的时刻**（进不进、带什么进去破局），
+   *  偏偏只有它漏传了这个回调 —— StatusBar 落到 bagStatic 分支，
+   *  行囊渲染成不可点的 <span>。另外两处（EventScreen / ScenarioScreen 主视图）
+   *  都传了。玩家唯一需要做"带什么进去"决定的时刻，是唯一看不到行囊的时刻。 */
+  onBag: () => void
   onEnter: () => void
   onSkip: () => void
   sound: boolean
 }) {
   const { st, dispatch } = useGame()
+  const [bagOpenLocal, setBagOpenLocal] = useState(false)
   const state = st.state
   if (!state) return null
   const lines = entry.lines.length > 0 ? entry.lines : pres.lines
@@ -364,8 +372,11 @@ function EntryView({
         content={st.content}
         compact
         onHeaven={onHeaven}
+        onBag={onBag}
         onSettings={() => dispatch({ type: 'openSettings' })}
       />
+
+      <TrialPanel open={bagOpenLocal} onClose={() => setBagOpenLocal(false)} pres={pres} />
 
       <main className={s.main}>
         <header className={`x-card x-card--key ${s.entryHead}`}>

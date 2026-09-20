@@ -196,6 +196,34 @@ export function realmNameOf(state: GameState, content: ContentDB): string {
   return pack?.realms[state.realm_idx]?.name ?? '未知'
 }
 
+/**
+ * 把一个 `power_index` 投影到**某个体系包**的阶梯上，取那一层的名字。
+ *
+ * 这是跨体系取境界名的**唯一正确做法**。此前有两处各用一种错法：
+ *   - `rollOpponent` 拿**玩家的绝对序号**去索引**别人的包** —— 玩家的
+ *     青冥大罗（idx 12）去查灰雾之秘（只有 10 层）→ 越界 → 显示「不明」；
+ *     反过来查长阶梯包，则显示一个与对手实际水平无关的层。
+ *   - `rollOpponent` 另一处拿**命线步数**（`fate_progress`，只有 0–4）
+ *     当境界序号 —— 一个修为 600 的位面之子会显示成第二境。
+ *   - `destiny.ts` 生成时**写死 `realmNames[1]`**，且 `advanceFate` 从不更新它，
+ *     于是**榜上所有位面之子一辈子停在"第二境"**。
+ *
+ * 三处合起来就是"不同体系之子不可比"的直接原因：那个数（境界名）
+ * 从来就不是从他们自己的修为算出来的。
+ */
+export function realmNameAt(content: ContentDB, packId: PackId, power_index: number): string {
+  const realms = content.packs[packId]?.realms ?? []
+  if (realms.length === 0) return '不明'
+  let idx = 0
+  for (let i = realms.length - 1; i >= 0; i--) {
+    if (power_index >= realms[i]!.power_index[0]) {
+      idx = i
+      break
+    }
+  }
+  return realms[idx]!.name
+}
+
 // ============================================================
 // 年龄与寿元
 // ============================================================
@@ -1789,13 +1817,14 @@ export function rollOpponent(state: GameState, rng: Rng, content: ContentDB): Du
   const alive = (state.destiny_children ?? []).filter((d) => d.alive)
   if (alive.length > 0 && rng.chance(0.55)) {
     const d = rng.pick(alive)
-    const pack = content.packs[d.pack]
     return {
       id: d.id,
       name: d.name,
       essence: PACK_ESSENCE[d.pack],
       power_index: Math.round(d.power_index * 0.9 + state.power_index * 0.35),
-      realm_name: pack?.realms[Math.min(d.fate_progress, (pack?.realms.length ?? 1) - 1)]?.name ?? '不明',
+      // 按他自己的修为投影到**他自己的**阶梯上。原先拿 `fate_progress`
+      // （命线步数，只有 0–4）当境界序号，于是修为 600 的人显示成第二境。
+      realm_name: realmNameAt(content, d.pack, d.power_index),
       is_destiny: true,
       fate_progress: d.fate_progress,
       note: d.oracle_note,
@@ -1814,7 +1843,10 @@ export function rollOpponent(state: GameState, rng: Rng, content: ContentDB): Du
     name,
     essence: PACK_ESSENCE[packId],
     power_index: Math.max(3, Math.round(state.power_index * (0.75 + rng.next() * 0.7))),
-    realm_name: content.packs[packId]?.realms[state.realm_idx]?.name ?? '不明',
+    // 用**他自己的**战力往**他自己的**体系包里投影。
+    // 原先拿 `state.realm_idx`（玩家的绝对序号）去索引别人的包 ——
+    // 越界就显示「不明」，不越界也只是一个与对手无关的层。
+    realm_name: realmNameAt(content, packId, Math.max(3, Math.round(state.power_index * (0.75 + 0.35)))),
   }
 }
 
@@ -2192,6 +2224,8 @@ export function advanceNode(state: GameState, content: ContentDB): GameState {
       if (!d.alive) return d
       const copy: DestinyChild = { ...d, fate_line: [...d.fate_line] }
       advanceFate(copy, next.node_index)
+      // 境界名随修为推进 —— 原先只在生成时写一次，此后永远是"第二境"
+      copy.realm_name = realmNameAt(content, copy.pack, copy.power_index)
       return copy
     }),
   }

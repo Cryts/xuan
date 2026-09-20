@@ -163,8 +163,15 @@ export function resolveFreeAction(intent: IntentResult, ctx: FreeContext): FreeO
   // 让这个纯函数没法单独测。
   if (pres.options.length > 0) {
     const same = pres.options.filter((o) => o.intent === intent.intent)
-    // 把握够高才敢替玩家选；否则宁可走新路，也不擅自替他做决定
-    if (same.length > 0 && conf >= 0.6) {
+    // 门槛 0.5，与规则层的取值区间（0.4–0.55）对齐：
+    //   长关键词命中 + 认出了对象 → 0.55，映射；
+    //   短关键词命中 → 0.44，不映射，走新路。
+    //
+    // 为什么**能映射就映射**：既有选项是设计师写的，代价、四段结果、
+    // 后续连锁都是精心配过的；新路只是按属性摇一次，给的得失刻意很小。
+    // 玩家写了一句与某选项同义的话，却拿到一条更弱的通用判定，
+    // 那是系统在罚他"没点按钮"。所以只要匹配够可靠，就照旧法行事。
+    if (same.length > 0 && conf >= 0.5) {
       return { kind: 'mapped', option: rng.pick(same) }
     }
   }
